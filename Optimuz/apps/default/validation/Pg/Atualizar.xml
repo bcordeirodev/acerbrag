@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE settings SYSTEM "http://optimuz.interativadesenvolvimento.com.br/dtd/validation.dtd">
+<form method="post" lang="">
+	<custom-rules>
+		<rule name="cep" regex="/\d{5}-\d{3}/" errorMessage="O formato do CEP deve ser 00000-000" />
+		<rule name="long" regex="/^-?\d+(\.\d+)?$/" errorMessage="A longitude não foi informada corretamente" />
+		<rule name="lat" regex="/^-?\d+(\.\d+)?$/" errorMessage="A latitude não foi informada corretamente" />
+	</custom-rules>
+
+	<input name="id" label="id">
+		<rule name="required" />
+	</input>
+	<input name="titulo" label="Título">
+		<rule name="required" />
+	</input>
+	<input name="hora" label="Data">
+		<rule name="required" />
+	</input>
+	<input name="descricao" label="Razão social">
+		<rule name="required" />
+	</input>
+	<input name="igreja" label="Instituição ou filial">
+		<rule name="required" />
+	</input>
+	<input name="status" label="Status">
+		<rule name="required" />
+	</input>
+
+	<input name="cep" label="CEP">
+		<rule name="cep" />
+		<rule name="required" />
+	</input>
+	<input name="logradouro" label="Logradouro">
+		<rule name="discard"/>
+		<rule name="required" />
+	</input>
+	<input name="longitude" label="Longitude">
+		<rule name="long" />
+		<rule name="required" />
+	</input>
+	<input name="latitude" label="Latitude">
+		<rule name="lat" />
+		<rule name="required" />
+	</input>
+	<input name="numero" label="Número">
+		<rule name="number" />
+	</input>
+	<input name="complemento" label="Complemento">
+		<rule name="discard" />
+	</input>
+	<input name="uf" label="UF">
+		<rule name="number" />
+		<rule name="required" />
+	</input>
+	<input name="bairro" label="Bairro">
+		<rule name="discard"/>
+	</input>
+	<input name="cidade" label="Cidade">
+		<rule name="required" />
+	</input>
+
+	<input name="membro" label="Membro">
+		<rule name="required" />
+		<rule name="array" />
+	</input>
+	<input name="cargo" label="Membro">
+		<rule name="array" />
+	</input>
+</form>

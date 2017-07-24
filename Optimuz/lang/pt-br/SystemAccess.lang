@@ -1,0 +1,17 @@
+# Erros
+error.loadRolesError = O arquivo de cargos não pôde ser carregado
+error.loadPermissionsError = O arquivo de permissões não pôde ser carregado
+error.loadSiteNavigationError = O arquivo de SiteNavigation.xml não pôde ser carregado
+error.invalidValidationType = O tipo de validação definido em validationType no arquivo Map.xml é inválido
+error.accessDenied.title = Acesso negado
+error.accessDenied.description = Desculpe, mas você não tem acesso a esta página.
+error.invalidRole = O cargo "%s" é inválido
+error.invalidHandler = O manipulador informado para o sistema de acesso é inválido
+error.loadDatabase = Erro ao tentar carregar o banco de dados
+error.missingModel = Nem todas as configurações da seção systemAccess.database foram informadas
+error.invalidCustomValidator = O validador personalizado é inválido. A classe precisa ter um método estático chamado validateAccess()
+
+# Roles
+role.anonymous = Anônimo
+role.user = Usuário
+role.admin = Administrador

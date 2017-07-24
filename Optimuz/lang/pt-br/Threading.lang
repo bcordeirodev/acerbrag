@@ -1,0 +1,20 @@
+# Errors
+error.cannotStart = A thread não pôde ser iniciada (status atual %s). Talvez ela já tenha sido iniciada anteriormente.
+error.fileNotFound = A ação (função ou método) da thread não existe.
+error.workerThreadNotStarted = O worker não pode ser retornado porque a thread ainda não foi iniciada.
+error.startError = Ocorreu um erro e a thread não foi iniciada.
+error.limitError = A thread não pôde ser iniciada pois o limite para threads simultâneas (%s) foi atingido.
+error.processError = Ocorreu um erro com o processo: [%s] %s
+error.unexpectedEndError = A thread foi encerrada inesperadamente e seu PID não pôde ser recuperado. Verifique a ação %s para depurar o que pode ter acontecido.
+error.timeoutError = A thread %s (%s) esperou demais para ser incializada e por isso foi encerrada.
+
+# Messages
+msg.creatingThread = Criando thread
+msg.startingWorker = [ID %s] Iniciando o trabalhador da thread
+msg.exitingWorker = [ID %s] A Thread executou %s passo(s). Terminando agora...
+msg.executingAction = [ID %s] Executando ação da thread
+msg.executedAction = [ID %s] Ação da thread executada: status %s, resultado %s, memória usada %s, limite %s
+msg.pausingWorker = [ID %s] Interrompendo trabalhador da thread
+msg.resumingWorker = [ID %s] Resumindo trabalhador da thread
+msg.stoppingWorker = [ID %s] Parando trabalhador da thread
+msg.killingWorker = [ID %s] Matando o processo da thread (PID %s, EXIT CODE %s)

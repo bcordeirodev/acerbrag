@@ -1,0 +1,8 @@
+error.connectionClosed = Unable to handle the connection because it is closed
+error.invalidProtocol = Invalid protocol (%s)
+error.timeout = Connection timeout
+error.readError = Couldn't read from socket
+error.writeError = Couldn't write all data to socket. %s bytes written
+error.couldNotGetHeaders = Could not read and parse the response readers. Following is the content that was read: %s
+error.openError = Couldn't open a connection with the host %s on port %s for the following reason: %s
+error.connectionEOF = End of connection reached (EOF) for host %s. %s bytes read from %s bytes

@@ -1,0 +1,13 @@
+error.missingUrl = A URL não foi especificada
+error.missingProtocol = Não foi especificado um protocolo para a URL
+error.invalidMethod = O método de requisição %s não é suportado
+error.invalidProxyAuthResponse = Não foi possível autenticar no servidor proxy: %s
+error.invalidProxyAuthMethod = O método de autenticação especificado pelo proxy é inválido
+error.proxyAuthNotImplemented = O método de autenticação especificado pelo proxy não está implementado
+error.instanceViolation = Apenas uma instância da classe Http de requisição/resposta é permitida por requisição
+error.invalidDownload = O arquivo indicado para download é inválido
+error.invalidCacheTime = O parâmetro "time" recebeu um valor inválido
+error.fileNotFound = O arquivo "%s" não existe
+error.invalidUrl = A URL "%s" é inválida
+error.invalidRedirection = A URL requisitada "%s" retornou o status "%s", mas o cabeçalho Location não foi localizado
+error.invalidRedirectionUrl = A URL de redirecionamento "%s" é inválida

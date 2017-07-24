@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!ELEMENT permissions (permission)*>
+<!ELEMENT permission EMPTY>
+<!ATTLIST permission
+    id CDATA #REQUIRED
+    name CDATA #REQUIRED
+  >

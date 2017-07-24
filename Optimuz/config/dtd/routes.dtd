@@ -1,0 +1,36 @@
+<?xml version='1.0' encoding='UTF-8'?>
+
+<!ELEMENT mapping (route+)>
+<!ATTLIST mapping
+    defaultApplication CDATA #IMPLIED
+    defaultController CDATA #IMPLIED
+    defaultMethod CDATA #IMPLIED
+    hideApplicationOnURL (true|false) #IMPLIED
+  >
+
+
+<!ELEMENT route (url,application)*>
+<!ATTLIST route
+	redirectApplication (true|false) #IMPLIED
+  >
+
+
+<!ELEMENT url EMPTY>
+<!ATTLIST url
+    path CDATA #REQUIRED
+  >
+
+
+<!ELEMENT application (controller)*>
+<!ATTLIST application
+    name CDATA #REQUIRED
+	defaultController CDATA #IMPLIED
+    defaultMethod CDATA #IMPLIED
+  >
+
+
+<!ELEMENT controller EMPTY>
+<!ATTLIST controller
+    name CDATA #REQUIRED
+    method CDATA #REQUIRED
+  >

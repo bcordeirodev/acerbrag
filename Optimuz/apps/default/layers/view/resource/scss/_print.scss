@@ -1,0 +1,171 @@
+@import "bourbon/bourbon";
+
+@page{ 
+	size: auto;
+	margin: 0 5mm 0;
+}
+
+@media print{
+	html, body{
+		background: none !important;
+		font-family: 'Open Sans', Arial;
+	}
+	
+	html{
+		font-size: 16px;
+	}
+	
+	body{
+		font-size: 62.5%;
+		margin: 0;
+		padding: 0;
+		text-transform: uppercase;
+	}
+	
+	#print-header{
+		display: none;
+	}
+	
+	.print-page{
+		width: 100%;
+
+		h1, h2, h3, p{
+			margin: 0;
+			padding: 0;
+		}
+
+		h1{
+			font-size: 2.5em;
+			font-weight: 500;
+			text-transform: uppercase;
+			padding: 10px;
+			margin-top: 10px;
+			text-align: center;
+		}
+
+		h2{
+			font-size: 1.3em;
+			line-height: 1;
+			text-transform: uppercase;
+			padding: 5px 0;
+/*			margin-bottom: 10px;
+			border-bottom: 1px solid #000;*/
+		}
+
+		h3{
+			font-size: .9em;
+			line-height: 1;
+			margin: 0;
+			padding: 0;
+		}
+
+		p{
+			font-size: 1.1em;
+		}
+		
+		.container{
+			border-left: 1px solid #000;
+			border-right: 1px solid #000;
+			
+			table{
+				width: 100%;
+				border-spacing: 0;
+				border-collapse: collapse;
+
+				th, td{
+					border: 1px solid #000;
+					border-right: none;
+					vertical-align: top;
+					
+					&:first-child{
+						border-left: none;
+					}
+				}
+
+				td{
+					padding: 5px;
+					margin: 0;
+
+					&.no-border{
+						border: none;
+						padding: 5px 0;
+					}
+
+					td{
+						padding: 5px !important;
+						border-top: none;
+						border-bottom: none;
+					}
+				}
+
+				+ h2{
+					margin-top: 20px;
+				}
+			}
+		}
+		
+		.page-break{
+			page-break-before: always;
+		}
+		
+		.text-center{
+			text-align: center;
+		}
+		
+		.col-10{
+			width: 10%;
+		}
+		
+		.col-20{
+			width: 20%;
+		}
+		
+		.col-30{
+			width: 30%;
+		}
+		
+		.col-40{
+			width: 40%;
+		}
+		
+		.col-50{
+			width: 50%;
+		}
+		
+		.col-60{
+			width: 60%;
+		}
+		
+		.col-70{
+			width: 70%;
+		}
+		
+		.col-80{
+			width: 80%;
+		}
+		
+		.col-90{
+			width: 90%;
+		}
+		
+		.col-100{
+			width: 100%;
+		}
+		
+		.no-padding{
+			padding: 0 !important;
+		}
+		
+		.padding-top{
+			padding-top: 20px;
+		}
+		
+		.border-bottom{
+			border-bottom: 1px solid #000;
+		}
+		
+		.m-t-10{
+			margin-top: 10px;
+		}
+	}
+}

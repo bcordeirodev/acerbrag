@@ -1,0 +1,290 @@
+@import "bourbon/bourbon";
+
+/*
+ * Mixins e funções
+ */
+@mixin border-radius($radius){
+	@include border-top-radius($radius);
+	@include border-bottom-radius($radius);
+	@include border-left-radius($radius);
+	@include border-right-radius($radius);
+}
+
+/*
+ * Classes auxiliares
+ */
+.fa-white{
+	color: #fff !important;
+}
+
+.well-white{
+	background-color: #fff;
+}
+
+.border-white{
+	border-color: #fff !important;
+}
+
+.border-transparent{
+	border-color: transparent !important;
+}
+
+.position-relative{
+	position: relative;
+}
+
+.position-absolute{
+	position: absolute;
+}
+
+.circle{
+	border-radius: 50%;
+	overflow: hidden;
+}
+
+.text-center{
+	text-align: center !important;
+}
+
+.text-left{
+	text-align: left !important;
+}
+
+.text-right{
+	text-align: right !important;
+}
+
+.text-italic{
+	font-style: italic !important;
+}
+
+.text-muted{
+	color: #999 !important;
+}
+
+.capitalize{
+	text-transform: capitalize;
+}
+
+.semi-light{
+	font-weight: lighter !important;
+}
+
+.align-center{
+	margin:0 auto;
+}
+
+.align-middle{
+	vertical-align: middle !important;
+}
+
+.display-block{
+	display: block !important;
+}
+
+.display-inline-block{
+	display: inline-block !important;
+}
+
+.display-inline{
+	display: inline !important;
+}
+
+.inherit-color{
+	color: inherit !important;
+}
+
+.half-visible{
+	opacity: .5;
+}
+
+.no-list{
+	list-style-type: none;
+}
+
+.box{
+	-webkit-box-sizing:border-box;
+    -moz-box-sizing:border-box;
+    box-sizing:border-box;
+}
+
+.clickable{
+	cursor: pointer !important;
+}
+
+.loader{
+	@include size(100);
+	border: 8px solid $color-primary;
+	border-right-color: transparent;
+	border-bottom-color: transparent;
+	border-radius: 50%;
+	@include animation(rotate .5s infinite linear);
+}
+
+.fancy-loader-container{
+	@include position(fixed, 0 0 0 0);
+	@include size(100%);
+	z-index: 99999;
+	background: #cae6ee;
+
+	> .fancy-loader{
+		@include position(absolute, 0px 0px 0px 0px);
+		margin: auto;
+	}
+
+	.fancy-loader{
+		@include size(70);
+		border: 8px solid $color-success;
+		border-right-color: transparent;
+		border-bottom-color: transparent;
+		border-radius: 50%;
+		@include animation(rotate .5s infinite linear);
+	}
+}
+
+.animate{
+	@include transition(all .5s ease-in-out);
+
+	&.animate-in{
+		@include transition-timing-function(ease-in);
+	}
+
+	&.animate-out{
+		@include transition-timing-function(ease-out);
+	}
+
+	&.animate-in-out{
+		@include transition-timing-function(ease-in-out);
+	}
+
+	&.animate-fast{
+		@include transition-duration(.5s);
+	}
+
+	&.animate-normal{
+		@include transition-duration(1s);
+	}
+
+	&.animate-slow{
+		@include transition-duration(2s);
+	}
+}
+
+$properties: (t: top, r: right, b: bottom, l: left);
+$sizes: (0, 5, 10, 15, 20, 25, 30, 35, 40, 45, 50, 55, 60, 65, 70, 75, 80, 85, 90, 95, 100);
+
+@each $dir in t, r, b, l {
+	@each $i in  $sizes{
+		$property: map-get($properties, $dir);
+
+		.m-#{$dir}-#{$i}{
+			margin-#{$property}: #{$i}px !important;
+		}
+
+		.p-#{$dir}-#{$i}{
+			padding-#{$property}: #{$i}px !important;
+		}
+	}
+}
+
+@each $i in $sizes {
+	.margin-#{$i}{
+		margin: #{$i}px !important;
+	}
+
+	.padding-#{$i}{
+		padding: #{$i}px !important;
+	}
+}
+
+@each $rule, $color in $default-colors {
+	.bg-#{$rule}{
+		background: $color !important;
+	}
+}
+
+.bg-white{
+	background: $white !important;
+}
+
+@each $width in 0, 50, 60, 70, 80, 90, 100, 110, 120, 130, 140, 150, 200, 300, 400, 500 {
+	.w-#{$width}{
+		width: #{$width}px !important;
+	}
+}
+
+@each $width in 0, 5, 10, 20, 30, 40, 50, 60, 70, 80, 90, 100 {
+	.w-r-#{$width}{
+		width: #{$width}% !important;
+	}
+}
+
+@each $cursor in help, default, pointer, progress, text {
+	.cursor-#{$cursor}{
+		cursor: $cursor !important;
+	}
+}
+
+@each $size in 0, 10, 11, 12, 13, 14, 15, 16, 18, 20, 22, 24, 26, 28, 30, 32, 40, 42, 48, 64, 72, 96 {
+	.font-#{$size}{
+		font-size: #{$size}px !important;
+	}
+}
+
+@each $size in 1, 1.2, 1.4, 1.6, 1.8, 2, 2.2, 2.4, 2.6, 2.8, 3, 3.2, 4, 4.2, 4.8, 6.4, 7.2, 9.6 {
+	.font-em-#{$size * 10}{
+		font-size: #{$size}em !important;
+	}
+}
+
+$line-heights: (none: 0, normal: 1, default: 1.4, half-line: 1.5, double: 2);
+@each $rule, $size in $line-heights {
+	.line-#{$rule}{
+		line-height: #{$size} !important;
+	}
+}
+
+.no-margin{
+	margin:0 !important;
+}
+
+.no-padding{
+	padding:0 !important;
+}
+
+.width-auto{
+	width: auto !important;
+}
+
+.th-50{
+	width: 50px !important;
+}
+
+.th-70{
+	width: 70px !important;
+}
+
+.th-100{
+	width: 100px !important;
+}
+
+.th-130{
+	width: 130px !important;
+}
+
+.th-150{
+	width: 150px !important;
+}
+
+.th-200{
+	width: 200px !important;
+}
+
+.tiles{
+	$tiles-colors: (transparent: transparent, 'yellow': $color-warning);
+	@each $rule, $color in $tiles-colors {
+		&.#{$rule}{
+			background: $color !important;
+		}
+	}
+}

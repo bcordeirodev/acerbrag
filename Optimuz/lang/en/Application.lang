@@ -1,0 +1,4 @@
+# Errors
+error.invalidApplication = The application "%s" is invalid (does not exist)
+error.invalidApplicationPath = The path "%s" of the application "%s" already exist
+error.forbiddenInstance = Only one instance of this class can exist at a time

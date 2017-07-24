@@ -1,0 +1,166 @@
+21:19:24 [ERROR]: (# 0) Error [3101]: {} The file NoticiaController is not mapped and cannot be autoloaded (Linha 141, Arquivo C:\wamp64\www\plug3s\trunk\web\Optimuz\lib\Core\Load.php)
+
+
+POST:
+array (
+)
+
+GET:
+array (
+)
+
+SESSION:
+array (
+  'SystemAccessLogin_default' => 'O:17:"SystemAccessLogin":5:{s:7:"' . "\0" . '*' . "\0" . 'name";s:20:"joaosilva@hotmai.com";s:7:"' . "\0" . '*' . "\0" . 'role";O:16:"SystemAccessRole":5:{s:5:"' . "\0" . '*' . "\0" . 'id";i:2;s:7:"' . "\0" . '*' . "\0" . 'name";s:11:"instituicao";s:8:"' . "\0" . '*' . "\0" . 'label";s:11:"instituicao";s:10:"' . "\0" . '*' . "\0" . 'isAdmin";b:0;s:9:"' . "\0" . '*' . "\0" . 'negate";b:0;}s:14:"' . "\0" . '*' . "\0" . 'permissions";O:9:"ArrayList":4:{s:8:"' . "\0" . '*' . "\0" . 'array";a:0:{}s:9:"' . "\0" . '*' . "\0" . 'locked";b:0;s:13:"' . "\0" . '*' . "\0" . 'strictType";N;s:11:"' . "\0" . '*' . "\0" . 'iterator";O:17:"ArrayListIterator":1:{s:8:"' . "\0" . '*' . "\0" . 'array";R:10;}}s:7:"' . "\0" . '*' . "\0" . 'data";O:9:"ArrayList":4:{s:8:"' . "\0" . '*' . "\0" . 'array";a:3:{s:6:"userId";i:74;s:8:"userName";s:14:"Bruno Cordeiro";s:12:"previousUser";i:73;}s:9:"' . "\0" . '*' . "\0" . 'locked";b:0;s:13:"' . "\0" . '*' . "\0" . 'strictType";N;s:11:"' . "\0" . '*' . "\0" . 'iterator";O:17:"ArrayListIterator":1:{s:8:"' . "\0" . '*' . "\0" . 'array";R:15;}}s:14:"' . "\0" . '*' . "\0" . 'persistence";N;}',
+)
+
+Trace:
+#0 [internal function]: Load::autoload('NoticiaControll...')
+#1 C:\wamp64\www\plug3s\trunk\web\Optimuz\lib\Application\Application.php(321): spl_autoload_call('NoticiaControll...')
+#2 C:\wamp64\www\plug3s\trunk\web\Optimuz\lib\Application\Application.php(220): Application->run('NoticiaControll...', 'nova', NULL, 'NoticiaControll...', Array)
+#3 C:\wamp64\www\plug3s\trunk\web\index.php(58): Application::initialize('C:\\wamp64\\www\\p...')
+#4 {main}
+
+URI: /plug3s/trunk/web/noticia/nova
+Host: localhost
+IP da requisição: ::1:12942
+Browser: Mozilla/5.0 (Windows NT 10.0; WOW64; rv:53.0) Gecko/20100101 Firefox/53.0
+------------------------------------------------------------------------------------------------------------------
+21:19:53 [ERROR]: (# 0) Error [3101]: {} The file NoticiaController is not mapped and cannot be autoloaded (Linha 141, Arquivo C:\wamp64\www\plug3s\trunk\web\Optimuz\lib\Core\Load.php)
+
+
+POST:
+array (
+)
+
+GET:
+array (
+)
+
+SESSION:
+array (
+  'SystemAccessLogin_default' => 'O:17:"SystemAccessLogin":5:{s:7:"' . "\0" . '*' . "\0" . 'name";s:20:"joaosilva@hotmai.com";s:7:"' . "\0" . '*' . "\0" . 'role";O:16:"SystemAccessRole":5:{s:5:"' . "\0" . '*' . "\0" . 'id";i:2;s:7:"' . "\0" . '*' . "\0" . 'name";s:11:"instituicao";s:8:"' . "\0" . '*' . "\0" . 'label";s:11:"instituicao";s:10:"' . "\0" . '*' . "\0" . 'isAdmin";b:0;s:9:"' . "\0" . '*' . "\0" . 'negate";b:0;}s:14:"' . "\0" . '*' . "\0" . 'permissions";O:9:"ArrayList":4:{s:8:"' . "\0" . '*' . "\0" . 'array";a:0:{}s:9:"' . "\0" . '*' . "\0" . 'locked";b:0;s:13:"' . "\0" . '*' . "\0" . 'strictType";N;s:11:"' . "\0" . '*' . "\0" . 'iterator";O:17:"ArrayListIterator":1:{s:8:"' . "\0" . '*' . "\0" . 'array";R:10;}}s:7:"' . "\0" . '*' . "\0" . 'data";O:9:"ArrayList":4:{s:8:"' . "\0" . '*' . "\0" . 'array";a:3:{s:6:"userId";i:74;s:8:"userName";s:14:"Bruno Cordeiro";s:12:"previousUser";i:73;}s:9:"' . "\0" . '*' . "\0" . 'locked";b:0;s:13:"' . "\0" . '*' . "\0" . 'strictType";N;s:11:"' . "\0" . '*' . "\0" . 'iterator";O:17:"ArrayListIterator":1:{s:8:"' . "\0" . '*' . "\0" . 'array";R:15;}}s:14:"' . "\0" . '*' . "\0" . 'persistence";N;}',
+)
+
+Trace:
+#0 [internal function]: Load::autoload('NoticiaControll...')
+#1 C:\wamp64\www\plug3s\trunk\web\Optimuz\lib\Application\Application.php(321): spl_autoload_call('NoticiaControll...')
+#2 C:\wamp64\www\plug3s\trunk\web\Optimuz\lib\Application\Application.php(220): Application->run('NoticiaControll...', 'nova', NULL, 'NoticiaControll...', Array)
+#3 C:\wamp64\www\plug3s\trunk\web\index.php(58): Application::initialize('C:\\wamp64\\www\\p...')
+#4 {main}
+
+URI: /plug3s/trunk/web/noticia/nova
+Host: localhost
+IP da requisição: ::1:12952
+Browser: Mozilla/5.0 (Windows NT 10.0; WOW64; rv:53.0) Gecko/20100101 Firefox/53.0
+------------------------------------------------------------------------------------------------------------------
+21:21:34 [ERROR]: (# 0) Error [3101]: {} The file NoticiaController is not mapped and cannot be autoloaded (Linha 141, Arquivo C:\wamp64\www\plug3s\trunk\web\Optimuz\lib\Core\Load.php)
+
+
+POST:
+array (
+)
+
+GET:
+array (
+)
+
+SESSION:
+array (
+  'SystemAccessLogin_default' => 'O:17:"SystemAccessLogin":5:{s:7:"' . "\0" . '*' . "\0" . 'name";s:20:"joaosilva@hotmai.com";s:7:"' . "\0" . '*' . "\0" . 'role";O:16:"SystemAccessRole":5:{s:5:"' . "\0" . '*' . "\0" . 'id";i:2;s:7:"' . "\0" . '*' . "\0" . 'name";s:11:"instituicao";s:8:"' . "\0" . '*' . "\0" . 'label";s:11:"instituicao";s:10:"' . "\0" . '*' . "\0" . 'isAdmin";b:0;s:9:"' . "\0" . '*' . "\0" . 'negate";b:0;}s:14:"' . "\0" . '*' . "\0" . 'permissions";O:9:"ArrayList":4:{s:8:"' . "\0" . '*' . "\0" . 'array";a:0:{}s:9:"' . "\0" . '*' . "\0" . 'locked";b:0;s:13:"' . "\0" . '*' . "\0" . 'strictType";N;s:11:"' . "\0" . '*' . "\0" . 'iterator";O:17:"ArrayListIterator":1:{s:8:"' . "\0" . '*' . "\0" . 'array";R:10;}}s:7:"' . "\0" . '*' . "\0" . 'data";O:9:"ArrayList":4:{s:8:"' . "\0" . '*' . "\0" . 'array";a:3:{s:6:"userId";i:74;s:8:"userName";s:14:"Bruno Cordeiro";s:12:"previousUser";i:73;}s:9:"' . "\0" . '*' . "\0" . 'locked";b:0;s:13:"' . "\0" . '*' . "\0" . 'strictType";N;s:11:"' . "\0" . '*' . "\0" . 'iterator";O:17:"ArrayListIterator":1:{s:8:"' . "\0" . '*' . "\0" . 'array";R:15;}}s:14:"' . "\0" . '*' . "\0" . 'persistence";N;}',
+)
+
+Trace:
+#0 [internal function]: Load::autoload('NoticiaControll...')
+#1 C:\wamp64\www\plug3s\trunk\web\Optimuz\lib\Application\Application.php(321): spl_autoload_call('NoticiaControll...')
+#2 C:\wamp64\www\plug3s\trunk\web\Optimuz\lib\Application\Application.php(220): Application->run('NoticiaControll...', 'nova', NULL, 'NoticiaControll...', Array)
+#3 C:\wamp64\www\plug3s\trunk\web\index.php(58): Application::initialize('C:\\wamp64\\www\\p...')
+#4 {main}
+
+URI: /plug3s/trunk/web/noticia/nova
+Host: localhost
+IP da requisição: ::1:12960
+Browser: Mozilla/5.0 (Windows NT 10.0; WOW64; rv:53.0) Gecko/20100101 Firefox/53.0
+------------------------------------------------------------------------------------------------------------------
+21:21:42 [ERROR]: (# 0) Error [3101]: {} The file NoticiaController is not mapped and cannot be autoloaded (Linha 141, Arquivo C:\wamp64\www\plug3s\trunk\web\Optimuz\lib\Core\Load.php)
+
+
+POST:
+array (
+)
+
+GET:
+array (
+)
+
+SESSION:
+array (
+  'SystemAccessLogin_default' => 'O:17:"SystemAccessLogin":5:{s:7:"' . "\0" . '*' . "\0" . 'name";s:20:"joaosilva@hotmai.com";s:7:"' . "\0" . '*' . "\0" . 'role";O:16:"SystemAccessRole":5:{s:5:"' . "\0" . '*' . "\0" . 'id";i:2;s:7:"' . "\0" . '*' . "\0" . 'name";s:11:"instituicao";s:8:"' . "\0" . '*' . "\0" . 'label";s:11:"instituicao";s:10:"' . "\0" . '*' . "\0" . 'isAdmin";b:0;s:9:"' . "\0" . '*' . "\0" . 'negate";b:0;}s:14:"' . "\0" . '*' . "\0" . 'permissions";O:9:"ArrayList":4:{s:8:"' . "\0" . '*' . "\0" . 'array";a:0:{}s:9:"' . "\0" . '*' . "\0" . 'locked";b:0;s:13:"' . "\0" . '*' . "\0" . 'strictType";N;s:11:"' . "\0" . '*' . "\0" . 'iterator";O:17:"ArrayListIterator":1:{s:8:"' . "\0" . '*' . "\0" . 'array";R:10;}}s:7:"' . "\0" . '*' . "\0" . 'data";O:9:"ArrayList":4:{s:8:"' . "\0" . '*' . "\0" . 'array";a:3:{s:6:"userId";i:74;s:8:"userName";s:14:"Bruno Cordeiro";s:12:"previousUser";i:73;}s:9:"' . "\0" . '*' . "\0" . 'locked";b:0;s:13:"' . "\0" . '*' . "\0" . 'strictType";N;s:11:"' . "\0" . '*' . "\0" . 'iterator";O:17:"ArrayListIterator":1:{s:8:"' . "\0" . '*' . "\0" . 'array";R:15;}}s:14:"' . "\0" . '*' . "\0" . 'persistence";N;}',
+)
+
+Trace:
+#0 [internal function]: Load::autoload('NoticiaControll...')
+#1 C:\wamp64\www\plug3s\trunk\web\Optimuz\lib\Application\Application.php(321): spl_autoload_call('NoticiaControll...')
+#2 C:\wamp64\www\plug3s\trunk\web\Optimuz\lib\Application\Application.php(220): Application->run('NoticiaControll...', 'nova', NULL, 'NoticiaControll...', Array)
+#3 C:\wamp64\www\plug3s\trunk\web\index.php(58): Application::initialize('C:\\wamp64\\www\\p...')
+#4 {main}
+
+URI: /plug3s/trunk/web/noticia/nova
+Host: localhost
+IP da requisição: ::1:12964
+Browser: Mozilla/5.0 (Windows NT 10.0; WOW64; rv:53.0) Gecko/20100101 Firefox/53.0
+------------------------------------------------------------------------------------------------------------------
+21:22:18 [ERROR]: (# 0) Error [3101]: {} The file NoticiaController is not mapped and cannot be autoloaded (Linha 141, Arquivo C:\wamp64\www\plug3s\trunk\web\Optimuz\lib\Core\Load.php)
+
+
+POST:
+array (
+)
+
+GET:
+array (
+)
+
+SESSION:
+array (
+  'SystemAccessLogin_default' => 'O:17:"SystemAccessLogin":5:{s:7:"' . "\0" . '*' . "\0" . 'name";s:20:"joaosilva@hotmai.com";s:7:"' . "\0" . '*' . "\0" . 'role";O:16:"SystemAccessRole":5:{s:5:"' . "\0" . '*' . "\0" . 'id";i:2;s:7:"' . "\0" . '*' . "\0" . 'name";s:11:"instituicao";s:8:"' . "\0" . '*' . "\0" . 'label";s:11:"instituicao";s:10:"' . "\0" . '*' . "\0" . 'isAdmin";b:0;s:9:"' . "\0" . '*' . "\0" . 'negate";b:0;}s:14:"' . "\0" . '*' . "\0" . 'permissions";O:9:"ArrayList":4:{s:8:"' . "\0" . '*' . "\0" . 'array";a:0:{}s:9:"' . "\0" . '*' . "\0" . 'locked";b:0;s:13:"' . "\0" . '*' . "\0" . 'strictType";N;s:11:"' . "\0" . '*' . "\0" . 'iterator";O:17:"ArrayListIterator":1:{s:8:"' . "\0" . '*' . "\0" . 'array";R:10;}}s:7:"' . "\0" . '*' . "\0" . 'data";O:9:"ArrayList":4:{s:8:"' . "\0" . '*' . "\0" . 'array";a:3:{s:6:"userId";i:74;s:8:"userName";s:14:"Bruno Cordeiro";s:12:"previousUser";i:73;}s:9:"' . "\0" . '*' . "\0" . 'locked";b:0;s:13:"' . "\0" . '*' . "\0" . 'strictType";N;s:11:"' . "\0" . '*' . "\0" . 'iterator";O:17:"ArrayListIterator":1:{s:8:"' . "\0" . '*' . "\0" . 'array";R:15;}}s:14:"' . "\0" . '*' . "\0" . 'persistence";N;}',
+)
+
+Trace:
+#0 [internal function]: Load::autoload('NoticiaControll...')
+#1 C:\wamp64\www\plug3s\trunk\web\Optimuz\lib\Application\Application.php(321): spl_autoload_call('NoticiaControll...')
+#2 C:\wamp64\www\plug3s\trunk\web\Optimuz\lib\Application\Application.php(220): Application->run('NoticiaControll...', 'nova', NULL, 'NoticiaControll...', Array)
+#3 C:\wamp64\www\plug3s\trunk\web\index.php(58): Application::initialize('C:\\wamp64\\www\\p...')
+#4 {main}
+
+URI: /plug3s/trunk/web/noticia/nova
+Host: localhost
+IP da requisição: ::1:12974
+Browser: Mozilla/5.0 (Windows NT 10.0; WOW64; rv:53.0) Gecko/20100101 Firefox/53.0
+------------------------------------------------------------------------------------------------------------------
+21:48:01 [ERROR]: (# 0) Error [802]: {1b4bb-af0c0} O método uploadFile não existe (Linha 340, Arquivo C:\wamp64\www\plug3s\trunk\web\Optimuz\lib\Application\Application.php)
+
+
+POST:
+array (
+)
+
+GET:
+array (
+)
+
+SESSION:
+array (
+  'SystemAccessLogin_default' => 'O:17:"SystemAccessLogin":5:{s:7:"' . "\0" . '*' . "\0" . 'name";s:20:"joaosilva@hotmai.com";s:7:"' . "\0" . '*' . "\0" . 'role";O:16:"SystemAccessRole":5:{s:5:"' . "\0" . '*' . "\0" . 'id";i:2;s:7:"' . "\0" . '*' . "\0" . 'name";s:11:"instituicao";s:8:"' . "\0" . '*' . "\0" . 'label";s:11:"instituicao";s:10:"' . "\0" . '*' . "\0" . 'isAdmin";b:0;s:9:"' . "\0" . '*' . "\0" . 'negate";b:0;}s:14:"' . "\0" . '*' . "\0" . 'permissions";O:9:"ArrayList":4:{s:8:"' . "\0" . '*' . "\0" . 'array";a:0:{}s:9:"' . "\0" . '*' . "\0" . 'locked";b:0;s:13:"' . "\0" . '*' . "\0" . 'strictType";N;s:11:"' . "\0" . '*' . "\0" . 'iterator";O:17:"ArrayListIterator":1:{s:8:"' . "\0" . '*' . "\0" . 'array";R:10;}}s:7:"' . "\0" . '*' . "\0" . 'data";O:9:"ArrayList":4:{s:8:"' . "\0" . '*' . "\0" . 'array";a:3:{s:6:"userId";i:74;s:8:"userName";s:14:"Bruno Cordeiro";s:12:"previousUser";i:73;}s:9:"' . "\0" . '*' . "\0" . 'locked";b:0;s:13:"' . "\0" . '*' . "\0" . 'strictType";N;s:11:"' . "\0" . '*' . "\0" . 'iterator";O:17:"ArrayListIterator":1:{s:8:"' . "\0" . '*' . "\0" . 'array";R:15;}}s:14:"' . "\0" . '*' . "\0" . 'persistence";N;}',
+)
+
+Trace:
+#0 C:\wamp64\www\plug3s\trunk\web\Optimuz\lib\Application\Application.php(220): Application->run('NoticiaControll...', 'uploadFile', NULL, 'NoticiaControll...', Array)
+#1 C:\wamp64\www\plug3s\trunk\web\index.php(58): Application::initialize('C:\\wamp64\\www\\p...')
+#2 {main}
+
+URI: /plug3s/trunk/web/noticia/upload-file
+Host: localhost
+IP da requisição: ::1:13275
+Browser: Mozilla/5.0 (Windows NT 10.0; WOW64; rv:53.0) Gecko/20100101 Firefox/53.0
+------------------------------------------------------------------------------------------------------------------

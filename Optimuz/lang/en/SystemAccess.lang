@@ -1,0 +1,17 @@
+# Errors
+error.loadRolesError = The file that defines the roles could not be loaded
+error.loadPermissionsError = The file that defines the permissions could not be loaded
+error.loadSiteNavigationError = The file SiteNavigation.xml could not be loaded
+error.invalidValidationType = The validation type defined in the validationType in the file Map.xml is invalid
+error.accessDenied.title = Access denied
+error.accessDenied.description = Sorry, but you don't have access to this page.
+error.invalidRole = The role "%s" is invalid
+error.invalidHandler = The selected handler for the system access is invalid
+error.loadDatabase = Error while loading the database
+error.missingModel = Not all the settings from the systemAccess.database section were informed
+error.invalidCustomValidator = The custom validator is invalid. The class must have a static method named validateAccess()
+
+# Roles
+role.anonymous = Anonymous
+role.user = User
+role.admin = Administrator

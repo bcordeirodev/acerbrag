@@ -1,0 +1,7 @@
+# Errors
+error.load.1 = Não foi possível carregar o arquivo XML para construir o menu
+error.load.2 = Erro ao carregar o arquivo XML: %s
+error.loadError = Não foi possível carregar o arquivo %s.xml
+error.missingFile = O arquivo %s.xml não existe
+error.notInitialized = A classe não foi inicializada
+error.parseXML = Erro ao analisar o arquivo XML: %s

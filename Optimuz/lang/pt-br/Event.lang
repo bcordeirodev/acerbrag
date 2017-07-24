@@ -1,0 +1,2 @@
+error.invalidHandlerType = O manipulador de evento deve ser um array ou uma string, mas foi informado o tipo "%s"
+error.eventNotFound = O evento "%s" não existe!

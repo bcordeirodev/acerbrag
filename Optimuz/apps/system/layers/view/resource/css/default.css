@@ -1,0 +1,156 @@
+html, body{
+	position:relative;
+	height:100%;
+	width:100%;
+	padding:0;
+	margin:0;
+	font-family:Arial, Helvetica, sans-serif;
+	font-size:12px;
+	color:#575757;
+}
+body{
+	background-color:#F3F3F3;
+	text-align:center;
+	position:relative;
+	line-height:14px;
+}
+a,
+a:link,
+a:hover,
+a:active,
+a:visited{
+	color:#1C6DA5;
+	text-decoration:none;
+}
+a:hover,
+a:active{
+	text-decoration:underline;
+	color:#f71;
+}
+img{
+	border:0;
+}
+p{
+	margin:10px 0;
+	text-align:justify;
+}
+h1, h2{
+	margin:0;
+	padding:10px 0;
+	color:#925F92;
+	font-weight:700;
+}
+h1{
+	font-size:24px;
+}
+h2{
+	font-size:18px;
+}
+li{
+	margin:10px;
+}
+#page{
+	width:700px;
+	position:relative;
+	margin:0 auto;
+	text-align:center;
+}
+#page > div{
+	text-align:left;
+}
+#page > img{
+	margin:70px 0 -3px -93px;
+}
+#header{
+	position:absolute;
+	top:20px;
+}
+#content{
+	padding:10px;
+	background-color:#fff;
+}
+#content,
+.menu{
+	border:1px solid #C9ABC9;
+}
+#content{
+	border-top:none;
+	border-bottom:none;
+}
+#footer{
+	background-color:#C9ABC9;
+	text-align:center;
+	height:100px;
+}
+#footer > div{
+	width:700px;
+	margin:0 auto;
+}
+#footer > div > div,
+#footer > div > form{
+	background-image:url(/resource/system/imgs/footer.jpg);
+	width:17px;
+	height:54px;
+	float:left;
+}
+#footer form{
+	background-position:0 -54px;
+	background-repeat:repeat-x;
+	width:666px !important;
+}
+#footer select{
+	float:right;
+}
+#footer form + div{
+	background-position:0 -108px;
+}
+#footer .right + br{
+	clear:left;
+}
+.hide{
+	display:none;
+}
+.rounded5{
+	border-radius:5px;
+	-moz-border-radius:5px;
+	-webkit-border-radius:5px;
+}
+.rounded7{
+	border-radius:7px;
+	-moz-border-radius:7px;
+	-webkit-border-radius:7px;
+}
+.msg{
+	text-align: center;
+	padding:10px;
+	border: 2px solid #1C6DA5;
+	color: #000;
+	background-color:#f0f1fe;
+}
+.msg.enable{
+	border-color:green;
+	background-color:#ebfdff;
+}
+.msg.disable{
+	border-color:red;
+	background-color:#FFE1E1;
+}
+.msg.confirm{
+	border-color:coral;
+	background-color:#ffffcc;
+}
+.msg.black{
+	border-color:#000;
+	background-color:#fff;
+}
+.msg.silver{
+	border-color:#ccc;
+	background-color:#fff;
+}
+.loader{
+	display:none;
+}
+.loader img{
+	vertical-align:middle;
+	margin-right:5px;
+}

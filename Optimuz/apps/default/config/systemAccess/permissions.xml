@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE settings SYSTEM "http://optimuz.interativadesenvolvimento.com.br/dtd/permissions.dtd">
+<!--
+This file defines the permissions used in the system for access management.
+
+The basic structure is as the following:
+
+<permissions>
+	<permission id="integer" name="string" />
+	...
+</permissions>
+
+All permissions are defined by the "permission" element, which must be placed 
+inside the "permissions" element. The permission element has the following 
+attributes:
+
+- id: the unique identifier of the permission. Like a primary key of a table in 
+a database.
+
+- name: the name on which the permission can be identified in the system. This 
+name is used to grant access permissions in the map.xml file.
+
+Following is an example of some permissions settings:
+
+<permissions>
+	<permission id="1" name="manage-accounts" />
+	<permission id="2" name="can-post" />
+	<permission id="3" name="do-restricted-action" />
+</permissions>
+-->
+<permissions>
+</permissions>

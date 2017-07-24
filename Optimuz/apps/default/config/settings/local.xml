@@ -1,0 +1,466 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE settings SYSTEM "http://optimuz.interativadesenvolvimento.com.br/dtd/local-settings.dtd">
+<!--
+This is the main configuration file of the application. All values defined here
+can be changed in runtime through the Configuration class, but these changes are
+valid ONLY during the script runtime. Settings not defined here also can be
+defined in runtime, and will be valid during the script runtime.
+
+Note that when we refer to CLIENT in this file, we are refering to the UA (User
+Agent) that made the HTTP request.
+
+Settings defined here are used in many places of the application, so take care
+to not make mistakes.
+-->
+<settings>
+	<!--
+	[Local only]
+	Settings related to the application.
+
+	- title: applicaion's title. This title is used as the default title for all
+	application's pages.
+
+	- version:  application's version.
+
+	- enable: if this parameter is true the application will be accessable for
+	all users. Otherwise, the access to this application will be denied.
+	-->
+	<app name="LegalWay" version="0.1" enable="true">
+		<!--
+		[Local only]
+		Path to save uploaded images of articles. Should follow the pattern
+		APPLICATION_NAME/path/to/save. The wildcard "~" must NOT be used.
+
+		This path is relative to the resource folder and follow the same rules of
+		any other resource.
+		-->
+		<photos savePath="default/imgs/" />
+
+		<!--
+		[Local only]
+		Path to save uploaded images of albums. Should follow the pattern
+		APPLICATION_NAME/path/to/save. The wildcard "~" must NOT be used.
+
+		This path is relative to the resource folder and follow the same rules of
+		any other resource.
+		-->
+		<albums savePath="default/imgs/" />
+
+		<!--
+		[Local only]
+		Path to save the thumbnails of videos. Should follow the pattern
+		APPLICATION_NAME/path/to/save. The wildcard "~" must NOT be used.
+
+		This path is relative to the resource folder and follow the same rules of
+		any other resource.
+		-->
+		<videos thumbPath="default/imgs/" />
+
+		<!--
+		[Local only]
+		This settings are related to the banners published on the site.
+		-->
+		<banners savePath="default/imgs/" />
+
+		<!--
+		[Local only]
+		Path to save the thumbnails of videos. Should follow the pattern
+		APPLICATION_NAME/path/to/save. The wildcard "~" must NOT be used.
+
+		This path is relative to the resource folder and follow the same rules of
+		any other resource.
+		-->
+		<liveServer url="" />
+	</app>
+
+	<!--
+	[Global and local]
+	Default settings applied in all pages of the application. These settings
+	can be changed in runtime to be applied individualy.
+	-->
+	<page>
+		<description></description>
+		<keywords></keywords>
+		<charset>UTF-8</charset>
+		<language>pt-br</language>
+		<title>Plug3s</title>
+		<doctype>strict</doctype>
+		<markup>html</markup>
+	</page>
+
+	<!--
+	[Global and local]
+	E-mail's addresses used to send report, warning and error messages from the
+	application.
+	-->
+	<report enable="false">
+		<error value="suporte@legalway.com.br" />
+		<webmaster value="log@legalway.com.br" />
+		<report value="log@legalway.com.br" />
+		<noreply value="suporte@legalway.com.br" />
+		<support value="log@legalway.com.br" />
+		<system value="suporte@legalway.com.br" />
+	</report>
+
+	<!--
+	[Global and local]
+	Settings about error handling.
+	-->
+	<errors>
+		<!--
+		This setting sets a page controller used to handle errors catched by the
+		method Error::handleError().
+
+		If you provide a controller here, this controller must be a page
+		controller and extends the DefaultPageController or DefaultController
+		class. But if you don't provide a controller, the Error class will
+		call the static error page to give the user a feedback about the error.
+
+		The controller must have a constructor to receive the following
+		parameters (in this order): $errorNumber, $errorMessage, $errorFile,
+		$errorLine. An example of a valid constructor signature is:
+
+		public function __construct($errorNumber = null, $errorMessage = null, $errorFile = null, $errorLine = null)
+		-->
+		<defaultControllerHandler></defaultControllerHandler>
+	</errors>
+
+	<!--
+	[Global and local]
+	Log settings.
+	-->
+	<log enable="true">
+		<!--
+		The tag "format" sets the log messages format, and can have the
+		following values:
+		- short: will store only the event date/time, the message and its level.
+		- complete: will store, besides the basic information, other
+		informations like IP, Browser, stacktrace, etc.
+		-->
+		<format type="complete" />
+	</log>
+
+	<!--
+	[Global and local]
+	These settings are related to performance and need more atention. They are:
+
+	- cache: enable/disable the use of cache in the application. This is not
+	related to the cache on client, but only the application cache. This cache
+	are files stored in the directory /Optimuz/cache/. To handle this cache you
+	can use the Cache class located in the Core package.
+
+	- minify: enable/disable the process of minifying resource files (CSS and
+	Javascript). This affects only the files included with the
+	ResourceController class.
+
+	- compress: enable/disable the process of compressing files sent to the
+	client. These files includes resource files (CSS and Javascript), the
+	HTML content or any other content that can be sent with the
+	HttpScriptResponse class. NOTE: the compression is not done in the
+	HttpScriptResponse class, usualy it is done in the DefaultView class. So if
+	you want to compress any content that will not be sent by a view, do it
+	manualy before send. The compression can be done using one of two methods:
+	gzip (default) or deflate.
+
+	- mergeFiles: enable/disable the concatenation of resource files (CSS and
+	Javascript) sent to the client. If this option is turned on, all CSS files
+	for example, will be sent as one file in one request.
+	-->
+	<performance>
+		<cache enable="false" />
+		<minify enable="true" />
+		<compress enable="false" method="gzip" level="5" />
+		<mergeFiles enable="false" />
+	</performance>
+
+	<!--
+	[Local only]
+	Default settings about the engine used to store resource files. These
+	settings are used by the Resource package.
+	-->
+	<resources>
+		<!--
+		The "storage" element can have the following attributes:
+
+		- engine: the value can be "files" (default) or "session".
+
+		- lifetime: the lifetime (in seconds) of a resource file when it is
+		cached. After this time, the resource must be renewed in the client
+		cache. This is only used when the resource file is cached in the client
+		cache.
+		-->
+		<storage engine="files" lifetime="3600" />
+
+		<!--
+		URL of a public controller used to handle resources requests. The
+		controller must be located in the controller's public package
+		(/Optimuz/apps/APPLICATION_NAME/layers/control/page).
+
+		Example of a valid value for this setting is "/resource" (without
+		quotes). In this case there must be a controller named
+		ResourceController in the path
+		/Optimuz/apps/APPLICATION_NAME/layers/control/page, so complete path is
+		/Optimuz/apps/APPLICATION_NAME/layers/control/page/ResourceController.php.
+
+		If no controller is specified, than resource files will be loaded
+		directly from the resources directory
+		(/Optimuz/apps/APPLICATION_NAME/layers/view/resource).
+		-->
+		<controller></controller>
+	</resources>
+
+	<!--
+	[Global and local]
+	Session settings used by the application.
+	-->
+	<session>
+		<!--
+		Enable/disable the session auto start in the first time the user visit
+		the application.
+		-->
+		<autoStart enable="true" />
+
+		<!--
+		Session's save path. This path is relative to the application directory
+		(/Optimuz/apps/APPLICATION_NAME/). So if the value of this setting is
+		"some/folder/" and the current application is "default", the session
+		files will be saved on "/Optimuz/apps/default/some/folder/". If this
+		setting is empty, the global session's path will be used
+		(/Optimuz/session/).
+		-->
+		<savePath value="session/" />
+
+		<!--
+		Settings related to the session lifetime.
+
+		The attribute 'value' sets the default session expiration time in
+		minutes. If its value is 0 (zero) then the validation to check whether
+		the session is still valid will be disabled. In other words, the session
+		is meant to be "always valid", though it can still be closed if the PHP
+		GC finds that the session file is too older.
+
+		The attribute 'autoUpdate' sets whether the session timeout must to be
+		updated automatically on each request. If it is set to true, on every
+		request the session start time will be set to the current time,
+		extending the session lifetime. If it is set to false, the session start
+		time will not be updated and the session itself will be closed after the
+		timeout specified by the attribute 'value'. Default for this attribute
+		is true.
+		-->
+		<timeout time="120" autoUpdate="true" />
+
+		<!--
+		Settings related to the session's cookie.
+		-->
+		<cookie>
+			<!--
+			Custom name used for the session cookie.
+
+			If this setting is empty, then the default name will be used. The
+			default name for the session cookie is the application's name.
+
+			If the application is not using its own session (i.e., the savePath
+			setting above is not set) the cookie name will be the PHP default.
+			-->
+			<name></name>
+
+			<!--
+			If the encrypt parameter is set, then the name will be encrypted using
+			the class Serial from the Core package. The encrypted name will have
+			two blocks of five digits.
+			-->
+			<encrypt>false</encrypt>
+		</cookie>
+	</session>
+
+	<!--
+	[Global and local]
+	Default formats.
+	-->
+	<format>
+		<currency>R$</currency>
+	</format>
+
+	<!--
+	[Global and local]
+	SMTP settings.
+	-->
+	<smtp enable="true">
+		<host>
+			<!--
+			Settings about the local host. The local host is the one where the
+			application is running.
+			-->
+			<local>
+				<name>localhost</name>
+			</local>
+
+			<!--
+			Settings about the host where the SMTP server is running.
+			-->
+			<remote>
+				<name>mail.legalway.com.br</name>
+				<port>25</port>
+				<security></security>
+			</remote>
+		</host>
+		<!--
+		Settings related to SMTP authentication.
+		-->
+		<user>nao.responda@legalway.com.br</user>
+		<pwd>Lw@dA506</pwd>
+		<timeout>30</timeout>
+	</smtp>
+<!--	<smtp enable="true">
+		<host>
+
+			Settings about the local host. The local host is the one where the
+			application is running.
+
+			<local>
+				<name></name>
+			</local>
+
+
+			Settings about the host where the SMTP server is running.
+
+			<remote>
+				<name>br440.hostgator.com.br</name>
+				<port>465</port>
+				<security>ssl</security>
+			</remote>
+		</host>
+
+		Settings related to SMTP authentication.
+
+		<user>nao.responda@legalway.com.br</user>
+		<pwd>Lw@dA506</pwd>
+		<timeout>10</timeout>
+	</smtp>	-->
+
+	<!--
+	[Local only]
+	System access's settings.
+
+	- enable: set to true to enable the internal system access manager, or false
+	to disable it.
+
+	- handler: sets the handler from where the access definitions (roles and
+	permissions) are loaded. The value can be 'database' or 'files'.
+
+	If the handler is set to database, you must specify the models for the role
+	and permissions. This is done using the <database> block. See below for
+	more details.
+
+	But if the handler is set to files, you must edit the XML files in the
+	systemAccess directory. These files are: map.xml, permissions.xml and
+	roles.xml. See each file for more details on how to setup them.
+	-->
+	<systemAccess enable="true" handler="database">
+		<!--
+		[Local only]
+		This section defines the models used to retrive the roles and
+		permissions from the database. The framework will use the API enable at
+		the bottom of this file, on the section <orm>. By now, the supported
+		engines are Propel and NotORM.
+
+		The models parameters must be set as they are in the database. Both the
+		role and the permission elements has the same parameters. They are:
+
+		- modelName: model name, more precisely the table name on the
+		database.
+
+		- primaryKey: column which is the primary key (e.g. id).
+
+		- labelName: column which represents the role name (e.g. name).
+		-->
+		<database>
+			<role tableName="perfil" primaryKey="id" labelName="slug" />
+			<permission tableName="permissao" primaryKey="id" labelName="slug" />
+		</database>
+
+
+		<!--
+		[Local only]
+
+		Sets a custom validator that can be used in the access validation
+			process. This validator is a class with a static method named
+		-->
+		<customValidator></customValidator>
+	</systemAccess>
+
+	<!--
+	[Local only]
+	Settings related to threads.
+	-->
+	<threading>
+		<!--
+		If this option is true, then the threads will use the framework's log
+		to log their actions. Disable it for performance improvement.
+		-->
+		<log enable="true" />
+
+		<!--
+		Limit for simultaneos threads. If this limit is zero, than you can run
+		an unlimited number of threads at the same time. Otherwise, if this
+		value is greater then zero, you can only run threads upon to that limit.
+		-->
+		<limit value="0" />
+	</threading>
+
+	<!--
+	[Global and local]
+	Settings related to the package Html. This package extends the DOM extension
+	from the PHP core.
+	-->
+	<htmlElements>
+		<!--
+		The Html package can save its objects in the session, so an object is
+		created only once.
+		-->
+		<session>
+			<!--
+			This setting enables or disables the session usage to store Html
+			objects.
+
+			If this setting is turned off then objects must to be created for
+			every request. Turning it on can bring performance boost.
+			-->
+			<saveState enable="false" />
+
+			<!--
+			If the session is enabled to store Html objects, then they can be
+			automaticaly restored for use in the script.
+
+			If this setting is set to false, then you must restore every object
+			saved to the session. To restore saved objects use the static method
+			HtmlSate::restore($elementId) giving the element's ID. Otherwise,
+			if this setting is set to true, each object will be auto-restored
+			by the local bootstrap file (which can be located at
+			/Optimuz/APPLICATION_NAME/config/bootstrap/local.php).
+			-->
+			<autoLoadSavedState enable="true" />
+		</session>
+	</htmlElements>
+
+	<!--
+	[Global and local]
+	ORM settings.
+	-->
+	<orm>
+		<!--
+		Here is a list of ORM engines that can be used by the apps. The default
+		engine is Propel.
+		-->
+		<propel enable="true" />
+		<notorm enable="false">
+			<connection dsn="mysql:dbname=" user="root" password="" />
+		</notorm>
+	</orm>
+	<api>
+		<versaoapk>10</versaoapk>
+		<privatekey>wBx/58XPxd6L9jPV0n4boA==</privatekey>
+		<secretkey>7469df716cece92f980a3bb0786969d1c042ce89047e376d14df89175b3c7cf6</secretkey>
+	</api>
+
+</settings>

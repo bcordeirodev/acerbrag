@@ -1,0 +1,102 @@
+html, body{
+	margin: 0;
+	padding: 0;
+}
+.mail{
+	font-family: 'Segoe UI Light', Verdana, Geneva, sans-serif;
+	font-size: 16px;
+	line-height: 1.5;
+	letter-spacing: 1px;
+	text-align: center;
+	color: #424D5D;
+	background: #af923a;
+	width: 100%;
+	border-spacing: 0;
+	border-collapse: collapse;
+}
+.mail > tr > td{
+	padding: 80px 0;
+}
+.mail-wrapper{
+	width: 80%;
+	max-width: 600px;
+	background: #fff;
+}
+.mail-wrapper > *{
+	max-width: 80%;
+	padding: 60px 0 0;
+	margin: auto;
+	text-align: justify;
+}
+.mail-wrapper img{
+	width: auto;
+	max-width: 100%;
+}
+.mail-body{
+	padding-top: 30px;
+	padding-bottom: 60px;
+}
+.mail-body p{
+	padding: 0;
+}
+.mail-body p + p{
+	padding-top: 30px;
+}
+.mail-body table{
+	width: 100%;
+}
+.mail-body h2{
+	font-weight: bold;
+	font-size: 48px;
+	padding: 0;
+	margin: 70px 0 0;
+}
+.mail-body h3{
+	font-weight: bold;
+	font-size: 28px;
+	margin-bottom: 4px;
+}
+.mail-body table td{
+	width: 50%;
+	padding-right: 30px;
+}
+.mail-body table td + td{
+	padding-right: 0;
+	padding-left: 30px;
+}
+.mail-body table tr + tr td{
+	padding-top: 30px;
+}
+.mail-body blockquote{
+	border-left: 4px solid #ccc;
+	margin: 40px 0 20px 40px;
+	padding-left: 30px;
+	font-family: 'Segoe UI', Verdana, Geneva, sans-serif;
+	font-style: italic;
+	color: #607087;
+}
+.mail-logo{
+	width: 100% !important;
+	max-width: 100% !important;
+	line-height: 1;
+	background-color: black;
+	padding: 15px 0 !important;
+	box-sizing: border-box;
+	color: #fff;
+	text-align: center;
+}
+.mail-logo img{
+	margin: 0 0 0 20px;
+	line-height: 0;
+	max-width: 100%;
+	height: 45px;
+}
+.mail-infos{
+	/*background: #af923a;*/
+	max-width: 100% !important;
+	text-align: center;
+	padding-top: 40px;
+	font-size: 12px;
+	line-height: 1.2;
+	padding-bottom: 15px;
+}

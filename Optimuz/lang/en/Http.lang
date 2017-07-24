@@ -1,0 +1,13 @@
+error.missingUrl = The URL was not specified
+error.missingProtocol = No protocol specified for the URL
+error.invalidMethod = The request method %s is unsupported
+error.invalidProxyAuthResponse = Unable to authenticate to the proxy server: %s
+error.invalidProxyAuthMethod = The authentication method supplied by the proxy server is invalid
+error.proxyAuthNotImplemented = The authentication method supplied by the proxy server is not implemented
+error.instanceViolation = Only one instance of the Http classes request/response is allowed by request
+error.invalidDownload = The specified file for download is invalid
+error.invalidCacheTime = The "time" parameter received an invalid value
+error.fileNotFound = The file "%s" does not exist
+error.invalidUrl = The URL "%s" is invalid
+error.invalidRedirection = The requested URL "%s" returned the status "%s", but the Location header was not found
+error.invalidRedirectionUrl = The redirect URL "%s" is invalid

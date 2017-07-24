@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE settings SYSTEM "http://optimuz.interativadesenvolvimento.com.br/dtd/validation.dtd">
+<form method="post" lang="">
+	<custom-rules>
+		<rule name="phone" regex="/\d{2} \d{4}-\d{4,5}/" errorMessage="O formato do telefone deve ser 00 00000-0000" />
+		<rule name="cep" regex="/\d{5}-\d{3}/" errorMessage="O formato do CEP deve ser 00000-000" />
+		<rule name="long" regex="/^-?\d+(\.\d+)?$/" errorMessage="A longitude não foi informada corretamente" />
+		<rule name="lat" regex="/^-?\d+(\.\d+)?$/" errorMessage="A latitude não foi informada corretamente" />
+	</custom-rules>
+
+	<input name="nome-fantasia" label="Nome fantasia">
+		<rule name="required" />
+	</input>
+	<input name="razao-social" label="Razão social">
+		<rule name="required" />
+	</input>
+	<input name="responsavel-legal" label="Responsável legal">
+		<rule name="discard" />
+	</input>
+	<input name="responsavel-comunicacao" label="Responsavel comunicação">
+		<rule name="discard" />
+	</input>
+	<input name="cnpj" label="CNPJ">
+		<rule name="required" />
+	</input>
+	<input name="site" label="Site">
+		<rule name="discard" />
+	</input>
+	<input name="email" label="CNPJ">
+		<rule name="required" />
+	</input>
+	<input name="telefone" label="Site">
+		<rule name="discard" />
+	</input>
+
+	<input name="sobre-nos" label="Sobre nós">
+		<rule name="discard" />
+	</input>
+	<input name="missao" label="Missão">
+		<rule name="discard" />
+	</input>
+	<input name="visao" label="Visão">
+		<rule name="discard" />
+	</input>
+	<input name="valores" label="Valores">
+		<rule name="discard" />
+	</input>
+
+	<input name="cep" label="CEP">
+		<rule name="cep" />
+		<rule name="required" />
+	</input>
+	<input name="logradouro" label="Logradouro">
+		<rule name="discard" />
+		<rule name="required" />
+	</input>
+	<input name="longitude" label="Longitude">
+		<rule name="long" />
+		<rule name="required" />
+	</input>
+	<input name="latitude" label="Latitude">
+		<rule name="lat" />
+		<rule name="required" />
+	</input>
+	<input name="numero" label="Numero">
+		<rule name="number" />
+		<rule name="discard" />
+	</input>
+	<input name="complemento" label="Complemento">
+		<rule name="discard" />
+	</input>
+	<input name="uf" label="UF">
+		<rule name="number" />
+		<rule name="required" />
+	</input>
+	<input name="bairro" label="Bairro">
+		<rule name="discard" />
+		<rule name="required" />
+	</input>
+	<input name="cidade" label="Cidade">
+		<rule name="number" />
+		<rule name="required" />
+	</input>
+
+	<input name="arquivo" label="">
+		<rule name="discard" />
+	</input>
+	<input name="nome-arquivo" label="">
+		<rule name="discard" />
+	</input>
+</form>

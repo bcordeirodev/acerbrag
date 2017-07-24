@@ -1,0 +1,19 @@
+# Errors
+error.general = Ocorreu um erro durante o login. Nossa equipe técnica já foi notificada.
+error.wrongUsername = O nome de usuário informado não existe
+error.wrongPassword = A senha informada está incorreta
+error.roleError.log = Não foi possível encontrar o tipo de acesso do usuário "%s" durante o login
+error.roleError.view = Ocorreu um erro com o seu login. Por favor, entre em contato com o administrador do sistema para checar este problema.
+
+# Messages
+msg.pageTitle.login = Entrar no Sistema Sigma Contábil
+
+msg.label.user = Nome de usuário
+msg.label.pwd = Senha
+
+#msg.warning.removeContact =
+
+msg.button.cancel = Cancelar
+msg.button.enter = Entrar
+
+#msg.success.delete = 

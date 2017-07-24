@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE settings SYSTEM "http://optimuz.interativadesenvolvimento.com.br/dtd/validation.dtd">
+<form method="get" lang="">
+	<input name="q" label="Termo de busca">
+		<rule name="discard" />
+	</input>
+	<input name="second" label="Termo auxiliar de busca">
+		<rule name="discard" />
+	</input>
+</form>

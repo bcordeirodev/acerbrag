@@ -1,0 +1,6 @@
+resource.error.invalidResource = Requisição ao arquivo %s retornou com código %s
+resource.error.invalidResourceFile = O arquivo %s é inválido
+resource.error.invalidUid = Foi passado um identificador de recurso (UID) inválido
+resource.error.invalidParams = Foram passados parâmetros errados para carregar um recurso
+resource.error.invalidStorageEngine = O mecanismo de armazenagem (%s) dos arquivos de recurso é inválido
+resource.error.uidNotFound = O UID "%s" não foi encontrado

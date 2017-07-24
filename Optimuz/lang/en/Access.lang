@@ -1,0 +1,19 @@
+# Errors
+error.general = There was an error with your login. Our technical team was already notified.
+error.wrongUsername = The specified user name does not exist
+error.wrongPassword = The specified password is wrong
+error.roleError.log = Unable to find the role of the user "%s" when logging in
+error.roleError.view = There was a problem with your login. Please, contact the system administrator to check the problem.
+
+# Messages
+msg.pageTitle.login = Login to Sigma Accounting System
+
+msg.label.user = User name
+msg.label.pwd = Password
+
+#msg.warning.removeContact = 
+
+msg.button.cancel = Cancel
+msg.button.enter = Enter
+
+#msg.success.delete = 

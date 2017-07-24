@@ -1,0 +1,77 @@
+22:38:34 [ERROR]: (# 0) exception 'PropelException' with message 'Call to undefined method: setEmail' in C:\wamp64\www\plug3s\Optimuz\orm\Propel\runtime\lib\om\BaseObject.php:400
+Stack trace:
+#0 C:\wamp64\www\plug3s\Optimuz\apps\default\layers\control\page\InstituicaoController.php(612): BaseObject->__call('setEmail', Array)
+#1 C:\wamp64\www\plug3s\Optimuz\apps\default\layers\control\page\InstituicaoController.php(612): Igreja->setEmail('joaos23ilva@hot...')
+#2 C:\wamp64\www\plug3s\Optimuz\lib\Application\Application.php(331): InstituicaoController->salvar()
+#3 C:\wamp64\www\plug3s\Optimuz\lib\Application\Application.php(220): Application->run('InstituicaoCont...', 'salvar', NULL, 'InstituicaoCont...', Array)
+#4 C:\wamp64\www\plug3s\index.php(58): Application::initialize('C:\\wamp64\\www\\p...')
+#5 {main} (Linha 400, Arquivo C:\wamp64\www\plug3s\Optimuz\orm\Propel\runtime\lib\om\BaseObject.php)
+
+
+POST:
+array (
+  'nome-fantasia' => '1321312312',
+  'razao-social' => '3123211232',
+  'email' => 'joaos23ilva@hotmai.com',
+  'telefone' => '31 2312-3123',
+  'responsavel-legal' => '',
+  'responsavel-comunicacao' => '',
+  'cnpj' => '12.312.312/3123-21',
+  'site' => '3123123212',
+  'sobre-nos' => '13212312',
+  'missao' => '3123212312',
+  'visao' => '123123',
+  'valores' => '21312312312312312',
+  'cep' => '72210-088',
+  'latitude' => '-12.859',
+  'longitude' => '-47.880',
+  'logradouro' => 'QNM 8 Conjunto H',
+  'numero' => '12312',
+  'complemento' => '23112213213',
+  'uf' => '7',
+  'cidade' => '1724',
+  'bairro' => 'Ceilândia Norte (Ceilândia)',
+  'nome-arquivo' => 
+  array (
+    0 => '20161014_58006bfd76dcf - Copia.png',
+    1 => '20161014_58006bfd76dcf.png',
+    2 => 'aqui.png',
+  ),
+  'arquivo' => 
+  array (
+    0 => '360a9bf408-f9ac3a8c32-e0cab2eec8-d89bef4ff3.png',
+    1 => 'c506060479-bde10e2172-168ee4880b-951469f298.png',
+    2 => 'b81d23f78d-fc55f4456e-a3c469d69c-6450828e2b.png',
+  ),
+  'cliente-nome-completo' => '',
+  'cliente-cpf' => '',
+  'cliente-rg' => '',
+  'cliente-celular' => '',
+  'cliente-telefone' => '',
+  'cliente-email' => '',
+)
+
+GET:
+array (
+  '1494725911555' => '',
+)
+
+SESSION:
+array (
+  'default_time' => 1494725911,
+  'SystemAccessLogin_default' => 'O:17:"SystemAccessLogin":5:{s:7:"' . "\0" . '*' . "\0" . 'name";s:23:"bcordeiro.dev@gmail.com";s:7:"' . "\0" . '*' . "\0" . 'role";O:16:"SystemAccessRole":5:{s:5:"' . "\0" . '*' . "\0" . 'id";i:2;s:7:"' . "\0" . '*' . "\0" . 'name";s:15:"usuario-regular";s:8:"' . "\0" . '*' . "\0" . 'label";s:15:"Usuario Regular";s:10:"' . "\0" . '*' . "\0" . 'isAdmin";b:0;s:9:"' . "\0" . '*' . "\0" . 'negate";b:0;}s:14:"' . "\0" . '*' . "\0" . 'permissions";O:9:"ArrayList":4:{s:8:"' . "\0" . '*' . "\0" . 'array";a:0:{}s:9:"' . "\0" . '*' . "\0" . 'locked";b:0;s:13:"' . "\0" . '*' . "\0" . 'strictType";N;s:11:"' . "\0" . '*' . "\0" . 'iterator";O:17:"ArrayListIterator":1:{s:8:"' . "\0" . '*' . "\0" . 'array";R:10;}}s:7:"' . "\0" . '*' . "\0" . 'data";O:9:"ArrayList":4:{s:8:"' . "\0" . '*' . "\0" . 'array";a:2:{s:6:"userId";i:73;s:8:"userName";s:14:"Bruno Cordeiro";}s:9:"' . "\0" . '*' . "\0" . 'locked";b:0;s:13:"' . "\0" . '*' . "\0" . 'strictType";N;s:11:"' . "\0" . '*' . "\0" . 'iterator";O:17:"ArrayListIterator":1:{s:8:"' . "\0" . '*' . "\0" . 'array";R:15;}}s:14:"' . "\0" . '*' . "\0" . 'persistence";O:23:"SystemAccessPersistence":2:{s:7:"' . "\0" . '*' . "\0" . 'data";i:73;s:7:"' . "\0" . '*' . "\0" . 'time";O:4:"Date":11:{s:15:"' . "\0" . 'Date' . "\0" . 'timestamp";i:1497296658;s:9:"' . "\0" . 'Date' . "\0" . 'day";s:2:"12";s:11:"' . "\0" . 'Date' . "\0" . 'month";s:2:"06";s:10:"' . "\0" . 'Date' . "\0" . 'year";s:4:"2017";s:10:"' . "\0" . 'Date' . "\0" . 'hour";s:2:"16";s:12:"' . "\0" . 'Date' . "\0" . 'minute";s:2:"44";s:12:"' . "\0" . 'Date' . "\0" . 'second";s:2:"18";s:16:"' . "\0" . 'Date' . "\0" . 'dateFormat";s:5:"d/m/Y";s:16:"' . "\0" . 'Date' . "\0" . 'timeFormat";s:5:"H:i:s";s:8:"' . "\0" . '*' . "\0" . 'error";N;s:17:"' . "\0" . 'Object' . "\0" . 'className";N;}}}',
+)
+
+Trace:
+#0 C:\wamp64\www\plug3s\Optimuz\apps\default\layers\control\page\InstituicaoController.php(612): BaseObject->__call('setEmail', Array)
+#1 C:\wamp64\www\plug3s\Optimuz\apps\default\layers\control\page\InstituicaoController.php(612): Igreja->setEmail('joaos23ilva@hot...')
+#2 C:\wamp64\www\plug3s\Optimuz\lib\Application\Application.php(331): InstituicaoController->salvar()
+#3 C:\wamp64\www\plug3s\Optimuz\lib\Application\Application.php(220): Application->run('InstituicaoCont...', 'salvar', NULL, 'InstituicaoCont...', Array)
+#4 C:\wamp64\www\plug3s\index.php(58): Application::initialize('C:\\wamp64\\www\\p...')
+#5 {main}
+
+URI: /plug3s/instituicao/salvar?1494725911555
+Host: localhost
+IP da requisição: ::1:8944
+Browser: Mozilla/5.0 (Windows NT 10.0; WOW64; rv:53.0) Gecko/20100101 Firefox/53.0
+------------------------------------------------------------------------------------------------------------------

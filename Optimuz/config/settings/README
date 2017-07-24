@@ -1,0 +1,19 @@
+/**
+ * This is the application configuration folder, and all settings related to the
+ * framework must be setted here.
+ *
+ * The framework supports two configuration styles: XML and properties file. Any
+ * of these can be used and you can set which to use in the bootstrap file
+ * (located in /Optimuz/config/). The parameters are the same in both files.
+ *
+ *
+ *
+ *
+ *
+ *
+ *
+ *
+ *
+ *
+ * @package Configuration
+ */

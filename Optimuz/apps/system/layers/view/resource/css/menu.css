@@ -1,0 +1,90 @@
+/* basic structure */
+.menu{
+	position:relative;
+	height:30px;
+	font-size:90%;
+	display:block;
+	z-index:4;
+	background-color:#F7F2F7;
+}
+.menu a{
+	color:#000;
+	font-weight:700;
+	text-decoration:none;
+	z-index:50;
+	display:block;
+	padding:8px;
+	height:100%;
+	position:relative;
+}
+.menu div{
+	position:absolute;
+	z-index:100;
+}
+
+/* list definitions */
+.menu ul{
+	padding:0;
+	margin:0;
+	list-style:none;
+	clear:left;
+}
+.menu > div > ul > li li ul{
+	position:absolute;
+	left:100%;
+	top:0;
+	display:none;
+}
+
+/* items definitions */
+.menu li{
+	height:30px;
+	overflow:hidden;
+	position:relative;
+	margin:0;
+	padding:0;
+}
+.menu > div > ul > li{
+	float:left;
+}
+.menu > div > ul > li li{
+	height:auto;
+	overflow:visible;
+}
+.menu span{
+	position:absolute;
+	top:0;
+	left:0;
+	width:100%;
+	height:100%;
+	display:block;
+	background-color:#F7F2F7;
+	z-index:1;
+}
+.menu ul + span{
+	/*background-image:url(/resource/system/imgs/arrow.gif);
+	background-repeat:no-repeat;
+	background-position:98% 89%;*/
+}
+
+/* events */
+.menu li:hover{
+	height:auto;
+	overflow:visible;
+	background-image:none;
+}
+.menu > div > ul > li li:hover > span{
+	/*filter:alpha(opacity=100);
+	opacity:1;
+	-moz-opacity:1;
+	-webkit-opacity:1;*/
+	background-color:#BAC8D0;
+}
+.menu > div > ul > li:hover{
+	/*background-image:url(/resource/system/imgs/menu-bg-over.jpg);
+	background-position:left top;*/
+	background-color:#BAC8D0;
+}
+.menu > div > ul > li li:hover > ul{
+	display:block;
+}

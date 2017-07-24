@@ -1,0 +1,145 @@
+11:04:54 [ERROR]: (# 0) Error [8]: {c50f9-6dac4} Undefined property: AppMenuComponent::$lang (Linha 64, Arquivo C:\wamp\www\acerbrag\Optimuz\apps\default\components\AppMenuComponent.php)
+
+
+POST:
+array (
+)
+
+GET:
+array (
+)
+
+SESSION:
+array (
+  'SystemAccessLogin_default' => 'O:17:"SystemAccessLogin":5:{s:7:"' . "\0" . '*' . "\0" . 'name";s:35:"instituicao.homologacao@hotmail.com";s:7:"' . "\0" . '*' . "\0" . 'role";O:16:"SystemAccessRole":5:{s:5:"' . "\0" . '*' . "\0" . 'id";i:2;s:7:"' . "\0" . '*' . "\0" . 'name";s:11:"instituicao";s:8:"' . "\0" . '*' . "\0" . 'label";s:11:"instituicao";s:10:"' . "\0" . '*' . "\0" . 'isAdmin";b:0;s:9:"' . "\0" . '*' . "\0" . 'negate";b:0;}s:14:"' . "\0" . '*' . "\0" . 'permissions";O:9:"ArrayList":4:{s:8:"' . "\0" . '*' . "\0" . 'array";a:12:{i:2;O:22:"SystemAccessPermission":3:{s:5:"' . "\0" . '*' . "\0" . 'id";i:2;s:7:"' . "\0" . '*' . "\0" . 'name";s:20:"gerenciar-permissoes";s:9:"' . "\0" . '*' . "\0" . 'negate";b:0;}i:10;O:22:"SystemAccessPermission":3:{s:5:"' . "\0" . '*' . "\0" . 'id";i:10;s:7:"' . "\0" . '*' . "\0" . 'name";s:17:"gerenciar-filiais";s:9:"' . "\0" . '*' . "\0" . 'negate";b:0;}i:11;O:22:"SystemAccessPermission":3:{s:5:"' . "\0" . '*' . "\0" . 'id";i:11;s:7:"' . "\0" . '*' . "\0" . 'name";s:17:"gerenicar-membros";s:9:"' . "\0" . '*' . "\0" . 'negate";b:0;}i:12;O:22:"SystemAccessPermission":3:{s:5:"' . "\0" . '*' . "\0" . 'id";i:12;s:7:"' . "\0" . '*' . "\0" . 'name";s:18:"gerenciar-usuarios";s:9:"' . "\0" . '*' . "\0" . 'negate";b:0;}i:13;O:22:"SystemAccessPermission":3:{s:5:"' . "\0" . '*' . "\0" . 'id";i:13;s:7:"' . "\0" . '*' . "\0" . 'name";s:16:"gerenciar-agenda";s:9:"' . "\0" . '*' . "\0" . 'negate";b:0;}i:14;O:22:"SystemAccessPermission":3:{s:5:"' . "\0" . '*' . "\0" . 'id";i:14;s:7:"' . "\0" . '*' . "\0" . 'name";s:17:"gerenciar-noticia";s:9:"' . "\0" . '*' . "\0" . 'negate";b:0;}i:15;O:22:"SystemAccessPermission":3:{s:5:"' . "\0" . '*' . "\0" . 'id";i:15;s:7:"' . "\0" . '*' . "\0" . 'name";s:17:"gerenciar-podcast";s:9:"' . "\0" . '*' . "\0" . 'negate";b:0;}i:16;O:22:"SystemAccessPermission":3:{s:5:"' . "\0" . '*' . "\0" . 'id";i:16;s:7:"' . "\0" . '*' . "\0" . 'name";s:16:"gerenciar-videos";s:9:"' . "\0" . '*' . "\0" . 'negate";b:0;}i:17;O:22:"SystemAccessPermission":3:{s:5:"' . "\0" . '*' . "\0" . 'id";i:17;s:7:"' . "\0" . '*' . "\0" . 'name";s:13:"gerenciar-pgs";s:9:"' . "\0" . '*' . "\0" . 'negate";b:0;}i:18;O:22:"SystemAccessPermission":3:{s:5:"' . "\0" . '*' . "\0" . 'id";i:18;s:7:"' . "\0" . '*' . "\0" . 'name";s:23:"gerenciar-pedido-oracao";s:9:"' . "\0" . '*' . "\0" . 'negate";b:0;}i:19;O:22:"SystemAccessPermission":3:{s:5:"' . "\0" . '*' . "\0" . 'id";i:19;s:7:"' . "\0" . '*' . "\0" . 'name";s:21:"gerenciar-ministerios";s:9:"' . "\0" . '*' . "\0" . 'negate";b:0;}i:20;O:22:"SystemAccessPermission":3:{s:5:"' . "\0" . '*' . "\0" . 'id";i:20;s:7:"' . "\0" . '*' . "\0" . 'name";s:21:"gerenciar-instituicao";s:9:"' . "\0" . '*' . "\0" . 'negate";b:0;}}s:9:"' . "\0" . '*' . "\0" . 'locked";b:0;s:13:"' . "\0" . '*' . "\0" . 'strictType";N;s:11:"' . "\0" . '*' . "\0" . 'iterator";O:17:"ArrayListIterator":1:{s:8:"' . "\0" . '*' . "\0" . 'array";R:10;}}s:7:"' . "\0" . '*' . "\0" . 'data";O:9:"ArrayList":4:{s:8:"' . "\0" . '*' . "\0" . 'array";a:3:{s:6:"userId";i:74;s:8:"userName";s:27:"Instituição Homologação";s:12:"previousUser";i:73;}s:9:"' . "\0" . '*' . "\0" . 'locked";b:0;s:13:"' . "\0" . '*' . "\0" . 'strictType";N;s:11:"' . "\0" . '*' . "\0" . 'iterator";O:17:"ArrayListIterator":1:{s:8:"' . "\0" . '*' . "\0" . 'array";R:63;}}s:14:"' . "\0" . '*' . "\0" . 'persistence";N;}',
+)
+
+Trace:
+#0 C:\wamp\www\acerbrag\Optimuz\apps\default\components\AppMenuComponent.php(64): Error::handleScriptError(8, 'Undefined prope...', 'C:\wamp\www\ace...', 64, Array)
+#1 C:\wamp\www\acerbrag\Optimuz\apps\default\layers\view\DefaultPageView.php(137): AppMenuComponent->load('siteNavigation/...')
+#2 [internal function]: DefaultPageView->onMenuCreate(Object(AppMenuComponent))
+#3 C:\wamp\www\acerbrag\Optimuz\lib\Core\Caller.php(109): call_user_func_array(Array, Array)
+#4 C:\wamp\www\acerbrag\Optimuz\lib\Html\Element\HtmlEvent.php(140): Caller::call(Array, Array)
+#5 C:\wamp\www\acerbrag\Optimuz\lib\Html\HtmlParser.php(255): HtmlEvent->trigger('create', Array)
+#6 C:\wamp\www\acerbrag\Optimuz\lib\Html\HtmlParser.php(180): HtmlParser->setEventHandler('create', 'view::onMenuCre...', Object(AppMenuComponent), Object(AppMenuComponent), true)
+#7 C:\wamp\www\acerbrag\Optimuz\lib\Html\HtmlParser.php(208): HtmlParser->processHtmlElement(Object(HtmlElement))
+#8 C:\wamp\www\acerbrag\Optimuz\lib\Html\HtmlParser.php(208): HtmlParser->processHtmlElement(Object(HtmlElement))
+#9 C:\wamp\www\acerbrag\Optimuz\lib\Html\HtmlParser.php(208): HtmlParser->processHtmlElement(Object(HtmlElement))
+#10 C:\wamp\www\acerbrag\Optimuz\lib\Html\HtmlParser.php(208): HtmlParser->processHtmlElement(Object(HtmlElement))
+#11 C:\wamp\www\acerbrag\Optimuz\lib\Html\HtmlParser.php(73): HtmlParser->processHtmlElement(Object(HtmlElement))
+#12 C:\wamp\www\acerbrag\Optimuz\lib\View\DefaultView.php(792): HtmlParser->parse(Object(HtmlDocument), '<!DOCTYPE html>...')
+#13 C:\wamp\www\acerbrag\Optimuz\apps\default\layers\view\DefaultPageView.php(47): DefaultView->initializePage(Array)
+#14 C:\wamp\www\acerbrag\Optimuz\apps\default\layers\control\page\DashboardController.php(30): DefaultPageView->initializePage()
+#15 C:\wamp\www\acerbrag\Optimuz\lib\Application\Application.php(331): DashboardController->index()
+#16 C:\wamp\www\acerbrag\Optimuz\lib\Application\Application.php(220): Application->run('DashboardContro...', 'index', NULL, 'DashboardContro...', Array)
+#17 C:\wamp\www\acerbrag\index.php(58): Application::initialize('C:\wamp\www\ace...')
+#18 {main}
+
+URI: /acerbrag/dashboard
+Host: localhost
+IP da requisiÃ§Ã£o: 127.0.0.1:2336
+Browser: Mozilla/5.0 (Windows NT 6.1; WOW64; rv:55.0) Gecko/20100101 Firefox/55.0
+------------------------------------------------------------------------------------------------------------------
+11:06:19 [ERROR]: (# 0) Error [205]: {5d211-4b498} O controle MembroController nÃ£o existe ou nÃ£o pode ser acessado pela URL (Linha 350, Arquivo C:\wamp\www\acerbrag\Optimuz\lib\Application\Application.php)
+
+
+POST:
+array (
+)
+
+GET:
+array (
+)
+
+SESSION:
+array (
+  'SystemAccessLogin_default' => 'O:17:"SystemAccessLogin":5:{s:7:"' . "\0" . '*' . "\0" . 'name";s:35:"instituicao.homologacao@hotmail.com";s:7:"' . "\0" . '*' . "\0" . 'role";O:16:"SystemAccessRole":5:{s:5:"' . "\0" . '*' . "\0" . 'id";i:2;s:7:"' . "\0" . '*' . "\0" . 'name";s:11:"instituicao";s:8:"' . "\0" . '*' . "\0" . 'label";s:11:"instituicao";s:10:"' . "\0" . '*' . "\0" . 'isAdmin";b:0;s:9:"' . "\0" . '*' . "\0" . 'negate";b:0;}s:14:"' . "\0" . '*' . "\0" . 'permissions";O:9:"ArrayList":4:{s:8:"' . "\0" . '*' . "\0" . 'array";a:12:{i:2;O:22:"SystemAccessPermission":3:{s:5:"' . "\0" . '*' . "\0" . 'id";i:2;s:7:"' . "\0" . '*' . "\0" . 'name";s:20:"gerenciar-permissoes";s:9:"' . "\0" . '*' . "\0" . 'negate";b:0;}i:10;O:22:"SystemAccessPermission":3:{s:5:"' . "\0" . '*' . "\0" . 'id";i:10;s:7:"' . "\0" . '*' . "\0" . 'name";s:17:"gerenciar-filiais";s:9:"' . "\0" . '*' . "\0" . 'negate";b:0;}i:11;O:22:"SystemAccessPermission":3:{s:5:"' . "\0" . '*' . "\0" . 'id";i:11;s:7:"' . "\0" . '*' . "\0" . 'name";s:17:"gerenicar-membros";s:9:"' . "\0" . '*' . "\0" . 'negate";b:0;}i:12;O:22:"SystemAccessPermission":3:{s:5:"' . "\0" . '*' . "\0" . 'id";i:12;s:7:"' . "\0" . '*' . "\0" . 'name";s:18:"gerenciar-usuarios";s:9:"' . "\0" . '*' . "\0" . 'negate";b:0;}i:13;O:22:"SystemAccessPermission":3:{s:5:"' . "\0" . '*' . "\0" . 'id";i:13;s:7:"' . "\0" . '*' . "\0" . 'name";s:16:"gerenciar-agenda";s:9:"' . "\0" . '*' . "\0" . 'negate";b:0;}i:14;O:22:"SystemAccessPermission":3:{s:5:"' . "\0" . '*' . "\0" . 'id";i:14;s:7:"' . "\0" . '*' . "\0" . 'name";s:17:"gerenciar-noticia";s:9:"' . "\0" . '*' . "\0" . 'negate";b:0;}i:15;O:22:"SystemAccessPermission":3:{s:5:"' . "\0" . '*' . "\0" . 'id";i:15;s:7:"' . "\0" . '*' . "\0" . 'name";s:17:"gerenciar-podcast";s:9:"' . "\0" . '*' . "\0" . 'negate";b:0;}i:16;O:22:"SystemAccessPermission":3:{s:5:"' . "\0" . '*' . "\0" . 'id";i:16;s:7:"' . "\0" . '*' . "\0" . 'name";s:16:"gerenciar-videos";s:9:"' . "\0" . '*' . "\0" . 'negate";b:0;}i:17;O:22:"SystemAccessPermission":3:{s:5:"' . "\0" . '*' . "\0" . 'id";i:17;s:7:"' . "\0" . '*' . "\0" . 'name";s:13:"gerenciar-pgs";s:9:"' . "\0" . '*' . "\0" . 'negate";b:0;}i:18;O:22:"SystemAccessPermission":3:{s:5:"' . "\0" . '*' . "\0" . 'id";i:18;s:7:"' . "\0" . '*' . "\0" . 'name";s:23:"gerenciar-pedido-oracao";s:9:"' . "\0" . '*' . "\0" . 'negate";b:0;}i:19;O:22:"SystemAccessPermission":3:{s:5:"' . "\0" . '*' . "\0" . 'id";i:19;s:7:"' . "\0" . '*' . "\0" . 'name";s:21:"gerenciar-ministerios";s:9:"' . "\0" . '*' . "\0" . 'negate";b:0;}i:20;O:22:"SystemAccessPermission":3:{s:5:"' . "\0" . '*' . "\0" . 'id";i:20;s:7:"' . "\0" . '*' . "\0" . 'name";s:21:"gerenciar-instituicao";s:9:"' . "\0" . '*' . "\0" . 'negate";b:0;}}s:9:"' . "\0" . '*' . "\0" . 'locked";b:0;s:13:"' . "\0" . '*' . "\0" . 'strictType";N;s:11:"' . "\0" . '*' . "\0" . 'iterator";O:17:"ArrayListIterator":1:{s:8:"' . "\0" . '*' . "\0" . 'array";R:10;}}s:7:"' . "\0" . '*' . "\0" . 'data";O:9:"ArrayList":4:{s:8:"' . "\0" . '*' . "\0" . 'array";a:3:{s:6:"userId";i:74;s:8:"userName";s:27:"Instituição Homologação";s:12:"previousUser";i:73;}s:9:"' . "\0" . '*' . "\0" . 'locked";b:0;s:13:"' . "\0" . '*' . "\0" . 'strictType";N;s:11:"' . "\0" . '*' . "\0" . 'iterator";O:17:"ArrayListIterator":1:{s:8:"' . "\0" . '*' . "\0" . 'array";R:63;}}s:14:"' . "\0" . '*' . "\0" . 'persistence";N;}',
+)
+
+Trace:
+#0 C:\wamp\www\acerbrag\Optimuz\lib\Application\Application.php(220): Application->run('MembroControlle...', 'index', NULL, 'MembroControlle...', Array)
+#1 C:\wamp\www\acerbrag\index.php(58): Application::initialize('C:\wamp\www\ace...')
+#2 {main}
+
+URI: /acerbrag/membro
+Host: localhost
+IP da requisiÃ§Ã£o: 127.0.0.1:2342
+Browser: Mozilla/5.0 (Windows NT 6.1; WOW64; rv:55.0) Gecko/20100101 Firefox/55.0
+------------------------------------------------------------------------------------------------------------------
+11:06:50 [ERROR]: (# 0) Error [64]: {e480f-e9ba6} Load::loadFile(): Failed opening required 'C:\wamp\www\acerbrag\Optimuz\apps/default/layers/model/Default/UfQuery.php' (include_path='.;C:\wamp\bin\php\php5.4.12\PEAR\pear;C:\wamp\www\acerbrag\Optimuz\vendor\') (Linha 658, Arquivo C:\wamp\www\acerbrag\Optimuz\lib\Core\Load.php)
+
+
+POST:
+array (
+)
+
+GET:
+array (
+)
+
+SESSION:
+array (
+  'SystemAccessLogin_default' => 'O:17:"SystemAccessLogin":5:{s:7:"' . "\0" . '*' . "\0" . 'name";s:35:"instituicao.homologacao@hotmail.com";s:7:"' . "\0" . '*' . "\0" . 'role";O:16:"SystemAccessRole":5:{s:5:"' . "\0" . '*' . "\0" . 'id";i:2;s:7:"' . "\0" . '*' . "\0" . 'name";s:11:"instituicao";s:8:"' . "\0" . '*' . "\0" . 'label";s:11:"instituicao";s:10:"' . "\0" . '*' . "\0" . 'isAdmin";b:0;s:9:"' . "\0" . '*' . "\0" . 'negate";b:0;}s:14:"' . "\0" . '*' . "\0" . 'permissions";O:9:"ArrayList":4:{s:8:"' . "\0" . '*' . "\0" . 'array";a:12:{i:2;O:22:"SystemAccessPermission":3:{s:5:"' . "\0" . '*' . "\0" . 'id";i:2;s:7:"' . "\0" . '*' . "\0" . 'name";s:20:"gerenciar-permissoes";s:9:"' . "\0" . '*' . "\0" . 'negate";b:0;}i:10;O:22:"SystemAccessPermission":3:{s:5:"' . "\0" . '*' . "\0" . 'id";i:10;s:7:"' . "\0" . '*' . "\0" . 'name";s:17:"gerenciar-filiais";s:9:"' . "\0" . '*' . "\0" . 'negate";b:0;}i:11;O:22:"SystemAccessPermission":3:{s:5:"' . "\0" . '*' . "\0" . 'id";i:11;s:7:"' . "\0" . '*' . "\0" . 'name";s:17:"gerenicar-membros";s:9:"' . "\0" . '*' . "\0" . 'negate";b:0;}i:12;O:22:"SystemAccessPermission":3:{s:5:"' . "\0" . '*' . "\0" . 'id";i:12;s:7:"' . "\0" . '*' . "\0" . 'name";s:18:"gerenciar-usuarios";s:9:"' . "\0" . '*' . "\0" . 'negate";b:0;}i:13;O:22:"SystemAccessPermission":3:{s:5:"' . "\0" . '*' . "\0" . 'id";i:13;s:7:"' . "\0" . '*' . "\0" . 'name";s:16:"gerenciar-agenda";s:9:"' . "\0" . '*' . "\0" . 'negate";b:0;}i:14;O:22:"SystemAccessPermission":3:{s:5:"' . "\0" . '*' . "\0" . 'id";i:14;s:7:"' . "\0" . '*' . "\0" . 'name";s:17:"gerenciar-noticia";s:9:"' . "\0" . '*' . "\0" . 'negate";b:0;}i:15;O:22:"SystemAccessPermission":3:{s:5:"' . "\0" . '*' . "\0" . 'id";i:15;s:7:"' . "\0" . '*' . "\0" . 'name";s:17:"gerenciar-podcast";s:9:"' . "\0" . '*' . "\0" . 'negate";b:0;}i:16;O:22:"SystemAccessPermission":3:{s:5:"' . "\0" . '*' . "\0" . 'id";i:16;s:7:"' . "\0" . '*' . "\0" . 'name";s:16:"gerenciar-videos";s:9:"' . "\0" . '*' . "\0" . 'negate";b:0;}i:17;O:22:"SystemAccessPermission":3:{s:5:"' . "\0" . '*' . "\0" . 'id";i:17;s:7:"' . "\0" . '*' . "\0" . 'name";s:13:"gerenciar-pgs";s:9:"' . "\0" . '*' . "\0" . 'negate";b:0;}i:18;O:22:"SystemAccessPermission":3:{s:5:"' . "\0" . '*' . "\0" . 'id";i:18;s:7:"' . "\0" . '*' . "\0" . 'name";s:23:"gerenciar-pedido-oracao";s:9:"' . "\0" . '*' . "\0" . 'negate";b:0;}i:19;O:22:"SystemAccessPermission":3:{s:5:"' . "\0" . '*' . "\0" . 'id";i:19;s:7:"' . "\0" . '*' . "\0" . 'name";s:21:"gerenciar-ministerios";s:9:"' . "\0" . '*' . "\0" . 'negate";b:0;}i:20;O:22:"SystemAccessPermission":3:{s:5:"' . "\0" . '*' . "\0" . 'id";i:20;s:7:"' . "\0" . '*' . "\0" . 'name";s:21:"gerenciar-instituicao";s:9:"' . "\0" . '*' . "\0" . 'negate";b:0;}}s:9:"' . "\0" . '*' . "\0" . 'locked";b:0;s:13:"' . "\0" . '*' . "\0" . 'strictType";N;s:11:"' . "\0" . '*' . "\0" . 'iterator";O:17:"ArrayListIterator":1:{s:8:"' . "\0" . '*' . "\0" . 'array";R:10;}}s:7:"' . "\0" . '*' . "\0" . 'data";O:9:"ArrayList":4:{s:8:"' . "\0" . '*' . "\0" . 'array";a:3:{s:6:"userId";i:74;s:8:"userName";s:27:"Instituição Homologação";s:12:"previousUser";i:73;}s:9:"' . "\0" . '*' . "\0" . 'locked";b:0;s:13:"' . "\0" . '*' . "\0" . 'strictType";N;s:11:"' . "\0" . '*' . "\0" . 'iterator";O:17:"ArrayListIterator":1:{s:8:"' . "\0" . '*' . "\0" . 'array";R:63;}}s:14:"' . "\0" . '*' . "\0" . 'persistence";N;}',
+)
+
+Trace:
+#0 C:\wamp\www\acerbrag\Optimuz\lib\Error\Error.php(378): Error::handleScriptError(64, 'Load::loadFile(...', 'C:\wamp\www\ace...', 658)
+#1 [internal function]: Error::handleFatalError()
+#2 {main}
+
+URI: /acerbrag/meu-perfil
+Host: localhost
+IP da requisiÃ§Ã£o: 127.0.0.1:2349
+Browser: Mozilla/5.0 (Windows NT 6.1; WOW64; rv:55.0) Gecko/20100101 Firefox/55.0
+------------------------------------------------------------------------------------------------------------------
+11:07:42 [ERROR]: (# 0) Error [205]: {ca096-aef45} O controle InstituicaoController nÃ£o existe ou nÃ£o pode ser acessado pela URL (Linha 350, Arquivo C:\wamp\www\acerbrag\Optimuz\lib\Application\Application.php)
+
+
+POST:
+array (
+)
+
+GET:
+array (
+)
+
+SESSION:
+array (
+  'SystemAccessLogin_default' => 'O:17:"SystemAccessLogin":5:{s:7:"' . "\0" . '*' . "\0" . 'name";s:35:"instituicao.homologacao@hotmail.com";s:7:"' . "\0" . '*' . "\0" . 'role";O:16:"SystemAccessRole":5:{s:5:"' . "\0" . '*' . "\0" . 'id";i:2;s:7:"' . "\0" . '*' . "\0" . 'name";s:11:"instituicao";s:8:"' . "\0" . '*' . "\0" . 'label";s:11:"instituicao";s:10:"' . "\0" . '*' . "\0" . 'isAdmin";b:0;s:9:"' . "\0" . '*' . "\0" . 'negate";b:0;}s:14:"' . "\0" . '*' . "\0" . 'permissions";O:9:"ArrayList":4:{s:8:"' . "\0" . '*' . "\0" . 'array";a:12:{i:2;O:22:"SystemAccessPermission":3:{s:5:"' . "\0" . '*' . "\0" . 'id";i:2;s:7:"' . "\0" . '*' . "\0" . 'name";s:20:"gerenciar-permissoes";s:9:"' . "\0" . '*' . "\0" . 'negate";b:0;}i:10;O:22:"SystemAccessPermission":3:{s:5:"' . "\0" . '*' . "\0" . 'id";i:10;s:7:"' . "\0" . '*' . "\0" . 'name";s:17:"gerenciar-filiais";s:9:"' . "\0" . '*' . "\0" . 'negate";b:0;}i:11;O:22:"SystemAccessPermission":3:{s:5:"' . "\0" . '*' . "\0" . 'id";i:11;s:7:"' . "\0" . '*' . "\0" . 'name";s:17:"gerenicar-membros";s:9:"' . "\0" . '*' . "\0" . 'negate";b:0;}i:12;O:22:"SystemAccessPermission":3:{s:5:"' . "\0" . '*' . "\0" . 'id";i:12;s:7:"' . "\0" . '*' . "\0" . 'name";s:18:"gerenciar-usuarios";s:9:"' . "\0" . '*' . "\0" . 'negate";b:0;}i:13;O:22:"SystemAccessPermission":3:{s:5:"' . "\0" . '*' . "\0" . 'id";i:13;s:7:"' . "\0" . '*' . "\0" . 'name";s:16:"gerenciar-agenda";s:9:"' . "\0" . '*' . "\0" . 'negate";b:0;}i:14;O:22:"SystemAccessPermission":3:{s:5:"' . "\0" . '*' . "\0" . 'id";i:14;s:7:"' . "\0" . '*' . "\0" . 'name";s:17:"gerenciar-noticia";s:9:"' . "\0" . '*' . "\0" . 'negate";b:0;}i:15;O:22:"SystemAccessPermission":3:{s:5:"' . "\0" . '*' . "\0" . 'id";i:15;s:7:"' . "\0" . '*' . "\0" . 'name";s:17:"gerenciar-podcast";s:9:"' . "\0" . '*' . "\0" . 'negate";b:0;}i:16;O:22:"SystemAccessPermission":3:{s:5:"' . "\0" . '*' . "\0" . 'id";i:16;s:7:"' . "\0" . '*' . "\0" . 'name";s:16:"gerenciar-videos";s:9:"' . "\0" . '*' . "\0" . 'negate";b:0;}i:17;O:22:"SystemAccessPermission":3:{s:5:"' . "\0" . '*' . "\0" . 'id";i:17;s:7:"' . "\0" . '*' . "\0" . 'name";s:13:"gerenciar-pgs";s:9:"' . "\0" . '*' . "\0" . 'negate";b:0;}i:18;O:22:"SystemAccessPermission":3:{s:5:"' . "\0" . '*' . "\0" . 'id";i:18;s:7:"' . "\0" . '*' . "\0" . 'name";s:23:"gerenciar-pedido-oracao";s:9:"' . "\0" . '*' . "\0" . 'negate";b:0;}i:19;O:22:"SystemAccessPermission":3:{s:5:"' . "\0" . '*' . "\0" . 'id";i:19;s:7:"' . "\0" . '*' . "\0" . 'name";s:21:"gerenciar-ministerios";s:9:"' . "\0" . '*' . "\0" . 'negate";b:0;}i:20;O:22:"SystemAccessPermission":3:{s:5:"' . "\0" . '*' . "\0" . 'id";i:20;s:7:"' . "\0" . '*' . "\0" . 'name";s:21:"gerenciar-instituicao";s:9:"' . "\0" . '*' . "\0" . 'negate";b:0;}}s:9:"' . "\0" . '*' . "\0" . 'locked";b:0;s:13:"' . "\0" . '*' . "\0" . 'strictType";N;s:11:"' . "\0" . '*' . "\0" . 'iterator";O:17:"ArrayListIterator":1:{s:8:"' . "\0" . '*' . "\0" . 'array";R:10;}}s:7:"' . "\0" . '*' . "\0" . 'data";O:9:"ArrayList":4:{s:8:"' . "\0" . '*' . "\0" . 'array";a:3:{s:6:"userId";i:74;s:8:"userName";s:27:"Instituição Homologação";s:12:"previousUser";i:73;}s:9:"' . "\0" . '*' . "\0" . 'locked";b:0;s:13:"' . "\0" . '*' . "\0" . 'strictType";N;s:11:"' . "\0" . '*' . "\0" . 'iterator";O:17:"ArrayListIterator":1:{s:8:"' . "\0" . '*' . "\0" . 'array";R:63;}}s:14:"' . "\0" . '*' . "\0" . 'persistence";N;}',
+)
+
+Trace:
+#0 C:\wamp\www\acerbrag\Optimuz\lib\Application\Application.php(220): Application->run('InstituicaoCont...', 'minhaInstituica...', NULL, 'InstituicaoCont...', Array)
+#1 C:\wamp\www\acerbrag\index.php(58): Application::initialize('C:\wamp\www\ace...')
+#2 {main}
+
+URI: /acerbrag/minha-instituicao
+Host: localhost
+IP da requisiÃ§Ã£o: 127.0.0.1:2358
+Browser: Mozilla/5.0 (Windows NT 6.1; WOW64; rv:55.0) Gecko/20100101 Firefox/55.0
+------------------------------------------------------------------------------------------------------------------
+11:39:21 [ERROR]: (# 0) Error [1]: {cfb42-f4565} Call to a member function getNome() on a non-object (Linha 211, Arquivo C:\wamp\www\acerbrag\Optimuz\apps\default\layers\control\page\LoginController.php)
+
+
+POST:
+array (
+)
+
+GET:
+array (
+)
+
+SESSION:
+array (
+)
+
+Trace:
+#0 C:\wamp\www\acerbrag\Optimuz\lib\Error\Error.php(378): Error::handleScriptError(1, 'Call to a membe...', 'C:\wamp\www\ace...', 211)
+#1 [internal function]: Error::handleFatalError()
+#2 {main}
+
+URI: /acerbrag/login/sair
+Host: localhost
+IP da requisiÃ§Ã£o: 127.0.0.1:2837
+Browser: Mozilla/5.0 (Windows NT 6.1; WOW64; rv:55.0) Gecko/20100101 Firefox/55.0
+------------------------------------------------------------------------------------------------------------------

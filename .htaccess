@@ -1,0 +1,120 @@
+Options +FollowSymLinks
+Options +Indexes
+
+<IfModule mod_php5.c>
+	php_value session.gc_maxlifetime 60
+	#php_value session.gc_probability 100
+	#php_value session.gc_divisor 100
+	#php_value memory_limit "120M"
+
+	# xdebug remote debugging
+	php_value xdebug.remote_host "127.0.0.1"
+
+	# xdebug profiler
+	php_flag xdebug.profiler_enable off
+	php_value xdebug.remote_host "127.0.0.1"
+	php_value xdebug.profiler_output_dir "F:/wamp/tmp/"
+
+	# xdebug trace
+	php_flag xdebug.auto_trace off
+	php_value xdebug.trace_format 0
+	php_value xdebug.collect_params 3
+	php_value xdebug.show_mem_delta 1
+	php_value xdebug.trace_output_dir "F:/wamp/tmp/"
+	php_value xdebug.trace_output_name trace.%p
+	#php_value xdebug.show_local_vars on
+</IfModule>
+
+<IfModule mod_rewrite.c>
+	# URL rewriting
+	RewriteEngine On
+	#RewriteBase /
+
+	# redirect subdomain to full domain (www)
+	#RewriteCond %{HTTP_HOST} ^(?!www\.)(.+)$ [NC]
+	#RewriteCond %{HTTP_HOST} !^[0-9]{1,3}(\.[0-9]{1,3}){3}(:[0-9]+)?
+	#RewriteRule ^(.*)$ http://www.%1/$1 [R=301,L]
+
+	# resources
+    RewriteCond %{REQUEST_FILENAME} !-f
+	RewriteCond %{REQUEST_URI} resource/.*$
+	RewriteRule resource/([^/]+)/(.+) Optimuz/apps/$1/layers/view/resource/$2 [L]
+	#RewriteRule resource/(.*) resources.php?url=$1 [L]
+
+	# redirect the home controller
+    RewriteCond %{REQUEST_FILENAME} !-d
+    RewriteCond %{REQUEST_FILENAME} !-f
+	RewriteCond %{REQUEST_URI} (.+)/home$
+    RewriteRule .* %1 [R=301,L]
+
+	# block web.config
+	RewriteCond %{REQUEST_URI} .*web\.config
+	RewriteRule (.*) $1 [R=403,L]
+
+	# redirect to the controller classes
+    RewriteCond %{REQUEST_FILENAME} !-d
+    RewriteCond %{REQUEST_FILENAME} !-f
+	RewriteCond %{REQUEST_URI} !^favicon.ico
+	RewriteCond %{REQUEST_URI} !^robots.txt
+	RewriteCond %{REQUEST_URI} !^browserconfig.xml
+	RewriteCond %{REQUEST_URI} !^DisplayBeacon.swf
+	RewriteCond %{REQUEST_URI} !^apple-touch-icon*
+    RewriteRule ^(.*)$ index.php?url=/$1 [QSA,L]
+</IfModule>
+
+# GZIP compression
+<IfModule mod_deflate.c>
+	# the following rule compresses files of type html, text, css and javascript
+	#AddOutputFilterByType DEFLATE text/html text/plain text/css application/x-javascript
+</IfModule>
+
+# BEGIN Expire headers
+<IfModule mod_expires.c>
+	ExpiresActive On
+	ExpiresDefault "access plus 1 months"
+	ExpiresByType image/x-icon "access plus 3 months"
+	ExpiresByType image/jpeg "access plus 1 months"
+	ExpiresByType image/png "access plus 1 months"
+	ExpiresByType image/gif "access plus 1 months"
+	ExpiresByType application/x-shockwave-flash "access plus 1 months"
+	ExpiresByType text/css "access plus 1 months"
+	ExpiresByType text/javascript "access plus 1 months"
+	ExpiresByType application/x-javascript "access plus 1 months"
+	ExpiresByType text/html "now"
+	ExpiresByType application/xhtml+xml "now"
+</IfModule>
+# END Expire headers
+
+# BEGIN Cache-Control Headers
+<IfModule mod_headers.c>
+	<FilesMatch "\\.ico$">
+		Header set Cache-Control "max-age=7776000, private"
+	</FilesMatch>
+	<FilesMatch "\\.(jpe?g|png|gif|swf)$">
+		Header set Cache-Control "max-age=2592000, private"
+	</FilesMatch>
+	<FilesMatch "\\.css$">
+		Header set Cache-Control "max-age=2592000, private"
+	</FilesMatch>
+	<FilesMatch "\\.js$">
+		Header set Cache-Control "max-age=2592000, private"
+	</FilesMatch>
+	<FilesMatch "\\.(x?html?|php)$">
+		#Header set Cache-Control "max-age=0, private, must-revalidate"
+	</FilesMatch>
+</IfModule>
+# END Cache-Control Headers
+
+# BEGIN Turn ETags Last-Modified Off
+<IfModule mod_headers.c>
+	Header unset ETag
+	#Header unset Last-Modified
+</IfModule>
+FileETag None
+# END Turn ETags Last-Modified Off
+
+# unset server identification headers
+<IfModule mod_headers.c>
+	Header unset X-Powered-By
+	Header unset Server
+</IfModule>

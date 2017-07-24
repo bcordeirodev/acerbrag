@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE settings SYSTEM "http://optimuz.interativadesenvolvimento.com.br/dtd/validation.dtd">
+<form method="post" lang="">
+	<input name="senha" label="Senha">
+		<rule name="required" />
+		<rule name="password" accept="letters,numbers,symbols" allowSequences="false" sequencesMaxLength="4" />
+		<rule name="length" min="8" />
+	</input>
+	<input name="confirma-senha" label="Confirmar senha">
+		<rule name="required" />
+		<rule name="comparePasswords" second="senha" />
+	</input>
+	<input name="token-senha" label="">
+		<rule name="required" />
+	</input>
+</form>

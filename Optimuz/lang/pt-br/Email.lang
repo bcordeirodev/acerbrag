@@ -1,0 +1,6 @@
+error.smtpAuthError = Não foi possível conectar ao servidor SMTP para enviar o e-mail: %s
+error.sendError = Erro ao enviar e-mail: %s
+error.missingFrom = O remetente não foi informado
+error.msg1 = Um email foi disparado para nossa equipe técnica
+error.msg2 = Não foi possível notificar nossa equipe sobre este erro
+error.attachmentNotFound = O arquivo de anexo não existe em "%s"

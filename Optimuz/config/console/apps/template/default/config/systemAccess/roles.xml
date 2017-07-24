@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!--
+This file defines the roles used in the system for access management.
+
+The basic structure is as the following:
+
+<roles>
+	<role id="integer" name="string" label="string" />
+	...
+</roles>
+
+All roles are defined by the "role" element, which must be placed inside the
+"roles" element. The role element has only three attributes:
+
+- id: the unique identifier of the role. Like a primary key of a table in a 
+database.
+
+- name: the name on which the role can be identified in the system. This name is
+used to grant access permissions in the Map.xml file.
+
+- label: the name displayed to the user. This is only an alias for the "name"
+attribute.
+
+Following is an example of some roles settings:
+
+<roles>
+	<role id="1" name="User" label="User" />
+	<role id="2" name="SuperUser" label="Super user" />
+	<role id="3" name="Admin" label="Administrator" />
+</roles>
+
+You also can use strings from language files, using the syntax ${string_name}
+like:
+
+<role id="2" name="SuperUser" label="${role.superUser}" />
+
+In the above example, the string role.superUser will be loaded from the language
+file SystemAccess.lang. So if you use language files, you also need to add the
+new roles to it.
+-->
+<roles>
+	<role id="1" name="User" label="Usuário" />
+	<role id="2" name="Admin" label="Administrador" />
+</roles>

@@ -1,0 +1,16 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!ELEMENT navigation (link)*>
+<!ATTLIST navigation
+    includeAppBaseUrl (true|false) #IMPLIED
+  >
+<!ELEMENT link (link)*>
+<!ATTLIST link
+    label CDATA #REQUIRED
+    title CDATA #IMPLIED
+    url CDATA #REQUIRED
+    mainMenu (true|false) #IMPLIED
+    isHome (true|false) #IMPLIED
+    includeHome (true|false) #IMPLIED
+    systemAccessController CDATA #IMPLIED
+    systemAccessPermissions CDATA #IMPLIED
+  >

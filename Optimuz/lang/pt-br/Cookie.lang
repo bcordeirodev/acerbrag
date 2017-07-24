@@ -1,0 +1,2 @@
+error.invalidType = O tempo de expiração informado não é um tipo válido (%s)
+error.parseDate = Erro ao analisar a data: %s

@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE settings SYSTEM "http://optimuz.interativadesenvolvimento.com.br/dtd/validation.dtd">
+<form method="post" lang="">
+	<input name="id" label="Id do podcast">
+		<rule name="required" />
+		<rule name="number" />
+	</input>
+	<input name="descricao-atendimento" label="Descrição de atendimetno">
+		<rule name="discard" />
+	</input>
+	<input name="atendido" label="Atendido">
+		<rule name="required" />
+	</input>
+</form>

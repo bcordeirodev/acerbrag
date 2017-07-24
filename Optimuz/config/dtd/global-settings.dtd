@@ -1,0 +1,158 @@
+<?xml version='1.0' encoding='UTF-8'?>
+
+<!ELEMENT settings (log,servers,page,report,htmlElements,errors,performance,orm,dateTime,session,filesystem,format,smtp,urlRewrite)>
+
+
+<!ELEMENT servers (production,development)*>
+<!ELEMENT production EMPTY>
+<!ATTLIST production
+    value CDATA #IMPLIED
+  >
+<!ELEMENT development EMPTY>
+<!ATTLIST development
+    value CDATA #IMPLIED
+  >
+
+
+<!ELEMENT page (description,keywords,charset,language,title,doctype,markup)*>
+<!ELEMENT description (#PCDATA)>
+<!ELEMENT keywords (#PCDATA)>
+<!ELEMENT charset (#PCDATA)>
+<!ELEMENT language (#PCDATA)>
+<!ELEMENT title (#PCDATA)>
+<!ELEMENT doctype (#PCDATA)>
+<!ELEMENT markup (#PCDATA)>
+
+
+<!ELEMENT report (email)+>
+<!ATTLIST report
+    enable (true|false) #REQUIRED
+  >
+<!ELEMENT email EMPTY>
+<!ATTLIST email
+    name CDATA #REQUIRED
+    value CDATA #REQUIRED
+  >
+
+
+<!ELEMENT errors (defaultControllerHandler)*>
+<!ELEMENT defaultControllerHandler (#PCDATA)>
+
+
+<!ELEMENT log (format)*>
+<!ATTLIST log
+    enable (true|false) #REQUIRED
+  >
+<!ELEMENT format (currency)*>
+<!ATTLIST format
+    type (short|complete) #IMPLIED
+  >
+
+
+<!ELEMENT performance (cache|minify|compress|mergeFiles)*>
+<!ELEMENT cache EMPTY>
+<!ATTLIST cache
+    enable (true|false) #REQUIRED
+  >
+<!ELEMENT minify EMPTY>
+<!ATTLIST minify
+    enable (true|false) #REQUIRED
+  >
+<!ELEMENT compress EMPTY>
+<!ATTLIST compress
+    enable (true|false) #REQUIRED
+    method (gzip|deflate) #REQUIRED
+    level (0|1|2|3|4|5|6|7|8|9) #REQUIRED
+  >
+<!ELEMENT mergeFiles EMPTY>
+<!ATTLIST mergeFiles
+    enable (true|false) #REQUIRED
+  >
+
+
+<!ELEMENT dateTime (date,time,timezone)*>
+<!ELEMENT date EMPTY>
+<!ATTLIST date
+    format CDATA #IMPLIED
+  >
+<!ELEMENT time EMPTY>
+<!ATTLIST time
+    format CDATA #IMPLIED
+  >
+<!ELEMENT timezone EMPTY>
+<!ATTLIST timezone
+    offset CDATA #IMPLIED
+    identifier CDATA #IMPLIED
+  >
+
+
+<!ELEMENT session (autoStart,timeout,cookie,saveState,autoLoadSavedState)*>
+<!ELEMENT autoStart EMPTY>
+<!ATTLIST autoStart
+    enable (true|false) #REQUIRED
+  >
+<!ELEMENT timeout (#PCDATA)>
+<!ATTLIST timeout
+    value CDATA #REQUIRED
+  >
+<!ELEMENT cookie (name,encrypt)*>
+<!ELEMENT name (#PCDATA)>
+<!ELEMENT encrypt (#PCDATA)>
+
+
+<!ELEMENT currency (#PCDATA)>
+
+
+<!ELEMENT smtp (host,user,pwd,timeout)*>
+<!ATTLIST smtp
+    enable (true|false) #REQUIRED
+  >
+<!ELEMENT host (local,remote)*>
+<!ELEMENT local (name)*>
+<!ELEMENT remote (name,port,security)*>
+<!ELEMENT port (#PCDATA)>
+<!ELEMENT security (#PCDATA)>
+<!ELEMENT user (#PCDATA)>
+<!ELEMENT pwd (#PCDATA)>
+
+
+<!ELEMENT urlRewrite (useServerMod)*>
+<!ELEMENT useServerMod EMPTY>
+<!ATTLIST useServerMod
+    enable (true|false) #REQUIRED
+  >
+
+
+<!ELEMENT htmlElements (session)*>
+<!ELEMENT saveState EMPTY>
+<!ATTLIST saveState
+    enable (true|false) #REQUIRED
+  >
+<!ELEMENT autoLoadSavedState EMPTY>
+<!ATTLIST autoLoadSavedState
+    enable (true|false) #REQUIRED
+  >
+
+
+<!ELEMENT orm (propel,notorm)*>
+<!ELEMENT propel EMPTY>
+<!ATTLIST propel
+    enable (true|false) #REQUIRED
+  >
+<!ELEMENT notorm (connection)*>
+<!ATTLIST notorm
+    enable (true|false) #REQUIRED
+  >
+<!ELEMENT connection EMPTY>
+<!ATTLIST connection
+    dsn CDATA #IMPLIED
+    user CDATA #IMPLIED
+    password CDATA #IMPLIED
+  >
+
+
+<!ELEMENT filesystem (dir)*>
+<!ELEMENT dir EMPTY>
+<!ATTLIST dir
+    separator CDATA #IMPLIED
+  >

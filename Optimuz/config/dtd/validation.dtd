@@ -1,0 +1,34 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!ELEMENT form (custom-rules*,input+)>
+<!ATTLIST form
+    method (get|post) #REQUIRED
+    lang CDATA #IMPLIED
+  >
+<!ELEMENT custom-rules (rule)+>
+<!ELEMENT rule EMPTY>
+<!ATTLIST rule
+    name (required|alpha|text|number|bool|array|email|url|date|password|comparePasswords|compareRequireds|compareDates|length|match|cnpj|cpf|upload|discard) #REQUIRED
+    regex CDATA #IMPLIED
+    errorMessage CDATA #IMPLIED
+    accept CDATA #IMPLIED
+    allowSequences (true|false) #IMPLIED
+    sequencesMaxLength CDATA #IMPLIED
+    min CDATA #IMPLIED
+    max CDATA #IMPLIED
+    fixed CDATA #IMPLIED
+    types CDATA #IMPLIED
+    size CDATA #IMPLIED
+    items CDATA #IMPLIED
+    second CDATA #IMPLIED
+    requiredValue CDATA #IMPLIED
+    differentValue CDATA #IMPLIED
+    required (true|false) #IMPLIED
+    strict (true|false) #IMPLIED
+  >
+<!ELEMENT input (rule)+>
+<!ATTLIST input
+    name CDATA #REQUIRED
+    label CDATA #IMPLIED
+	hasHTML (true|false) #IMPLIED
+    isUrlEncoded (true|false) #IMPLIED
+  >

@@ -1,0 +1,80 @@
+# Error e-mail
+email.error.title = Erro
+email.error.subject = Mensagem
+email.error.location = Localização
+email.error.additionalInfo = Informações adicionais
+email.error.date = Data
+email.error.requestAddress = IP da requisição
+email.error.messageSubject = Sigma Accounting Error [%s]
+email.error.variables = Variáveis
+
+# Error page
+page.error.title = Ocorreu um erro
+page.error.message = Ocorreu um erro durante sua requisição, mas nós já estamos trabalhando para resolvê-lo.<br />Agradecemos sua paciência.
+
+# Page not found
+page.notFound.title = Página não encontrada
+page.notFound.message = Desculpe, mas a página que você está tentando acessar não existe.
+
+# Errors
+error.systemAccessDenied = Acesso negado
+error.cannotAccessMethod = O método %s::%s() não pode ser acessado da URL
+error.methodNotExists = O método %s não existe
+error.applicationNotExists = A aplicação %s não existe
+error.cannotAccessController = O controle %s não existe ou não pode ser acessado pela URL
+error.cannotAccessApplication = A aplicação %s está desabilitada e não pode ser acessada
+error.methodNotImplemented = O método index() não foi implementado!
+error.noView = Nenhuma view foi especificada!
+error.cache.cacheFile = Erro ao abrir arquivo de cache da aplicação
+error.config.loadError = O arquivo de configuração %s não pode ser carregado
+error.config.notExists = O arquivo de configuração %s não existe
+error.scriptError = [%s] %s em %s na linha %s
+error.bootstrap = Ocorreu um erro durante a inicialização das configurações
+error.format.phone = Tamanho da string inválido para o método Format::phone()!
+error.smtp.connectionFailed = A conexão com o servidor SMTP falhou
+error.smtp.connectionClosed = A conexão com o servidor SMTP está fechada
+error.smtp.startTlsFailed = O comando STARTTLS retornou um erro
+error.smtp.enableTlsFailed = Não foi possível habilitar a criptografia TLS para a conexão
+error.email.smtpAuthError = Não foi possível conectar ao servidor SMTP para enviar o e-mail: %s
+error.email.sendError = Erro ao enviar e-mail: %s
+error.email.missingFrom = O remetente não foi informado
+error.ajax.emptyResponse = Tentativa de envio de resposta Ajax em branco!
+error.ajax.invalidElement = Um elemento inválido (%s) foi adicionado à resposta AJAX
+error.ajax.responseTypeMismatch = O tipo do elemento informado (%s) para a resposta Ajax não é do tipo que foi previamente definido (%s)
+error.ajax.invalidElementType = O tipo do elemento informado (%s) não pode ser adicionado ao AjaxSelectElement
+error.htmlElement.cannotAppendChild = Não é possível adicionar filhos a um elemento vazio!
+error.htmlElement.noTag = A tag do elemento HTML não foi definida
+error.image.invalidDimensions = As dimensões da imagem são inválidas
+error.image.cannotCreate = Não foi possível criar a imagem! Provavelmente o tipo da imagem (%s) não é suportado ou o caminho (%s) não é válido.
+error.image.invalidPath = O caminho da imagem não é válido!
+error.image.tooLarge = A imagem é muito grande (%s bytes)!
+error.image.generalError = Ocorreu algum problema com a imagem!
+error.image.infoError = Não foi possível recuperar as informações da imagem.
+error.image.raiseMemoryFailure = Não foi possível aumentar a memória do script %s.
+error.image.createImageObjectError = Não foi possível criar o objeto da imagem %s.
+error.dateTime.parseError = A expressão de data %s não pode ser analisada
+error.dateTime.invalidObject = A expressão de data %s não é um objeto suportado
+error.dateTime.unsupportedDateExpression = A expressão de data %s não é suportada
+error.view.htmlPageNotFound = A página HTML "%s" da view não existe em "%s"
+error.view.noHtmlPage = O arquivo HTML da view não foi definido
+error.view.fileNotExists = O arquivo "%s" parece não existir!
+error.view.invalidFileName = O nome do arquivo de recurso não foi informado!
+error.view.invalidResourceType = Apenas parâmetros do tipo string ou ResourceFile podem ser passados para o método DefaultView::addResource() mas foi passado o tipo %s
+error.formatter.noString = A string original não foi especificada
+
+# E-mails
+email.msg1 = Um email foi disparado para nossa equipe técnica
+email.msg2 = Não foi possível notificar nossa equipe sobre este erro
+
+# Router
+router.error.notFound = O arquivo de mapeamento de rotas "%1" não foi encontrado
+router.error.notLoaded = Não foi possível carregar o arquivo de mapeamento de rotas "%1"
+router.error.emptyFile = O arquivo de mapeamento de rotas "%1" está vazio
+router.error.missingDefaultApplication = O arquivo de mapeamento de rotas "%1" não tem uma aplicação padrão
+
+# Log
+log.line = Linha
+log.file = Arquivo
+log.message = Mensagem
+log.invalidFormat = O formato do log não foi especificado ou é incompatível
+log.requestAddr = IP da requisição

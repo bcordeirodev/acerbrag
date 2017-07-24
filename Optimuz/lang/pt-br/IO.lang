@@ -1,0 +1,8 @@
+# IO
+error.dir.cannotOpen = O diretório %s não pode ser aberto
+error.dir.notExists = "%s" não é um diretório válido
+error.file.notExists = O arquivo "%s" não existe
+error.file.cannotReadStats = Não foi possível recuperar informações de %s
+error.file.cannotCreate = Não foi possível criar o arquivo %s
+error.file.fileLocked = O manipulador do arquivo não pode ser fechado porque o arquivo está travado para leitura/escrita
+error.file.invalidOffset = O offset (%s) é maior que o tamanho do arquivo (%s)

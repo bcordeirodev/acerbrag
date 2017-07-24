@@ -1,0 +1,20 @@
+# Errors
+error.cannotStart = The thread could not be started (current status %s). Maybe it is already started.
+error.fileNotFound = The thread action (function or method) does not exist.
+error.workerThreadNotStarted = Cannot return the worker because the thread is not started.
+error.startError = There was an error and the thread could not be started.
+error.limitError = The thread could not be started because the limit for simultaneos threads (%s) was reached.
+error.processError = There was an erro with the process: [%s] %s
+error.unexpectedEndError = The thread was finished unexpectedly and its PID couldn't be recovered. Check the action %s to debug what might happened.
+error.timeoutError = The thread %s (%s) waited to long to be started and was terminated.
+
+# Messages
+msg.creatingThread = Creating thread
+msg.startingWorker = [ID %s] Starting worker
+msg.exitingWorker = [ID %s] Thread executed %s step(s). Exiting now...
+msg.executingAction = [ID %s] Executing thread action
+msg.executedAction = [ID %s] Executed thread action: status %s, result %s, used memory %s, memory limit %s
+msg.pausingWorker = [ID %s] Pausing thread worker
+msg.resumingWorker = [ID %s] Resuming thread worker
+msg.stoppingWorker = [ID %s] Stopping thread worker
+msg.killingWorker = [ID %s] Killing thread (PID %s, EXIT CODE %s)

@@ -1,0 +1,28 @@
+@import "bourbon/bourbon";
+
+/*
+ * Variáveis
+ */
+$profileImageMaxDimension: 200px;
+$color-success: #1e4176;
+$color-danger: #eb4747;
+$color-warning: #FDD01C;
+$color-primary: #0AA699;
+$color-default: #D1DADE;
+$color-inverse: #1F3853;
+$default-colors: (success: $color-success, primary: $color-primary, danger: $color-danger, warning: $color-warning, inverse: $color-inverse, default: $color-default, transparent: transparent);
+
+$white: #fff;
+$gold-color: #af923a;
+$menu-color: #131515;
+
+$gray0: #F1F1F1;
+$gray1: #9E9E9E;
+$gray2: #EDEDED;
+$gray3: #6E778C;
+$gray4: #282E3B;
+$gray6: #5C5C5C;
+$accent-color:blue;
+$brand-color: $gold-color;
+
+$header-height: 60px;

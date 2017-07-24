@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE settings SYSTEM "http://optimuz.interativadesenvolvimento.com.br/dtd/validation.dtd">
+<form method="post" lang="">
+	<input name="email" label="E-mail da sua conta">
+		<rule name="required" />
+		<rule name="email" />
+	</input>
+</form>

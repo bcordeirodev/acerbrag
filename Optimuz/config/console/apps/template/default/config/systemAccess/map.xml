@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!--
+This file defines a mapping for access management of controllers and methods.
+
+The basic structure is as the following:
+
+<map hasAccessByDefault="boolean" validationType="default|match">
+	<controller name="string" role="string">
+		<method name="string" role="string" />
+	</controller>
+	...
+</map>
+
+The root element is the "map", which has two attributes:
+
+- hasAccessByDefault: is a boolean and defines whether requests to controllers
+not listed in this file should be allowed. For example: if a user try to access
+the URI /home/index (controller "HomeController", method "index") and there is
+no definition for it in this file, the attribute hasAccessByDefault will be
+used. If it is true, the request is allowed, otherwise the request is denied.
+Methods inherits roles from controllers, so if a controller has the role "Admin"
+for example, all methods not defined will have the same role.
+
+- validationType: can have one of two values: default or match. If the value is
+"default", users with higher roles will be able to access lower roles. This
+means that a user with the role "Admin" will also be able to can access
+controllers defined for users with role "User". In the other way if the value
+is "match", a user will only have access to controllers defined for his role.
+So an user with role "Admin" will only access controllers defined for the role
+"Admin". The default value is "default".
+
+The map element has as child the element "controller". And the element
+controller has as child the element "method". Both controller and method have
+the same attributes. They are:
+
+- name: the name of the controller. For example, for the controller
+HomeController the attribute name should be "Home".
+
+- role: one of the roles defined in the Roles.xml file. Note that the name of
+the role is case sensitive, so "User" is different from "user". There is a
+special role that can be used to say that the controller/method can be accessed
+by anonymous users, the "Anonymous" role. Using this role any user can access
+the controller/method, even if he is not authenticated.
+
+The controller element can have zero or more method elements.
+
+Following is an example of a mapping:
+
+<map hasAccessByDefault="true">
+	<controller name="Home" role="Anonymous"></controller>
+	<controller name="Client" role="SuperUser">
+		<method name="list" role="User" />
+	</controller>
+	<controller name="System" role="Admin"></controller>
+</map>
+
+Note that roles of methods overwrites roles of controllers. So you can set a
+default access for all methods of a controller, and change only some few that
+need special rights.
+-->
+<map hasAccessByDefault="true" validationType="default">
+	
+</map>

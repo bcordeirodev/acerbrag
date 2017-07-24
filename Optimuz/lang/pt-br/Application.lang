@@ -1,0 +1,4 @@
+# Errors
+error.invalidApplication = A aplicação "%s" é inválida (não existe)
+error.invalidApplicationPath = O caminho "%s" da aplicação "%s" já existe
+error.forbiddenInstance = Apenas uma instância desta classe pode existir por vez

@@ -1,0 +1,18 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!ELEMENT map (controller)*>
+<!ATTLIST map
+    hasAccessByDefault (true|false) #REQUIRED
+    validationType (default|match) "default"
+  >
+<!ELEMENT controller (method)*>
+<!ATTLIST controller
+    name CDATA #REQUIRED
+    role CDATA #IMPLIED
+	permissions CDATA #IMPLIED
+  >
+<!ELEMENT method EMPTY>
+<!ATTLIST method
+    name CDATA #REQUIRED
+    role CDATA #IMPLIED
+    permissions CDATA #IMPLIED
+  >

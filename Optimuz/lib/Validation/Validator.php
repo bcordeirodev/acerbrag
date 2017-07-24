@@ -1,0 +1,1481 @@
+<?php
+/**
+ * This file belongs to the form validation package and sets a class for this
+ * package.
+ * @version 0.6
+ * @package Validation
+ */
+
+/**
+ * This class is used to validate forms sent by clients.
+ *
+ * The class supports data sent by POST and GET requrests, or any custom data
+ * passed as an array.
+ *
+ * This class uses the classes InputRule (to get the validation rules) and
+ * InputField (to get information about the fields that will be checked).
+ * @author Diego Andrade
+ * @package Validation
+ * @since Optimuz 0.1
+ * @version 0.7
+ * @uses Xml
+ * @uses Lang
+ * @uses IO
+ * @uses Http
+ * @uses Collection
+ * @uses Core.Enviroment
+ */
+class Validator extends Object
+{
+	/**
+	 * There are no data available to validate.
+	 */
+	const NO_DATA					= 600;
+
+	/**
+	 * Error while trying to load the validation policy file.
+	 */
+	const LOAD_POLICY_ERROR			= 601;
+
+	/**
+	 * Error from some validation rule.
+	 */
+	const RULE_ERROR				= 602;
+
+	/**
+	 * There are no inputs available.
+	 */
+	const NO_INPUTS					= 603;
+
+	/**
+	 * Name of the validator. Default name is "formValidator".
+	 * @var string formValidator
+	 */
+	private $name					= null;
+
+	/**
+	 * Array with all rules to check data.
+	 * @var array
+	 * @see InputRule
+	 */
+	private $inputRules				= null;
+
+	/**
+	 * Array with all inputs's informations.
+	 * @var array
+	 */
+	private $inputs					= null;
+
+	/**
+	 * Default rule. This rule can be used to validate all inputs at once.
+	 * Default is requried.
+	 * @var string required
+	 */
+	private $defaultRule			= null;
+
+	/**
+	 * Array with custom rules.
+	 * @var array
+	 * @see Validator::addCustomRule()
+	 */
+	private $customRules			= null;
+
+	/**
+	 * Informs if security against form injections (like SQL Injection) must to
+	 * be checked. Default is true.
+	 * @var bool true
+	 * @name
+	 */
+	private $security				= null;
+
+	/**
+	 * Array with data to be checked. This is usually the POST or the GET array,
+	 * but can be any associative array.
+	 * @var array
+	 * @see Validator::setMethod()
+	 * @see Validator::setSource()
+	 * @see Validator::$formMethod
+	 */
+	private $source					= null;
+
+	/**
+	 * Form method. This is used set the data source array (GET or POST).
+	 * @var string
+	 * @see Validator::setMethod()
+	 * @see Validator::$source
+	 */
+	private $formMethod				= null;
+
+	/**
+	 * Holds the result of the last validation.
+	 * @var ValidationResult
+	 */
+	private $result					= null;
+
+	/**
+	 * Creates a new class instance.
+	 *
+	 * This class is used to validate forms sent by clients.
+	 *
+	 * The class supports data sent by POST and GET requrests, or any custom
+	 * data passed as an array.
+	 *
+	 * This class uses the classes InputRule (to get the validation rules) and
+	 * InputField (to get information about the fields that will be checked).
+	 * @param string $name (optimal) Name of the validator. Used to identify the
+	 * validator between requests.
+	 * @see Validator::$name
+	 */
+	public function __construct($name = null)
+	{
+		$defaultName = 'formValidator';
+		$this->inputRules = array();
+		$this->inputs = array();
+		$this->defaultRule = 'required';
+		$this->customRules = array();
+		$this->security = true;
+		$this->name = !is_null($name) ? $name : $defaultName;
+		$this->result = new ValidationResult();
+	}
+
+	/**
+	 * Locks the form so it only can be validated if the generated key is sent
+	 * back to the validator, and is the same. If the key is different the
+	 * entire form will be invalid.
+	 *
+	 * The key is generated based on the current timestamp and is stored in
+	 * session.
+	 * @param string $key (optimal) Any value that can be used to generate the
+	 * key.
+	 * @return string The generated key.
+	 * @see Validator::unlockForm()
+	 * @see Validator::getLockerHash()
+	 */
+	public function lockForm($key = '')
+	{
+		if(Session::exists("lockForm_{$this->name}"))
+			Session::remove("lockForm_{$this->name}");
+
+		$hash = md5($key . Date::timestamp());
+		Session::set("lockForm_{$this->name}", $hash);
+		return $hash;
+	}
+
+	/**
+	 * Unlocks the form that must be previously blocked by the
+	 * Validator::lockForm() method.
+	 *
+	 * This method will check if the given key is exactly the same as the one
+	 * generated before. If the keys are different or no key was generated, a
+	 * false will be returned. Otherwise a true is returned.
+	 *
+	 * After this check, the key will be removed from session.
+	 * @param string $hash Encoded key.
+	 * @return bool Returns false if keys are differents or true if they are the
+	 * same.
+	 * @see Validator::lockForm()
+	 * @see Validator::getLockerHash()
+	 */
+	public function unlockForm($hash)
+	{
+		$success = false;
+
+		if(Session::exists("lockForm_{$this->name}"))
+		{
+			$success = $hash === Session::get("lockForm_{$this->name}");
+			Session::remove("lockForm_{$this->name}");
+		}
+
+		return $success;
+	}
+
+	/**
+	 * Returns the key generated by the Validator::lockForm() method.
+	 *
+	 * If no key is availabel, an empty string is returned.
+	 * @return string
+	 * @Validator::lockForm()
+	 * @Validator::unlockForm()
+	 */
+	public function getLockerHash()
+	{
+		return Session::exists("lockForm_{$this->name}") ? Session::get("lockForm_{$this->name}") : '';
+	}
+
+	/**
+	 * Recovers the inputs validation result from a previous validation.
+	 * @return ValidationResult
+	 * @see Validator::validate()
+	 * @see ValidationResult
+	 */
+	public function getResult()
+	{
+		$this->result->setInputs(new InputsList($this->inputs));
+		return $this->result;
+	}
+
+	/**
+	 * Removes the result of a previous validation.
+	 * @see Validator::getResult()
+	 * @see Validator::validate()
+	 */
+	public function clearResult()
+	{
+		$this->result->setInputs(new InputsList(null));
+	}
+
+	/**
+	 * Sets whether the security check should be enabled.
+	 * @param bool $bool If true, secury check will be done in every input.
+	 * Otherwise inputs will not be checked.
+	 * @see Validator::$security
+	 * @see Validator::checkSecurity()
+	 */
+	public function enableSecurity($bool)
+	{
+		$this->security = $bool;
+	}
+
+	/**
+	 * Sets the form method (GET or POST).
+	 *
+	 * Calling this method and given a valid method name, will also set the
+	 * Validator::$source to the correct array.
+	 * @param string $method Can be get or post.
+	 * @see Validator::$formMethod
+	 * @see Validator::$source
+	 */
+	public function setMethod($method)
+	{
+		$this->formMethod = strtolower($method);
+		$this->source = $this->formMethod == 'get' ? $_GET : $_POST;
+	}
+
+	/**
+	 * Sets the data source array. Is from this array that data will be
+	 * validated.
+	 *
+	 * Only call this method to set custom arrays, different from GET and POST.
+	 * But pay attention: the values of this array must be only STRING.
+	 * @param array $source Any associative array.
+	 * @see Validator::$source
+	 */
+	public function setSource($source)
+	{
+		$this->source = $source;
+	}
+
+	/**
+	 * Adds an InputRule object.
+	 *
+	 * Only inputs with related InputRule objects can be validated.
+	 * @param InputRule $input InputRule object.
+	 * @see Validator::$inputs
+	 */
+	public function addInputRule($input)
+	{
+		if(Object::isType($input, 'InputRule') && Text::isValidString($input->getName()))
+			$this->inputRules[$input->getName()] = $input;
+	}
+
+	/**
+	 * Returns the InputRule objects used to validate the data source.
+	 * @return array
+	 */
+	public function getRules()
+	{
+		return $this->inputRules;
+	}
+
+	/**
+	 * Sets the default rule for all fields in Validator::$source.
+	 * @see Validator::setMethod()
+	 * @see Validator::setSource()
+	 * @see Validator::$inputs
+	 * @see Validator::$defaultRule
+	 */
+	public function processSource()
+	{
+		foreach($this->source as $name => $item)
+		{
+			$formInput = new InputRule();
+			$formInput->setName($name);
+			$formInput->setLabel($name);
+			$formInput->addRule($this->defaultRule);
+			$this->addInputRule($formInput);
+		}
+	}
+
+	/**
+	 * Returns the value of an input.
+	 *
+	 * This method can be called only after one of the methods
+	 * Validator::setMethod(), Validator::setSource() or Validator::loadPolicy()
+	 * were called.
+	 *
+	 * If there is no input with the given name, a null value will be returned.
+	 * @param string $inputName Input name.
+	 * @return mixed
+	 * @see Validator::setMethod()
+	 * @see Validator::setSource()
+	 * @see Validator::loadPolicy()
+	 */
+	public function getInputValue($inputName)
+	{
+		$inputValue = null;
+
+		if(isset($this->source))
+		{
+			if(isset($this->source[$inputName]))
+			{
+				if(is_string($this->source[$inputName]))
+					$inputValue = $this->inputRules[$inputName]->getHasHtml() ? $this->source[$inputName] : Text::plain($this->source[$inputName]);
+				else
+					$inputValue = $this->source[$inputName];
+			}
+		}
+
+		return $inputValue;
+	}
+
+	/**
+	 * Returns the value of an input.
+	 *
+	 * This method can be called only after one of the methods
+	 * Validator::setMethod(), Validator::setSource() or Validator::loadPolicy()
+	 * were called.
+	 *
+	 * If there is no input with the given name, a null value will be returned.
+	 * @param string $inputName Input name.
+	 * @return string|null
+	 * @see Validator::setMethod()
+	 * @see Validator::setSource()
+	 * @see Validator::loadPolicy()
+	 */
+	public function hasInputValue($inputName)
+	{
+		$hasValue = false;
+
+		if(isset($this->source))
+			$hasValue = isset($this->source[$inputName]) && !empty($this->source[$inputName]);
+
+		return $hasValue;
+	}
+
+	/**
+	 * Returns an array of InputField objects representing the inputs that
+	 * failed on validation.
+	 *
+	 * Returns an empty array if there are no errors.
+	 * @return array
+	 * @see Validator::addError()
+	 */
+	public function getErrors()
+	{
+		$errors = array();
+
+		foreach($this->inputs as $input)
+		{
+			if($input->hasError())
+				$errors[$input->getName()] = $input;
+		}
+
+		return $errors;
+	}
+
+	/**
+	 * Checks if the input is an uploaded file.
+	 * @param string $inputName Input name.
+	 * @return bool
+	 */
+	public function isFile($inputName)
+	{
+		return isset($_FILES) && is_array($_FILES) && isset($_FILES[$inputName]) && is_uploaded_file($_FILES[$inputName]['tmp_name']);
+	}
+
+	/**
+	 * Checks inputs against code injections like, SQL Injection, HTML Injection
+	 * and others.
+	 * @return bool Return true if all inputs are valid, or false otherwise.
+	 * @see Validator::secureValue()
+	 */
+	public function checkSecurity()
+	{
+		$success = true;
+		$input;
+
+		foreach($this->source as $name => $val)
+		{
+			$input = isset($this->inputRules[$name]) ? $this->inputRules[$name] : $val;
+
+			if(is_string($val) || is_numeric($val) ? !$this->secureValue($val, $input) : false)
+			{
+				$success = false;
+				$this->addError($name, $name, '', Language::getInstance('Validation')->getSentence('error.inputNotSecure'));
+			}
+		}
+
+		return $success;
+	}
+
+	/**
+	 * Adds a custom rule to use in the validation.
+	 *
+	 * If there is a rule with the same name, the new one is not added.
+	 * @param string $name Rule name. This is used to identify the rule in the
+	 * InputRule class.
+	 * @param string $pattern Regular expression. The rule itself.
+	 * @param string $errorMessage (optional) Custom error message.
+	 * @see Validator::$customRules
+	 */
+	public function addCustomRule($name, $pattern, $errorMessage = null)
+	{
+		if(!isset($this->customRules[$name]))
+			$this->customRules[$name] = new Rule($name, $errorMessage, $pattern);
+	}
+
+	/**
+	 * Main validation method.
+	 *
+	 * The supported rules are:
+	 *
+	 * <ul>
+	 * <li>required</li>
+	 * <li>alpha</li>
+	 * <li>text</li>
+	 * <li>number</li>
+	 * <li>bool</li>
+	 * <li>array</li>
+	 * <li>email</li>
+	 * <li>url</li>
+	 * <li>date</li>
+	 * <li>password</li>
+	 * <li>comparePasswords</li>
+	 * <li>compareRequireds</li>
+	 * <li>compareDates</li>
+	 * <li>length</li>
+	 * <li>match</li>
+	 * <li>cnpj</li>
+	 * <li>cpf</li>
+	 * <li>upload</li>
+	 * <li>discard</li>
+	 * </ul>
+	 *
+	 * You may also use custom rules.
+	 *
+	 * If some error occur, a ValidationError is thrown.
+	 * @return bool Returns true if the form is valid, otherwise returns false.
+	 */
+	public function validate()
+	{
+		$item;
+		$item2;
+		$val;
+		$val2;
+		$err = array();
+		$rules;
+		$label;
+		$hasError = false;
+
+		if(!isset($this->source))
+			throw new ValidationError(Language::getInstance('Validation')->getSentence('error.noSource'), self::NO_DATA);
+
+		if(isset($this->inputRules) && (count($this->inputRules) > 0))
+		{
+			if(Session::exists('lockForm') ? self::unlockForm($this->getInputValue('lck')) : true)
+			{
+				foreach($this->inputRules as $key => $item)
+				{
+					$val = $this->getInputValue($key);
+					$label = $item->getLabel();
+
+					if($item->getIsUrlEncoded())
+						$val = urldecode($val);
+
+					if($item->getSecond())
+					{
+						$item2 = $this->inputRules[$item->getSecond()];
+						$val2 = $this->getInputValue($item->getSecond());
+
+						if($item2->getIsUrlEncoded())
+							$val2 = urldecode($val2);
+					}
+					else
+					{
+						$val2 = null;
+					}
+
+					$this->inputs[$key] = new InputField();
+					$this->inputs[$key]->setName($key);
+					$this->inputs[$key]->setLabel($label);
+					$this->inputs[$key]->setValue($val);
+
+					if(
+						$this->security ?
+						(
+							is_string($val) || is_numeric($val) || is_null($val) ?
+								$this->secureValue($val, $item) && (!is_null($val2) ? $this->secureValue($val2, $item2) : true)
+								: is_array($val)
+						)
+						: true
+					)
+					{
+						$rules = $item->getRules();
+						$inputHasError = false;
+
+						foreach($rules as $rule)
+						{
+							switch($rule)
+							{
+								case 'required':
+									if($this->isEmptyValue($val))
+									{
+										$hasError = true;
+										$inputHasError = true;
+										$errorMessage = $rule->hasErrorMessage() ? $rule->getErrorMessage() : Language::getInstance('Validation')->getSentence('error.rule.required');
+										$this->addError($key, $label, $val, $errorMessage);
+									}
+									break;
+								case 'alpha':
+									if(!$this->isEmptyValue($val))
+									{
+										if(preg_match('/^[a-zA-Z\xC0-\xFF_]+$/', $val) !== 1)
+										{
+											$hasError = true;
+											$inputHasError = true;
+											$errorMessage = $rule->hasErrorMessage() ? $rule->getErrorMessage() : Language::getInstance('Validation')->getSentence('error.rule.alpha');
+											$this->addError($key, $label, $val, $errorMessage);
+										}
+									}
+									break;
+								case 'text':
+									if(!$this->isEmptyValue($val))
+									{
+										if(preg_match('/^[a-zA-Z0-9_-]+$/', $val) !== 1)
+										{
+											$hasError = true;
+											$inputHasError = true;
+											$errorMessage = $rule->hasErrorMessage() ? $rule->getErrorMessage() : Language::getInstance('Validation')->getSentence('error.rule.text');
+											$this->addError($key, $label, $val, $errorMessage);
+										}
+									}
+									break;
+								case 'number':
+									if(!$this->isEmptyValue($val))
+									{
+										if(preg_match('/^\d+$/', $val) !== 1)
+										{
+											$hasError = true;
+											$inputHasError = true;
+											$errorMessage = $rule->hasErrorMessage() ? $rule->getErrorMessage() : Language::getInstance('Validation')->getSentence('error.rule.number');
+											$this->addError($key, $label, $val, $errorMessage);
+										}
+									}
+									break;
+								case 'bool':
+									if(!$this->isEmptyValue($val))
+									{
+										if(!preg_match('/^(?:true|false|1|0|yes|no)$/', $val))
+										{
+											$hasError = true;
+											$inputHasError = true;
+											$errorMessage = $rule->hasErrorMessage() ? $rule->getErrorMessage() : Language::getInstance('Validation')->getSentence('error.rule.bool');
+											$this->addError($key, $label, $val, $errorMessage);
+										}
+									}
+									break;
+								case 'array':
+									if(!$this->isEmptyValue($val))
+									{
+										if(!is_array($val))
+										{
+											$hasError = true;
+											$inputHasError = true;
+											$errorMessage = $rule->hasErrorMessage() ? $rule->getErrorMessage() : Language::getInstance('Validation')->getSentence('error.rule.array');
+											$this->addError($key, $label, $val, $errorMessage);
+										}
+									}
+									break;
+								case 'email':
+									if(!$this->isEmptyValue($val))
+									{
+										if(filter_var($val, FILTER_VALIDATE_EMAIL) === false)
+										{
+											$hasError = true;
+											$inputHasError = true;
+											$errorMessage = $rule->hasErrorMessage() ? $rule->getErrorMessage() : Language::getInstance('Validation')->getSentence('error.rule.email');
+											$this->addError($key, $label, $val, $errorMessage);
+										}
+									}
+									break;
+								case 'url':
+									if(!$this->isEmptyValue($val))
+									{
+										if(filter_var($val, FILTER_VALIDATE_URL) === false)
+										{
+											$hasError = true;
+											$inputHasError = true;
+											$errorMessage = $rule->hasErrorMessage() ? $rule->getErrorMessage() : Language::getInstance('Validation')->getSentence('error.rule.url');
+											$this->addError($key, $label, $val, $errorMessage);
+										}
+									}
+									break;
+								case 'date':
+									if(!$this->isEmptyValue($val))
+									{
+										if(preg_match('/^\d{4}(\W{1})\d{2}(\W{1})\d{2}|\d{2}(\W{1})\d{2}(\W{1})\d{4}$/', $val) !== 1)
+										{
+											$hasError = true;
+											$inputHasError = true;
+											$errorMessage = $rule->hasErrorMessage() ? $rule->getErrorMessage() : Language::getInstance('Validation')->getSentence('error.rule.date1');
+											$this->addError($key, $label, $val, $errorMessage);
+										}
+										else
+										{
+											try{
+												preg_match('/(\d+)\D(\d+)\D(\d+)/', $val, $parts);
+												$year = (int)(strlen($parts[3]) == 4 ? $parts[3] : $parts[1]);
+												$day = (int)(strlen($parts[1]) == 2 ? $parts[1] : $parts[3]);
+												$month = (int)$parts[2];
+
+												if(!checkdate($month, $day, $year))
+												{
+													$hasError = true;
+													$inputHasError = true;
+													$errorMessage = $rule->hasErrorMessage() ? $rule->getErrorMessage() : Language::getInstance('Validation')->getSentence('error.rule.date2');
+													$this->addError($key, $label, $val, $errorMessage);
+												}
+											}
+											catch(Error $err){
+												$hasError = true;
+												$inputHasError = true;
+												$errorMessage = $rule->hasErrorMessage() ? $rule->getErrorMessage() : Language::getInstance('Validation')->getSentence('error.rule.date2');
+												$this->addError($key, $label, $val, $errorMessage);
+											}
+										}
+									}
+									break;
+								case 'password':
+									if(!$this->isEmptyValue($val))
+									{
+										$classes = $item->getAccept();
+
+										if(is_array($classes))
+										{
+											$errors = array();
+											$errorMessage = null;
+
+											foreach($classes as $characterClass)
+											{
+												switch(trim($characterClass))
+												{
+													case 'letters':
+														if(!preg_match_all('#[a-zA-Z]+#', $val, $letters))
+														{
+															$errors[] = Language::getInstance('Validation')->getSentence('error.rule.password.letters');
+														}
+														else
+														{
+															if(!$item->getAllowSequences())
+															{
+																if($this->isValidSequence($letters[0], $item->getSequencesMaxLength(), 'letters'))
+																	$errorMessage = Language::getInstance('Validation')->getSentence('error.rule.password.letters.sequence');
+															}
+														}
+														break;
+													case 'numbers':
+														if(!preg_match_all('#\d+#', $val, $numbers))
+														{
+															$errors[] = Language::getInstance('Validation')->getSentence('error.rule.password.numbers');
+														}
+														else
+														{
+															if(!$item->getAllowSequences())
+															{
+																if($this->isValidSequence($numbers[0], $item->getSequencesMaxLength(), 'numbers'))
+																	$errorMessage = Language::getInstance('Validation')->getSentence('error.rule.password.numbers.sequence');
+															}
+														}
+														break;
+													case 'symbols':
+														if(preg_match('#[-_@!\?\#\$%&\*\(\)\+\,\.\[\]{\}\\<>;:/=]#', $val) !== 1)
+															$errors[] = Language::getInstance('Validation')->getSentence('error.rule.password.symbols');
+														break;
+													default:
+														break;
+												}
+											}
+
+											if(!empty($errors) || !is_null($errorMessage))
+											{
+												switch(count($errors))
+												{
+													case 1:
+														$errors = Language::getInstance('Validation')->getSentence('error.rule.password.invalid1', $errors[0]);
+														break;
+													case 2:
+														$errors = Language::getInstance('Validation')->getSentence('error.rule.password.invalid2', $errors[0], $errors[1]);
+														break;
+													case 3:
+														$errors = Language::getInstance('Validation')->getSentence('error.rule.password.invalid3', $errors[0], $errors[1], $errors[3]);
+														break;
+													default:
+														break;
+												}
+
+												$hasError = true;
+												$inputHasError = true;
+												$errorMessage = is_null($errorMessage) ? $errors : $errorMessage;
+												$this->addError($key, $label, $val, $rule->hasErrorMessage() ? $rule->getErrorMessage() : $errorMessage);
+											}
+										}
+										else
+										{
+											$hasError = true;
+											$inputHasError = true;
+											$errorMessage = $rule->hasErrorMessage() ? $rule->getErrorMessage() : Language::getInstance('Validation')->getSentence('error.rule.password');
+											$this->addError($key, $label, $val, $errorMessage);
+										}
+									}
+									break;
+								case 'comparePasswords':
+									if(!$this->isEmptyValue($val))
+									{
+										if(!$this->isEmptyValue($val2))
+										{
+											if(strcmp($val, $val2) != 0)
+											{
+												$hasError = true;
+												$inputHasError = true;
+												$errorMessage = $rule->hasErrorMessage() ? $rule->getErrorMessage() : Language::getInstance('Validation')->getSentence('error.rule.comparePasswords1');
+												$this->addError($key, $label, $val, $errorMessage);
+											}
+										}
+										else
+										{
+											$hasError = true;
+											$inputHasError = true;
+											$errorMessage = $rule->hasErrorMessage() ? $rule->getErrorMessage() : Language::getInstance('Validation')->getSentence('error.rule.comparePasswords2');
+											$this->addError($key, $label, $val, $errorMessage);
+										}
+									}
+									break;
+								case 'compareRequireds':
+									if(!$this->isEmptyValue($val2))
+									{
+										if(!is_null($item->getDifferentValue()) || !is_null($item->getRequiredValue()))
+										{
+											if(
+												!is_null($item->getRequiredValue()) ?
+												(is_array($item->getRequiredValue()) ? in_array($val2, $item->getRequiredValue()) : $val2 == $item->getRequiredValue()) :
+												(is_array($item->getDifferentValue()) ? !in_array($val2, $item->getDifferentValue()) : $val2 != $item->getDifferentValue())
+
+											)
+											{
+												if(($val === '') || is_null($val))
+												{
+													$hasError = true;
+													$inputHasError = true;
+													$errorMessage = $rule->hasErrorMessage() ? $rule->getErrorMessage() : Language::getInstance('Validation')->getSentence('error.rule.compareRequireds1');
+													$this->addError($key, $label, $val, $errorMessage);
+												}
+											}
+										}
+										else
+										{
+											throw new ValidationError(Language::getInstance('Validation')->getSentence('error.rule.compareRequireds2'), self::RULE_ERROR);
+										}
+									}
+									break;
+								case 'compareDates':
+									if(!$this->isEmptyValue($val))
+									{
+										if(!$this->isEmptyValue($val2))
+										{
+											try{
+												if(!Date::validRange($val, $val2))
+												{
+													$hasError = true;
+													$inputHasError = true;
+													$errorMessage = $rule->hasErrorMessage() ? $rule->getErrorMessage() : Language::getInstance('Validation')->getSentence('error.rule.compareDates1');
+													$this->addError($key, $label, $val, $errorMessage);
+												}
+											}
+											catch(DateTimeError $err){
+												$hasError = true;
+												$inputHasError = true;
+												$errorMessage = $rule->hasErrorMessage() ? $rule->getErrorMessage() : Language::getInstance('Validation')->getSentence('error.rule.compareDates1');
+												$this->addError($key, $label, $val, $errorMessage);
+											}
+											catch(Error $err){
+												$hasError = true;
+												$inputHasError = true;
+												$errorMessage = $rule->hasErrorMessage() ? $rule->getErrorMessage() : Language::getInstance('Validation')->getSentence('error.rule.compareDates2');
+												$this->addError($key, $label, $val, $errorMessage);
+											}
+										}
+										else
+										{
+											$hasError = true;
+											$inputHasError = true;
+											$errorMessage = $rule->hasErrorMessage() ? $rule->getErrorMessage() : Language::getInstance('Validation')->getSentence('error.rule.compareDates3');
+											$this->addError($key, $label, $val, $errorMessage);
+										}
+									}
+									break;
+								case 'length':
+									if(!$this->isEmptyValue($val))
+									{
+										$len = strlen($item->getIsUrlEncoded() ? urldecode($val) : $val);
+										$min = $item->getMinLength();
+										$max = $item->getMaxLength();
+										$fixed = $item->getFixedLength();
+
+										if($fixed > 0 ? $len !== $fixed : (($min > 0) || ($max > 0) ? (($len < $min) && !is_null($min)) || (($len > $max) && !is_null($max)) : false))
+										{
+											$strErr = Language::getInstance('Validation')->getSentence('error.rule.length1');
+
+											if(is_numeric($min) && is_numeric($max))
+											{
+												$strErr .= ' ' . Language::getInstance('Validation')->getSentence('error.rule.length2', $min, $max);
+											}
+											else
+											{
+												if($min > 0)
+													$strErr .= ' ' . Language::getInstance('Validation')->getSentence('error.rule.length3', $min);
+												elseif($max > 0)
+													$strErr .= ' ' . Language::getInstance('Validation')->getSentence('error.rule.length4', $max);
+												elseif($fixed > 0)
+													$strErr .= ' ' . Language::getInstance('Validation')->getSentence('error.rule.length5', $fixed);
+												else
+													throw new ValidationError(Language::getInstance('Validation')->getSentence('error.rule.length6'), self::RULE_ERROR);
+											}
+
+											$strErr .= ' ' . Language::getInstance('Validation')->getSentence('error.rule.length7');
+											$hasError = true;
+											$inputHasError = true;
+											$errorMessage = $rule->hasErrorMessage() ? $rule->getErrorMessage() : $strErr;
+											$this->addError($key, $label, $val, $errorMessage);
+										}
+									}
+									break;
+								case 'match':
+									if(!$this->isEmptyValue($val))
+									{
+										if(!is_null($item->getDifferentValue()) || !is_null($item->getRequiredValue()))
+										{
+											if(
+												!is_null($item->getRequiredValue()) ?
+												(is_array($item->getRequiredValue()) ? !in_array($val, $item->getRequiredValue()) : $val != $item->getRequiredValue()) :
+												(is_array($item->getDifferentValue()) ? in_array($val, $item->getDifferentValue()) : $val == $item->getDifferentValue())
+
+											)
+											{
+												$hasError = true;
+												$inputHasError = true;
+												$errorMessage = $rule->hasErrorMessage() ? $rule->getErrorMessage() : Language::getInstance('Validation')->getSentence('error.rule.match1');
+												$this->addError($key, $label, $val, $errorMessage);
+											}
+										}
+										else
+										{
+											throw new ValidationError(Language::getInstance('Validation')->getSentence('error.rule.match2'), self::RULE_ERROR);
+										}
+									}
+									break;
+								case 'cnpj':
+									if(!$this->isEmptyValue($val))
+									{
+										if(preg_match('/\d{2}\.\d{3}\.\d{3}\/\d{4}-\d{2}/', $val))
+										{
+											if($item->isStrict())
+											{
+												$numbers = Text::remove('/\D+/', $val);
+												$cnpjN = Text::substring($numbers, 0, 12);
+												$ov1 = $numbers{12};
+												$ov2 = $numbers{13};
+												$fv1 = null;
+												$fv2 = null;
+												$arrCalculated = array();
+												$arrMult = array(6,7,8,9,2,3,4,5,6,7,8,9);
+												$i = null;
+												$result = 0;
+
+												// digit 1
+												for($i = 0; $i < strlen($cnpjN); $i++)
+													$arrCalculated[$i] = (int)$cnpjN{$i} * $arrMult[$i];
+
+												for($i = 0; $i < count($arrCalculated); $i++)
+													$result += $arrCalculated[$i];
+
+												$fv1 = (($result % 11 == 10) || ($result % 11 < 2)) ? 0 : $result % 11;
+
+												// digit 2
+												$cnpjN .= $fv1;
+												$arrCalculated = array();
+												$arrMult = array(5,6,7,8,9,2,3,4,5,6,7,8,9);
+												$result = 0;
+
+												for($i = 0; $i < strlen($cnpjN); $i++)
+													$arrCalculated[$i] = (int)$cnpjN{$i} * $arrMult[$i];
+
+												for($i = 0; $i < count($arrCalculated); $i++)
+													$result += $arrCalculated[$i];
+
+												$fv2 = (($result % 11 == 10) || ($result % 11 < 2)) ? 0 : $result % 11;
+
+												if(!(($ov1 == $fv1) && ($ov2 == $fv2) && !preg_match('/^(\d)\1+$/', $numbers)))
+												{
+													$hasError = true;
+													$inputHasError = true;
+													$errorMessage = $rule->hasErrorMessage() ? $rule->getErrorMessage() : Language::getInstance('Validation')->getSentence('error.rule.cnpj.invalidNumber');
+													$this->addError($key, $label, $val, $errorMessage);
+												}
+											}
+										}
+										else
+										{
+											$hasError = true;
+											$inputHasError = true;
+											$errorMessage = $rule->hasErrorMessage() ? $rule->getErrorMessage() : Language::getInstance('Validation')->getSentence('error.rule.cnpj.invalidFormat');
+											$this->addError($key, $label, $val, $errorMessage);
+										}
+									}
+									break;
+								case 'cpf':
+									if(!$this->isEmptyValue($val))
+									{
+										if(preg_match('/\d{3}\.\d{3}\.\d{3}-\d{2}/', $val))
+										{
+											if($item->isStrict())
+											{
+												$isInvalid = false;
+												$numbers = Text::remove('/\D+/', $val);
+
+												if(preg_match('/^(\d)\1+$/', $numbers))
+												{
+													$isInvalid = true;
+												}
+												else
+												{
+													for($t = 9; $t < 11; $t++)
+													{
+														for($d = 0, $c = 0; $c < $t; $c++)
+															$d += $numbers{$c} * (($t + 1) - $c);
+
+														$d = ((10 * $d) % 11) % 10;
+
+														if($numbers{$c} != $d)
+														{
+															$isInvalid = true;
+															break;
+														}
+													}
+												}
+
+												if($isInvalid)
+												{
+													$hasError = true;
+													$inputHasError = true;
+													$errorMessage = $rule->hasErrorMessage() ? $rule->getErrorMessage() : Language::getInstance('Validation')->getSentence('error.rule.cpf.invalidNumber');
+													$this->addError($key, $label, $val, $errorMessage);
+												}
+											}
+										}
+										else
+										{
+											$hasError = true;
+											$inputHasError = true;
+											$errorMessage = $rule->hasErrorMessage() ? $rule->getErrorMessage() : Language::getInstance('Validation')->getSentence('error.rule.cpf.invalidFormat');
+											$this->addError($key, $label, $val, $errorMessage);
+										}
+									}
+									break;
+								case 'upload':
+									if(isset($_FILES) && isset($_FILES[$key]) && ($_FILES[$key]['name'] != ''))
+									{
+										$files = CurrentHttpRequest::getInstance()->getFiles();
+
+										foreach($files as $i => $file)
+										{
+											if(isset($file->error) && $file->error == 0)
+											{
+												if(isset($file->tmp_name) && is_uploaded_file($file->tmp_name))
+												{
+													if(!empty($file->name))
+													{
+														$fileSize = $file->size;
+														$size = $item->getSize();
+														$unit = Text::toUpper(Text::substring($size, -1));
+														$size = ($unit == 'M' ? 1048576 : ($unit == 'K' ? 1024 : ($unit == 'G' ? 1073741824 : 1))) * (int)$size;
+														$ext = Text::toLower(Text::split('.', $file->name)->getLast());
+
+														if($fileSize <= $size)
+														{
+															if(!in_array($ext, $item->getTypes()))
+															{
+																$hasError = true;
+																$inputHasError = true;
+																$errorMessage = $rule->hasErrorMessage() ? $rule->getErrorMessage() : Language::getInstance('Validation')->getSentence('error.rule.file.invalidFileType', Text::toUpper(implode(', ', $item->getTypes())));
+																$this->addError($key, $label, $val, "{$file->name} [{$i}]: $errorMessage");
+															}
+														}
+														else
+														{
+															$hasError = true;
+															$inputHasError = true;
+															$errorMessage = $rule->hasErrorMessage() ? $rule->getErrorMessage() : Language::getInstance('Validation')->getSentence('error.rule.file.maxFileSize', "{$item->getSize()}B");
+															$this->addError($key, $label, $val, "{$file->name} [{$i}]: $errorMessage");
+														}
+													}
+													else
+													{
+														$hasError = true;
+														$inputHasError = true;
+														$errorMessage = $rule->hasErrorMessage() ? $rule->getErrorMessage() : Language::getInstance('Validation')->getSentence('error.rule.file.noName');
+														$this->addError($key, $label, $val, "{$file->name} [{$i}]: $errorMessage");
+													}
+												}
+												else
+												{
+													$hasError = true;
+													$inputHasError = true;
+													$errorMessage = $rule->hasErrorMessage() ? $rule->getErrorMessage() : Language::getInstance('Validation')->getSentence('error.rule.file.uploadError');
+													$this->addError($key, $label, $val, "{$file->name} [{$i}]: $errorMessage");
+												}
+											}
+											else
+											{
+												$hasError = true;
+												$inputHasError = true;
+												$errorStr = '';
+
+												switch($file->error)
+												{
+													case 0:
+														$errorStr = Language::getInstance('Validation')->getSentence('error.rule.file.noErrors');
+														break;
+													case 1:
+														$errorStr = Language::getInstance('Validation')->getSentence('error.rule.file.maxUploadSize');
+														break;
+													case 2:
+														$errorStr = Language::getInstance('Validation')->getSentence('error.rule.file.maxFileSize');
+														break;
+													case 3:
+														$errorStr = Language::getInstance('Validation')->getSentence('error.rule.file.missingPartOfFile');
+														break;
+													case 4:
+														if($item->isRequired())
+															$errorStr = Language::getInstance('Validation')->getSentence('error.rule.file.fileNotFound');
+														break;
+													case 5:
+														$errorStr = Language::getInstance('Validation')->getSentence('error.rule.file.noTempFolder');
+														break;
+													default:
+														$errorStr = Language::getInstance('Validation')->getSentence('error.rule.file.unknownError');
+														break;
+												}
+
+												$errorMessage = $rule->hasErrorMessage() ? $rule->getErrorMessage() : $errorStr;
+												$this->addError($key, $label, $val, "{$file->name} [{$i}]: $errorMessage");
+											}
+										}
+									}
+									else
+									{
+										if($item->isRequired())
+										{
+											$hasError = true;
+											$inputHasError = true;
+											$errorMessage = $rule->hasErrorMessage() ? $rule->getErrorMessage() : Language::getInstance('Validation')->getSentence('error.rule.file.fileNotFound');
+											$this->addError($key, $label, $val, $errorMessage);
+										}
+									}
+									break;
+								case 'discard': // nothing is done
+									break;
+								default:
+									if(!$this->isEmptyValue($val))
+									{
+										// custom rules
+										if(isset($this->customRules[$rule->getName()]))
+										{
+											$customRule = $this->customRules[$rule->getName()];
+
+											if(preg_match($customRule->getRegex(), $val) !== 1)
+											{
+												$hasError = true;
+												$inputHasError = true;
+												$errorMessage = $customRule->hasErrorMessage() ? $customRule->getErrorMessage() : Language::getInstance('Validation')->getSentence('error.rule.custom');
+												$this->addError($key, $label, $val, $errorMessage);
+											}
+										}
+									}
+								break;
+							}
+
+							if($inputHasError)
+								break;
+						}
+					}
+					else
+					{
+						$this->addError('', 'Security check', '', Language::getInstance('Validation')->getSentence('error.untrustData'));
+						$hasError = true;
+					}
+				}
+			}
+			else
+			{
+				$this->addError('', 'Security check', '', Language::getInstance('Validation')->getSentence('error.untrustData'));
+				$hasError = true;
+			}
+		}
+		else
+		{
+			$this->inputs['noInputs'] = new ValidationError(Language::getInstance('Validation')->getSentence('error.noInputs'), self::NO_INPUTS);
+			$hasError = true;
+		}
+
+		return !$hasError;
+	}
+
+	/**
+	 * Checks whether the input array contains a string with an invalid sequence
+	 * of letters or numbers.
+	 * @param array $input Array of string sequences to check.
+	 * @param int $validSequenceLength Maximum length of a valid sequence.
+	 * @param string $sequenceType Sequence type to check (letters or numbers).
+	 * @return boolean Returns true if an invalid sequence is false, or true
+	 * otherwise.
+	 */
+	private function isValidSequence(array $input, $validSequenceLength, $sequenceType)
+	{
+		$foundInvalidSequence = false;
+		$letters = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+
+		foreach($input as $substr)
+		{
+			$numberLength = strlen($substr);
+
+			if($numberLength > $validSequenceLength)
+			{
+				$i = -1;
+				$sequence = 1;
+				$currentChar = null;
+				$lastChar = null;
+
+				while(++$i < $numberLength)
+				{
+					$currentChar = $substr{$i};
+
+					if(!is_null($lastChar))
+					{
+						$isSequenceChar = false;
+
+						if($sequenceType == 'numbers')
+						{
+							$isSequenceChar = (int)$currentChar == ((int)$lastChar + 1);
+
+							if(!$isSequenceChar)
+								$isSequenceChar = (int)$currentChar == ((int)$lastChar - 1);
+						}
+						else
+						{
+							$lastIndex = strpos($letters, $lastChar);
+
+							if(($lastIndex !== false))
+							{
+								$currentIndex = strpos($letters, $currentChar);
+
+								if($currentIndex > $lastIndex)
+								{
+									if(isset($letters{$lastIndex + 1}))
+										$isSequenceChar = $currentIndex == $lastIndex + 1;
+								}
+								elseif($currentIndex < $lastIndex)
+								{
+									if(isset($letters{$lastIndex - 1}))
+										$isSequenceChar = $currentIndex == $lastIndex - 1;
+								}
+							}
+						}
+
+						if($isSequenceChar)
+						{
+							$sequence++;
+
+							if($sequence > $validSequenceLength)
+							{
+								$foundInvalidSequence = true;
+								break;
+							}
+						}
+						else
+						{
+							$sequence = 1;
+						}
+					}
+
+					$lastChar = $currentChar;
+				}
+
+				if($sequence > $validSequenceLength)
+					break;
+			}
+		}
+
+		return $foundInvalidSequence;
+	}
+
+	/**
+	 * Checks if the value is not empty.
+	 * @param mixed $val Any value.
+	 * @return bool
+	 */
+	private function isEmptyValue($val)
+	{
+		return ($val == '') || is_null($val);
+	}
+
+	/**
+	 * Returns the data source array.
+	 * @return array
+	 * @see Validator::setMethod()
+	 * @see Validator::setSource()
+	 */
+	public function getSource()
+	{
+		return $this->source;
+	}
+
+	/**
+	 * Sets the default rule.
+	 * @param string $rule Rule name.
+	 * @see Validator::$defaultRule
+	 * @see Validator::getForm()
+	 */
+	public function setDefaultRule($rule)
+	{
+		$this->defaultRule = $rule;
+	}
+
+	/**
+	 * Adds a validation error.
+	 * @param string $inputName Input name.
+	 * @param string $inputLabel Input label.
+	 * @param mixed $inputValue Input value.
+	 * @param string $errorMessage Error message.
+	 * @see Validator::$inputs
+	 * @see Validator::validate()
+	 */
+	protected function addError($inputName, $inputLabel, $inputValue, $errorMessage)
+	{
+		if(!isset($this->inputs[$inputName]))
+		{
+			$this->inputs[$inputName] = new InputField();
+			$this->inputs[$inputName]->setName($inputName);
+			$this->inputs[$inputName]->setLabel($inputLabel);
+			$this->inputs[$inputName]->setValue($inputValue);
+			$this->inputs[$inputName]->setErrorMessage($errorMessage);
+		}
+
+		$this->inputs[$inputName]->setErrorMessage($errorMessage);
+	}
+
+	/**
+	 * Removes errors messages from all inputs.
+	 */
+	public function clearErrors()
+	{
+		foreach($this->inputs as $input)
+			$input->setErrorMessage(null);
+	}
+
+	/**
+	 * Checks an input against HEX/HTML/SQL/Javascript injections.
+	 * @param string $value Value to check.
+	 * @param InputRule $input Related InputRule.
+	 * @return bool Return true if no errors encountered, or false otherwise.
+	 */
+	protected function secureValue($value, $input = null)
+	{
+		$isValid = true;
+		$isObject = is_object($input);
+
+		// HEX
+		if($isObject ? !$input->getIsUrlEncoded() : true)
+			$isValid = !preg_match('/(?:(?:\\x|\\00|&#(?:0000)?)[a-f0-9]{2};?)+/', $value);
+
+		if($isValid)
+		{
+			// HTML
+			if($isObject ? !$input->getHasHtml() : true)
+				$isValid = !preg_match('/(?:<\/?[^>]*\/?>)+/', $value);
+
+			if($isValid)
+			{
+				// JS
+				$isValid = !preg_match('/document\.\w+|\w+\.cookie|window\.\w+|[\.\w]*location(?:[\.\w]*)?\s*\=.*|.*\.close\(\)|.*\.open\([^\)]*\)|alert\([^\)]*\)|eval\([^\)]*\)/', $value);
+
+				if($isValid)
+				{
+					// SQL
+					//secRegex.Pattern = "(?:^|\W+)(?:DROP|CREATE|INSERT|UPDATE|DELETE|REPLACE|GRANT|SELECT|USE|ALTER|VIEW|FUNCTION|WHERE)(?=\W+)"
+					$isValid = !preg_match('/(?:SELECT|DELETE) .+ FROM [\w\._]+(?: WHERE .+)?|INSERT INTO [\w\._]+(?:\s*\([^)]+\))? VALUES\s*\([^)]+\)|UPDATE [\w\._]+ SET(?:[\w\._]+=\'?.*\'?,?)+(?: WHERE .+)?|CREATE TABLE [\w\._]+\s*\([^)]+\)|DROP TABLE [\w\._]+/', $value);
+
+					/*if($ok)
+					{
+						// RESERVED KEYWORDS
+						$ok = !preg_match('(?:^|\W+)(?:if|else(?:\s*if)?|switch|case|break|exit|function|extend|var\s+|dim\s+|this(?:\.|->){1}\w+)(?=\W+)', $val);
+					}*/
+				}
+			}
+		}
+
+		if(!$isValid)
+			$this->addError($input->getName(), $input->getLabel(), $input->getValue(), Language::getInstance('Validation')->getSentence('error.securityValidationFail'));
+
+		return $isValid;
+	}
+
+	/**
+	 * Loads a validation file.
+	 *
+	 * Validation files are XML and defines a rule set that will be used to
+	 * validate some data source.
+	 *
+	 * All validation files must be placed in the 'validation' directory of the
+	 * application, e.g, /Optimuz/apps/APPLICATION_NAME/validation/.
+	 * @param string $validationFileName Name of validation file, without the
+	 * extension (.xml).
+	 */
+	public function loadPolicy($validationFileName)
+	{
+		$path = Application::getCurrent()->getPath('validation') . "{$validationFileName}.xml";
+
+		if(!File::exists($path))
+			$path = Enviroment::getSharedApplication()->getPath('validation') . "{$validationFileName}.xml";
+
+		$xml = new Xml();
+
+		if(File::exists($path))
+		{
+			if($xml->load($path))
+			{
+				$form = $xml->documentElement;
+				$method = $form->getAttribute('method');
+				$customLang = $form->getAttribute('lang') ? Language::getInstance($form->getAttribute('lang')) : false;
+
+				if($method !== '')
+				{
+					$this->setMethod($method);
+					$inputs = $form->getElementsByTagName('input');
+					$customRules = $form->getElementsByTagName('custom-rules');
+
+					// add custom rules
+					if($customRules->length > 0)
+					{
+						foreach($customRules->item(0)->childNodes as $rule)
+							$this->addCustomRule($rule->getAttribute('name'), $rule->getAttribute('regex'), $rule->getAttribute('errorMessage'));
+					}
+
+					// add inputs
+					if($inputs->length > 0)
+					{
+						$rules = null;
+						$inputRule = null;
+
+						foreach($inputs as $input)
+						{
+							$rules = $input->getElementsByTagName('rule');
+
+							if($rules->length > 0)
+							{
+								$inputRule = new InputRule();
+								$inputRule->setName($input->getAttribute('name'));
+
+								if($input->getAttribute('label'))
+									$inputRule->setLabel($customLang ? $customLang->getSentence($customLang->getSentenceName($input->getAttribute('label'))) : $input->getAttribute('label'));
+								else
+									$inputRule->setLabel($inputRule->getName());
+
+								if($input->getAttribute('hasHTML'))
+									$inputRule->setHasHtml($input->getAttribute('hasHTML') == 'true');
+
+								if($input->getAttribute('isUrlEncoded'))
+									$inputRule->setIsUrlEncoded($input->getAttribute('isUrlEncoded') == 'true');
+
+								foreach($rules as $rule)
+								{
+									$ruleObj = new Rule($rule->getAttribute('name'), $rule->getAttribute('errorMessage'));
+									$inputRule->addRule($ruleObj);
+
+									if($rule->hasAttribute('requiredValue'))
+										$inputRule->setRequiredValue($rule->getAttribute('requiredValue'));
+
+									if($rule->hasAttribute('differentValue'))
+										$inputRule->setDifferentValue($rule->getAttribute('differentValue'));
+
+									if($rule->hasAttribute('second'))
+										$inputRule->setSecond($rule->getAttribute('second'));
+
+									if($rule->hasAttribute('items'))
+										$inputRule->setItems(explode(',', $rule->getAttribute('items')));
+
+									if($rule->hasAttribute('min'))
+										$inputRule->setMinLength((int)$rule->getAttribute('min'));
+
+									if($rule->hasAttribute('max'))
+										$inputRule->setMaxLength((int)$rule->getAttribute('max'));
+
+									if($rule->hasAttribute('fixed'))
+										$inputRule->setFixedLength((int)$rule->getAttribute('fixed'));
+
+									if($rule->hasAttribute('types'))
+										$inputRule->setTypes($rule->getAttribute('types'));
+
+									if($rule->hasAttribute('size'))
+										$inputRule->setSize($rule->getAttribute('size'));
+
+									if($rule->hasAttribute('required'))
+										$inputRule->isRequired($rule->getAttribute('required') == 'true');
+
+									if($rule->hasAttribute('accept'))
+										$inputRule->setAccept((explode(',', strtolower(trim($rule->getAttribute('accept'))))));
+
+									if($rule->hasAttribute('allowSequences'))
+										$inputRule->setAllowSequences($rule->getAttribute('allowSequences') == 'true');
+
+									if($rule->hasAttribute('sequencesMaxLength'))
+										$inputRule->setSequencesMaxLength($rule->getAttribute('sequencesMaxLength'));
+
+									$inputRule->setStrict($rule->getAttribute('strict') == 'true');
+								}
+
+								$this->inputRules[$inputRule->getName()] = $inputRule;
+							}
+						}
+					}
+					else
+					{
+						throw new ValidationError(Language::getInstance('Validation')->getSentence('error.loadValidationFile.noInputs'), self::LOAD_POLICY_ERROR);
+					}
+				}
+				else
+				{
+					throw new ValidationError(Language::getInstance('Validation')->getSentence('error.loadValidationFile.noMethod'), self::LOAD_POLICY_ERROR);
+				}
+			}
+			else
+			{
+				throw new ValidationError(Language::getInstance('Validation')->getSentence('error.loadValidationFile.loadError'), self::LOAD_POLICY_ERROR);
+			}
+		}
+		else
+		{
+			throw new ValidationError(Language::getInstance('Validation')->getSentence('error.loadValidationFile.fileNotExists', $validationFileName), File::NOT_EXISTS);
+		}
+	}
+}
+?>

@@ -1,0 +1,311 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE settings SYSTEM "http://optimuz.interativadesenvolvimento.com.br/dtd/global-settings.dtd">
+<!--
+This is the main configuration file of the framework. All values defined here
+can be changed in runtime through the Configuration class, but these changes are
+valid ONLY during the script runtime. Settings not defined here also can be
+defined in runtime, and will be valid during the script runtime.
+
+Note that when we refer to CLIENT in this file, we are refering to the UA (User
+Agent) that made the HTTP request.
+
+Settings defined here are used in many places of the framework, so take care
+to not make mistakes.
+-->
+<settings>
+	<!--
+	[Global only]
+	Profiles of application execution. There are basicaly two profiles:
+	production and development. So the application can know which enviroment it
+	is running, and take distinct decisions. More profiles can be added to this
+	section.
+	-->
+	<servers>
+		<production value="" />
+		<development value="" />
+	</servers>
+	
+	<!--
+	[Global and local]
+	Default settings applied in all pages of the application. These settings
+	can be changed in runtime to be applied individualy.
+	-->
+	<page>
+		<description></description>
+		<keywords></keywords>
+		<charset>UTF-8</charset>
+		<language>pt-br</language>
+		<title></title>
+		<doctype>strict</doctype>
+		<markup>html</markup>
+	</page>
+	
+	<!--
+	[Global and local]
+	E-mail's addresses used to send report, warning and error messages from the
+	application.
+	-->
+	<report enable="true">
+		<error value="" />
+		<webmaster value="" />
+		<report value="" />
+		<noreply value="" />
+		<support value="" />
+		<system value="" />
+	</report>
+
+	<!--
+	[Global and local]
+	Settings about error handling.
+	-->
+	<errors>
+		<!--
+		This setting sets a page controller used to handle errors catched by the
+		method Error::handleError().
+
+		If you provide a controller here, this controller must be a page
+		controller and extends the DefaultPageController or DefaultController
+		class. But if you don't provide a controller, the Error class will
+		call the static error page to give the user a feedback about the error.
+
+		The controller must have a constructor to receive the following
+		parameters (in this order): $errorNumber, $errorMessage, $errorFile,
+		$errorLine. An example of a valid constructor signature is:
+
+		public function __construct($errorNumber = null, $errorMessage = null, $errorFile = null, $errorLine = null)
+		-->
+		<defaultControllerHandler></defaultControllerHandler>
+	</errors>
+	
+	<!--
+	[Global and local]
+	Log settings.
+	-->
+	<log enable="true">
+		<!--
+		The tag "format" sets the log messages format, and can have the
+		following values:
+		- short: will store only the event date/time, the message and its level.
+		- complete: will store, besides the basic information, other
+		informations like IP, Browser, stacktrace, etc.
+		-->
+		<format type="complete" />
+	</log>
+	
+	<!--
+	[Global and local]
+	These settings are related to performance and need more atention. They are:
+
+	- cache: enable/disable the use of cache in the application. This is not
+	related to the cache on client, but only the application cache. This cache
+	are files stored in the directory /Optimuz/cache/. To handle this cache you
+	can use the Cache class located in the Core package.
+
+	- minify: enable/disable the process of minifying resource files (CSS and 
+	Javascript). This affects only the files included with the 
+	ResourceController class.
+
+	- compress: enable/disable the process of compressing files sent to the
+	client. These files includes resource files (CSS and Javascript), the
+	HTML content or any other content that can be sent with the
+	HttpScriptResponse class. NOTE: the compression is not done in the
+	HttpScriptResponse class, usualy it is done in the DefaultView class. So if
+	you want to compress any content that will not be sent by a view, do it
+	manualy before send. The compression can be done using one of two methods:
+	gzip (default) or deflate.
+
+	- mergeFiles: enable/disable the concatenation of resource files (CSS and
+	Javascript) sent to the client. If this option is turned on, all CSS files
+	for example, will be sent as one file in one request.
+	-->
+	<performance>
+		<cache enable="false" />
+		<minify enable="false" />
+		<compress enable="false" method="gzip" level="5" />
+		<mergeFiles enable="false" />
+	</performance>
+	
+	<!--
+	[Global only]
+	Default settings of date and time used by the application.
+	-->
+	<dateTime>
+		<date format="d/m/Y" />
+		<time format="H:i:s" />
+		<timezone offset="0" identifier="America/Sao_Paulo" />
+	</dateTime>
+	
+	<!--
+	[Global and local]
+	Session settings used by the application.
+	-->
+	<session>
+		<!--
+		Enable/disable the session auto start in the first time the user visit
+		the application.
+		-->
+		<autoStart enable="true" />
+
+		<!--
+		Settings related to the session lifetime.
+
+		The attribute 'value' sets the default session expiration time in
+		minutes. If its value is 0 (zero) then the validation to check whether
+		the session is still valid will be disabled. In other words, the session
+		is meant to be "always valid", though it can still be closed if the PHP
+		GC finds that the session file is too older.
+
+		The attribute 'autoUpdate' sets whether the session timeout must to be
+		updated automatically on each request. If it is set to true, on every
+		request the session start time will be set to the current time,
+		extending the session lifetime. If it is set to false, the session start
+		time will not be updated and the session itself will be closed after the
+		timeout specified by the attribute 'value'. Default for this attribute
+		is true.
+		-->
+		<timeout value="0" />
+
+		<!--
+		Settings related to the session's cookie.
+		-->
+		<cookie>
+			<!--
+			Custom name used for the session cookie.
+
+			If this setting is empty, then the default name will be used. The
+			default name for the session cookie is the application's name.
+
+			If the application is not using its own session (i.e., the savePath
+			setting above is not set) the cookie name will be the PHP default.
+			-->
+			<name></name>
+
+			<!--
+			If the encrypt parameter is set, then the name will be encrypted using
+			the class Serial from the Core package. The encrypted name will have
+			two blocks of five digits.
+			-->
+			<encrypt>false</encrypt>
+		</cookie>
+	</session>
+
+	<!--
+	[Global and local]
+	Default formats.
+	-->
+	<format>
+		<currency>R$</currency>
+	</format>
+
+	<!--
+	[Global and local]
+	SMTP settings.
+	-->
+	<smtp enable="false">
+		<host>
+			<!--
+			Settings about the local host. The local host is the one where the
+			application is running.
+			-->
+			<local>
+				<name>localhost</name>
+			</local>
+
+			<!--
+			Settings about the host where the SMTP server is running.
+			-->
+			<remote>
+				<name></name>
+				<port>25</port>
+				<security></security>
+			</remote>
+		</host>
+		<!--
+		Settings related to SMTP authentication.
+		-->
+		<user></user>
+		<pwd></pwd>
+		<timeout>30</timeout>
+	</smtp>
+
+	<!--
+	[Global only]
+	Settings related to URL rewriting and how the framework parses internal URLs
+	to generate real URLs. This section affects the behaviour of the method
+	Enviroment::resolveUrl().
+	-->
+	<urlRewrite>
+		<!--
+		When this setting is true the framework will use the urlrewrite moudule
+		from the server to parse and generate URLs. But if this setting is
+		false, then the framework will simulate the URL rewriting. In this
+		case all requests to controllers must be prefixed with /index.php, e.g.
+		/index.php/welcome/home/index. And all requests for resources must be
+		prefixed with /resources.php, e.g. /resources.php/welcome/css/style.css.
+		-->
+		<useServerMod enable="true" />
+	</urlRewrite>
+
+	<!--
+	[Global and local]
+	Settings related to the package Html. This package extends the DOM extension
+	from the PHP core.
+	-->
+	<htmlElements>
+		<!--
+		The Html package can save its objects in the session, so an object is
+		created only once.
+		-->
+		<session>
+			<!--
+			This setting enables or disables the session usage to store Html
+			objects.
+
+			If this setting is turned off then objects must to be created for
+			every request. Turning it on can bring performance boost.
+			-->
+			<saveState enable="false" />
+
+			<!--
+			If the session is enabled to store Html objects, then they can be
+			automaticaly restored for use in the script.
+
+			If this setting is set to false, then you must restore every object
+			saved to the session. To restore saved objects use the static method
+			HtmlSate::restore($elementId) giving the element's ID. Otherwise,
+			if this setting is set to true, each object will be auto-restored
+			by the local bootstrap file (which can be located at
+			/Optimuz/APPLICATION_NAME/config/bootstrap/local.php).
+			-->
+			<autoLoadSavedState enable="true" />
+		</session>
+	</htmlElements>
+
+	<!--
+	[Global and local]
+	ORM settings.
+	-->
+	<orm>
+		<!--
+		Here is a list of ORM engines that can be used by the apps. The default
+		engine is Propel.
+		-->
+		<propel enable="true" />
+		<notorm enable="false">
+			<connection dsn="mysql:dbname=" user="root" password="" />
+		</notorm>
+	</orm>
+
+	<!--
+	[Global only]
+	Settings related to the file system.
+	-->
+	<filesystem>
+		<!--
+		Directory separator used in Enviroment::normalizePath(). Possible values
+		are "\", "/" or "auto". If is set to "auto", the separator will be 
+		Enviroment::DIR_SEP (OS specific).
+		-->
+		<dir separator="/" />
+	</filesystem>
+</settings>

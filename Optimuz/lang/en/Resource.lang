@@ -1,0 +1,6 @@
+resource.error.invalidResource = The request to the file %s returned with code %s
+resource.error.invalidResourceFile = The file %s is invalid
+resource.error.invalidUid = An invalid resource identifier (UID) was given
+resource.error.invalidParams = Invalid parameters were given to load a resource
+resource.error.invalidStorageEngine = The storage engine (%s) of resource files is invalid
+resource.error.uidNotFound = The UID "%s" was not found

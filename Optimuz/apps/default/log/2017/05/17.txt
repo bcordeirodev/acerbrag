@@ -1,0 +1,130 @@
+19:44:16 [ERROR]: (# 0) Error [1]: {561d3-6f0e3} Class 'InstituicaoController' not found (Linha 321, Arquivo C:\wamp\www\plug3s\trunk\web\Optimuz\lib\Application\Application.php)
+
+
+POST:
+array (
+)
+
+GET:
+array (
+)
+
+SESSION:
+array (
+  'SystemAccessLogin_default' => 'O:17:"SystemAccessLogin":5:{s:7:"' . "\0" . '*' . "\0" . 'name";s:20:"joaosilva@hotmai.com";s:7:"' . "\0" . '*' . "\0" . 'role";O:16:"SystemAccessRole":5:{s:5:"' . "\0" . '*' . "\0" . 'id";i:2;s:7:"' . "\0" . '*' . "\0" . 'name";s:11:"instituicao";s:8:"' . "\0" . '*' . "\0" . 'label";s:13:"Instituição";s:10:"' . "\0" . '*' . "\0" . 'isAdmin";b:0;s:9:"' . "\0" . '*' . "\0" . 'negate";b:0;}s:14:"' . "\0" . '*' . "\0" . 'permissions";O:9:"ArrayList":4:{s:8:"' . "\0" . '*' . "\0" . 'array";a:0:{}s:9:"' . "\0" . '*' . "\0" . 'locked";b:0;s:13:"' . "\0" . '*' . "\0" . 'strictType";N;s:11:"' . "\0" . '*' . "\0" . 'iterator";O:17:"ArrayListIterator":1:{s:8:"' . "\0" . '*' . "\0" . 'array";R:10;}}s:7:"' . "\0" . '*' . "\0" . 'data";O:9:"ArrayList":4:{s:8:"' . "\0" . '*' . "\0" . 'array";a:3:{s:6:"userId";i:74;s:8:"userName";s:10:"1321312312";s:12:"previousUser";i:73;}s:9:"' . "\0" . '*' . "\0" . 'locked";b:0;s:13:"' . "\0" . '*' . "\0" . 'strictType";N;s:11:"' . "\0" . '*' . "\0" . 'iterator";O:17:"ArrayListIterator":1:{s:8:"' . "\0" . '*' . "\0" . 'array";R:15;}}s:14:"' . "\0" . '*' . "\0" . 'persistence";N;}',
+)
+
+Trace:
+#0 C:\wamp\www\plug3s\trunk\web\Optimuz\lib\Error\Error.php(378): Error::handleScriptError(1, 'Class 'Institui...', 'C:\wamp\www\plu...', 321)
+#1 [internal function]: Error::handleFatalError()
+#2 {main}
+
+URI: /plug3s/trunk/web/minha-instituicao
+Host: localhost
+IP da requisiÃ§Ã£o: 127.0.0.1:9048
+Browser: Mozilla/5.0 (Windows NT 6.1; WOW64; rv:54.0) Gecko/20100101 Firefox/54.0
+------------------------------------------------------------------------------------------------------------------
+19:44:31 [ERROR]: (# 0) Error [1]: {1d759-a398e} Class 'InstituicaoController' not found (Linha 321, Arquivo C:\wamp\www\plug3s\trunk\web\Optimuz\lib\Application\Application.php)
+
+
+POST:
+array (
+)
+
+GET:
+array (
+)
+
+SESSION:
+array (
+  'SystemAccessLogin_default' => 'O:17:"SystemAccessLogin":5:{s:7:"' . "\0" . '*' . "\0" . 'name";s:20:"joaosilva@hotmai.com";s:7:"' . "\0" . '*' . "\0" . 'role";O:16:"SystemAccessRole":5:{s:5:"' . "\0" . '*' . "\0" . 'id";i:2;s:7:"' . "\0" . '*' . "\0" . 'name";s:11:"instituicao";s:8:"' . "\0" . '*' . "\0" . 'label";s:13:"Instituição";s:10:"' . "\0" . '*' . "\0" . 'isAdmin";b:0;s:9:"' . "\0" . '*' . "\0" . 'negate";b:0;}s:14:"' . "\0" . '*' . "\0" . 'permissions";O:9:"ArrayList":4:{s:8:"' . "\0" . '*' . "\0" . 'array";a:0:{}s:9:"' . "\0" . '*' . "\0" . 'locked";b:0;s:13:"' . "\0" . '*' . "\0" . 'strictType";N;s:11:"' . "\0" . '*' . "\0" . 'iterator";O:17:"ArrayListIterator":1:{s:8:"' . "\0" . '*' . "\0" . 'array";R:10;}}s:7:"' . "\0" . '*' . "\0" . 'data";O:9:"ArrayList":4:{s:8:"' . "\0" . '*' . "\0" . 'array";a:3:{s:6:"userId";i:74;s:8:"userName";s:10:"1321312312";s:12:"previousUser";i:73;}s:9:"' . "\0" . '*' . "\0" . 'locked";b:0;s:13:"' . "\0" . '*' . "\0" . 'strictType";N;s:11:"' . "\0" . '*' . "\0" . 'iterator";O:17:"ArrayListIterator":1:{s:8:"' . "\0" . '*' . "\0" . 'array";R:15;}}s:14:"' . "\0" . '*' . "\0" . 'persistence";N;}',
+)
+
+Trace:
+#0 C:\wamp\www\plug3s\trunk\web\Optimuz\lib\Error\Error.php(378): Error::handleScriptError(1, 'Class 'Institui...', 'C:\wamp\www\plu...', 321)
+#1 [internal function]: Error::handleFatalError()
+#2 {main}
+
+URI: /plug3s/trunk/web/minha-instituicao
+Host: localhost
+IP da requisiÃ§Ã£o: 127.0.0.1:9052
+Browser: Mozilla/5.0 (Windows NT 6.1; WOW64; rv:54.0) Gecko/20100101 Firefox/54.0
+------------------------------------------------------------------------------------------------------------------
+19:45:10 [ERROR]: (# 0) Error [1]: {c8734-84e75} Class 'InstituicaoController' not found (Linha 321, Arquivo C:\wamp\www\plug3s\trunk\web\Optimuz\lib\Application\Application.php)
+
+
+POST:
+array (
+)
+
+GET:
+array (
+)
+
+SESSION:
+array (
+  'SystemAccessLogin_default' => 'O:17:"SystemAccessLogin":5:{s:7:"' . "\0" . '*' . "\0" . 'name";s:20:"joaosilva@hotmai.com";s:7:"' . "\0" . '*' . "\0" . 'role";O:16:"SystemAccessRole":5:{s:5:"' . "\0" . '*' . "\0" . 'id";i:2;s:7:"' . "\0" . '*' . "\0" . 'name";s:11:"instituicao";s:8:"' . "\0" . '*' . "\0" . 'label";s:13:"Instituição";s:10:"' . "\0" . '*' . "\0" . 'isAdmin";b:0;s:9:"' . "\0" . '*' . "\0" . 'negate";b:0;}s:14:"' . "\0" . '*' . "\0" . 'permissions";O:9:"ArrayList":4:{s:8:"' . "\0" . '*' . "\0" . 'array";a:0:{}s:9:"' . "\0" . '*' . "\0" . 'locked";b:0;s:13:"' . "\0" . '*' . "\0" . 'strictType";N;s:11:"' . "\0" . '*' . "\0" . 'iterator";O:17:"ArrayListIterator":1:{s:8:"' . "\0" . '*' . "\0" . 'array";R:10;}}s:7:"' . "\0" . '*' . "\0" . 'data";O:9:"ArrayList":4:{s:8:"' . "\0" . '*' . "\0" . 'array";a:3:{s:6:"userId";i:74;s:8:"userName";s:10:"1321312312";s:12:"previousUser";i:73;}s:9:"' . "\0" . '*' . "\0" . 'locked";b:0;s:13:"' . "\0" . '*' . "\0" . 'strictType";N;s:11:"' . "\0" . '*' . "\0" . 'iterator";O:17:"ArrayListIterator":1:{s:8:"' . "\0" . '*' . "\0" . 'array";R:15;}}s:14:"' . "\0" . '*' . "\0" . 'persistence";N;}',
+)
+
+Trace:
+#0 C:\wamp\www\plug3s\trunk\web\Optimuz\lib\Error\Error.php(378): Error::handleScriptError(1, 'Class 'Institui...', 'C:\wamp\www\plu...', 321)
+#1 [internal function]: Error::handleFatalError()
+#2 {main}
+
+URI: /plug3s/trunk/web/minha-instituicao
+Host: localhost
+IP da requisiÃ§Ã£o: 127.0.0.1:9085
+Browser: Mozilla/5.0 (Windows NT 6.1; WOW64; rv:54.0) Gecko/20100101 Firefox/54.0
+------------------------------------------------------------------------------------------------------------------
+19:45:21 [ERROR]: (# 0) Error [1]: {f3879-8d940} Class 'InstituicaoController' not found (Linha 321, Arquivo C:\wamp\www\plug3s\trunk\web\Optimuz\lib\Application\Application.php)
+
+
+POST:
+array (
+)
+
+GET:
+array (
+)
+
+SESSION:
+array (
+  'SystemAccessLogin_default' => 'O:17:"SystemAccessLogin":5:{s:7:"' . "\0" . '*' . "\0" . 'name";s:23:"bcordeiro.dev@gmail.com";s:7:"' . "\0" . '*' . "\0" . 'role";O:16:"SystemAccessRole":5:{s:5:"' . "\0" . '*' . "\0" . 'id";i:1;s:7:"' . "\0" . '*' . "\0" . 'name";s:5:"admin";s:8:"' . "\0" . '*' . "\0" . 'label";s:5:"Admin";s:10:"' . "\0" . '*' . "\0" . 'isAdmin";b:0;s:9:"' . "\0" . '*' . "\0" . 'negate";b:0;}s:14:"' . "\0" . '*' . "\0" . 'permissions";O:9:"ArrayList":4:{s:8:"' . "\0" . '*' . "\0" . 'array";a:0:{}s:9:"' . "\0" . '*' . "\0" . 'locked";b:0;s:13:"' . "\0" . '*' . "\0" . 'strictType";N;s:11:"' . "\0" . '*' . "\0" . 'iterator";O:17:"ArrayListIterator":1:{s:8:"' . "\0" . '*' . "\0" . 'array";R:10;}}s:7:"' . "\0" . '*' . "\0" . 'data";O:9:"ArrayList":4:{s:8:"' . "\0" . '*' . "\0" . 'array";a:2:{s:6:"userId";i:73;s:8:"userName";s:14:"Bruno Cordeiro";}s:9:"' . "\0" . '*' . "\0" . 'locked";b:0;s:13:"' . "\0" . '*' . "\0" . 'strictType";N;s:11:"' . "\0" . '*' . "\0" . 'iterator";O:17:"ArrayListIterator":1:{s:8:"' . "\0" . '*' . "\0" . 'array";R:15;}}s:14:"' . "\0" . '*' . "\0" . 'persistence";O:23:"SystemAccessPersistence":2:{s:7:"' . "\0" . '*' . "\0" . 'data";i:73;s:7:"' . "\0" . '*' . "\0" . 'time";O:4:"Date":11:{s:15:"' . "\0" . 'Date' . "\0" . 'timestamp";i:1497653119;s:9:"' . "\0" . 'Date' . "\0" . 'day";s:2:"16";s:11:"' . "\0" . 'Date' . "\0" . 'month";s:2:"06";s:10:"' . "\0" . 'Date' . "\0" . 'year";s:4:"2017";s:10:"' . "\0" . 'Date' . "\0" . 'hour";s:2:"19";s:12:"' . "\0" . 'Date' . "\0" . 'minute";s:2:"45";s:12:"' . "\0" . 'Date' . "\0" . 'second";s:2:"19";s:16:"' . "\0" . 'Date' . "\0" . 'dateFormat";s:5:"d/m/Y";s:16:"' . "\0" . 'Date' . "\0" . 'timeFormat";s:5:"H:i:s";s:8:"' . "\0" . '*' . "\0" . 'error";N;s:17:"' . "\0" . 'Object' . "\0" . 'className";N;}}}',
+)
+
+Trace:
+#0 C:\wamp\www\plug3s\trunk\web\Optimuz\lib\Error\Error.php(378): Error::handleScriptError(1, 'Class 'Institui...', 'C:\wamp\www\plu...', 321)
+#1 [internal function]: Error::handleFatalError()
+#2 {main}
+
+URI: /plug3s/trunk/web/instituicao
+Host: localhost
+IP da requisiÃ§Ã£o: 127.0.0.1:9095
+Browser: Mozilla/5.0 (Windows NT 6.1; WOW64; rv:54.0) Gecko/20100101 Firefox/54.0
+------------------------------------------------------------------------------------------------------------------
+19:48:23 [ERROR]: (# 0) Error [205]: {30ed2-c783c} O controle MembroController nÃ£o existe ou nÃ£o pode ser acessado pela URL (Linha 350, Arquivo C:\wamp\www\plug3s\trunk\web\Optimuz\lib\Application\Application.php)
+
+
+POST:
+array (
+)
+
+GET:
+array (
+)
+
+SESSION:
+array (
+  'SystemAccessLogin_default' => 'O:17:"SystemAccessLogin":5:{s:7:"' . "\0" . '*' . "\0" . 'name";s:20:"joaosilva@hotmai.com";s:7:"' . "\0" . '*' . "\0" . 'role";O:16:"SystemAccessRole":5:{s:5:"' . "\0" . '*' . "\0" . 'id";i:2;s:7:"' . "\0" . '*' . "\0" . 'name";s:11:"instituicao";s:8:"' . "\0" . '*' . "\0" . 'label";s:13:"Instituição";s:10:"' . "\0" . '*' . "\0" . 'isAdmin";b:0;s:9:"' . "\0" . '*' . "\0" . 'negate";b:0;}s:14:"' . "\0" . '*' . "\0" . 'permissions";O:9:"ArrayList":4:{s:8:"' . "\0" . '*' . "\0" . 'array";a:0:{}s:9:"' . "\0" . '*' . "\0" . 'locked";b:0;s:13:"' . "\0" . '*' . "\0" . 'strictType";N;s:11:"' . "\0" . '*' . "\0" . 'iterator";O:17:"ArrayListIterator":1:{s:8:"' . "\0" . '*' . "\0" . 'array";R:10;}}s:7:"' . "\0" . '*' . "\0" . 'data";O:9:"ArrayList":4:{s:8:"' . "\0" . '*' . "\0" . 'array";a:3:{s:6:"userId";i:74;s:8:"userName";s:10:"1321312312";s:12:"previousUser";i:73;}s:9:"' . "\0" . '*' . "\0" . 'locked";b:0;s:13:"' . "\0" . '*' . "\0" . 'strictType";N;s:11:"' . "\0" . '*' . "\0" . 'iterator";O:17:"ArrayListIterator":1:{s:8:"' . "\0" . '*' . "\0" . 'array";R:15;}}s:14:"' . "\0" . '*' . "\0" . 'persistence";N;}',
+)
+
+Trace:
+#0 C:\wamp\www\plug3s\trunk\web\Optimuz\lib\Application\Application.php(220): Application->run('MembroControlle...', 'index', NULL, 'MembroControlle...', Array)
+#1 C:\wamp\www\plug3s\trunk\web\index.php(58): Application::initialize('C:\wamp\www\plu...')
+#2 {main}
+
+URI: /plug3s/trunk/web/membro
+Host: localhost
+IP da requisiÃ§Ã£o: 127.0.0.1:9178
+Browser: Mozilla/5.0 (Windows NT 6.1; WOW64; rv:54.0) Gecko/20100101 Firefox/54.0
+------------------------------------------------------------------------------------------------------------------

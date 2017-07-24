@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE settings SYSTEM "http://optimuz.interativadesenvolvimento.com.br/dtd/validation.dtd">
+<form method="get" lang="">
+	<input name="start" label="Start">
+		<rule name="number" />
+	</input>
+	<input name="length" label="Length">
+		<rule name="number" />
+	</input>
+	<input name="draw" label="Draw">
+		<rule name="number" />
+	</input>
+	<input name="search" label="Search">
+		<rule name="text" />
+	</input>
+	<input name="time" label="Time">
+		<rule name="number" />
+	</input>
+	<input name="limit" label="Limit">
+		<rule name="number" />
+	</input>
+	<input name="show" label="Show">
+		<rule name="discard" />
+	</input>
+	<input name="exportar" label="Exportar">
+		<rule name="number" />
+	</input>
+	<input name="campo" label="Campo do filtro">
+		<rule name="array" />
+	</input>
+	<input name="condicao" label="Condição do filtro">
+		<rule name="array" />
+	</input>
+	<input name="valor" label="Valor do filtro">
+		<rule name="array" />
+	</input>
+	<input name="operador" label="Operador do filtro">
+		<rule name="array" />
+	</input>
+	<input name="tipo" label="Tipo">
+		<rule name="match" requiredValue="excel,csv,pdf" />
+	</input>
+	<input name="removidos" label="Removidos">
+		<rule name="number" />
+	</input>
+</form>

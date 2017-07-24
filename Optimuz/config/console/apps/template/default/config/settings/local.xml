@@ -1,0 +1,258 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!--
+This is the main configuration file of the application. All values defined here
+can be changed in runtime through the Configuration class, but these changes are
+valid ONLY during the script runtime. Settings not defined here also can be
+defined in runtime, and will be valid during the script runtime.
+
+Note that when we refer to CLIENT in this file, we are refering to the UA (User
+Agent) that made the HTTP request.
+
+Settings defined here are used in many places of the application, so take care
+to not make mistakes.
+-->
+<settings>
+	<!--
+	[Local]
+	Settings related to the application.
+	
+	- title: applicaion's title. This title is used as the default title for all
+	application's pages.
+	
+	- version:  application's version.
+	
+	- enable: if this parameter is true the application will be accessable for
+	all users. Otherwise, the access to this application will be denied.
+	-->
+	<app title="" version="0.1" enable="true" />
+
+	<!--
+	[Global and local]
+	Default settings applied in all pages of the application. These settings
+	can be changed in runtime to be applied individualy.
+	-->
+	<page>
+		<description></description>
+		<keywords></keywords>
+		<charset>UTF-8</charset>
+		<language>pt-br</language>
+		<title></title>
+		<doctype>strict</doctype>
+		<markup>xhtml</markup>
+	</page>
+	
+	<!--
+	[Global and local]
+	E-mail's addresses used to send report, warning and error messages from the
+	application.
+	-->
+	<report enable="true">
+		<email name="error" value="" />
+		<email name="webmaster" value="" />
+		<email name="report" value="" />
+		<email name="noreply" value="" />
+		<email name="support" value="" />
+		<email name="system" value="" />
+	</report>
+
+	<!--
+	[Global and local]
+	Settings about error handling.
+	-->
+	<errors>
+		<!--
+		This setting sets a page controller used to handle errors catched by the
+		method Error::handleError().
+		
+		If you provide a controller here, this controller must be a page
+		controller and extends the DefaultPageController or DefaultController
+		class. But if you don't provide a controller, the Error class will
+		call the static error page to give the user a feedback about the error.
+
+		The controller must have a constructor to receive the following
+		parameters (in this order): $errorNumber, $errorMessage, $errorFile,
+		$errorLine. An example of a valid constructor signature is:
+
+		public function __construct($errorNumber = null, $errorMessage = null, $errorFile = null, $errorLine = null)
+		-->
+		<defaultControllerHandler></defaultControllerHandler>
+
+		<--
+		TODO implement the defaultExceptionHandler option and change the
+		defaultControllerHandler to defaultErrorHanlder.
+		-->
+		<defaultExceptionHandler></defaultExceptionHandler>
+	</errors>
+	
+	<!--
+	[Global and local]
+	Log settings.
+	-->
+	<log enable="true">
+		<!--
+		The tag "format" sets the log messages format, and can have the
+		following values:
+		- short: will store only the event date/time, the message and its level.
+		- complete: will store, besides the basic information, other
+		informations like IP, Browser, stacktrace, etc.
+		-->
+		<format type="complete" />
+	</log>
+	
+	<!--
+	[Global and local]
+	These settings are related to performance and need more atention. They are:
+
+	- cache: enable/disable the use of cache in the application. This is not
+	related to the cache on client, but only the application cache. This cache
+	are files stored in the directory /Optimuz/cache/. To handle this cache you
+	can use the Cache class located in the Core package.
+
+	- minify: enable/disable the process of minifying resource files (CSS and 
+	Javascript). This affects only the files included with the 
+	ResourceController class.
+
+	- compress: enable/disable the process of compressing files sent to the
+	client. These files includes resource files (CSS and Javascript), the
+	HTML content or any other content that can be sent with the
+	HttpScriptResponse class. NOTE: the compression is not done in the
+	HttpScriptResponse class, usualy it is done in the DefaultView class. So if
+	you want to compress any content that will not be sent by a view, do it
+	manualy before send. The compression can be done using one of two methods:
+	gzip (default) or deflate.
+
+	- mergeFiles: enable/disable the concatenation of resource files (CSS and
+	Javascript) sent to the client. If this option is turned on, all CSS files
+	for example, will be sent as one file in one request.
+	-->
+	<performance>
+		<cache enable="false" />
+		<minify enable="false" />
+		<compress enable="false" method="gzip" level="5" />
+		<mergeFiles enable="false" />
+	</performance>
+
+	<!--
+	[Local only]
+	Default settings about the engine used to store resource files. These
+	settings are used by the Resource package.
+	-->
+	<resources>
+		<!--
+		The "storage" element can have the following attributes:
+
+		- engine: the value can be "files" (default) or "session".
+
+		- lifetime: the lifetime (in seconds) of a resource file when it is
+		cached. After this time, the resource must be renewed in the client
+		cache. This is only used when the resource file is cached in the client
+		cache.
+		-->
+		<storage engine="files" lifetime="3600" />
+		<!--
+		URL of a public controller used to handle resources requests. The
+		controller must be located in the controller's public package
+		(/Optimuz/layers/control/public).
+
+		Example of a valid value for this setting is "/resource" (without
+		quotes). In this case there must be a controller named
+		ResourceController in the path /Optimuz/layers/control/public, so
+		complete path is /Optimuz/layers/control/public/ResourceController.php.
+
+		If no controller is specified, than resource files will be loaded
+		directly from the resources directory (/httpdocs/resources).
+		-->
+		<controller></controller>
+	</resources>
+	
+	<!--
+	[Global and local]
+	Session settings used by the application.
+	-->
+	<session>
+		<!--
+		Enable/disable the session auto start in the first time the user visit
+		the application.
+		-->
+		<autoStart enable="true" />
+		<!--
+		Session's save path. This path is relative to the application directory
+		(/Optimuz/apps/APPLICATION_NAME/). So if the value of this setting is
+		"some/folder/" and the current application is "default", the session
+		files will be saved on "/Optimuz/apps/default/some/folder/". If this
+		setting is empty, the global session's path will be used
+		(/Optimuz/session/).
+		-->
+		<savePath value="session/" />
+		<!--
+		Default session expiration time in minutes.
+		-->
+		<timeout value="60" />
+	</session>
+
+	<!--
+	[Global and local]
+	Default formats.
+	-->
+	<format>
+		<currency>R$</currency>
+	</format>
+
+	<!--
+	[Global and local]
+	SMTP settings.
+	-->
+	<smtp enable="false">
+		<host>
+			<!--
+			Settings about the local host. The local host is the one where the
+			application is running.
+			-->
+			<local>
+				<name>localhost</name>
+			</local>
+			<!--
+			Settings about the host where the SMTP server is running.
+			-->
+			<remote>
+				<name></name>
+				<port>25</port>
+			</remote>
+		</host>
+		<!--
+		Settings related to SMTP authentication.
+		-->
+		<user></user>
+		<pwd></pwd>
+		<timeout>30</timeout>
+	</smtp>
+
+	<!--
+	[Local only]
+	System access's settings.
+	-->
+	<systemAccess enable="true" handler="database">
+		<database>
+			<model></model>
+		</database>
+	</systemAccess>
+
+	<!--
+	[Local only]
+	Settings related to threads.
+	-->
+	<threading>
+		<!--
+		If this option is true, then the threads will use the framework's log
+		to log their actions. Disable it for performance improvement.
+		-->
+		<log enable="true" />
+
+		<!--
+		Limit for simultaneos threads. If this limit is zero, than you can run
+		an unlimited number of threads at the same time. Otherwise, if this
+		value is greater then zero, you can only run threads upon to this limit.
+		-->
+		<limit value="20" />
+	</threading>
+</settings>

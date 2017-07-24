@@ -1,0 +1,314 @@
+19:05:52 [ERROR]: (# 0) Error [0]: {f4fc4-4111c} Unable to execute COUNT statement [SELECT COUNT(*) FROM `igreja` WHERE igreja.TIPO=:p1 AND igreja.DATA_CADASTRO = :p2] [wrapped: Error parsing date/time value: '14/05/2017' [wrapped: DateTime::__construct(): Failed to parse time string (14/05/2017) at position 0 (1): Unexpected character]]
+#0 C:\wamp64\www\plug3s\Optimuz\orm\Propel\runtime\lib\query\ModelCriteria.php(1405): ModelCriteria->doCount(Object(PropelPDO))
+#1 C:\wamp64\www\plug3s\Optimuz\orm\Propel\runtime\lib\util\PropelModelPager.php(63): ModelCriteria->count(NULL)
+#2 C:\wamp64\www\plug3s\Optimuz\orm\Propel\runtime\lib\query\ModelCriteria.php(1477): PropelModelPager->init(NULL)
+#3 C:\wamp64\www\plug3s\Optimuz\apps\default\layers\control\page\InstituicaoController.php(255): ModelCriteria->paginate(1, 10)
+#4 C:\wamp64\www\plug3s\Optimuz\apps\default\layers\control\page\InstituicaoController.php(172): InstituicaoController->doList(Object(IgrejaQuery))
+#5 C:\wamp64\www\plug3s\Optimuz\lib\Application\Application.php(331): InstituicaoController->listarTodas()
+#6 C:\wamp64\www\plug3s\Optimuz\lib\Application\Application.php(220): Application->run('InstituicaoCont...', 'listarTodas', NULL, 'InstituicaoCont...', Array)
+#7 C:\wamp64\www\plug3s\index.php(58): Application::initialize('C:\\wamp64\\www\\p...')
+#8 {main} (Linha 1455, Arquivo C:\wamp64\www\plug3s\Optimuz\orm\Propel\runtime\lib\query\ModelCriteria.php)
+
+
+POST:
+array (
+)
+
+GET:
+array (
+  'campo' => 
+  array (
+    0 => '3',
+  ),
+  'condicao' => 
+  array (
+    0 => '1',
+  ),
+  'valor' => 
+  array (
+    0 => '14/05/2017',
+  ),
+  'operador' => 
+  array (
+    0 => '1',
+  ),
+  'draw' => '2',
+  'columns' => 
+  array (
+    0 => 
+    array (
+      'data' => '0',
+      'name' => '',
+      'searchable' => 'true',
+      'orderable' => 'false',
+      'search' => 
+      array (
+        'value' => '',
+        'regex' => 'false',
+      ),
+    ),
+    1 => 
+    array (
+      'data' => '1',
+      'name' => '',
+      'searchable' => 'true',
+      'orderable' => 'false',
+      'search' => 
+      array (
+        'value' => '',
+        'regex' => 'false',
+      ),
+    ),
+    2 => 
+    array (
+      'data' => '2',
+      'name' => '',
+      'searchable' => 'true',
+      'orderable' => 'false',
+      'search' => 
+      array (
+        'value' => '',
+        'regex' => 'false',
+      ),
+    ),
+    3 => 
+    array (
+      'data' => '3',
+      'name' => '',
+      'searchable' => 'true',
+      'orderable' => 'false',
+      'search' => 
+      array (
+        'value' => '',
+        'regex' => 'false',
+      ),
+    ),
+    4 => 
+    array (
+      'data' => '4',
+      'name' => '',
+      'searchable' => 'true',
+      'orderable' => 'false',
+      'search' => 
+      array (
+        'value' => '',
+        'regex' => 'false',
+      ),
+    ),
+    5 => 
+    array (
+      'data' => '5',
+      'name' => '',
+      'searchable' => 'true',
+      'orderable' => 'false',
+      'search' => 
+      array (
+        'value' => '',
+        'regex' => 'false',
+      ),
+    ),
+  ),
+  'start' => '0',
+  'length' => '10',
+  'search' => 
+  array (
+    'value' => '',
+    'regex' => 'false',
+  ),
+  '_' => '1494799549294',
+)
+
+SESSION:
+array (
+  'default_time' => 1494799549,
+  'SystemAccessLogin_default' => 'O:17:"SystemAccessLogin":5:{s:7:"' . "\0" . '*' . "\0" . 'name";s:23:"bcordeiro.dev@gmail.com";s:7:"' . "\0" . '*' . "\0" . 'role";O:16:"SystemAccessRole":5:{s:5:"' . "\0" . '*' . "\0" . 'id";i:1;s:7:"' . "\0" . '*' . "\0" . 'name";s:5:"admin";s:8:"' . "\0" . '*' . "\0" . 'label";s:5:"Admin";s:10:"' . "\0" . '*' . "\0" . 'isAdmin";b:0;s:9:"' . "\0" . '*' . "\0" . 'negate";b:0;}s:14:"' . "\0" . '*' . "\0" . 'permissions";O:9:"ArrayList":4:{s:8:"' . "\0" . '*' . "\0" . 'array";a:0:{}s:9:"' . "\0" . '*' . "\0" . 'locked";b:0;s:13:"' . "\0" . '*' . "\0" . 'strictType";N;s:11:"' . "\0" . '*' . "\0" . 'iterator";O:17:"ArrayListIterator":1:{s:8:"' . "\0" . '*' . "\0" . 'array";R:10;}}s:7:"' . "\0" . '*' . "\0" . 'data";O:9:"ArrayList":4:{s:8:"' . "\0" . '*' . "\0" . 'array";a:2:{s:6:"userId";i:73;s:8:"userName";s:14:"Bruno Cordeiro";}s:9:"' . "\0" . '*' . "\0" . 'locked";b:0;s:13:"' . "\0" . '*' . "\0" . 'strictType";N;s:11:"' . "\0" . '*' . "\0" . 'iterator";O:17:"ArrayListIterator":1:{s:8:"' . "\0" . '*' . "\0" . 'array";R:15;}}s:14:"' . "\0" . '*' . "\0" . 'persistence";O:23:"SystemAccessPersistence":2:{s:7:"' . "\0" . '*' . "\0" . 'data";i:73;s:7:"' . "\0" . '*' . "\0" . 'time";O:4:"Date":11:{s:15:"' . "\0" . 'Date' . "\0" . 'timestamp";i:1497384469;s:9:"' . "\0" . 'Date' . "\0" . 'day";s:2:"13";s:11:"' . "\0" . 'Date' . "\0" . 'month";s:2:"06";s:10:"' . "\0" . 'Date' . "\0" . 'year";s:4:"2017";s:10:"' . "\0" . 'Date' . "\0" . 'hour";s:2:"17";s:12:"' . "\0" . 'Date' . "\0" . 'minute";s:2:"07";s:12:"' . "\0" . 'Date' . "\0" . 'second";s:2:"49";s:16:"' . "\0" . 'Date' . "\0" . 'dateFormat";s:5:"d/m/Y";s:16:"' . "\0" . 'Date' . "\0" . 'timeFormat";s:5:"H:i:s";s:8:"' . "\0" . '*' . "\0" . 'error";N;s:17:"' . "\0" . 'Object' . "\0" . 'className";N;}}}',
+  'filterInstituicao' => 
+  array (
+    'fields' => 
+    array (
+      0 => '3',
+    ),
+    'conditions' => 
+    array (
+      0 => '1',
+    ),
+    'values' => 
+    array (
+      0 => '14/05/2017',
+    ),
+    'operators' => 
+    array (
+      0 => '1',
+    ),
+  ),
+)
+
+Trace:
+#0 C:\wamp64\www\plug3s\Optimuz\apps\default\layers\control\page\InstituicaoController.php(172): InstituicaoController->doList(Object(IgrejaQuery))
+#1 C:\wamp64\www\plug3s\Optimuz\lib\Application\Application.php(331): InstituicaoController->listarTodas()
+#2 C:\wamp64\www\plug3s\Optimuz\lib\Application\Application.php(220): Application->run('InstituicaoCont...', 'listarTodas', NULL, 'InstituicaoCont...', Array)
+#3 C:\wamp64\www\plug3s\index.php(58): Application::initialize('C:\\wamp64\\www\\p...')
+#4 {main}
+
+URI: /plug3s/instituicao/listar-todas?campo[]=3&condicao[]=1&valor[]=14/05/2017&operador[]=1&draw=2&columns%5B0%5D%5Bdata%5D=0&columns%5B0%5D%5Bname%5D=&columns%5B0%5D%5Bsearchable%5D=true&columns%5B0%5D%5Borderable%5D=false&columns%5B0%5D%5Bsearch%5D%5Bvalue%5D=&columns%5B0%5D%5Bsearch%5D%5Bregex%5D=false&columns%5B1%5D%5Bdata%5D=1&columns%5B1%5D%5Bname%5D=&columns%5B1%5D%5Bsearchable%5D=true&columns%5B1%5D%5Borderable%5D=false&columns%5B1%5D%5Bsearch%5D%5Bvalue%5D=&columns%5B1%5D%5Bsearch%5D%5Bregex%5D=false&columns%5B2%5D%5Bdata%5D=2&columns%5B2%5D%5Bname%5D=&columns%5B2%5D%5Bsearchable%5D=true&columns%5B2%5D%5Borderable%5D=false&columns%5B2%5D%5Bsearch%5D%5Bvalue%5D=&columns%5B2%5D%5Bsearch%5D%5Bregex%5D=false&columns%5B3%5D%5Bdata%5D=3&columns%5B3%5D%5Bname%5D=&columns%5B3%5D%5Bsearchable%5D=true&columns%5B3%5D%5Borderable%5D=false&columns%5B3%5D%5Bsearch%5D%5Bvalue%5D=&columns%5B3%5D%5Bsearch%5D%5Bregex%5D=false&columns%5B4%5D%5Bdata%5D=4&columns%5B4%5D%5Bname%5D=&columns%5B4%5D%5Bsearchable%5D=true&columns%5B4%5D%5Borderable%5D=false&columns%5B4%5D%5Bsearch%5D%5Bvalue%5D=&columns%5B4%5D%5Bsearch%5D%5Bregex%5D=false&columns%5B5%5D%5Bdata%5D=5&columns%5B5%5D%5Bname%5D=&columns%5B5%5D%5Bsearchable%5D=true&columns%5B5%5D%5Borderable%5D=false&columns%5B5%5D%5Bsearch%5D%5Bvalue%5D=&columns%5B5%5D%5Bsearch%5D%5Bregex%5D=false&start=0&length=10&search%5Bvalue%5D=&search%5Bregex%5D=false&_=1494799549294
+Host: localhost
+IP da requisição: ::1:4083
+Browser: Mozilla/5.0 (Windows NT 10.0; WOW64; rv:53.0) Gecko/20100101 Firefox/53.0
+------------------------------------------------------------------------------------------------------------------
+19:10:05 [ERROR]: (# 0) Error [0]: {2370f-75098} Unable to execute COUNT statement [SELECT COUNT(*) FROM `igreja` WHERE igreja.TIPO=:p1 AND igreja.DATA_CADASTRO = :p2] [wrapped: Error parsing date/time value: '14/05/2017' [wrapped: DateTime::__construct(): Failed to parse time string (14/05/2017) at position 0 (1): Unexpected character]]
+#0 C:\wamp64\www\plug3s\Optimuz\orm\Propel\runtime\lib\query\ModelCriteria.php(1405): ModelCriteria->doCount(Object(PropelPDO))
+#1 C:\wamp64\www\plug3s\Optimuz\orm\Propel\runtime\lib\util\PropelModelPager.php(63): ModelCriteria->count(NULL)
+#2 C:\wamp64\www\plug3s\Optimuz\orm\Propel\runtime\lib\query\ModelCriteria.php(1477): PropelModelPager->init(NULL)
+#3 C:\wamp64\www\plug3s\Optimuz\apps\default\layers\control\page\InstituicaoController.php(255): ModelCriteria->paginate(1, 10)
+#4 C:\wamp64\www\plug3s\Optimuz\apps\default\layers\control\page\InstituicaoController.php(172): InstituicaoController->doList(Object(IgrejaQuery))
+#5 C:\wamp64\www\plug3s\Optimuz\lib\Application\Application.php(331): InstituicaoController->listarTodas()
+#6 C:\wamp64\www\plug3s\Optimuz\lib\Application\Application.php(220): Application->run('InstituicaoCont...', 'listarTodas', NULL, 'InstituicaoCont...', Array)
+#7 C:\wamp64\www\plug3s\index.php(58): Application::initialize('C:\\wamp64\\www\\p...')
+#8 {main} (Linha 1455, Arquivo C:\wamp64\www\plug3s\Optimuz\orm\Propel\runtime\lib\query\ModelCriteria.php)
+
+
+POST:
+array (
+)
+
+GET:
+array (
+  'campo' => 
+  array (
+    0 => '3',
+  ),
+  'condicao' => 
+  array (
+    0 => '1',
+  ),
+  'valor' => 
+  array (
+    0 => '14/05/2017',
+  ),
+  'operador' => 
+  array (
+    0 => '1',
+  ),
+  'draw' => '1',
+  'columns' => 
+  array (
+    0 => 
+    array (
+      'data' => '0',
+      'name' => '',
+      'searchable' => 'true',
+      'orderable' => 'false',
+      'search' => 
+      array (
+        'value' => '',
+        'regex' => 'false',
+      ),
+    ),
+    1 => 
+    array (
+      'data' => '1',
+      'name' => '',
+      'searchable' => 'true',
+      'orderable' => 'false',
+      'search' => 
+      array (
+        'value' => '',
+        'regex' => 'false',
+      ),
+    ),
+    2 => 
+    array (
+      'data' => '2',
+      'name' => '',
+      'searchable' => 'true',
+      'orderable' => 'false',
+      'search' => 
+      array (
+        'value' => '',
+        'regex' => 'false',
+      ),
+    ),
+    3 => 
+    array (
+      'data' => '3',
+      'name' => '',
+      'searchable' => 'true',
+      'orderable' => 'false',
+      'search' => 
+      array (
+        'value' => '',
+        'regex' => 'false',
+      ),
+    ),
+    4 => 
+    array (
+      'data' => '4',
+      'name' => '',
+      'searchable' => 'true',
+      'orderable' => 'false',
+      'search' => 
+      array (
+        'value' => '',
+        'regex' => 'false',
+      ),
+    ),
+    5 => 
+    array (
+      'data' => '5',
+      'name' => '',
+      'searchable' => 'true',
+      'orderable' => 'false',
+      'search' => 
+      array (
+        'value' => '',
+        'regex' => 'false',
+      ),
+    ),
+  ),
+  'start' => '0',
+  'length' => '10',
+  'search' => 
+  array (
+    'value' => '',
+    'regex' => 'false',
+  ),
+  '_' => '1494799722818',
+)
+
+SESSION:
+array (
+  'default_time' => 1494799723,
+  'SystemAccessLogin_default' => 'O:17:"SystemAccessLogin":5:{s:7:"' . "\0" . '*' . "\0" . 'name";s:23:"bcordeiro.dev@gmail.com";s:7:"' . "\0" . '*' . "\0" . 'role";O:16:"SystemAccessRole":5:{s:5:"' . "\0" . '*' . "\0" . 'id";i:1;s:7:"' . "\0" . '*' . "\0" . 'name";s:5:"admin";s:8:"' . "\0" . '*' . "\0" . 'label";s:5:"Admin";s:10:"' . "\0" . '*' . "\0" . 'isAdmin";b:0;s:9:"' . "\0" . '*' . "\0" . 'negate";b:0;}s:14:"' . "\0" . '*' . "\0" . 'permissions";O:9:"ArrayList":4:{s:8:"' . "\0" . '*' . "\0" . 'array";a:0:{}s:9:"' . "\0" . '*' . "\0" . 'locked";b:0;s:13:"' . "\0" . '*' . "\0" . 'strictType";N;s:11:"' . "\0" . '*' . "\0" . 'iterator";O:17:"ArrayListIterator":1:{s:8:"' . "\0" . '*' . "\0" . 'array";R:10;}}s:7:"' . "\0" . '*' . "\0" . 'data";O:9:"ArrayList":4:{s:8:"' . "\0" . '*' . "\0" . 'array";a:2:{s:6:"userId";i:73;s:8:"userName";s:14:"Bruno Cordeiro";}s:9:"' . "\0" . '*' . "\0" . 'locked";b:0;s:13:"' . "\0" . '*' . "\0" . 'strictType";N;s:11:"' . "\0" . '*' . "\0" . 'iterator";O:17:"ArrayListIterator":1:{s:8:"' . "\0" . '*' . "\0" . 'array";R:15;}}s:14:"' . "\0" . '*' . "\0" . 'persistence";O:23:"SystemAccessPersistence":2:{s:7:"' . "\0" . '*' . "\0" . 'data";i:73;s:7:"' . "\0" . '*' . "\0" . 'time";O:4:"Date":11:{s:15:"' . "\0" . 'Date' . "\0" . 'timestamp";i:1497384469;s:9:"' . "\0" . 'Date' . "\0" . 'day";s:2:"13";s:11:"' . "\0" . 'Date' . "\0" . 'month";s:2:"06";s:10:"' . "\0" . 'Date' . "\0" . 'year";s:4:"2017";s:10:"' . "\0" . 'Date' . "\0" . 'hour";s:2:"17";s:12:"' . "\0" . 'Date' . "\0" . 'minute";s:2:"07";s:12:"' . "\0" . 'Date' . "\0" . 'second";s:2:"49";s:16:"' . "\0" . 'Date' . "\0" . 'dateFormat";s:5:"d/m/Y";s:16:"' . "\0" . 'Date' . "\0" . 'timeFormat";s:5:"H:i:s";s:8:"' . "\0" . '*' . "\0" . 'error";N;s:17:"' . "\0" . 'Object' . "\0" . 'className";N;}}}',
+  'filterInstituicao' => 
+  array (
+    'fields' => 
+    array (
+      0 => '3',
+    ),
+    'conditions' => 
+    array (
+      0 => '1',
+    ),
+    'values' => 
+    array (
+      0 => '14/05/2017',
+    ),
+    'operators' => 
+    array (
+      0 => '1',
+    ),
+  ),
+)
+
+Trace:
+#0 C:\wamp64\www\plug3s\Optimuz\apps\default\layers\control\page\InstituicaoController.php(172): InstituicaoController->doList(Object(IgrejaQuery))
+#1 C:\wamp64\www\plug3s\Optimuz\lib\Application\Application.php(331): InstituicaoController->listarTodas()
+#2 C:\wamp64\www\plug3s\Optimuz\lib\Application\Application.php(220): Application->run('InstituicaoCont...', 'listarTodas', NULL, 'InstituicaoCont...', Array)
+#3 C:\wamp64\www\plug3s\index.php(58): Application::initialize('C:\\wamp64\\www\\p...')
+#4 {main}
+
+URI: /plug3s/instituicao/listar-todas?campo[]=3&condicao[]=1&valor[]=14/05/2017&operador[]=1&draw=1&columns%5B0%5D%5Bdata%5D=0&columns%5B0%5D%5Bname%5D=&columns%5B0%5D%5Bsearchable%5D=true&columns%5B0%5D%5Borderable%5D=false&columns%5B0%5D%5Bsearch%5D%5Bvalue%5D=&columns%5B0%5D%5Bsearch%5D%5Bregex%5D=false&columns%5B1%5D%5Bdata%5D=1&columns%5B1%5D%5Bname%5D=&columns%5B1%5D%5Bsearchable%5D=true&columns%5B1%5D%5Borderable%5D=false&columns%5B1%5D%5Bsearch%5D%5Bvalue%5D=&columns%5B1%5D%5Bsearch%5D%5Bregex%5D=false&columns%5B2%5D%5Bdata%5D=2&columns%5B2%5D%5Bname%5D=&columns%5B2%5D%5Bsearchable%5D=true&columns%5B2%5D%5Borderable%5D=false&columns%5B2%5D%5Bsearch%5D%5Bvalue%5D=&columns%5B2%5D%5Bsearch%5D%5Bregex%5D=false&columns%5B3%5D%5Bdata%5D=3&columns%5B3%5D%5Bname%5D=&columns%5B3%5D%5Bsearchable%5D=true&columns%5B3%5D%5Borderable%5D=false&columns%5B3%5D%5Bsearch%5D%5Bvalue%5D=&columns%5B3%5D%5Bsearch%5D%5Bregex%5D=false&columns%5B4%5D%5Bdata%5D=4&columns%5B4%5D%5Bname%5D=&columns%5B4%5D%5Bsearchable%5D=true&columns%5B4%5D%5Borderable%5D=false&columns%5B4%5D%5Bsearch%5D%5Bvalue%5D=&columns%5B4%5D%5Bsearch%5D%5Bregex%5D=false&columns%5B5%5D%5Bdata%5D=5&columns%5B5%5D%5Bname%5D=&columns%5B5%5D%5Bsearchable%5D=true&columns%5B5%5D%5Borderable%5D=false&columns%5B5%5D%5Bsearch%5D%5Bvalue%5D=&columns%5B5%5D%5Bsearch%5D%5Bregex%5D=false&start=0&length=10&search%5Bvalue%5D=&search%5Bregex%5D=false&_=1494799722818
+Host: localhost
+IP da requisição: ::1:4107
+Browser: Mozilla/5.0 (Windows NT 10.0; WOW64; rv:53.0) Gecko/20100101 Firefox/53.0
+------------------------------------------------------------------------------------------------------------------

@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE settings SYSTEM "http://optimuz.interativadesenvolvimento.com.br/dtd/validation.dtd">
+<form method="post" lang="">
+	<input name="usuario" label="Nome de usuário">
+		<rule name="required" />
+	</input>
+	<input name="senha" label="Senha">
+		<rule name="required" />
+	</input>
+	<input name="persistente" label="Mantenha-me conectado">
+		<rule name="number" />
+	</input>
+</form>

@@ -1,0 +1,6 @@
+error.smtpAuthError = Unable to connect to the SMTP server to send the e-mail: %s
+error.sendError = Error while trying to send the e-mail: %s
+error.missingFrom = The sender was not specified
+error.msg1 = An e-mail has been sent to our technical team
+error.msg2 = Unable to notify our technical team about this error
+error.attachmentNotFound = The attachment file does not exist at "%s"

@@ -1,0 +1,17 @@
+email.title = Error
+email.subject = Message
+email.location = Location
+email.additionalInfo = Additional information
+email.date = Date
+email.requestAddress = Request IP
+email.messageSubject = Error on %s %s
+email.variables = Variables
+email.uri = Requested URI
+email.footer = This email was automaticaly sent by the system so you don't need to answer it.
+page.title = Error
+page.message = There was an error while processing your request, so it couldn't be completed.</p><p>If you are the system administrator, check the log files. Otherwise, contact the technical team to get support.
+page.notFound.title = Page not found
+page.notFound.message = Sorry, but the page you are trying to access does not exist.
+page.errorUid = The indentifyer number of this error is: <strong>%s</strong>. Use this code to get detailed information about the error.
+email.msg1 = An e-mail has been sent to our technical team
+email.msg2 = Unable to notify our technical team about this error

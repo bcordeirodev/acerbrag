@@ -1,0 +1,2 @@
+error.invalidView = The view %s does not exist!
+error.invalidName = The controller name is invalid

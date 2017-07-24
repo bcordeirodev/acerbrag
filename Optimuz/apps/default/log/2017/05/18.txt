@@ -1,0 +1,26 @@
+17:23:32 [ERROR]: (# 0) Error [205]: {b69e1-c5c1c} O controle MembroController nÃ£o existe ou nÃ£o pode ser acessado pela URL (Linha 350, Arquivo C:\wamp\www\plug3s\trunk\web\Optimuz\lib\Application\Application.php)
+
+
+POST:
+array (
+)
+
+GET:
+array (
+)
+
+SESSION:
+array (
+  'SystemAccessLogin_default' => 'O:17:"SystemAccessLogin":5:{s:7:"' . "\0" . '*' . "\0" . 'name";s:20:"joaosilva@hotmai.com";s:7:"' . "\0" . '*' . "\0" . 'role";O:16:"SystemAccessRole":5:{s:5:"' . "\0" . '*' . "\0" . 'id";i:2;s:7:"' . "\0" . '*' . "\0" . 'name";s:11:"instituicao";s:8:"' . "\0" . '*' . "\0" . 'label";s:11:"instituicao";s:10:"' . "\0" . '*' . "\0" . 'isAdmin";b:0;s:9:"' . "\0" . '*' . "\0" . 'negate";b:0;}s:14:"' . "\0" . '*' . "\0" . 'permissions";O:9:"ArrayList":4:{s:8:"' . "\0" . '*' . "\0" . 'array";a:0:{}s:9:"' . "\0" . '*' . "\0" . 'locked";b:0;s:13:"' . "\0" . '*' . "\0" . 'strictType";N;s:11:"' . "\0" . '*' . "\0" . 'iterator";O:17:"ArrayListIterator":1:{s:8:"' . "\0" . '*' . "\0" . 'array";R:10;}}s:7:"' . "\0" . '*' . "\0" . 'data";O:9:"ArrayList":4:{s:8:"' . "\0" . '*' . "\0" . 'array";a:3:{s:6:"userId";i:74;s:8:"userName";s:14:"Bruno Cordeiro";s:12:"previousUser";i:73;}s:9:"' . "\0" . '*' . "\0" . 'locked";b:0;s:13:"' . "\0" . '*' . "\0" . 'strictType";N;s:11:"' . "\0" . '*' . "\0" . 'iterator";O:17:"ArrayListIterator":1:{s:8:"' . "\0" . '*' . "\0" . 'array";R:15;}}s:14:"' . "\0" . '*' . "\0" . 'persistence";N;}',
+)
+
+Trace:
+#0 C:\wamp\www\plug3s\trunk\web\Optimuz\lib\Application\Application.php(220): Application->run('MembroControlle...', 'index', NULL, 'MembroControlle...', Array)
+#1 C:\wamp\www\plug3s\trunk\web\index.php(58): Application::initialize('C:\wamp\www\plu...')
+#2 {main}
+
+URI: /plug3s/trunk/web/membro
+Host: localhost
+IP da requisiÃ§Ã£o: 127.0.0.1:16700
+Browser: Mozilla/5.0 (Windows NT 6.1; WOW64; rv:54.0) Gecko/20100101 Firefox/54.0
+------------------------------------------------------------------------------------------------------------------

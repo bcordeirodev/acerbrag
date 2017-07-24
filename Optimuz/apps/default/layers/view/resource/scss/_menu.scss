@@ -1,0 +1,116 @@
+#main-menu{
+	$text-color: white;
+	$text-size: 13.5px;
+
+	margin-top: -8px;
+	padding-top: 75px;
+
+	&.page-sidebar{
+		background-color: $menu-color !important;
+
+		a{
+			font-size: $text-size !important;
+
+			.mdi{
+				/*font-size: inherit !important;*/
+				font-size: 22px;
+			}
+		}
+
+		> ul{
+			> li{
+				> a{
+					color: $text-color;
+
+					&:hover,
+					&.open{
+						background-color: $gray6 !important;
+						color: $text-color !important;
+					}
+					i{
+						color: $text-color !important;
+						margin-right: 10px;
+					}
+					> .arrow:before,
+					> .arrow.open:before{
+						color: $text-color !important;
+					}
+				}
+				&:hover,
+				&.open{
+					> a{
+						background-color: lighten($menu-color, 1) !important;
+						color: $text-color !important;
+					}
+				}
+				&.active{
+					border-left: none !important;
+
+					> a{
+						color: $text-color !important;
+						/*font-weight: bold;*/
+					}
+					i{
+						color: $text-color !important;
+					}
+				}
+				ul.sub-menu{
+					background-color: darken($menu-color, 1.5) !important;
+
+					> li{
+						> a{
+							padding-left: 70px !important;
+							color: $text-color !important;
+							font-size: $text-size - 1 !important;
+							padding-top: 6.3px !important;
+							padding-bottom: 6.3px !important;
+							font-weight: 300 !important;
+						}
+
+						.arrow::before{
+							margin-right: 39px;
+						}
+
+						> ul.sub-menu{
+							display: none;
+							padding-left: 20px;
+						}
+
+						&.active{
+							> ul.sub-menu{
+								display: block;
+							}
+						}
+
+						&.active > a,
+						& > a:hover{
+							background-color: lighten($menu-color, 3) !important;
+						}
+					}
+				}
+			}
+		}
+	}
+
+	.menu-title{
+		color: $text-color !important;
+
+		.fa-refresh{
+			color: $text-color !important;
+		}
+	}
+}
+
+.mobile-layout{
+	&#main-menu{
+		padding-top: 58px;
+	}
+
+	&#main-menu-toggle-wrapper{
+		margin-top: 15px;
+	}
+
+	&#settings-menu{
+		margin-top: 17px;
+	}
+}

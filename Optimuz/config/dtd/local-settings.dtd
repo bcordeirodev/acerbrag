@@ -1,0 +1,187 @@
+<?xml version='1.0' encoding='UTF-8'?><!--- Main settings element. -->
+
+<!ELEMENT settings (page,app,report,errors,log,performance,resources,session,format,htmlElements,orm,smtp,systemAccess,threading)>
+
+
+<!ELEMENT app (photos,albums,videos,banners,liveServer)*>
+<!ATTLIST app
+    name CDATA #REQUIRED
+    version CDATA #REQUIRED
+    enable (true|false) #REQUIRED
+  >
+<!ELEMENT photos EMPTY>
+<!ATTLIST photos
+    savePath CDATA #REQUIRED
+  >
+<!ELEMENT albums EMPTY>
+<!ATTLIST albums
+    savePath CDATA #REQUIRED
+  >
+<!ELEMENT videos EMPTY>
+<!ATTLIST videos
+    thumbPath CDATA #REQUIRED
+  >
+<!ELEMENT banners EMPTY>
+<!ATTLIST banners
+    savePath CDATA #REQUIRED
+  >
+<!ELEMENT liveServer EMPTY>
+<!ATTLIST liveServer
+    url CDATA #IMPLIED
+  >
+
+
+<!ELEMENT page (description,keywords,charset,language,title,doctype,markup)*>
+<!ELEMENT description (#PCDATA)>
+<!ELEMENT keywords (#PCDATA)>
+<!ELEMENT charset (#PCDATA)>
+<!ELEMENT language (#PCDATA)>
+<!ELEMENT title (#PCDATA)>
+<!ELEMENT doctype (#PCDATA)>
+<!ELEMENT markup (#PCDATA)>
+
+
+<!ELEMENT report (email)+>
+<!ATTLIST report
+    enable (true|false) #REQUIRED
+  >
+<!ELEMENT email EMPTY>
+<!ATTLIST email
+    name CDATA #REQUIRED
+    value CDATA #REQUIRED
+  >
+
+
+<!ELEMENT errors (defaultControllerHandler)*>
+<!ELEMENT defaultControllerHandler (#PCDATA)>
+
+
+<!ELEMENT log (format)*>
+<!ATTLIST log
+    enable (true|false) #REQUIRED
+  >
+<!ELEMENT format (currency)*>
+<!ATTLIST format
+    type (short|complete) #IMPLIED
+  >
+
+
+<!ELEMENT performance (cache,minify,compress,mergeFiles)*>
+<!ELEMENT cache EMPTY>
+<!ATTLIST cache
+    enable (true|false) #REQUIRED
+  >
+<!ELEMENT minify EMPTY>
+<!ATTLIST minify
+    enable (true|false) #REQUIRED
+  >
+<!ELEMENT compress EMPTY>
+<!ATTLIST compress
+    enable (true|false) #REQUIRED
+    method (gzip|deflate) #REQUIRED
+    level (0|1|2|3|4|5|6|7|8|9) #REQUIRED
+  >
+<!ELEMENT mergeFiles EMPTY>
+<!ATTLIST mergeFiles
+    enable (true|false) #REQUIRED
+  >
+
+
+<!ELEMENT resources (storage,controller)*>
+<!ELEMENT storage EMPTY>
+<!ATTLIST storage
+    engine (files|session) #IMPLIED
+    lifetime CDATA #IMPLIED
+  >
+<!ELEMENT controller (#PCDATA)>
+
+
+<!ELEMENT session (autoStart,savePath,timeout,cookie,saveState,autoLoadSavedState)*>
+<!ELEMENT autoStart EMPTY>
+<!ATTLIST autoStart
+    enable (true|false) #REQUIRED
+  >
+<!ELEMENT savePath EMPTY>
+<!ATTLIST savePath
+    value CDATA #REQUIRED
+  >
+<!ELEMENT timeout (#PCDATA)>
+<!ATTLIST timeout
+    time CDATA #IMPLIED
+    autoUpdate (true|false) #IMPLIED
+  >
+<!ELEMENT cookie (name,encrypt)*>
+<!ELEMENT name (#PCDATA)>
+<!ELEMENT encrypt (#PCDATA)>
+
+
+<!ELEMENT currency (#PCDATA)>
+
+
+<!ELEMENT smtp (host,user,pwd,timeout)*>
+<!ATTLIST smtp
+    enable (true|false) #REQUIRED
+  >
+<!ELEMENT host (local,remote)*>
+<!ELEMENT local (name)*>
+<!ELEMENT remote (name,port,security)*>
+<!ELEMENT port (#PCDATA)>
+<!ELEMENT security (#PCDATA)>
+<!ELEMENT user (#PCDATA)>
+<!ELEMENT pwd (#PCDATA)>
+
+
+<!ELEMENT systemAccess (database,customValidator)*>
+<!ATTLIST systemAccess
+    enable (true|false) #REQUIRED
+    handler (files|database) #REQUIRED
+  >
+<!ELEMENT database (role,permission)*>
+<!ELEMENT role EMPTY>
+<!ATTLIST role
+    tableName CDATA #REQUIRED
+    primaryKey CDATA #REQUIRED
+    labelName CDATA #REQUIRED
+  >
+<!ELEMENT permission EMPTY>
+<!ATTLIST permission
+    tableName CDATA #REQUIRED
+    primaryKey CDATA #REQUIRED
+    labelName CDATA #REQUIRED
+  >
+<!ELEMENT customValidator (#PCDATA)>
+
+
+<!ELEMENT threading (log,limit)*>
+<!ELEMENT limit EMPTY>
+<!ATTLIST limit
+    value CDATA #REQUIRED
+  >
+
+
+<!ELEMENT htmlElements (session)*>
+<!ELEMENT saveState EMPTY>
+<!ATTLIST saveState
+    enable (true|false) #REQUIRED
+  >
+<!ELEMENT autoLoadSavedState EMPTY>
+<!ATTLIST autoLoadSavedState
+    enable (true|false) #REQUIRED
+  >
+
+
+<!ELEMENT orm (propel,notorm)*>
+<!ELEMENT propel EMPTY>
+<!ATTLIST propel
+    enable (true|false) #REQUIRED
+  >
+<!ELEMENT notorm (connection)*>
+<!ATTLIST notorm
+    enable (true|false) #REQUIRED
+  >
+<!ELEMENT connection EMPTY>
+<!ATTLIST connection
+    dsn CDATA #REQUIRED
+    user CDATA #REQUIRED
+    password CDATA #REQUIRED
+  >

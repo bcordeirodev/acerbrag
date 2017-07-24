@@ -1,0 +1,79 @@
+# Error e-mail
+email.error.title = Error
+email.error.subject = Message
+email.error.location = Location
+email.error.additionalInfo = Additional information
+email.error.date = Date
+email.error.requestAddress = Request IP
+email.error.messageSubject = Sigma Accounting Error [%s]
+email.error.variables = Variables
+
+# Error page
+page.error.title = Error
+page.error.message = There was an error while processing your request, but we are already working to fix it.<br />We appreciate your patience.
+
+# Page not found
+page.notFound.title = Page not found
+page.notFound.message = Sorry, but the page you are trying to access does not exist.
+
+# Errors
+error.systemAccessDenied = Access denied
+error.cannotAccessMethod = The method %s::%s() can not be accessed from URL
+error.methodNotExists = The method %s does not exist
+error.applicationNotExists = The application %s does not exist
+error.cannotAccessController = The controller %s does not exist or can not be accessed from URL
+error.cannotAccessApplication = The application %s is disabled and can not be accessed
+error.methodNotImplemented = The method index() was not implemented!
+error.noView = No view was specified!
+error.config.loadError = The configuration file %s could not be loaded
+error.config.notExists = The configuration file %s does not exist
+error.scriptError = [%s] %s in %s on line %s
+error.bootstrap = There was an error in the configuration initialization
+error.format.phone = Invalid string size for the method Format::phone()!
+error.smtp.connectionFailed = The connection with the SMTP server failed
+error.smtp.connectionClosed = The connection with the SMTP is closed
+error.smtp.startTlsFailed = The command STARTTLS returned an error
+error.smtp.enableTlsFailed = Couldn't enable TLS encryption for the connection
+error.email.smtpAuthError = Unable to connect to the SMTP server to send the e-mail: %s
+error.email.sendError = Error while trying to send the e-mail: %s
+error.email.missingFrom = The sender was not specified
+error.ajax.emptyResponse = Tryed to send an empty Ajax response!
+error.ajax.invalidElement = An invalid element (%s) was added to the Ajax response
+error.ajax.responseTypeMismatch = The type of the specified element (%s) for the Ajax response does not macth the predefined type (%s)
+error.ajax.invalidElementType = The type of the specified element (%s) cannot be add to the AjaxSelectElement
+error.htmlElement.cannotAppendChild = You cannot add children to an empty element!
+error.htmlElement.noTag = The tag of the HTML element was not defined
+error.image.invalidDimensions = The image dimensions are invalid
+error.image.cannotCreate = Unable to create the image! Maybe the image type (%s) is unsupported or the path (%s) is invalid
+error.image.invalidPath = The image path is invalid!
+error.image.tooLarge = The image size is too big (%s bytes)!
+error.image.generalError = There was an error with the image!
+error.image.infoError = Could not retrieve the image's informations.
+error.image.raiseMemoryFailure = Could not raise the script memory %s.
+error.image.createImageObjectError = Could not create the image object %s.
+error.dateTime.parseError = The date expression could not be parsed
+error.dateTime.invalidObject = The date expression %s is not a supported object
+error.dateTime.unsupportedDateExpression = The date expression %s is not supported
+error.view.htmlPageNotFound = The HTML page "%s" of the view does not exist at "%s"
+error.view.noHtmlPage = The HTML page of the view was not defined
+error.view.fileNotExists = The file "%s" does not exist!
+error.view.invalidFileName = The name of the resource file was not specified!
+error.view.invalidResourceType = Only parameters of type string or ResourceFile can be passed to the method DefaultView::addResource() but was passed one of type "%s"
+error.formatter.noString = The original string was not specified
+
+# E-mails
+email.msg1 = An e-mail has been sent to our technical team
+email.msg2 = Unable to notify our technical team about this error
+
+# Router
+router.error.notFound = The router file "%1" was not found
+router.error.notLoaded = Unable to load the router file "%1"
+router.error.emptyFile = The router file "%1" is empty
+router.error.missingDefaultApplication = The router file "%1" does not have a default application setting
+
+# Log
+log.line = Line
+log.file = File
+log.message = Message
+log.invalidFormat = The log format was not specified or is incompatible
+log.requestAddr = Request IP

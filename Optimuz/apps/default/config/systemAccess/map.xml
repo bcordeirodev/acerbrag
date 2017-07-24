@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE settings SYSTEM "http://optimuz.interativadesenvolvimento.com.br/dtd/map.dtd">
+<!--
+This file defines a mapping for access management of controllers and methods.
+
+The basic structure is as the following:
+
+<map hasAccessByDefault="boolean" validationType="default|match">
+	<controller name="string" role="string" permissions="string">
+		<method name="string" role="string" permissions="string" />
+	</controller>
+	...
+</map>
+
+The root element is the "map", which has two attributes:
+
+- hasAccessByDefault: is a boolean and defines whether requests to controllers
+not listed in this file should be allowed. For example: if a user try to access
+the URI /home/index (controller "HomeController", method "index") and there is
+no definition for it in this file, the attribute hasAccessByDefault will be
+used. If it is true, the request is allowed, otherwise the request is denied.
+Methods inherits roles from controllers, so if a controller has the role "Admin"
+for example, all methods not defined will have the same role.
+
+- validationType: can have one of two values: default or match. If the value is
+"default", users with higher roles will be able to access lower roles. This
+means that a user with the role "Admin" will also be able to access
+controllers defined for users with role "User". In the other way if the value
+is "match", an user will only have access to controllers defined for his role.
+So an user with role "Admin" will only access controllers defined for the role
+"Admin". The default value is "default".
+
+The map element has as child the element "controller". And the element
+controller has as child the element "method". Both controller and method have
+the same attributes. They are:
+
+- name: the name of the controller. For example, for the controller
+HomeController the attribute name should be "Home".
+
+- role: list of the roles defined in the roles.xml file. Note that the name of
+the role is case sensitive, so "User" is different from "user". There is a
+special role that can be used to say that the controller/method can be accessed
+by anonymous users, the "Anonymous" role. Using this role any user can access
+the controller/method, even if he is not authenticated. Another special role is
+the "all" role, represented by an asterisk (*). This special role means that
+any role can access the controller/method. This attribute accepts one or more
+roles separated by comma. If more then one role is specified, the user must have
+one of them to gain access. You can use an exclamation mark (!) to deny access
+to a certain role.
+
+- permissions: list of permissions defined in the permissions.xml file. The
+permissions names also are case sensitive, so pay attention on how you write
+them. It's a good pratice to write your permissions using a slug notation, e.g.,
+name-of-permission. Like the roles, there's a special permission represented by
+an asterisk (*) that covers all permissions. When this is used, any permission
+can grant access to the controller/method being accessed. This attribute accepts
+one or more permissions separated by comma or by pipe. Comma means AND, and pipe
+means OR. When the comma is used and more then one permission is
+set, the user must to have all of them to gain access. When the pipe is used,
+the user must have at least one of the permissions to gain acess. These
+operators can be mixed to create complex validations. You can also use an
+exclamation mark (!) to deny access to a certain permission.
+
+The controller element can have zero or more method elements.
+
+Following is an example of a mapping:
+
+<map hasAccessByDefault="true">
+	<controller name="Home" role="Anonymous"></controller>
+	<controller name="Client" role="User">
+		<method name="list" role="User" permissions="list-users" />
+	</controller>
+	<controller name="System" role="Admin">
+		<method name="action" role="Admin" permissions="permission-1,permission-2|permission-3" />
+	</controller>
+</map>
+
+Note that roles of methods overwrites roles of controllers. So you can set a
+default access for all methods of a controller, and change only some few that
+need special rights.
+-->
+<map hasAccessByDefault="false" validationType="match">
+	<controller name="Login" role="Anonymous"></controller>
+	<controller name="Dashboard" role="*"></controller>
+	<controller name="Usuario" role="*" permissions="*">
+		<method name="log" role="*" permissions="gerenciar-log" />
+		<method name="ver" role="*" permissions="*" />
+		<method name="novo" role="*" permissions="*" />
+		<method name="editar" role="*" permissions="*" />
+		<method name="meuPerfil" role="*" permissions="*" />
+		<method name="atualizarMeuPerfil" role="*" permissions="*" />
+		<method name="uploadImagem" role="*" permissions="*" />
+		<method name="recuperarSenha" role="Anonymous" />
+		<method name="finalizarRecuperarSenha" role="Anonymous" />
+		<method name="ativar" role="*" />
+		<method name="desativar" role="*" />
+	</controller>
+
+	<controller name="Filial" role="*" permissions="gerenciar-filiais"></controller>
+	<controller name="Podcast" role="*" permissions="gerenciar-podcast"></controller>
+	<controller name="Instituicao" role="*" permissions="*"></controller>
+	<controller name="Agenda" role="*" permissions="gerenciar-agenda"></controller>
+	<controller name="Membro" role="*" permissions="gerenicar-membros"></controller>
+	<controller name="Pg" role="*" permissions="gerenciar-pgs"></controller>
+	<controller name="Noticia" role="*" permissions="gerenciar-noticia"></controller>
+	<controller name="PedidoOracao" role="*" permissions="gerenciar-pedido-oracao"></controller>
+	<controller name="Ministerio" role="*" permissions="gerenciar-ministerios"></controller>
+	<controller name="Video" role="*" permissions="gerenciar-videos"></controller>
+	<controller name="Api" role="Anonymous"></controller>
+</map>

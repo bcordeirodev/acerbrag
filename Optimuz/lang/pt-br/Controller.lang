@@ -1,0 +1,2 @@
+error.invalidView = A view %s não existe!
+error.invalidName = O nome do controlador é inválido

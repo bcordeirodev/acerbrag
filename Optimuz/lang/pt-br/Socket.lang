@@ -1,0 +1,8 @@
+error.connectionClosed = Não é possível manipular a conexão pois a mesma está fechada
+error.invalidProtocol = Protocolo inválido (%s)
+error.timeout = A conexão expirou (timeout)
+error.readError = Não foi possível ler dados do socket
+error.writeError = Não foi possível escrever todos os dados no socket. Foram escritos %s bytes
+error.couldNotGetHeaders = Não foi possível ler os cabeçalhos da resposta. A seguir está o conteúdo que pôde ser lido: %s
+error.openError = Não foi possível abrir uma conexão com o host %s na porta %s pelo seguinte motivo: %s
+error.connectionEOF = Fim da conexão alcançado (EOF) para o host %s. %s bytes lidos a partir de %s bytes

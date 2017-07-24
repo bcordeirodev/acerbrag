@@ -1,0 +1,2 @@
+# Errors
+error.missingDataSource = The datasource "%s" does not exist

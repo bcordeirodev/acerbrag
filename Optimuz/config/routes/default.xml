@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE settings SYSTEM "http://optimuz.interativadesenvolvimento.com.br/dtd/routes.dtd">
+<!--
+This is de default router file. It contains rules for routing HTTP requests for
+the application.
+
+Each rule is put inside a <route> element, and they are parsed in the order they
+are placed. So the order is important here.
+
+Element <mapping>
+________________________________________________________________________________
+
+The root element of this file is the <mapping>. All <route> go inside it. It
+also holds some important attributes that are applied to the entire application,
+which are:
+
+- defaultApplication: name of the default application if none is matched on the
+current request. The default here is "start".
+
+- defaultController: name of the default controller if none is matched on the
+current request. The name must not include the "Controller" part, so if you want
+the MyController to be the default one, you should put only
+defaultController="My". The default value here is "Home".
+
+- defaultMethod: name of the default method if none is matched on the
+current request. The default here is "index".
+
+- hideApplicationOnURL: a boolean indicating whether to hide the application
+part on the URL. For example: let's say you have the following applications
+installed:
+
+	|- start
+	|- default
+	|- SimpleCMS
+
+The default behaviour is to append the name of the default application on the
+URL. So if you want to access the app start (which is the default one when you
+install the framework) you must to go to http://yourdomain.com/start/.
+
+Element <route>
+________________________________________________________________________________
+
+
+-->
+<mapping defaultApplication="default" defaultController="Dashboard" defaultMethod="index" hideApplicationOnURL="true">
+	<!--
+	The following is an example of a route container:
+
+	<route redirectApplication="false">
+		<url path="/:application:/:controller:/:method:/*" />
+		<application name=":application:" defaultController="" defaultMethod="">
+			<controller name=":controller:" method=":method:" />
+		</application>
+	</route>
+	-->
+
+	<route>
+		<url path="/login/:method:" />
+		<application name="default" defaultMethod="index">
+			<controller name="Login" method=":method:" />
+		</application>
+	</route>
+
+	<route>
+		<url path="/sair" />
+		<application name="default">
+			<controller name="Login" method="sair" />
+		</application>
+	</route>
+
+	<route>
+		<url path="/atendimento" />
+		<application name="default">
+			<controller name="Comunicado" method="atendimento" />
+		</application>
+	</route>
+
+	<route>
+		<url path="/meu-perfil" />
+		<application name="default">
+			<controller name="Usuario" method="meuPerfil" />
+		</application>
+	</route>
+
+	<route>
+		<url path="/atualizar-meu-perfil" />
+		<application name="default">
+			<controller name="Usuario" method="atualizarMeuPerfil" />
+		</application>
+	</route>
+
+	<route>
+		<url path="/minha-instituicao" />
+		<application name="default">
+			<controller name="Instituicao" method="minhaInstituicao" />
+		</application>
+	</route>
+
+	<route>
+		<url path="/:application:/:controller:/:method:/*" />
+		<application name=":application:">
+			<controller name=":controller:" method=":method:" />
+		</application>
+	</route>
+</mapping>

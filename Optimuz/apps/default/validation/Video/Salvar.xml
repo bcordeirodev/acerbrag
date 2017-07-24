@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE settings SYSTEM "http://optimuz.interativadesenvolvimento.com.br/dtd/validation.dtd">
+<form method="post" lang="">
+	<input name="titulo" label="Título do vídeo">
+		<rule name="required" />
+	</input>
+	<input name="url" label="Url do vídeo">
+		<rule name="required" />
+	</input>
+	<input name="descricao" label="Descrição do vídeo">
+		<rule name="required" />
+	</input>
+	<input name="igrejas" label="Lugar a apresentar">
+		<rule name="array" />
+	</input>
+	<input name="arquivo" label="">
+		<rule name="discard" />
+	</input>
+	<input name="nome-arquivo" label="">
+		<rule name="discard" />
+	</input>
+</form>

@@ -1,0 +1,5 @@
+log.line = Linha
+log.file = Arquivo
+log.message = Mensagem
+log.invalidFormat = O formato do log não foi especificado ou é incompatível
+log.requestAddr = IP da requisição

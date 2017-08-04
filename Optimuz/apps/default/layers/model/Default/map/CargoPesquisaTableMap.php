@@ -49,8 +49,8 @@ class CargoPesquisaTableMap extends TableMap
 	 */
 	public function buildRelations()
 	{
-		$this->addRelation('Pesquisa', 'Pesquisa', RelationMap::MANY_TO_ONE, array('pesquisa_id' => 'id', ), null, null);
 		$this->addRelation('Cargo', 'Cargo', RelationMap::MANY_TO_ONE, array('cargo_id' => 'id', ), null, null);
+		$this->addRelation('Pesquisa', 'Pesquisa', RelationMap::MANY_TO_ONE, array('pesquisa_id' => 'id', ), null, null);
 	} // buildRelations()
 
 } // CargoPesquisaTableMap

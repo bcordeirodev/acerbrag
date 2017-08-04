@@ -187,7 +187,7 @@
         <parameter name="Seq_in_index" value="1"/>
         <parameter name="Column_name" value="usuario_id"/>
         <parameter name="Collation" value="A"/>
-        <parameter name="Cardinality" value="0"/>
+        <parameter name="Cardinality" value="11"/>
         <parameter name="Sub_part" value=""/>
         <parameter name="Packed" value=""/>
         <parameter name="Null" value="YES"/>
@@ -201,13 +201,13 @@
       <parameter name="Engine" value="InnoDB"/>
       <parameter name="Version" value="10"/>
       <parameter name="Row_format" value="Compact"/>
-      <parameter name="Rows" value="0"/>
-      <parameter name="Avg_row_length" value="0"/>
+      <parameter name="Rows" value="11"/>
+      <parameter name="Avg_row_length" value="1489"/>
       <parameter name="Data_length" value="16384"/>
       <parameter name="Max_data_length" value="0"/>
       <parameter name="Index_length" value="16384"/>
       <parameter name="Data_free" value="0"/>
-      <parameter name="Auto_increment" value="4978"/>
+      <parameter name="Auto_increment" value="12"/>
       <parameter name="Create_time" value="2017-07-24 10:02:33"/>
       <parameter name="Update_time" value=""/>
       <parameter name="Check_time" value=""/>
@@ -268,11 +268,11 @@
         <parameter name="Extra" value=""/>
       </vendor>
     </column>
-    <foreign-key foreignTable="usuario" name="fk_avaliacao_resposta_forum_usuario">
-      <reference local="usuario_id" foreign="id"/>
-    </foreign-key>
     <foreign-key foreignTable="resposta_forum" name="fk_avaliacao_resposta_forum_resposta_forum">
       <reference local="resposta_forum_id" foreign="id"/>
+    </foreign-key>
+    <foreign-key foreignTable="usuario" name="fk_avaliacao_resposta_forum_usuario">
+      <reference local="usuario_id" foreign="id"/>
     </foreign-key>
     <index name="fk_avaliacao_resposta_forum_usuario_idx">
       <index-column name="usuario_id"/>
@@ -357,13 +357,13 @@
       <parameter name="Engine" value="InnoDB"/>
       <parameter name="Version" value="10"/>
       <parameter name="Row_format" value="Compact"/>
-      <parameter name="Rows" value="0"/>
-      <parameter name="Avg_row_length" value="0"/>
+      <parameter name="Rows" value="8"/>
+      <parameter name="Avg_row_length" value="2048"/>
       <parameter name="Data_length" value="16384"/>
       <parameter name="Max_data_length" value="0"/>
       <parameter name="Index_length" value="0"/>
       <parameter name="Data_free" value="0"/>
-      <parameter name="Auto_increment" value="1"/>
+      <parameter name="Auto_increment" value="10"/>
       <parameter name="Create_time" value="2017-07-24 10:02:45"/>
       <parameter name="Update_time" value=""/>
       <parameter name="Check_time" value=""/>
@@ -394,11 +394,11 @@
         <parameter name="Extra" value=""/>
       </vendor>
     </column>
-    <foreign-key foreignTable="pesquisa" name="fk_cargo_pesquisa_pesquisa">
-      <reference local="pesquisa_id" foreign="id"/>
-    </foreign-key>
     <foreign-key foreignTable="cargo" name="fk_cargo_pesquisa_cargo">
       <reference local="cargo_id" foreign="id"/>
+    </foreign-key>
+    <foreign-key foreignTable="pesquisa" name="fk_cargo_pesquisa_pesquisa">
+      <reference local="pesquisa_id" foreign="id"/>
     </foreign-key>
     <index name="fk_cargo_pesquisa_pesquisa_idx">
       <index-column name="pesquisa_id"/>
@@ -740,11 +740,11 @@
         <parameter name="Extra" value=""/>
       </vendor>
     </column>
-    <foreign-key foreignTable="usuario" name="fk_curtida_forum_usuario">
-      <reference local="usuario_id" foreign="id"/>
-    </foreign-key>
     <foreign-key foreignTable="forum" name="fk_curtida_forum_forum">
       <reference local="forum_id" foreign="id"/>
+    </foreign-key>
+    <foreign-key foreignTable="usuario" name="fk_curtida_forum_usuario">
+      <reference local="usuario_id" foreign="id"/>
     </foreign-key>
     <vendor type="mysql">
       <parameter name="Name" value="curtida_forum"/>
@@ -793,13 +793,13 @@
       <parameter name="Engine" value="InnoDB"/>
       <parameter name="Version" value="10"/>
       <parameter name="Row_format" value="Compact"/>
-      <parameter name="Rows" value="0"/>
-      <parameter name="Avg_row_length" value="0"/>
+      <parameter name="Rows" value="7"/>
+      <parameter name="Avg_row_length" value="2340"/>
       <parameter name="Data_length" value="16384"/>
       <parameter name="Max_data_length" value="0"/>
       <parameter name="Index_length" value="0"/>
       <parameter name="Data_free" value="0"/>
-      <parameter name="Auto_increment" value="1"/>
+      <parameter name="Auto_increment" value="8"/>
       <parameter name="Create_time" value="2017-07-24 10:02:45"/>
       <parameter name="Update_time" value=""/>
       <parameter name="Check_time" value=""/>
@@ -830,11 +830,11 @@
         <parameter name="Extra" value=""/>
       </vendor>
     </column>
-    <foreign-key foreignTable="pesquisa" name="fk_departamento_pesquisa_pesquisa">
-      <reference local="pesquisa_id" foreign="id"/>
-    </foreign-key>
     <foreign-key foreignTable="departamento" name="fk_departamento_pesquisa_departamento">
       <reference local="departamento_id" foreign="id"/>
+    </foreign-key>
+    <foreign-key foreignTable="pesquisa" name="fk_departamento_pesquisa_pesquisa">
+      <reference local="pesquisa_id" foreign="id"/>
     </foreign-key>
     <index name="fk_departamento_pesquisa_pesquisa_idx">
       <index-column name="pesquisa_id"/>
@@ -886,10 +886,10 @@
         <parameter name="Extra" value="auto_increment"/>
       </vendor>
     </column>
-    <column name="cidade_id" phpName="CidadeId" type="INTEGER" size="10" sqlType="int(10) unsigned" required="false">
+    <column name="cidade" phpName="Cidade" type="VARCHAR" size="250" required="false">
       <vendor type="mysql">
-        <parameter name="Field" value="cidade_id"/>
-        <parameter name="Type" value="int(10) unsigned"/>
+        <parameter name="Field" value="cidade"/>
+        <parameter name="Type" value="varchar(250)"/>
         <parameter name="Null" value="YES"/>
         <parameter name="Key" value=""/>
         <parameter name="Default" value=""/>
@@ -951,13 +951,13 @@
       <parameter name="Engine" value="InnoDB"/>
       <parameter name="Version" value="10"/>
       <parameter name="Row_format" value="Compact"/>
-      <parameter name="Rows" value="0"/>
-      <parameter name="Avg_row_length" value="0"/>
+      <parameter name="Rows" value="1"/>
+      <parameter name="Avg_row_length" value="16384"/>
       <parameter name="Data_length" value="16384"/>
       <parameter name="Max_data_length" value="0"/>
       <parameter name="Index_length" value="0"/>
       <parameter name="Data_free" value="0"/>
-      <parameter name="Auto_increment" value="1"/>
+      <parameter name="Auto_increment" value="2"/>
       <parameter name="Create_time" value="2017-07-24 10:02:33"/>
       <parameter name="Update_time" value=""/>
       <parameter name="Check_time" value=""/>
@@ -1183,6 +1183,16 @@
         <parameter name="Extra" value=""/>
       </vendor>
     </column>
+    <column name="nivel" phpName="Nivel" type="CHAR" required="false">
+      <vendor type="mysql">
+        <parameter name="Field" value="nivel"/>
+        <parameter name="Type" value="char(1)"/>
+        <parameter name="Null" value="YES"/>
+        <parameter name="Key" value=""/>
+        <parameter name="Default" value=""/>
+        <parameter name="Extra" value=""/>
+      </vendor>
+    </column>
     <unique name="nome_UNIQUE">
       <unique-column name="nome"/>
       <vendor type="mysql">
@@ -1192,7 +1202,7 @@
         <parameter name="Seq_in_index" value="1"/>
         <parameter name="Column_name" value="nome"/>
         <parameter name="Collation" value="A"/>
-        <parameter name="Cardinality" value="0"/>
+        <parameter name="Cardinality" value="11"/>
         <parameter name="Sub_part" value=""/>
         <parameter name="Packed" value=""/>
         <parameter name="Null" value=""/>
@@ -1206,14 +1216,14 @@
       <parameter name="Engine" value="InnoDB"/>
       <parameter name="Version" value="10"/>
       <parameter name="Row_format" value="Compact"/>
-      <parameter name="Rows" value="0"/>
-      <parameter name="Avg_row_length" value="0"/>
+      <parameter name="Rows" value="11"/>
+      <parameter name="Avg_row_length" value="1489"/>
       <parameter name="Data_length" value="16384"/>
       <parameter name="Max_data_length" value="0"/>
       <parameter name="Index_length" value="16384"/>
       <parameter name="Data_free" value="0"/>
-      <parameter name="Auto_increment" value="3"/>
-      <parameter name="Create_time" value="2017-07-24 10:02:34"/>
+      <parameter name="Auto_increment" value="18"/>
+      <parameter name="Create_time" value="2017-07-31 11:47:42"/>
       <parameter name="Update_time" value=""/>
       <parameter name="Check_time" value=""/>
       <parameter name="Collation" value="utf8_general_ci"/>
@@ -1258,7 +1268,7 @@
         <parameter name="Seq_in_index" value="1"/>
         <parameter name="Column_name" value="permissao_id"/>
         <parameter name="Collation" value="A"/>
-        <parameter name="Cardinality" value="0"/>
+        <parameter name="Cardinality" value="36"/>
         <parameter name="Sub_part" value=""/>
         <parameter name="Packed" value=""/>
         <parameter name="Null" value=""/>
@@ -1272,8 +1282,8 @@
       <parameter name="Engine" value="InnoDB"/>
       <parameter name="Version" value="10"/>
       <parameter name="Row_format" value="Compact"/>
-      <parameter name="Rows" value="0"/>
-      <parameter name="Avg_row_length" value="0"/>
+      <parameter name="Rows" value="36"/>
+      <parameter name="Avg_row_length" value="455"/>
       <parameter name="Data_length" value="16384"/>
       <parameter name="Max_data_length" value="0"/>
       <parameter name="Index_length" value="16384"/>
@@ -1389,11 +1399,11 @@
         <parameter name="Extra" value=""/>
       </vendor>
     </column>
-    <foreign-key foreignTable="pesquisa" name="fk_pergunta_pesquisa">
-      <reference local="pesquisa_id" foreign="id"/>
-    </foreign-key>
     <foreign-key foreignTable="categoria" name="fk_pergunta_categoria">
       <reference local="categoria_id" foreign="id"/>
+    </foreign-key>
+    <foreign-key foreignTable="pesquisa" name="fk_pergunta_pesquisa">
+      <reference local="pesquisa_id" foreign="id"/>
     </foreign-key>
     <index name="fk_pergunta_pesquisa_idx">
       <index-column name="pesquisa_id"/>
@@ -1493,6 +1503,16 @@
         <parameter name="Extra" value=""/>
       </vendor>
     </column>
+    <column name="nivel" phpName="Nivel" type="CHAR" required="false">
+      <vendor type="mysql">
+        <parameter name="Field" value="nivel"/>
+        <parameter name="Type" value="char(1)"/>
+        <parameter name="Null" value="YES"/>
+        <parameter name="Key" value=""/>
+        <parameter name="Default" value=""/>
+        <parameter name="Extra" value=""/>
+      </vendor>
+    </column>
     <unique name="slug_UNIQUE">
       <unique-column name="slug"/>
       <vendor type="mysql">
@@ -1502,7 +1522,7 @@
         <parameter name="Seq_in_index" value="1"/>
         <parameter name="Column_name" value="slug"/>
         <parameter name="Collation" value="A"/>
-        <parameter name="Cardinality" value="0"/>
+        <parameter name="Cardinality" value="6"/>
         <parameter name="Sub_part" value=""/>
         <parameter name="Packed" value=""/>
         <parameter name="Null" value=""/>
@@ -1520,7 +1540,7 @@
         <parameter name="Seq_in_index" value="1"/>
         <parameter name="Column_name" value="nome"/>
         <parameter name="Collation" value="A"/>
-        <parameter name="Cardinality" value="0"/>
+        <parameter name="Cardinality" value="6"/>
         <parameter name="Sub_part" value=""/>
         <parameter name="Packed" value=""/>
         <parameter name="Null" value=""/>
@@ -1534,14 +1554,14 @@
       <parameter name="Engine" value="InnoDB"/>
       <parameter name="Version" value="10"/>
       <parameter name="Row_format" value="Compact"/>
-      <parameter name="Rows" value="0"/>
-      <parameter name="Avg_row_length" value="0"/>
+      <parameter name="Rows" value="6"/>
+      <parameter name="Avg_row_length" value="2730"/>
       <parameter name="Data_length" value="16384"/>
       <parameter name="Max_data_length" value="0"/>
       <parameter name="Index_length" value="32768"/>
       <parameter name="Data_free" value="0"/>
-      <parameter name="Auto_increment" value="18"/>
-      <parameter name="Create_time" value="2017-07-24 10:02:34"/>
+      <parameter name="Auto_increment" value="23"/>
+      <parameter name="Create_time" value="2017-07-31 12:12:00"/>
       <parameter name="Update_time" value=""/>
       <parameter name="Check_time" value=""/>
       <parameter name="Collation" value="utf8_general_ci"/>
@@ -1991,11 +2011,11 @@
         <parameter name="Extra" value=""/>
       </vendor>
     </column>
-    <foreign-key foreignTable="alternativa" name="fk_resposta_opcao_escolhida">
-      <reference local="alternativa_id" foreign="id"/>
-    </foreign-key>
     <foreign-key foreignTable="coleta_pesquisa" name="fk_resposta_formulario">
       <reference local="coleta_pesquisa_id" foreign="id"/>
+    </foreign-key>
+    <foreign-key foreignTable="alternativa" name="fk_resposta_opcao_escolhida">
+      <reference local="alternativa_id" foreign="id"/>
     </foreign-key>
     <foreign-key foreignTable="pergunta" name="fk_resposta_pergunta">
       <reference local="pergunta_id" foreign="id"/>
@@ -2126,11 +2146,11 @@
         <parameter name="Extra" value=""/>
       </vendor>
     </column>
-    <foreign-key foreignTable="usuario" name="fk_resposta_forum_usuario">
-      <reference local="usuario_id" foreign="id"/>
-    </foreign-key>
     <foreign-key foreignTable="forum" name="fk_resposta_forum_forum">
       <reference local="forum_id" foreign="id"/>
+    </foreign-key>
+    <foreign-key foreignTable="usuario" name="fk_resposta_forum_usuario">
+      <reference local="usuario_id" foreign="id"/>
     </foreign-key>
     <index name="fk_resposta_forum_usuario_idx">
       <index-column name="usuario_id"/>
@@ -2250,14 +2270,14 @@
         <parameter name="Extra" value=""/>
       </vendor>
     </column>
-    <foreign-key foreignTable="usuario" name="fk_solicitacao_resgate_solicitante">
-      <reference local="solicitante_id" foreign="id"/>
+    <foreign-key foreignTable="usuario" name="fk_solicitacao_resgate_aprovador">
+      <reference local="aprovador_id" foreign="id"/>
     </foreign-key>
     <foreign-key foreignTable="premio" name="fk_solicitacao_resgate_premio">
       <reference local="premio_id" foreign="id"/>
     </foreign-key>
-    <foreign-key foreignTable="usuario" name="fk_solicitacao_resgate_aprovador">
-      <reference local="aprovador_id" foreign="id"/>
+    <foreign-key foreignTable="usuario" name="fk_solicitacao_resgate_solicitante">
+      <reference local="solicitante_id" foreign="id"/>
     </foreign-key>
     <index name="fk_solicitacao_resgate_usuario_idx">
       <index-column name="solicitante_id"/>
@@ -2415,9 +2435,9 @@
         <parameter name="Extra" value=""/>
       </vendor>
     </column>
-    <column name="cpf" phpName="Cpf" type="VARCHAR" size="11" required="false">
+    <column name="dni" phpName="Dni" type="VARCHAR" size="11" required="false">
       <vendor type="mysql">
-        <parameter name="Field" value="cpf"/>
+        <parameter name="Field" value="dni"/>
         <parameter name="Type" value="varchar(11)"/>
         <parameter name="Null" value="YES"/>
         <parameter name="Key" value=""/>
@@ -2505,11 +2525,11 @@
         <parameter name="Extra" value=""/>
       </vendor>
     </column>
-    <column name="token_firebase" phpName="TokenFirebase" type="VARCHAR" size="255" required="true">
+    <column name="token_firebase" phpName="TokenFirebase" type="VARCHAR" size="255" required="false">
       <vendor type="mysql">
         <parameter name="Field" value="token_firebase"/>
         <parameter name="Type" value="varchar(255)"/>
-        <parameter name="Null" value="NO"/>
+        <parameter name="Null" value="YES"/>
         <parameter name="Key" value=""/>
         <parameter name="Default" value=""/>
         <parameter name="Extra" value=""/>
@@ -2555,6 +2575,36 @@
         <parameter name="Extra" value=""/>
       </vendor>
     </column>
+    <column name="nivel_acesso" phpName="NivelAcesso" type="CHAR" required="false" defaultValue="1">
+      <vendor type="mysql">
+        <parameter name="Field" value="nivel_acesso"/>
+        <parameter name="Type" value="char(1)"/>
+        <parameter name="Null" value="YES"/>
+        <parameter name="Key" value=""/>
+        <parameter name="Default" value="1"/>
+        <parameter name="Extra" value=""/>
+      </vendor>
+    </column>
+    <column name="usuario_validado" phpName="UsuarioValidado" type="BOOLEAN" size="1" required="false" defaultValue="false">
+      <vendor type="mysql">
+        <parameter name="Field" value="usuario_validado"/>
+        <parameter name="Type" value="tinyint(1)"/>
+        <parameter name="Null" value="YES"/>
+        <parameter name="Key" value=""/>
+        <parameter name="Default" value="0"/>
+        <parameter name="Extra" value=""/>
+      </vendor>
+    </column>
+    <column name="sexo" phpName="Sexo" type="CHAR" sqlType="enum('M','F')" required="false">
+      <vendor type="mysql">
+        <parameter name="Field" value="sexo"/>
+        <parameter name="Type" value="enum('M','F')"/>
+        <parameter name="Null" value="YES"/>
+        <parameter name="Key" value=""/>
+        <parameter name="Default" value=""/>
+        <parameter name="Extra" value=""/>
+      </vendor>
+    </column>
     <foreign-key foreignTable="cargo" name="fk_usuario_cargo">
       <reference local="cargo_id" foreign="id"/>
     </foreign-key>
@@ -2576,7 +2626,7 @@
         <parameter name="Seq_in_index" value="1"/>
         <parameter name="Column_name" value="email"/>
         <parameter name="Collation" value="A"/>
-        <parameter name="Cardinality" value="0"/>
+        <parameter name="Cardinality" value="1"/>
         <parameter name="Sub_part" value=""/>
         <parameter name="Packed" value=""/>
         <parameter name="Null" value=""/>
@@ -2594,7 +2644,7 @@
         <parameter name="Seq_in_index" value="1"/>
         <parameter name="Column_name" value="usuario"/>
         <parameter name="Collation" value="A"/>
-        <parameter name="Cardinality" value="0"/>
+        <parameter name="Cardinality" value="1"/>
         <parameter name="Sub_part" value=""/>
         <parameter name="Packed" value=""/>
         <parameter name="Null" value=""/>
@@ -2612,7 +2662,7 @@
         <parameter name="Seq_in_index" value="1"/>
         <parameter name="Column_name" value="token"/>
         <parameter name="Collation" value="A"/>
-        <parameter name="Cardinality" value="0"/>
+        <parameter name="Cardinality" value="1"/>
         <parameter name="Sub_part" value=""/>
         <parameter name="Packed" value=""/>
         <parameter name="Null" value="YES"/>
@@ -2630,7 +2680,7 @@
         <parameter name="Seq_in_index" value="1"/>
         <parameter name="Column_name" value="token_senha"/>
         <parameter name="Collation" value="A"/>
-        <parameter name="Cardinality" value="0"/>
+        <parameter name="Cardinality" value="1"/>
         <parameter name="Sub_part" value=""/>
         <parameter name="Packed" value=""/>
         <parameter name="Null" value="YES"/>
@@ -2648,7 +2698,7 @@
         <parameter name="Seq_in_index" value="1"/>
         <parameter name="Column_name" value="perfil_id"/>
         <parameter name="Collation" value="A"/>
-        <parameter name="Cardinality" value="0"/>
+        <parameter name="Cardinality" value="1"/>
         <parameter name="Sub_part" value=""/>
         <parameter name="Packed" value=""/>
         <parameter name="Null" value=""/>
@@ -2666,7 +2716,7 @@
         <parameter name="Seq_in_index" value="1"/>
         <parameter name="Column_name" value="endereco_id"/>
         <parameter name="Collation" value="A"/>
-        <parameter name="Cardinality" value="0"/>
+        <parameter name="Cardinality" value="1"/>
         <parameter name="Sub_part" value=""/>
         <parameter name="Packed" value=""/>
         <parameter name="Null" value="YES"/>
@@ -2684,7 +2734,7 @@
         <parameter name="Seq_in_index" value="1"/>
         <parameter name="Column_name" value="departamento_id"/>
         <parameter name="Collation" value="A"/>
-        <parameter name="Cardinality" value="0"/>
+        <parameter name="Cardinality" value="1"/>
         <parameter name="Sub_part" value=""/>
         <parameter name="Packed" value=""/>
         <parameter name="Null" value="YES"/>
@@ -2702,7 +2752,7 @@
         <parameter name="Seq_in_index" value="1"/>
         <parameter name="Column_name" value="cargo_id"/>
         <parameter name="Collation" value="A"/>
-        <parameter name="Cardinality" value="0"/>
+        <parameter name="Cardinality" value="1"/>
         <parameter name="Sub_part" value=""/>
         <parameter name="Packed" value=""/>
         <parameter name="Null" value="YES"/>
@@ -2716,14 +2766,14 @@
       <parameter name="Engine" value="InnoDB"/>
       <parameter name="Version" value="10"/>
       <parameter name="Row_format" value="Compact"/>
-      <parameter name="Rows" value="0"/>
-      <parameter name="Avg_row_length" value="0"/>
+      <parameter name="Rows" value="1"/>
+      <parameter name="Avg_row_length" value="16384"/>
       <parameter name="Data_length" value="16384"/>
       <parameter name="Max_data_length" value="0"/>
       <parameter name="Index_length" value="131072"/>
       <parameter name="Data_free" value="0"/>
       <parameter name="Auto_increment" value=""/>
-      <parameter name="Create_time" value="2017-07-24 11:17:55"/>
+      <parameter name="Create_time" value="2017-08-03 12:05:40"/>
       <parameter name="Update_time" value=""/>
       <parameter name="Check_time" value=""/>
       <parameter name="Collation" value="utf8_general_ci"/>

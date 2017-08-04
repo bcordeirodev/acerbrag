@@ -52,9 +52,9 @@ class SolicitacaoResgateTableMap extends TableMap
 	 */
 	public function buildRelations()
 	{
-		$this->addRelation('UsuarioRelatedBySolicitanteId', 'Usuario', RelationMap::MANY_TO_ONE, array('solicitante_id' => 'id', ), null, null);
-		$this->addRelation('Premio', 'Premio', RelationMap::MANY_TO_ONE, array('premio_id' => 'id', ), null, null);
 		$this->addRelation('UsuarioRelatedByAprovadorId', 'Usuario', RelationMap::MANY_TO_ONE, array('aprovador_id' => 'id', ), null, null);
+		$this->addRelation('Premio', 'Premio', RelationMap::MANY_TO_ONE, array('premio_id' => 'id', ), null, null);
+		$this->addRelation('UsuarioRelatedBySolicitanteId', 'Usuario', RelationMap::MANY_TO_ONE, array('solicitante_id' => 'id', ), null, null);
 	} // buildRelations()
 
 } // SolicitacaoResgateTableMap

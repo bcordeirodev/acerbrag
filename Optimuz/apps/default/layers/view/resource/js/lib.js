@@ -15,28 +15,23 @@ var defaultDataTableLanguage = {
 		sSortDescending : ': ative para order em ordem decrescente'
 	},
 	oPaginate : {
-		sFirst : 'Primeiro',
+		sFirst : 'Primero',
 		sLast : 'Último',
-		sNext : 'Próximo',
+		sNext : 'Siguiente',
 		sPrevious : 'Anterior'
 	},
-	sEmptyTable : 'Não há registros na tabela',
-	sInfo : 'Exibindo de _START_ a _END_ de _TOTAL_ registros',
-	sInfoEmpty : 'Nenhum registro sendo exibido',
-	sInfoFiltered : '(filtrado de um total de _MAX_ registros)',
+	sEmptyTable : 'No hay registros en la tabla',
+	sInfo : 'Visualización de _START_ a _END_ de _TOTAL_ registros',
+	sInfoEmpty : 'No se muestra ningún registro',
+	sInfoFiltered : '(Filtrado de un total de _MAX_ registros)',
 	sInfoPostFix : '',
 	sInfoThousands : ',',
 	sLengthMenu : '_MENU_ ',
-	sLoadingRecords : 'Carregando...',
-	sSearch : 'Busca: ',
+	sLoadingRecords : 'Cargando...',
+	sSearch : 'Búsqueda: ',
 	sUrl : '',
-	sZeroRecords : 'Nenhum registro encontrado'
+	sZeroRecords : 'Registro Ninguno encontrado'
 };
-
-/**
- * Guarda os módulos do sistema.
- */
-window.modules = {};
 
 /**
  * Grava uma mensagem no log informando a falta de um plugin necessário.
@@ -101,6 +96,63 @@ function showMessage(msg, type)
 
 	clearTimeout(hideMessageTimeoutID);
 	hideMessageTimeoutID = setTimeout(hideMessage, 10000);
+}
+
+/**
+ * Exibe uma mensagem dentro do seletor informado.
+ * @param {jQuery} selector Local onde a mensagem será inserida.
+ * @param {String} msg Mensagem de erro. Pode conter HTML.
+ * @param {String} type Tipo da mensagem: error, success ou info. Se não for
+ * passado, o tipo padrão será assumido (info).
+ */
+function showBoxMessage(selector, msg, type)
+{
+	if(!type)
+		type = 'info';
+
+	var name = '';
+
+	switch(type)
+	{
+		case 'error':
+			name = 'Error!';
+			break;
+		case 'success':
+			name = 'Sucesso!';
+			break;
+		case 'info':
+			name = 'Informação!';
+			break;
+		default:
+			break;
+	}
+
+	var message = $(
+			'<div class="clickable alert alert-' + type + ' Custom_Message_Box">'
+				+ '<strong class="m-r-5">' + name + '</strong>' + msg
+			+ '</div>'
+		).hide();
+
+	/**
+	 * Esconde e remove a mensagem informada.
+	 */
+	var hideMessage = function(){
+		message.hide(100, function(){
+			$(this).remove();
+		});
+	};
+
+	selector.find('.Custom_Message_Box').stop(true, true).remove();
+	selector.prepend(message);
+	message.show();
+
+	message.click(function(){
+		hideMessage();
+	});
+
+	setTimeout(function(){
+		hideMessage();
+	}, 10000);
 }
 
 /**

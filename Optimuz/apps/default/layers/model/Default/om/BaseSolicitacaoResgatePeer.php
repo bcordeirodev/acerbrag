@@ -463,7 +463,7 @@ abstract class BaseSolicitacaoResgatePeer {
 
 
 	/**
-	 * Returns the number of rows matching criteria, joining the related UsuarioRelatedBySolicitanteId table
+	 * Returns the number of rows matching criteria, joining the related UsuarioRelatedByAprovadorId table
 	 *
 	 * @param      Criteria $criteria
 	 * @param      boolean $distinct Whether to select only distinct columns; deprecated: use Criteria->setDistinct() instead.
@@ -471,7 +471,7 @@ abstract class BaseSolicitacaoResgatePeer {
 	 * @param      String    $join_behavior the type of joins to use, defaults to Criteria::LEFT_JOIN
 	 * @return     int Number of matching rows.
 	 */
-	public static function doCountJoinUsuarioRelatedBySolicitanteId(Criteria $criteria, $distinct = false, PropelPDO $con = null, $join_behavior = Criteria::LEFT_JOIN)
+	public static function doCountJoinUsuarioRelatedByAprovadorId(Criteria $criteria, $distinct = false, PropelPDO $con = null, $join_behavior = Criteria::LEFT_JOIN)
 	{
 		// we're going to modify criteria, so copy it first
 		$criteria = clone $criteria;
@@ -498,7 +498,7 @@ abstract class BaseSolicitacaoResgatePeer {
 			$con = Propel::getConnection(SolicitacaoResgatePeer::DATABASE_NAME, Propel::CONNECTION_READ);
 		}
 
-		$criteria->addJoin(SolicitacaoResgatePeer::SOLICITANTE_ID, UsuarioPeer::ID, $join_behavior);
+		$criteria->addJoin(SolicitacaoResgatePeer::APROVADOR_ID, UsuarioPeer::ID, $join_behavior);
 
 		$stmt = BasePeer::doCount($criteria, $con);
 
@@ -563,7 +563,7 @@ abstract class BaseSolicitacaoResgatePeer {
 
 
 	/**
-	 * Returns the number of rows matching criteria, joining the related UsuarioRelatedByAprovadorId table
+	 * Returns the number of rows matching criteria, joining the related UsuarioRelatedBySolicitanteId table
 	 *
 	 * @param      Criteria $criteria
 	 * @param      boolean $distinct Whether to select only distinct columns; deprecated: use Criteria->setDistinct() instead.
@@ -571,7 +571,7 @@ abstract class BaseSolicitacaoResgatePeer {
 	 * @param      String    $join_behavior the type of joins to use, defaults to Criteria::LEFT_JOIN
 	 * @return     int Number of matching rows.
 	 */
-	public static function doCountJoinUsuarioRelatedByAprovadorId(Criteria $criteria, $distinct = false, PropelPDO $con = null, $join_behavior = Criteria::LEFT_JOIN)
+	public static function doCountJoinUsuarioRelatedBySolicitanteId(Criteria $criteria, $distinct = false, PropelPDO $con = null, $join_behavior = Criteria::LEFT_JOIN)
 	{
 		// we're going to modify criteria, so copy it first
 		$criteria = clone $criteria;
@@ -598,7 +598,7 @@ abstract class BaseSolicitacaoResgatePeer {
 			$con = Propel::getConnection(SolicitacaoResgatePeer::DATABASE_NAME, Propel::CONNECTION_READ);
 		}
 
-		$criteria->addJoin(SolicitacaoResgatePeer::APROVADOR_ID, UsuarioPeer::ID, $join_behavior);
+		$criteria->addJoin(SolicitacaoResgatePeer::SOLICITANTE_ID, UsuarioPeer::ID, $join_behavior);
 
 		$stmt = BasePeer::doCount($criteria, $con);
 
@@ -621,7 +621,7 @@ abstract class BaseSolicitacaoResgatePeer {
 	 * @throws     PropelException Any exceptions caught during processing will be
 	 *		 rethrown wrapped into a PropelException.
 	 */
-	public static function doSelectJoinUsuarioRelatedBySolicitanteId(Criteria $criteria, $con = null, $join_behavior = Criteria::LEFT_JOIN)
+	public static function doSelectJoinUsuarioRelatedByAprovadorId(Criteria $criteria, $con = null, $join_behavior = Criteria::LEFT_JOIN)
 	{
 		$criteria = clone $criteria;
 
@@ -634,7 +634,7 @@ abstract class BaseSolicitacaoResgatePeer {
 		$startcol = SolicitacaoResgatePeer::NUM_HYDRATE_COLUMNS;
 		UsuarioPeer::addSelectColumns($criteria);
 
-		$criteria->addJoin(SolicitacaoResgatePeer::SOLICITANTE_ID, UsuarioPeer::ID, $join_behavior);
+		$criteria->addJoin(SolicitacaoResgatePeer::APROVADOR_ID, UsuarioPeer::ID, $join_behavior);
 
 		$stmt = BasePeer::doSelect($criteria, $con);
 		$results = array();
@@ -667,7 +667,7 @@ abstract class BaseSolicitacaoResgatePeer {
 				} // if obj2 already loaded
 
 				// Add the $obj1 (SolicitacaoResgate) to $obj2 (Usuario)
-				$obj2->addSolicitacaoResgateRelatedBySolicitanteId($obj1);
+				$obj2->addSolicitacaoResgateRelatedByAprovadorId($obj1);
 
 			} // if joined row was not null
 
@@ -753,7 +753,7 @@ abstract class BaseSolicitacaoResgatePeer {
 	 * @throws     PropelException Any exceptions caught during processing will be
 	 *		 rethrown wrapped into a PropelException.
 	 */
-	public static function doSelectJoinUsuarioRelatedByAprovadorId(Criteria $criteria, $con = null, $join_behavior = Criteria::LEFT_JOIN)
+	public static function doSelectJoinUsuarioRelatedBySolicitanteId(Criteria $criteria, $con = null, $join_behavior = Criteria::LEFT_JOIN)
 	{
 		$criteria = clone $criteria;
 
@@ -766,7 +766,7 @@ abstract class BaseSolicitacaoResgatePeer {
 		$startcol = SolicitacaoResgatePeer::NUM_HYDRATE_COLUMNS;
 		UsuarioPeer::addSelectColumns($criteria);
 
-		$criteria->addJoin(SolicitacaoResgatePeer::APROVADOR_ID, UsuarioPeer::ID, $join_behavior);
+		$criteria->addJoin(SolicitacaoResgatePeer::SOLICITANTE_ID, UsuarioPeer::ID, $join_behavior);
 
 		$stmt = BasePeer::doSelect($criteria, $con);
 		$results = array();
@@ -799,7 +799,7 @@ abstract class BaseSolicitacaoResgatePeer {
 				} // if obj2 already loaded
 
 				// Add the $obj1 (SolicitacaoResgate) to $obj2 (Usuario)
-				$obj2->addSolicitacaoResgateRelatedByAprovadorId($obj1);
+				$obj2->addSolicitacaoResgateRelatedBySolicitanteId($obj1);
 
 			} // if joined row was not null
 
@@ -846,11 +846,11 @@ abstract class BaseSolicitacaoResgatePeer {
 			$con = Propel::getConnection(SolicitacaoResgatePeer::DATABASE_NAME, Propel::CONNECTION_READ);
 		}
 
-		$criteria->addJoin(SolicitacaoResgatePeer::SOLICITANTE_ID, UsuarioPeer::ID, $join_behavior);
+		$criteria->addJoin(SolicitacaoResgatePeer::APROVADOR_ID, UsuarioPeer::ID, $join_behavior);
 
 		$criteria->addJoin(SolicitacaoResgatePeer::PREMIO_ID, PremioPeer::ID, $join_behavior);
 
-		$criteria->addJoin(SolicitacaoResgatePeer::APROVADOR_ID, UsuarioPeer::ID, $join_behavior);
+		$criteria->addJoin(SolicitacaoResgatePeer::SOLICITANTE_ID, UsuarioPeer::ID, $join_behavior);
 
 		$stmt = BasePeer::doCount($criteria, $con);
 
@@ -894,11 +894,11 @@ abstract class BaseSolicitacaoResgatePeer {
 		UsuarioPeer::addSelectColumns($criteria);
 		$startcol5 = $startcol4 + UsuarioPeer::NUM_HYDRATE_COLUMNS;
 
-		$criteria->addJoin(SolicitacaoResgatePeer::SOLICITANTE_ID, UsuarioPeer::ID, $join_behavior);
+		$criteria->addJoin(SolicitacaoResgatePeer::APROVADOR_ID, UsuarioPeer::ID, $join_behavior);
 
 		$criteria->addJoin(SolicitacaoResgatePeer::PREMIO_ID, PremioPeer::ID, $join_behavior);
 
-		$criteria->addJoin(SolicitacaoResgatePeer::APROVADOR_ID, UsuarioPeer::ID, $join_behavior);
+		$criteria->addJoin(SolicitacaoResgatePeer::SOLICITANTE_ID, UsuarioPeer::ID, $join_behavior);
 
 		$stmt = BasePeer::doSelect($criteria, $con);
 		$results = array();
@@ -932,7 +932,7 @@ abstract class BaseSolicitacaoResgatePeer {
 				} // if obj2 loaded
 
 				// Add the $obj1 (SolicitacaoResgate) to the collection in $obj2 (Usuario)
-				$obj2->addSolicitacaoResgateRelatedBySolicitanteId($obj1);
+				$obj2->addSolicitacaoResgateRelatedByAprovadorId($obj1);
 			} // if joined row not null
 
 			// Add objects for joined Premio rows
@@ -968,7 +968,7 @@ abstract class BaseSolicitacaoResgatePeer {
 				} // if obj4 loaded
 
 				// Add the $obj1 (SolicitacaoResgate) to the collection in $obj4 (Usuario)
-				$obj4->addSolicitacaoResgateRelatedByAprovadorId($obj1);
+				$obj4->addSolicitacaoResgateRelatedBySolicitanteId($obj1);
 			} // if joined row not null
 
 			$results[] = $obj1;
@@ -979,7 +979,7 @@ abstract class BaseSolicitacaoResgatePeer {
 
 
 	/**
-	 * Returns the number of rows matching criteria, joining the related UsuarioRelatedBySolicitanteId table
+	 * Returns the number of rows matching criteria, joining the related UsuarioRelatedByAprovadorId table
 	 *
 	 * @param      Criteria $criteria
 	 * @param      boolean $distinct Whether to select only distinct columns; deprecated: use Criteria->setDistinct() instead.
@@ -987,7 +987,7 @@ abstract class BaseSolicitacaoResgatePeer {
 	 * @param      String    $join_behavior the type of joins to use, defaults to Criteria::LEFT_JOIN
 	 * @return     int Number of matching rows.
 	 */
-	public static function doCountJoinAllExceptUsuarioRelatedBySolicitanteId(Criteria $criteria, $distinct = false, PropelPDO $con = null, $join_behavior = Criteria::LEFT_JOIN)
+	public static function doCountJoinAllExceptUsuarioRelatedByAprovadorId(Criteria $criteria, $distinct = false, PropelPDO $con = null, $join_behavior = Criteria::LEFT_JOIN)
 	{
 		// we're going to modify criteria, so copy it first
 		$criteria = clone $criteria;
@@ -1064,9 +1064,9 @@ abstract class BaseSolicitacaoResgatePeer {
 			$con = Propel::getConnection(SolicitacaoResgatePeer::DATABASE_NAME, Propel::CONNECTION_READ);
 		}
 	
-		$criteria->addJoin(SolicitacaoResgatePeer::SOLICITANTE_ID, UsuarioPeer::ID, $join_behavior);
-
 		$criteria->addJoin(SolicitacaoResgatePeer::APROVADOR_ID, UsuarioPeer::ID, $join_behavior);
+
+		$criteria->addJoin(SolicitacaoResgatePeer::SOLICITANTE_ID, UsuarioPeer::ID, $join_behavior);
 
 		$stmt = BasePeer::doCount($criteria, $con);
 
@@ -1081,7 +1081,7 @@ abstract class BaseSolicitacaoResgatePeer {
 
 
 	/**
-	 * Returns the number of rows matching criteria, joining the related UsuarioRelatedByAprovadorId table
+	 * Returns the number of rows matching criteria, joining the related UsuarioRelatedBySolicitanteId table
 	 *
 	 * @param      Criteria $criteria
 	 * @param      boolean $distinct Whether to select only distinct columns; deprecated: use Criteria->setDistinct() instead.
@@ -1089,7 +1089,7 @@ abstract class BaseSolicitacaoResgatePeer {
 	 * @param      String    $join_behavior the type of joins to use, defaults to Criteria::LEFT_JOIN
 	 * @return     int Number of matching rows.
 	 */
-	public static function doCountJoinAllExceptUsuarioRelatedByAprovadorId(Criteria $criteria, $distinct = false, PropelPDO $con = null, $join_behavior = Criteria::LEFT_JOIN)
+	public static function doCountJoinAllExceptUsuarioRelatedBySolicitanteId(Criteria $criteria, $distinct = false, PropelPDO $con = null, $join_behavior = Criteria::LEFT_JOIN)
 	{
 		// we're going to modify criteria, so copy it first
 		$criteria = clone $criteria;
@@ -1131,7 +1131,7 @@ abstract class BaseSolicitacaoResgatePeer {
 
 
 	/**
-	 * Selects a collection of SolicitacaoResgate objects pre-filled with all related objects except UsuarioRelatedBySolicitanteId.
+	 * Selects a collection of SolicitacaoResgate objects pre-filled with all related objects except UsuarioRelatedByAprovadorId.
 	 *
 	 * @param      Criteria  $criteria
 	 * @param      PropelPDO $con
@@ -1140,7 +1140,7 @@ abstract class BaseSolicitacaoResgatePeer {
 	 * @throws     PropelException Any exceptions caught during processing will be
 	 *		 rethrown wrapped into a PropelException.
 	 */
-	public static function doSelectJoinAllExceptUsuarioRelatedBySolicitanteId(Criteria $criteria, $con = null, $join_behavior = Criteria::LEFT_JOIN)
+	public static function doSelectJoinAllExceptUsuarioRelatedByAprovadorId(Criteria $criteria, $con = null, $join_behavior = Criteria::LEFT_JOIN)
 	{
 		$criteria = clone $criteria;
 
@@ -1233,9 +1233,9 @@ abstract class BaseSolicitacaoResgatePeer {
 		UsuarioPeer::addSelectColumns($criteria);
 		$startcol4 = $startcol3 + UsuarioPeer::NUM_HYDRATE_COLUMNS;
 
-		$criteria->addJoin(SolicitacaoResgatePeer::SOLICITANTE_ID, UsuarioPeer::ID, $join_behavior);
-
 		$criteria->addJoin(SolicitacaoResgatePeer::APROVADOR_ID, UsuarioPeer::ID, $join_behavior);
+
+		$criteria->addJoin(SolicitacaoResgatePeer::SOLICITANTE_ID, UsuarioPeer::ID, $join_behavior);
 
 
 		$stmt = BasePeer::doSelect($criteria, $con);
@@ -1270,7 +1270,7 @@ abstract class BaseSolicitacaoResgatePeer {
 				} // if $obj2 already loaded
 
 				// Add the $obj1 (SolicitacaoResgate) to the collection in $obj2 (Usuario)
-				$obj2->addSolicitacaoResgateRelatedBySolicitanteId($obj1);
+				$obj2->addSolicitacaoResgateRelatedByAprovadorId($obj1);
 
 			} // if joined row is not null
 
@@ -1289,7 +1289,7 @@ abstract class BaseSolicitacaoResgatePeer {
 				} // if $obj3 already loaded
 
 				// Add the $obj1 (SolicitacaoResgate) to the collection in $obj3 (Usuario)
-				$obj3->addSolicitacaoResgateRelatedByAprovadorId($obj1);
+				$obj3->addSolicitacaoResgateRelatedBySolicitanteId($obj1);
 
 			} // if joined row is not null
 
@@ -1301,7 +1301,7 @@ abstract class BaseSolicitacaoResgatePeer {
 
 
 	/**
-	 * Selects a collection of SolicitacaoResgate objects pre-filled with all related objects except UsuarioRelatedByAprovadorId.
+	 * Selects a collection of SolicitacaoResgate objects pre-filled with all related objects except UsuarioRelatedBySolicitanteId.
 	 *
 	 * @param      Criteria  $criteria
 	 * @param      PropelPDO $con
@@ -1310,7 +1310,7 @@ abstract class BaseSolicitacaoResgatePeer {
 	 * @throws     PropelException Any exceptions caught during processing will be
 	 *		 rethrown wrapped into a PropelException.
 	 */
-	public static function doSelectJoinAllExceptUsuarioRelatedByAprovadorId(Criteria $criteria, $con = null, $join_behavior = Criteria::LEFT_JOIN)
+	public static function doSelectJoinAllExceptUsuarioRelatedBySolicitanteId(Criteria $criteria, $con = null, $join_behavior = Criteria::LEFT_JOIN)
 	{
 		$criteria = clone $criteria;
 

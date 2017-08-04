@@ -51,8 +51,8 @@ class AvaliacaoRespostaForumTableMap extends TableMap
 	 */
 	public function buildRelations()
 	{
-		$this->addRelation('Usuario', 'Usuario', RelationMap::MANY_TO_ONE, array('usuario_id' => 'id', ), null, null);
 		$this->addRelation('RespostaForum', 'RespostaForum', RelationMap::MANY_TO_ONE, array('resposta_forum_id' => 'id', ), null, null);
+		$this->addRelation('Usuario', 'Usuario', RelationMap::MANY_TO_ONE, array('usuario_id' => 'id', ), null, null);
 	} // buildRelations()
 
 } // AvaliacaoRespostaForumTableMap

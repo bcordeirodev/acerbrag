@@ -26,19 +26,22 @@ abstract class BasePerfilPeer {
 	const TM_CLASS = 'PerfilTableMap';
 
 	/** The total number of columns. */
-	const NUM_COLUMNS = 2;
+	const NUM_COLUMNS = 3;
 
 	/** The number of lazy-loaded columns. */
 	const NUM_LAZY_LOAD_COLUMNS = 0;
 
 	/** The number of columns to hydrate (NUM_COLUMNS - NUM_LAZY_LOAD_COLUMNS) */
-	const NUM_HYDRATE_COLUMNS = 2;
+	const NUM_HYDRATE_COLUMNS = 3;
 
 	/** the column name for the ID field */
 	const ID = 'perfil.ID';
 
 	/** the column name for the NOME field */
 	const NOME = 'perfil.NOME';
+
+	/** the column name for the NIVEL field */
+	const NIVEL = 'perfil.NIVEL';
 
 	/** The default string format for model objects of the related table **/
 	const DEFAULT_STRING_FORMAT = 'YAML';
@@ -59,12 +62,12 @@ abstract class BasePerfilPeer {
 	 * e.g. self::$fieldNames[self::TYPE_PHPNAME][0] = 'Id'
 	 */
 	protected static $fieldNames = array (
-		BasePeer::TYPE_PHPNAME => array ('Id', 'Nome', ),
-		BasePeer::TYPE_STUDLYPHPNAME => array ('id', 'nome', ),
-		BasePeer::TYPE_COLNAME => array (self::ID, self::NOME, ),
-		BasePeer::TYPE_RAW_COLNAME => array ('ID', 'NOME', ),
-		BasePeer::TYPE_FIELDNAME => array ('id', 'nome', ),
-		BasePeer::TYPE_NUM => array (0, 1, )
+		BasePeer::TYPE_PHPNAME => array ('Id', 'Nome', 'Nivel', ),
+		BasePeer::TYPE_STUDLYPHPNAME => array ('id', 'nome', 'nivel', ),
+		BasePeer::TYPE_COLNAME => array (self::ID, self::NOME, self::NIVEL, ),
+		BasePeer::TYPE_RAW_COLNAME => array ('ID', 'NOME', 'NIVEL', ),
+		BasePeer::TYPE_FIELDNAME => array ('id', 'nome', 'nivel', ),
+		BasePeer::TYPE_NUM => array (0, 1, 2, )
 	);
 
 	/**
@@ -74,12 +77,12 @@ abstract class BasePerfilPeer {
 	 * e.g. self::$fieldNames[BasePeer::TYPE_PHPNAME]['Id'] = 0
 	 */
 	protected static $fieldKeys = array (
-		BasePeer::TYPE_PHPNAME => array ('Id' => 0, 'Nome' => 1, ),
-		BasePeer::TYPE_STUDLYPHPNAME => array ('id' => 0, 'nome' => 1, ),
-		BasePeer::TYPE_COLNAME => array (self::ID => 0, self::NOME => 1, ),
-		BasePeer::TYPE_RAW_COLNAME => array ('ID' => 0, 'NOME' => 1, ),
-		BasePeer::TYPE_FIELDNAME => array ('id' => 0, 'nome' => 1, ),
-		BasePeer::TYPE_NUM => array (0, 1, )
+		BasePeer::TYPE_PHPNAME => array ('Id' => 0, 'Nome' => 1, 'Nivel' => 2, ),
+		BasePeer::TYPE_STUDLYPHPNAME => array ('id' => 0, 'nome' => 1, 'nivel' => 2, ),
+		BasePeer::TYPE_COLNAME => array (self::ID => 0, self::NOME => 1, self::NIVEL => 2, ),
+		BasePeer::TYPE_RAW_COLNAME => array ('ID' => 0, 'NOME' => 1, 'NIVEL' => 2, ),
+		BasePeer::TYPE_FIELDNAME => array ('id' => 0, 'nome' => 1, 'nivel' => 2, ),
+		BasePeer::TYPE_NUM => array (0, 1, 2, )
 	);
 
 	/**
@@ -153,9 +156,11 @@ abstract class BasePerfilPeer {
 		if (null === $alias) {
 			$criteria->addSelectColumn(PerfilPeer::ID);
 			$criteria->addSelectColumn(PerfilPeer::NOME);
+			$criteria->addSelectColumn(PerfilPeer::NIVEL);
 		} else {
 			$criteria->addSelectColumn($alias . '.ID');
 			$criteria->addSelectColumn($alias . '.NOME');
+			$criteria->addSelectColumn($alias . '.NIVEL');
 		}
 	}
 

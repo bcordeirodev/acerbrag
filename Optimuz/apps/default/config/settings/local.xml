@@ -375,7 +375,7 @@ to not make mistakes.
 		- labelName: column which represents the role name (e.g. name).
 		-->
 		<database>
-			<role tableName="perfil" primaryKey="id" labelName="slug" />
+			<role tableName="perfil" primaryKey="id" labelName="nome" />
 			<permission tableName="permissao" primaryKey="id" labelName="slug" />
 		</database>
 

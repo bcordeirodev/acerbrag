@@ -9,23 +9,70 @@
 	<input name="nome" label="Nome">
 		<rule name="required" />
 	</input>
+	<input name="perfil" label="Perfil de usuario">
+		<rule name="number" />
+	</input>
+	<input name="dni" label="DNI">
+		<rule name="required" />
+	</input>
+	<input name="data-nascimento" label="Fecha de nacimiento">
+		<rule name="required" />
+ 	</input>
 	<input name="email" label="E-mail">
 		<rule name="required" />
 		<rule name="email" />
 	</input>
-	<input name="telefone" label="Telefone">
+	<input name="telefone" label="Teléfono">
+		<rule name="phone" />
+		<rule name="discard"/>
+	</input>
+	<input name="celular" label="Móviles">
 		<rule name="phone" />
 		<rule name="required"/>
 	</input>
-	<input name="cpf" label="CPF">
-		<rule name="cpf-rule"/>
-		<rule name="discard"/>
+	<input name="estado-civil" label="Estado civil">
+		<rule name="required"/>
 	</input>
-	<input name="nivel" label="Nível">
-		<rule name="number" />
+	<input name="sexo" label="Sexo">
+		<rule name="required" />
 	</input>
-	<input name="perfil-usuario" label="Tipo de usuário">
-		<rule name="number" />
+	<input name="tipo-acesso" label="Tipo de acceso">
+		<rule name="required" />
+	</input>
+
+	<input name="matricula" label="Matriculación">
+		<rule name="required"/>
+	</input>
+	<input name="cargo" label="Cargo">
+		<rule name="required"/>
+	</input>
+	<input name="departamento" label="Departamento">
+		<rule name="required"/>
+	</input>
+	<input name="data-contratacao" label="Fecha de contratación">
+		<rule name="required"/>
+	</input>
+	<input name="data-rescisao" label="Fecha de rescisión">
+		<rule name="required"/>
+	</input>
+
+	<input name="cep" label="CEP">
+		<rule name="required"/>
+	</input>
+	<input name="logradouro" label="Logradouro">
+		<rule name="required"/>
+	</input>
+	<input name="cidade" label="Cuidad">
+		<rule name="required"/>
+	</input>
+	<input name="bairro" label="Bairro">
+		<rule name="required"/>
+	</input>
+	<input name="numero" label="Número">
+		<rule name="required"/>
+	</input>
+	<input name="complemento" label="Complemento">
+		<rule name="required"/>
 	</input>
 
 	<input name="senha" label="Senha">
@@ -36,12 +83,5 @@
 	<input name="confirma-senha" label="Confirmar senha">
 		<rule name="required" />
 		<rule name="comparePasswords" second="senha" />
-	</input>
-	<input name="permissoes" label="Permissões">
-		<rule name="array" errorMessage="Selecione uma ou mais permissões" />
-	</input>
-	<input name="filial" label="Filiais">
-		<rule name="array" errorMessage="Selecione uma ou mais filiais" />
-		<rule name="discard" />
 	</input>
 </form>

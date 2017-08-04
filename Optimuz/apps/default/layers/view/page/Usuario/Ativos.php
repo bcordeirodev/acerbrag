@@ -1,8 +1,8 @@
 <div class="page-title">
 	<i class="mdi mdi-account"></i>
-	<h3>Usuários <span class="semi-bold">Ativos</span></h3>
+	<h3>Usuarios <span class="semi-bold">Ativos</span></h3>
 	<div class="pull-right">
-		<a href="~/usuario/novo" id="js-new-user" class="btn btn-success" object-type="HtmlLink"><i class="fa fa-plus fa-white m-r-5"></i> Novo</a>
+		<a href="~/usuario/novo" id="js-new-user" class="btn btn-success" object-type="HtmlLink"><i class="fa fa-plus fa-white m-r-5"></i> Nuevo</a>
 	</div>
 </div>
 <div class="row-fluid">
@@ -19,7 +19,7 @@
 					<thead>
 						<tr>
 							<th class="th-70">&nbsp;</th>
-							<th>Nome</th>
+							<th>Nombre</th>
 							<th class="th-200">E-mail</th>
 							<th class="th-80">Perfil</th>
 							<th class="th-80">Status</th>

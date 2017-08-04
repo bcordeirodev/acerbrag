@@ -70,7 +70,7 @@ abstract class BaseSolicitacaoResgate extends BaseObject  implements Persistent
 	/**
 	 * @var        Usuario
 	 */
-	protected $aUsuarioRelatedBySolicitanteId;
+	protected $aUsuarioRelatedByAprovadorId;
 
 	/**
 	 * @var        Premio
@@ -80,7 +80,7 @@ abstract class BaseSolicitacaoResgate extends BaseObject  implements Persistent
 	/**
 	 * @var        Usuario
 	 */
-	protected $aUsuarioRelatedByAprovadorId;
+	protected $aUsuarioRelatedBySolicitanteId;
 
 	/**
 	 * Flag to prevent endless save loop, if this object is referenced
@@ -438,9 +438,9 @@ abstract class BaseSolicitacaoResgate extends BaseObject  implements Persistent
 
 		if ($deep) {  // also de-associate any related objects?
 
-			$this->aUsuarioRelatedBySolicitanteId = null;
-			$this->aPremio = null;
 			$this->aUsuarioRelatedByAprovadorId = null;
+			$this->aPremio = null;
+			$this->aUsuarioRelatedBySolicitanteId = null;
 		} // if (deep)
 	}
 
@@ -556,11 +556,11 @@ abstract class BaseSolicitacaoResgate extends BaseObject  implements Persistent
 			// method.  This object relates to these object(s) by a
 			// foreign key reference.
 
-			if ($this->aUsuarioRelatedBySolicitanteId !== null) {
-				if ($this->aUsuarioRelatedBySolicitanteId->isModified() || $this->aUsuarioRelatedBySolicitanteId->isNew()) {
-					$affectedRows += $this->aUsuarioRelatedBySolicitanteId->save($con);
+			if ($this->aUsuarioRelatedByAprovadorId !== null) {
+				if ($this->aUsuarioRelatedByAprovadorId->isModified() || $this->aUsuarioRelatedByAprovadorId->isNew()) {
+					$affectedRows += $this->aUsuarioRelatedByAprovadorId->save($con);
 				}
-				$this->setUsuarioRelatedBySolicitanteId($this->aUsuarioRelatedBySolicitanteId);
+				$this->setUsuarioRelatedByAprovadorId($this->aUsuarioRelatedByAprovadorId);
 			}
 
 			if ($this->aPremio !== null) {
@@ -570,11 +570,11 @@ abstract class BaseSolicitacaoResgate extends BaseObject  implements Persistent
 				$this->setPremio($this->aPremio);
 			}
 
-			if ($this->aUsuarioRelatedByAprovadorId !== null) {
-				if ($this->aUsuarioRelatedByAprovadorId->isModified() || $this->aUsuarioRelatedByAprovadorId->isNew()) {
-					$affectedRows += $this->aUsuarioRelatedByAprovadorId->save($con);
+			if ($this->aUsuarioRelatedBySolicitanteId !== null) {
+				if ($this->aUsuarioRelatedBySolicitanteId->isModified() || $this->aUsuarioRelatedBySolicitanteId->isNew()) {
+					$affectedRows += $this->aUsuarioRelatedBySolicitanteId->save($con);
 				}
-				$this->setUsuarioRelatedByAprovadorId($this->aUsuarioRelatedByAprovadorId);
+				$this->setUsuarioRelatedBySolicitanteId($this->aUsuarioRelatedBySolicitanteId);
 			}
 
 			if ($this->isNew() || $this->isModified()) {
@@ -773,14 +773,14 @@ abstract class BaseSolicitacaoResgate extends BaseObject  implements Persistent
 			$keys[5] => $this->getAprovada(),
 		);
 		if ($includeForeignObjects) {
-			if (null !== $this->aUsuarioRelatedBySolicitanteId) {
-				$result['UsuarioRelatedBySolicitanteId'] = $this->aUsuarioRelatedBySolicitanteId->toArray($keyType, $includeLazyLoadColumns,  $alreadyDumpedObjects, true);
+			if (null !== $this->aUsuarioRelatedByAprovadorId) {
+				$result['UsuarioRelatedByAprovadorId'] = $this->aUsuarioRelatedByAprovadorId->toArray($keyType, $includeLazyLoadColumns,  $alreadyDumpedObjects, true);
 			}
 			if (null !== $this->aPremio) {
 				$result['Premio'] = $this->aPremio->toArray($keyType, $includeLazyLoadColumns,  $alreadyDumpedObjects, true);
 			}
-			if (null !== $this->aUsuarioRelatedByAprovadorId) {
-				$result['UsuarioRelatedByAprovadorId'] = $this->aUsuarioRelatedByAprovadorId->toArray($keyType, $includeLazyLoadColumns,  $alreadyDumpedObjects, true);
+			if (null !== $this->aUsuarioRelatedBySolicitanteId) {
+				$result['UsuarioRelatedBySolicitanteId'] = $this->aUsuarioRelatedBySolicitanteId->toArray($keyType, $includeLazyLoadColumns,  $alreadyDumpedObjects, true);
 			}
 		}
 		return $result;
@@ -1008,20 +1008,20 @@ abstract class BaseSolicitacaoResgate extends BaseObject  implements Persistent
 	 * @return     SolicitacaoResgate The current object (for fluent API support)
 	 * @throws     PropelException
 	 */
-	public function setUsuarioRelatedBySolicitanteId(Usuario $v = null)
+	public function setUsuarioRelatedByAprovadorId(Usuario $v = null)
 	{
 		if ($v === null) {
-			$this->setSolicitanteId(NULL);
+			$this->setAprovadorId(NULL);
 		} else {
-			$this->setSolicitanteId($v->getId());
+			$this->setAprovadorId($v->getId());
 		}
 
-		$this->aUsuarioRelatedBySolicitanteId = $v;
+		$this->aUsuarioRelatedByAprovadorId = $v;
 
 		// Add binding for other direction of this n:n relationship.
 		// If this object has already been added to the Usuario object, it will not be re-added.
 		if ($v !== null) {
-			$v->addSolicitacaoResgateRelatedBySolicitanteId($this);
+			$v->addSolicitacaoResgateRelatedByAprovadorId($this);
 		}
 
 		return $this;
@@ -1035,19 +1035,19 @@ abstract class BaseSolicitacaoResgate extends BaseObject  implements Persistent
 	 * @return     Usuario The associated Usuario object.
 	 * @throws     PropelException
 	 */
-	public function getUsuarioRelatedBySolicitanteId(PropelPDO $con = null)
+	public function getUsuarioRelatedByAprovadorId(PropelPDO $con = null)
 	{
-		if ($this->aUsuarioRelatedBySolicitanteId === null && ($this->solicitante_id !== null)) {
-			$this->aUsuarioRelatedBySolicitanteId = UsuarioQuery::create()->findPk($this->solicitante_id, $con);
+		if ($this->aUsuarioRelatedByAprovadorId === null && ($this->aprovador_id !== null)) {
+			$this->aUsuarioRelatedByAprovadorId = UsuarioQuery::create()->findPk($this->aprovador_id, $con);
 			/* The following can be used additionally to
 				guarantee the related object contains a reference
 				to this object.  This level of coupling may, however, be
 				undesirable since it could result in an only partially populated collection
 				in the referenced object.
-				$this->aUsuarioRelatedBySolicitanteId->addSolicitacaoResgatesRelatedBySolicitanteId($this);
+				$this->aUsuarioRelatedByAprovadorId->addSolicitacaoResgatesRelatedByAprovadorId($this);
 			 */
 		}
-		return $this->aUsuarioRelatedBySolicitanteId;
+		return $this->aUsuarioRelatedByAprovadorId;
 	}
 
 	/**
@@ -1106,20 +1106,20 @@ abstract class BaseSolicitacaoResgate extends BaseObject  implements Persistent
 	 * @return     SolicitacaoResgate The current object (for fluent API support)
 	 * @throws     PropelException
 	 */
-	public function setUsuarioRelatedByAprovadorId(Usuario $v = null)
+	public function setUsuarioRelatedBySolicitanteId(Usuario $v = null)
 	{
 		if ($v === null) {
-			$this->setAprovadorId(NULL);
+			$this->setSolicitanteId(NULL);
 		} else {
-			$this->setAprovadorId($v->getId());
+			$this->setSolicitanteId($v->getId());
 		}
 
-		$this->aUsuarioRelatedByAprovadorId = $v;
+		$this->aUsuarioRelatedBySolicitanteId = $v;
 
 		// Add binding for other direction of this n:n relationship.
 		// If this object has already been added to the Usuario object, it will not be re-added.
 		if ($v !== null) {
-			$v->addSolicitacaoResgateRelatedByAprovadorId($this);
+			$v->addSolicitacaoResgateRelatedBySolicitanteId($this);
 		}
 
 		return $this;
@@ -1133,19 +1133,19 @@ abstract class BaseSolicitacaoResgate extends BaseObject  implements Persistent
 	 * @return     Usuario The associated Usuario object.
 	 * @throws     PropelException
 	 */
-	public function getUsuarioRelatedByAprovadorId(PropelPDO $con = null)
+	public function getUsuarioRelatedBySolicitanteId(PropelPDO $con = null)
 	{
-		if ($this->aUsuarioRelatedByAprovadorId === null && ($this->aprovador_id !== null)) {
-			$this->aUsuarioRelatedByAprovadorId = UsuarioQuery::create()->findPk($this->aprovador_id, $con);
+		if ($this->aUsuarioRelatedBySolicitanteId === null && ($this->solicitante_id !== null)) {
+			$this->aUsuarioRelatedBySolicitanteId = UsuarioQuery::create()->findPk($this->solicitante_id, $con);
 			/* The following can be used additionally to
 				guarantee the related object contains a reference
 				to this object.  This level of coupling may, however, be
 				undesirable since it could result in an only partially populated collection
 				in the referenced object.
-				$this->aUsuarioRelatedByAprovadorId->addSolicitacaoResgatesRelatedByAprovadorId($this);
+				$this->aUsuarioRelatedBySolicitanteId->addSolicitacaoResgatesRelatedBySolicitanteId($this);
 			 */
 		}
-		return $this->aUsuarioRelatedByAprovadorId;
+		return $this->aUsuarioRelatedBySolicitanteId;
 	}
 
 	/**
@@ -1182,9 +1182,9 @@ abstract class BaseSolicitacaoResgate extends BaseObject  implements Persistent
 		if ($deep) {
 		} // if ($deep)
 
-		$this->aUsuarioRelatedBySolicitanteId = null;
-		$this->aPremio = null;
 		$this->aUsuarioRelatedByAprovadorId = null;
+		$this->aPremio = null;
+		$this->aUsuarioRelatedBySolicitanteId = null;
 	}
 
 	/**

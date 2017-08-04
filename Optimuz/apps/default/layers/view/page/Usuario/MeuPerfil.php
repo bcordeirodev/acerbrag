@@ -14,7 +14,7 @@
 				<div class="grid-body no-border">
 					<div class="row">
 						<div class="form-group col-md-12">
-							<label class="form-label" for="nome">Nome</label>
+							<label class="form-label" for="nome">Nombre</label>
 							<span class="help">ex. "Fulano de Tal"</span>
 							<div class="controls">
 								<input type="text" name="nome" id="nome" class="form-control" required>

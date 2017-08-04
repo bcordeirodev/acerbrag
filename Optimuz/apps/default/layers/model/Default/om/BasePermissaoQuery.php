@@ -10,11 +10,13 @@
  * @method     PermissaoQuery orderByNome($order = Criteria::ASC) Order by the nome column
  * @method     PermissaoQuery orderBySlug($order = Criteria::ASC) Order by the slug column
  * @method     PermissaoQuery orderByDescricao($order = Criteria::ASC) Order by the descricao column
+ * @method     PermissaoQuery orderByNivel($order = Criteria::ASC) Order by the nivel column
  *
  * @method     PermissaoQuery groupById() Group by the id column
  * @method     PermissaoQuery groupByNome() Group by the nome column
  * @method     PermissaoQuery groupBySlug() Group by the slug column
  * @method     PermissaoQuery groupByDescricao() Group by the descricao column
+ * @method     PermissaoQuery groupByNivel() Group by the nivel column
  *
  * @method     PermissaoQuery leftJoin($relation) Adds a LEFT JOIN clause to the query
  * @method     PermissaoQuery rightJoin($relation) Adds a RIGHT JOIN clause to the query
@@ -31,11 +33,13 @@
  * @method     Permissao findOneByNome(string $nome) Return the first Permissao filtered by the nome column
  * @method     Permissao findOneBySlug(string $slug) Return the first Permissao filtered by the slug column
  * @method     Permissao findOneByDescricao(string $descricao) Return the first Permissao filtered by the descricao column
+ * @method     Permissao findOneByNivel(string $nivel) Return the first Permissao filtered by the nivel column
  *
  * @method     array findById(int $id) Return Permissao objects filtered by the id column
  * @method     array findByNome(string $nome) Return Permissao objects filtered by the nome column
  * @method     array findBySlug(string $slug) Return Permissao objects filtered by the slug column
  * @method     array findByDescricao(string $descricao) Return Permissao objects filtered by the descricao column
+ * @method     array findByNivel(string $nivel) Return Permissao objects filtered by the nivel column
  *
  * @package    propel.generator.Default.om
  */
@@ -124,7 +128,7 @@ abstract class BasePermissaoQuery extends ModelCriteria
 	 */
 	protected function findPkSimple($key, $con)
 	{
-		$sql = 'SELECT `ID`, `NOME`, `SLUG`, `DESCRICAO` FROM `permissao` WHERE `ID` = :p0';
+		$sql = 'SELECT `ID`, `NOME`, `SLUG`, `DESCRICAO`, `NIVEL` FROM `permissao` WHERE `ID` = :p0';
 		try {
 			$stmt = $con->prepare($sql);			
 			$stmt->bindValue(':p0', $key, PDO::PARAM_INT);
@@ -317,6 +321,34 @@ abstract class BasePermissaoQuery extends ModelCriteria
 			}
 		}
 		return $this->addUsingAlias(PermissaoPeer::DESCRICAO, $descricao, $comparison);
+	}
+
+	/**
+	 * Filter the query on the nivel column
+	 *
+	 * Example usage:
+	 * <code>
+	 * $query->filterByNivel('fooValue');   // WHERE nivel = 'fooValue'
+	 * $query->filterByNivel('%fooValue%'); // WHERE nivel LIKE '%fooValue%'
+	 * </code>
+	 *
+	 * @param     string $nivel The value to use as filter.
+	 *              Accepts wildcards (* and % trigger a LIKE)
+	 * @param     string $comparison Operator to use for the column comparison, defaults to Criteria::EQUAL
+	 *
+	 * @return    PermissaoQuery The current query, for fluid interface
+	 */
+	public function filterByNivel($nivel = null, $comparison = null)
+	{
+		if (null === $comparison) {
+			if (is_array($nivel)) {
+				$comparison = Criteria::IN;
+			} elseif (preg_match('/[\%\*]/', $nivel)) {
+				$nivel = str_replace('*', '%', $nivel);
+				$comparison = Criteria::LIKE;
+			}
+		}
+		return $this->addUsingAlias(PermissaoPeer::NIVEL, $nivel, $comparison);
 	}
 
 	/**

@@ -40,6 +40,7 @@ class PerfilTableMap extends TableMap
 		// columns
 		$this->addPrimaryKey('ID', 'Id', 'INTEGER', true, 10, null);
 		$this->addColumn('NOME', 'Nome', 'VARCHAR', true, 45, null);
+		$this->addColumn('NIVEL', 'Nivel', 'CHAR', false, null, null);
 		// validators
 	} // initialize()
 

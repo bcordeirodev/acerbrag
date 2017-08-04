@@ -22,13 +22,13 @@
  * @method     RespostaQuery rightJoin($relation) Adds a RIGHT JOIN clause to the query
  * @method     RespostaQuery innerJoin($relation) Adds a INNER JOIN clause to the query
  *
- * @method     RespostaQuery leftJoinAlternativa($relationAlias = null) Adds a LEFT JOIN clause to the query using the Alternativa relation
- * @method     RespostaQuery rightJoinAlternativa($relationAlias = null) Adds a RIGHT JOIN clause to the query using the Alternativa relation
- * @method     RespostaQuery innerJoinAlternativa($relationAlias = null) Adds a INNER JOIN clause to the query using the Alternativa relation
- *
  * @method     RespostaQuery leftJoinColetaPesquisa($relationAlias = null) Adds a LEFT JOIN clause to the query using the ColetaPesquisa relation
  * @method     RespostaQuery rightJoinColetaPesquisa($relationAlias = null) Adds a RIGHT JOIN clause to the query using the ColetaPesquisa relation
  * @method     RespostaQuery innerJoinColetaPesquisa($relationAlias = null) Adds a INNER JOIN clause to the query using the ColetaPesquisa relation
+ *
+ * @method     RespostaQuery leftJoinAlternativa($relationAlias = null) Adds a LEFT JOIN clause to the query using the Alternativa relation
+ * @method     RespostaQuery rightJoinAlternativa($relationAlias = null) Adds a RIGHT JOIN clause to the query using the Alternativa relation
+ * @method     RespostaQuery innerJoinAlternativa($relationAlias = null) Adds a INNER JOIN clause to the query using the Alternativa relation
  *
  * @method     RespostaQuery leftJoinPergunta($relationAlias = null) Adds a LEFT JOIN clause to the query using the Pergunta relation
  * @method     RespostaQuery rightJoinPergunta($relationAlias = null) Adds a RIGHT JOIN clause to the query using the Pergunta relation
@@ -402,80 +402,6 @@ abstract class BaseRespostaQuery extends ModelCriteria
 	}
 
 	/**
-	 * Filter the query by a related Alternativa object
-	 *
-	 * @param     Alternativa|PropelCollection $alternativa The related object(s) to use as filter
-	 * @param     string $comparison Operator to use for the column comparison, defaults to Criteria::EQUAL
-	 *
-	 * @return    RespostaQuery The current query, for fluid interface
-	 */
-	public function filterByAlternativa($alternativa, $comparison = null)
-	{
-		if ($alternativa instanceof Alternativa) {
-			return $this
-				->addUsingAlias(RespostaPeer::ALTERNATIVA_ID, $alternativa->getId(), $comparison);
-		} elseif ($alternativa instanceof PropelCollection) {
-			if (null === $comparison) {
-				$comparison = Criteria::IN;
-			}
-			return $this
-				->addUsingAlias(RespostaPeer::ALTERNATIVA_ID, $alternativa->toKeyValue('PrimaryKey', 'Id'), $comparison);
-		} else {
-			throw new PropelException('filterByAlternativa() only accepts arguments of type Alternativa or PropelCollection');
-		}
-	}
-
-	/**
-	 * Adds a JOIN clause to the query using the Alternativa relation
-	 *
-	 * @param     string $relationAlias optional alias for the relation
-	 * @param     string $joinType Accepted values are null, 'left join', 'right join', 'inner join'
-	 *
-	 * @return    RespostaQuery The current query, for fluid interface
-	 */
-	public function joinAlternativa($relationAlias = null, $joinType = Criteria::LEFT_JOIN)
-	{
-		$tableMap = $this->getTableMap();
-		$relationMap = $tableMap->getRelation('Alternativa');
-
-		// create a ModelJoin object for this join
-		$join = new ModelJoin();
-		$join->setJoinType($joinType);
-		$join->setRelationMap($relationMap, $this->useAliasInSQL ? $this->getModelAlias() : null, $relationAlias);
-		if ($previousJoin = $this->getPreviousJoin()) {
-			$join->setPreviousJoin($previousJoin);
-		}
-
-		// add the ModelJoin to the current object
-		if($relationAlias) {
-			$this->addAlias($relationAlias, $relationMap->getRightTable()->getName());
-			$this->addJoinObject($join, $relationAlias);
-		} else {
-			$this->addJoinObject($join, 'Alternativa');
-		}
-
-		return $this;
-	}
-
-	/**
-	 * Use the Alternativa relation Alternativa object
-	 *
-	 * @see       useQuery()
-	 *
-	 * @param     string $relationAlias optional alias for the relation,
-	 *                                   to be used as main alias in the secondary query
-	 * @param     string $joinType Accepted values are null, 'left join', 'right join', 'inner join'
-	 *
-	 * @return    AlternativaQuery A secondary query class using the current class as primary query
-	 */
-	public function useAlternativaQuery($relationAlias = null, $joinType = Criteria::LEFT_JOIN)
-	{
-		return $this
-			->joinAlternativa($relationAlias, $joinType)
-			->useQuery($relationAlias ? $relationAlias : 'Alternativa', 'AlternativaQuery');
-	}
-
-	/**
 	 * Filter the query by a related ColetaPesquisa object
 	 *
 	 * @param     ColetaPesquisa|PropelCollection $coletaPesquisa The related object(s) to use as filter
@@ -547,6 +473,80 @@ abstract class BaseRespostaQuery extends ModelCriteria
 		return $this
 			->joinColetaPesquisa($relationAlias, $joinType)
 			->useQuery($relationAlias ? $relationAlias : 'ColetaPesquisa', 'ColetaPesquisaQuery');
+	}
+
+	/**
+	 * Filter the query by a related Alternativa object
+	 *
+	 * @param     Alternativa|PropelCollection $alternativa The related object(s) to use as filter
+	 * @param     string $comparison Operator to use for the column comparison, defaults to Criteria::EQUAL
+	 *
+	 * @return    RespostaQuery The current query, for fluid interface
+	 */
+	public function filterByAlternativa($alternativa, $comparison = null)
+	{
+		if ($alternativa instanceof Alternativa) {
+			return $this
+				->addUsingAlias(RespostaPeer::ALTERNATIVA_ID, $alternativa->getId(), $comparison);
+		} elseif ($alternativa instanceof PropelCollection) {
+			if (null === $comparison) {
+				$comparison = Criteria::IN;
+			}
+			return $this
+				->addUsingAlias(RespostaPeer::ALTERNATIVA_ID, $alternativa->toKeyValue('PrimaryKey', 'Id'), $comparison);
+		} else {
+			throw new PropelException('filterByAlternativa() only accepts arguments of type Alternativa or PropelCollection');
+		}
+	}
+
+	/**
+	 * Adds a JOIN clause to the query using the Alternativa relation
+	 *
+	 * @param     string $relationAlias optional alias for the relation
+	 * @param     string $joinType Accepted values are null, 'left join', 'right join', 'inner join'
+	 *
+	 * @return    RespostaQuery The current query, for fluid interface
+	 */
+	public function joinAlternativa($relationAlias = null, $joinType = Criteria::LEFT_JOIN)
+	{
+		$tableMap = $this->getTableMap();
+		$relationMap = $tableMap->getRelation('Alternativa');
+
+		// create a ModelJoin object for this join
+		$join = new ModelJoin();
+		$join->setJoinType($joinType);
+		$join->setRelationMap($relationMap, $this->useAliasInSQL ? $this->getModelAlias() : null, $relationAlias);
+		if ($previousJoin = $this->getPreviousJoin()) {
+			$join->setPreviousJoin($previousJoin);
+		}
+
+		// add the ModelJoin to the current object
+		if($relationAlias) {
+			$this->addAlias($relationAlias, $relationMap->getRightTable()->getName());
+			$this->addJoinObject($join, $relationAlias);
+		} else {
+			$this->addJoinObject($join, 'Alternativa');
+		}
+
+		return $this;
+	}
+
+	/**
+	 * Use the Alternativa relation Alternativa object
+	 *
+	 * @see       useQuery()
+	 *
+	 * @param     string $relationAlias optional alias for the relation,
+	 *                                   to be used as main alias in the secondary query
+	 * @param     string $joinType Accepted values are null, 'left join', 'right join', 'inner join'
+	 *
+	 * @return    AlternativaQuery A secondary query class using the current class as primary query
+	 */
+	public function useAlternativaQuery($relationAlias = null, $joinType = Criteria::LEFT_JOIN)
+	{
+		return $this
+			->joinAlternativa($relationAlias, $joinType)
+			->useQuery($relationAlias ? $relationAlias : 'Alternativa', 'AlternativaQuery');
 	}
 
 	/**

@@ -1137,10 +1137,10 @@ abstract class BasePremio extends BaseObject  implements Persistent
 	 * @param      string $join_behavior optional join type to use (defaults to Criteria::LEFT_JOIN)
 	 * @return     PropelCollection|array SolicitacaoResgate[] List of SolicitacaoResgate objects
 	 */
-	public function getSolicitacaoResgatesJoinUsuarioRelatedBySolicitanteId($criteria = null, $con = null, $join_behavior = Criteria::LEFT_JOIN)
+	public function getSolicitacaoResgatesJoinUsuarioRelatedByAprovadorId($criteria = null, $con = null, $join_behavior = Criteria::LEFT_JOIN)
 	{
 		$query = SolicitacaoResgateQuery::create(null, $criteria);
-		$query->joinWith('UsuarioRelatedBySolicitanteId', $join_behavior);
+		$query->joinWith('UsuarioRelatedByAprovadorId', $join_behavior);
 
 		return $this->getSolicitacaoResgates($query, $con);
 	}
@@ -1162,10 +1162,10 @@ abstract class BasePremio extends BaseObject  implements Persistent
 	 * @param      string $join_behavior optional join type to use (defaults to Criteria::LEFT_JOIN)
 	 * @return     PropelCollection|array SolicitacaoResgate[] List of SolicitacaoResgate objects
 	 */
-	public function getSolicitacaoResgatesJoinUsuarioRelatedByAprovadorId($criteria = null, $con = null, $join_behavior = Criteria::LEFT_JOIN)
+	public function getSolicitacaoResgatesJoinUsuarioRelatedBySolicitanteId($criteria = null, $con = null, $join_behavior = Criteria::LEFT_JOIN)
 	{
 		$query = SolicitacaoResgateQuery::create(null, $criteria);
-		$query->joinWith('UsuarioRelatedByAprovadorId', $join_behavior);
+		$query->joinWith('UsuarioRelatedBySolicitanteId', $join_behavior);
 
 		return $this->getSolicitacaoResgates($query, $con);
 	}

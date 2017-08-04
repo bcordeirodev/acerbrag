@@ -19,7 +19,7 @@
 					<thead>
 						<tr>
 							<th class="th-70">&nbsp;</th>
-							<th>Nome</th>
+							<th>Nombre</th>
 							<th class="th-200">E-mail</th>
 							<th class="th-80">Perfil</th>
 							<th class="th-80">Status</th>

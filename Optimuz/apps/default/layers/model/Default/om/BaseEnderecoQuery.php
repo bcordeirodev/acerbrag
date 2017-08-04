@@ -7,7 +7,7 @@
  * 
  *
  * @method     EnderecoQuery orderById($order = Criteria::ASC) Order by the id column
- * @method     EnderecoQuery orderByCidadeId($order = Criteria::ASC) Order by the cidade_id column
+ * @method     EnderecoQuery orderByCidade($order = Criteria::ASC) Order by the cidade column
  * @method     EnderecoQuery orderByLogradouro($order = Criteria::ASC) Order by the logradouro column
  * @method     EnderecoQuery orderByBairro($order = Criteria::ASC) Order by the bairro column
  * @method     EnderecoQuery orderByCep($order = Criteria::ASC) Order by the cep column
@@ -15,7 +15,7 @@
  * @method     EnderecoQuery orderByComplemento($order = Criteria::ASC) Order by the complemento column
  *
  * @method     EnderecoQuery groupById() Group by the id column
- * @method     EnderecoQuery groupByCidadeId() Group by the cidade_id column
+ * @method     EnderecoQuery groupByCidade() Group by the cidade column
  * @method     EnderecoQuery groupByLogradouro() Group by the logradouro column
  * @method     EnderecoQuery groupByBairro() Group by the bairro column
  * @method     EnderecoQuery groupByCep() Group by the cep column
@@ -34,7 +34,7 @@
  * @method     Endereco findOneOrCreate(PropelPDO $con = null) Return the first Endereco matching the query, or a new Endereco object populated from the query conditions when no match is found
  *
  * @method     Endereco findOneById(int $id) Return the first Endereco filtered by the id column
- * @method     Endereco findOneByCidadeId(int $cidade_id) Return the first Endereco filtered by the cidade_id column
+ * @method     Endereco findOneByCidade(string $cidade) Return the first Endereco filtered by the cidade column
  * @method     Endereco findOneByLogradouro(string $logradouro) Return the first Endereco filtered by the logradouro column
  * @method     Endereco findOneByBairro(string $bairro) Return the first Endereco filtered by the bairro column
  * @method     Endereco findOneByCep(string $cep) Return the first Endereco filtered by the cep column
@@ -42,7 +42,7 @@
  * @method     Endereco findOneByComplemento(string $complemento) Return the first Endereco filtered by the complemento column
  *
  * @method     array findById(int $id) Return Endereco objects filtered by the id column
- * @method     array findByCidadeId(int $cidade_id) Return Endereco objects filtered by the cidade_id column
+ * @method     array findByCidade(string $cidade) Return Endereco objects filtered by the cidade column
  * @method     array findByLogradouro(string $logradouro) Return Endereco objects filtered by the logradouro column
  * @method     array findByBairro(string $bairro) Return Endereco objects filtered by the bairro column
  * @method     array findByCep(string $cep) Return Endereco objects filtered by the cep column
@@ -136,7 +136,7 @@ abstract class BaseEnderecoQuery extends ModelCriteria
 	 */
 	protected function findPkSimple($key, $con)
 	{
-		$sql = 'SELECT `ID`, `CIDADE_ID`, `LOGRADOURO`, `BAIRRO`, `CEP`, `NUMERO`, `COMPLEMENTO` FROM `endereco` WHERE `ID` = :p0';
+		$sql = 'SELECT `ID`, `CIDADE`, `LOGRADOURO`, `BAIRRO`, `CEP`, `NUMERO`, `COMPLEMENTO` FROM `endereco` WHERE `ID` = :p0';
 		try {
 			$stmt = $con->prepare($sql);			
 			$stmt->bindValue(':p0', $key, PDO::PARAM_INT);
@@ -248,43 +248,31 @@ abstract class BaseEnderecoQuery extends ModelCriteria
 	}
 
 	/**
-	 * Filter the query on the cidade_id column
+	 * Filter the query on the cidade column
 	 *
 	 * Example usage:
 	 * <code>
-	 * $query->filterByCidadeId(1234); // WHERE cidade_id = 1234
-	 * $query->filterByCidadeId(array(12, 34)); // WHERE cidade_id IN (12, 34)
-	 * $query->filterByCidadeId(array('min' => 12)); // WHERE cidade_id > 12
+	 * $query->filterByCidade('fooValue');   // WHERE cidade = 'fooValue'
+	 * $query->filterByCidade('%fooValue%'); // WHERE cidade LIKE '%fooValue%'
 	 * </code>
 	 *
-	 * @param     mixed $cidadeId The value to use as filter.
-	 *              Use scalar values for equality.
-	 *              Use array values for in_array() equivalent.
-	 *              Use associative array('min' => $minValue, 'max' => $maxValue) for intervals.
+	 * @param     string $cidade The value to use as filter.
+	 *              Accepts wildcards (* and % trigger a LIKE)
 	 * @param     string $comparison Operator to use for the column comparison, defaults to Criteria::EQUAL
 	 *
 	 * @return    EnderecoQuery The current query, for fluid interface
 	 */
-	public function filterByCidadeId($cidadeId = null, $comparison = null)
+	public function filterByCidade($cidade = null, $comparison = null)
 	{
-		if (is_array($cidadeId)) {
-			$useMinMax = false;
-			if (isset($cidadeId['min'])) {
-				$this->addUsingAlias(EnderecoPeer::CIDADE_ID, $cidadeId['min'], Criteria::GREATER_EQUAL);
-				$useMinMax = true;
-			}
-			if (isset($cidadeId['max'])) {
-				$this->addUsingAlias(EnderecoPeer::CIDADE_ID, $cidadeId['max'], Criteria::LESS_EQUAL);
-				$useMinMax = true;
-			}
-			if ($useMinMax) {
-				return $this;
-			}
-			if (null === $comparison) {
+		if (null === $comparison) {
+			if (is_array($cidade)) {
 				$comparison = Criteria::IN;
+			} elseif (preg_match('/[\%\*]/', $cidade)) {
+				$cidade = str_replace('*', '%', $cidade);
+				$comparison = Criteria::LIKE;
 			}
 		}
-		return $this->addUsingAlias(EnderecoPeer::CIDADE_ID, $cidadeId, $comparison);
+		return $this->addUsingAlias(EnderecoPeer::CIDADE, $cidade, $comparison);
 	}
 
 	/**

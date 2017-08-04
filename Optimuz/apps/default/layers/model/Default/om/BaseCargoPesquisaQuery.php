@@ -16,13 +16,13 @@
  * @method     CargoPesquisaQuery rightJoin($relation) Adds a RIGHT JOIN clause to the query
  * @method     CargoPesquisaQuery innerJoin($relation) Adds a INNER JOIN clause to the query
  *
- * @method     CargoPesquisaQuery leftJoinPesquisa($relationAlias = null) Adds a LEFT JOIN clause to the query using the Pesquisa relation
- * @method     CargoPesquisaQuery rightJoinPesquisa($relationAlias = null) Adds a RIGHT JOIN clause to the query using the Pesquisa relation
- * @method     CargoPesquisaQuery innerJoinPesquisa($relationAlias = null) Adds a INNER JOIN clause to the query using the Pesquisa relation
- *
  * @method     CargoPesquisaQuery leftJoinCargo($relationAlias = null) Adds a LEFT JOIN clause to the query using the Cargo relation
  * @method     CargoPesquisaQuery rightJoinCargo($relationAlias = null) Adds a RIGHT JOIN clause to the query using the Cargo relation
  * @method     CargoPesquisaQuery innerJoinCargo($relationAlias = null) Adds a INNER JOIN clause to the query using the Cargo relation
+ *
+ * @method     CargoPesquisaQuery leftJoinPesquisa($relationAlias = null) Adds a LEFT JOIN clause to the query using the Pesquisa relation
+ * @method     CargoPesquisaQuery rightJoinPesquisa($relationAlias = null) Adds a RIGHT JOIN clause to the query using the Pesquisa relation
+ * @method     CargoPesquisaQuery innerJoinPesquisa($relationAlias = null) Adds a INNER JOIN clause to the query using the Pesquisa relation
  *
  * @method     CargoPesquisa findOne(PropelPDO $con = null) Return the first CargoPesquisa matching the query
  * @method     CargoPesquisa findOneOrCreate(PropelPDO $con = null) Return the first CargoPesquisa matching the query, or a new CargoPesquisa object populated from the query conditions when no match is found
@@ -276,80 +276,6 @@ abstract class BaseCargoPesquisaQuery extends ModelCriteria
 	}
 
 	/**
-	 * Filter the query by a related Pesquisa object
-	 *
-	 * @param     Pesquisa|PropelCollection $pesquisa The related object(s) to use as filter
-	 * @param     string $comparison Operator to use for the column comparison, defaults to Criteria::EQUAL
-	 *
-	 * @return    CargoPesquisaQuery The current query, for fluid interface
-	 */
-	public function filterByPesquisa($pesquisa, $comparison = null)
-	{
-		if ($pesquisa instanceof Pesquisa) {
-			return $this
-				->addUsingAlias(CargoPesquisaPeer::PESQUISA_ID, $pesquisa->getId(), $comparison);
-		} elseif ($pesquisa instanceof PropelCollection) {
-			if (null === $comparison) {
-				$comparison = Criteria::IN;
-			}
-			return $this
-				->addUsingAlias(CargoPesquisaPeer::PESQUISA_ID, $pesquisa->toKeyValue('PrimaryKey', 'Id'), $comparison);
-		} else {
-			throw new PropelException('filterByPesquisa() only accepts arguments of type Pesquisa or PropelCollection');
-		}
-	}
-
-	/**
-	 * Adds a JOIN clause to the query using the Pesquisa relation
-	 *
-	 * @param     string $relationAlias optional alias for the relation
-	 * @param     string $joinType Accepted values are null, 'left join', 'right join', 'inner join'
-	 *
-	 * @return    CargoPesquisaQuery The current query, for fluid interface
-	 */
-	public function joinPesquisa($relationAlias = null, $joinType = Criteria::INNER_JOIN)
-	{
-		$tableMap = $this->getTableMap();
-		$relationMap = $tableMap->getRelation('Pesquisa');
-
-		// create a ModelJoin object for this join
-		$join = new ModelJoin();
-		$join->setJoinType($joinType);
-		$join->setRelationMap($relationMap, $this->useAliasInSQL ? $this->getModelAlias() : null, $relationAlias);
-		if ($previousJoin = $this->getPreviousJoin()) {
-			$join->setPreviousJoin($previousJoin);
-		}
-
-		// add the ModelJoin to the current object
-		if($relationAlias) {
-			$this->addAlias($relationAlias, $relationMap->getRightTable()->getName());
-			$this->addJoinObject($join, $relationAlias);
-		} else {
-			$this->addJoinObject($join, 'Pesquisa');
-		}
-
-		return $this;
-	}
-
-	/**
-	 * Use the Pesquisa relation Pesquisa object
-	 *
-	 * @see       useQuery()
-	 *
-	 * @param     string $relationAlias optional alias for the relation,
-	 *                                   to be used as main alias in the secondary query
-	 * @param     string $joinType Accepted values are null, 'left join', 'right join', 'inner join'
-	 *
-	 * @return    PesquisaQuery A secondary query class using the current class as primary query
-	 */
-	public function usePesquisaQuery($relationAlias = null, $joinType = Criteria::INNER_JOIN)
-	{
-		return $this
-			->joinPesquisa($relationAlias, $joinType)
-			->useQuery($relationAlias ? $relationAlias : 'Pesquisa', 'PesquisaQuery');
-	}
-
-	/**
 	 * Filter the query by a related Cargo object
 	 *
 	 * @param     Cargo|PropelCollection $cargo The related object(s) to use as filter
@@ -421,6 +347,80 @@ abstract class BaseCargoPesquisaQuery extends ModelCriteria
 		return $this
 			->joinCargo($relationAlias, $joinType)
 			->useQuery($relationAlias ? $relationAlias : 'Cargo', 'CargoQuery');
+	}
+
+	/**
+	 * Filter the query by a related Pesquisa object
+	 *
+	 * @param     Pesquisa|PropelCollection $pesquisa The related object(s) to use as filter
+	 * @param     string $comparison Operator to use for the column comparison, defaults to Criteria::EQUAL
+	 *
+	 * @return    CargoPesquisaQuery The current query, for fluid interface
+	 */
+	public function filterByPesquisa($pesquisa, $comparison = null)
+	{
+		if ($pesquisa instanceof Pesquisa) {
+			return $this
+				->addUsingAlias(CargoPesquisaPeer::PESQUISA_ID, $pesquisa->getId(), $comparison);
+		} elseif ($pesquisa instanceof PropelCollection) {
+			if (null === $comparison) {
+				$comparison = Criteria::IN;
+			}
+			return $this
+				->addUsingAlias(CargoPesquisaPeer::PESQUISA_ID, $pesquisa->toKeyValue('PrimaryKey', 'Id'), $comparison);
+		} else {
+			throw new PropelException('filterByPesquisa() only accepts arguments of type Pesquisa or PropelCollection');
+		}
+	}
+
+	/**
+	 * Adds a JOIN clause to the query using the Pesquisa relation
+	 *
+	 * @param     string $relationAlias optional alias for the relation
+	 * @param     string $joinType Accepted values are null, 'left join', 'right join', 'inner join'
+	 *
+	 * @return    CargoPesquisaQuery The current query, for fluid interface
+	 */
+	public function joinPesquisa($relationAlias = null, $joinType = Criteria::INNER_JOIN)
+	{
+		$tableMap = $this->getTableMap();
+		$relationMap = $tableMap->getRelation('Pesquisa');
+
+		// create a ModelJoin object for this join
+		$join = new ModelJoin();
+		$join->setJoinType($joinType);
+		$join->setRelationMap($relationMap, $this->useAliasInSQL ? $this->getModelAlias() : null, $relationAlias);
+		if ($previousJoin = $this->getPreviousJoin()) {
+			$join->setPreviousJoin($previousJoin);
+		}
+
+		// add the ModelJoin to the current object
+		if($relationAlias) {
+			$this->addAlias($relationAlias, $relationMap->getRightTable()->getName());
+			$this->addJoinObject($join, $relationAlias);
+		} else {
+			$this->addJoinObject($join, 'Pesquisa');
+		}
+
+		return $this;
+	}
+
+	/**
+	 * Use the Pesquisa relation Pesquisa object
+	 *
+	 * @see       useQuery()
+	 *
+	 * @param     string $relationAlias optional alias for the relation,
+	 *                                   to be used as main alias in the secondary query
+	 * @param     string $joinType Accepted values are null, 'left join', 'right join', 'inner join'
+	 *
+	 * @return    PesquisaQuery A secondary query class using the current class as primary query
+	 */
+	public function usePesquisaQuery($relationAlias = null, $joinType = Criteria::INNER_JOIN)
+	{
+		return $this
+			->joinPesquisa($relationAlias, $joinType)
+			->useQuery($relationAlias ? $relationAlias : 'Pesquisa', 'PesquisaQuery');
 	}
 
 	/**

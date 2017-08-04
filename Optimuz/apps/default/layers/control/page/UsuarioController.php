@@ -56,7 +56,7 @@ class UsuarioController extends DefaultPageController
 		$this->view->addResource('~/plugins/jquery-inputmask/jquery.inputmask.min.js');
 		$this->view->addResource('~/js/user.js');
 		$this->view->initializePage();
-		$this->setActiveMenuItem('Usuários');
+		$this->setActiveMenuItem('Usuarios');
 
 		$fields = FilterContainerComponent::getAvailableFilters($this->filterColumns, 'label');
 		HtmlDocument::find('.js-filter', 'FilterComponent')->getFirst()->populate($fields);
@@ -91,7 +91,7 @@ class UsuarioController extends DefaultPageController
 		$this->view->addResource('~/plugins/jquery-inputmask/jquery.inputmask.min.js');
 		$this->view->addResource('~/js/user.js');
 		$this->view->initializePage();
-		$this->setActiveMenuItem('Usuários');
+		$this->setActiveMenuItem('Usuarios');
 
 		$fields = FilterContainerComponent::getAvailableFilters($this->filterColumns, 'label');
 		HtmlDocument::find('.js-filter', 'FilterComponent')->getFirst()->populate($fields);
@@ -126,7 +126,7 @@ class UsuarioController extends DefaultPageController
 		$this->view->addResource('~/plugins/jquery-inputmask/jquery.inputmask.min.js');
 		$this->view->addResource('~/js/user.js');
 		$this->view->initializePage();
-		$this->setActiveMenuItem('Usuários');
+		$this->setActiveMenuItem('Usuarios');
 
 		$fields = FilterContainerComponent::getAvailableFilters($this->filterColumns, 'label');
 		HtmlDocument::find('.js-filter', 'FilterComponent')->getFirst()->populate($fields);
@@ -484,7 +484,7 @@ class UsuarioController extends DefaultPageController
 	/**
 	 * Exibe a página de cadastro de um novo usuário.
 	 */
-	public function novo()
+	public function nuevo()
 	{
 		$this->view->setHtmlPage('Usuario.Novo');
 		$this->view->addResource('~/plugins/jquery-validation/js/jquery.validate.min.js');
@@ -496,34 +496,14 @@ class UsuarioController extends DefaultPageController
 		$this->view->addResource('~/plugins/bootstrap-datepicker/css/datepicker.css');
 		$this->view->addResource('~/js/user.js');
 		$this->view->initializePage();
-		$this->setActiveMenuItem('Usuários');
+		$this->setActiveMenuItem('Usuarios');
 
-		$hasFilials = IgrejaQuery::getFilialByUserProfile();
 		$document = HtmlDocument::getCommomDocument();
 		$currentUser = Usuario::atual();
 
-		if($hasFilials->count() > 0 && !Usuario::isAdmin($currentUser))
-		{
-			$filials = $hasFilials->find();
-
-			foreach($filials as $filial)
-			{
-				$filial instanceof Igreja;
-
-				$html = "<div class='control-group col-md-6 m-b-10'>
-							<div class='checkbox check-success'>
-								<input name='filial[]' id='filial-{$filial->getId()}' value='{$filial->getId()}' type='checkbox'>
-								<label for='filial-{$filial->getId()}' class='m-b-0'>{$filial->getNomeFantasia()}</label>
-							</div>
-						</div>";
-
-				$document->find('#box-filial .row')->getFirst()->append($html);
-			}
-		}
-		else
-		{
-			$document->getById('box-filial')->remove();
-		}
+		DataManager::set('perfis', PerfilQuery::create()->filterByNivel($currentUser->getNivelAcesso(), Criteria::LESS_EQUAL)->find());
+		DataManager::set('cargos', CargoQuery::create()->find());
+		DataManager::set('departamentos', DepartamentoQuery::create()->find());
 
 		try
 		{
@@ -695,7 +675,7 @@ class UsuarioController extends DefaultPageController
 				$this->view->addResource('~/plugins/bootstrap-datepicker/css/datepicker.css');
 				$this->view->addResource('~/js/user.js');
 				$this->view->initializePage();
-				$this->setActiveMenuItem('Usuários');
+				$this->setActiveMenuItem('Usuarios');
 
 				$currentUser = Usuario::atual();
 				DataManager::set('ufs', UfQuery::create()->find());
@@ -872,7 +852,7 @@ class UsuarioController extends DefaultPageController
 				$this->view->addResource('~/plugins/bootstrap-datepicker/css/datepicker.css');
 				$this->view->addResource('~/js/user.js');
 				$this->view->initializePage();
-				$this->setActiveMenuItem('Usuários');
+				$this->setActiveMenuItem('Usuarios');
 
 				$currentUser = Usuario::atual();
 				DataManager::set('ufs', UfQuery::create()->find());
@@ -1150,7 +1130,7 @@ class UsuarioController extends DefaultPageController
 		$this->view->addResource('~/plugins/jquery-inputmask/jquery.inputmask.min.js');
 		$this->view->addResource('~/js/user.js');
 		$this->view->initializePage();
-		$this->setActiveMenuItem('Usuários');
+		$this->setActiveMenuItem('Usuarios');
 
 		if(Usuario::atual()->temPermissao('filtrar-resultados'))
 		{
@@ -1604,7 +1584,7 @@ class UsuarioController extends DefaultPageController
 			{
 				$this->view->setHtmlPage('Usuario.Historico');
 				$this->view->initializePage();
-				$this->setActiveMenuItem('Usuários');
+				$this->setActiveMenuItem('Usuarios');
 				HtmlDocument::getById('js-edit-user')->toType('HtmlLink')->setUrl(Enviroment::resolveUrl('~/usuario/editar/'. $user->getId()));
 
 				if(!$currentUser->temPermissao('cadastrar-usuario'))

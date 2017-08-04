@@ -61,14 +61,14 @@ abstract class BaseResposta extends BaseObject  implements Persistent
 	protected $texto;
 
 	/**
-	 * @var        Alternativa
-	 */
-	protected $aAlternativa;
-
-	/**
 	 * @var        ColetaPesquisa
 	 */
 	protected $aColetaPesquisa;
+
+	/**
+	 * @var        Alternativa
+	 */
+	protected $aAlternativa;
 
 	/**
 	 * @var        Pergunta
@@ -367,8 +367,8 @@ abstract class BaseResposta extends BaseObject  implements Persistent
 
 		if ($deep) {  // also de-associate any related objects?
 
-			$this->aAlternativa = null;
 			$this->aColetaPesquisa = null;
+			$this->aAlternativa = null;
 			$this->aPergunta = null;
 		} // if (deep)
 	}
@@ -485,18 +485,18 @@ abstract class BaseResposta extends BaseObject  implements Persistent
 			// method.  This object relates to these object(s) by a
 			// foreign key reference.
 
-			if ($this->aAlternativa !== null) {
-				if ($this->aAlternativa->isModified() || $this->aAlternativa->isNew()) {
-					$affectedRows += $this->aAlternativa->save($con);
-				}
-				$this->setAlternativa($this->aAlternativa);
-			}
-
 			if ($this->aColetaPesquisa !== null) {
 				if ($this->aColetaPesquisa->isModified() || $this->aColetaPesquisa->isNew()) {
 					$affectedRows += $this->aColetaPesquisa->save($con);
 				}
 				$this->setColetaPesquisa($this->aColetaPesquisa);
+			}
+
+			if ($this->aAlternativa !== null) {
+				if ($this->aAlternativa->isModified() || $this->aAlternativa->isNew()) {
+					$affectedRows += $this->aAlternativa->save($con);
+				}
+				$this->setAlternativa($this->aAlternativa);
 			}
 
 			if ($this->aPergunta !== null) {
@@ -692,11 +692,11 @@ abstract class BaseResposta extends BaseObject  implements Persistent
 			$keys[4] => $this->getTexto(),
 		);
 		if ($includeForeignObjects) {
-			if (null !== $this->aAlternativa) {
-				$result['Alternativa'] = $this->aAlternativa->toArray($keyType, $includeLazyLoadColumns,  $alreadyDumpedObjects, true);
-			}
 			if (null !== $this->aColetaPesquisa) {
 				$result['ColetaPesquisa'] = $this->aColetaPesquisa->toArray($keyType, $includeLazyLoadColumns,  $alreadyDumpedObjects, true);
+			}
+			if (null !== $this->aAlternativa) {
+				$result['Alternativa'] = $this->aAlternativa->toArray($keyType, $includeLazyLoadColumns,  $alreadyDumpedObjects, true);
 			}
 			if (null !== $this->aPergunta) {
 				$result['Pergunta'] = $this->aPergunta->toArray($keyType, $includeLazyLoadColumns,  $alreadyDumpedObjects, true);
@@ -915,55 +915,6 @@ abstract class BaseResposta extends BaseObject  implements Persistent
 	}
 
 	/**
-	 * Declares an association between this object and a Alternativa object.
-	 *
-	 * @param      Alternativa $v
-	 * @return     Resposta The current object (for fluent API support)
-	 * @throws     PropelException
-	 */
-	public function setAlternativa(Alternativa $v = null)
-	{
-		if ($v === null) {
-			$this->setAlternativaId(NULL);
-		} else {
-			$this->setAlternativaId($v->getId());
-		}
-
-		$this->aAlternativa = $v;
-
-		// Add binding for other direction of this n:n relationship.
-		// If this object has already been added to the Alternativa object, it will not be re-added.
-		if ($v !== null) {
-			$v->addResposta($this);
-		}
-
-		return $this;
-	}
-
-
-	/**
-	 * Get the associated Alternativa object
-	 *
-	 * @param      PropelPDO Optional Connection object.
-	 * @return     Alternativa The associated Alternativa object.
-	 * @throws     PropelException
-	 */
-	public function getAlternativa(PropelPDO $con = null)
-	{
-		if ($this->aAlternativa === null && ($this->alternativa_id !== null)) {
-			$this->aAlternativa = AlternativaQuery::create()->findPk($this->alternativa_id, $con);
-			/* The following can be used additionally to
-				guarantee the related object contains a reference
-				to this object.  This level of coupling may, however, be
-				undesirable since it could result in an only partially populated collection
-				in the referenced object.
-				$this->aAlternativa->addRespostas($this);
-			 */
-		}
-		return $this->aAlternativa;
-	}
-
-	/**
 	 * Declares an association between this object and a ColetaPesquisa object.
 	 *
 	 * @param      ColetaPesquisa $v
@@ -1010,6 +961,55 @@ abstract class BaseResposta extends BaseObject  implements Persistent
 			 */
 		}
 		return $this->aColetaPesquisa;
+	}
+
+	/**
+	 * Declares an association between this object and a Alternativa object.
+	 *
+	 * @param      Alternativa $v
+	 * @return     Resposta The current object (for fluent API support)
+	 * @throws     PropelException
+	 */
+	public function setAlternativa(Alternativa $v = null)
+	{
+		if ($v === null) {
+			$this->setAlternativaId(NULL);
+		} else {
+			$this->setAlternativaId($v->getId());
+		}
+
+		$this->aAlternativa = $v;
+
+		// Add binding for other direction of this n:n relationship.
+		// If this object has already been added to the Alternativa object, it will not be re-added.
+		if ($v !== null) {
+			$v->addResposta($this);
+		}
+
+		return $this;
+	}
+
+
+	/**
+	 * Get the associated Alternativa object
+	 *
+	 * @param      PropelPDO Optional Connection object.
+	 * @return     Alternativa The associated Alternativa object.
+	 * @throws     PropelException
+	 */
+	public function getAlternativa(PropelPDO $con = null)
+	{
+		if ($this->aAlternativa === null && ($this->alternativa_id !== null)) {
+			$this->aAlternativa = AlternativaQuery::create()->findPk($this->alternativa_id, $con);
+			/* The following can be used additionally to
+				guarantee the related object contains a reference
+				to this object.  This level of coupling may, however, be
+				undesirable since it could result in an only partially populated collection
+				in the referenced object.
+				$this->aAlternativa->addRespostas($this);
+			 */
+		}
+		return $this->aAlternativa;
 	}
 
 	/**
@@ -1093,8 +1093,8 @@ abstract class BaseResposta extends BaseObject  implements Persistent
 		if ($deep) {
 		} // if ($deep)
 
-		$this->aAlternativa = null;
 		$this->aColetaPesquisa = null;
+		$this->aAlternativa = null;
 		$this->aPergunta = null;
 	}
 

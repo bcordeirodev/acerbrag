@@ -14,7 +14,7 @@
  * @method     UsuarioQuery orderByMatricula($order = Criteria::ASC) Order by the matricula column
  * @method     UsuarioQuery orderByNome($order = Criteria::ASC) Order by the nome column
  * @method     UsuarioQuery orderByEmail($order = Criteria::ASC) Order by the email column
- * @method     UsuarioQuery orderByCpf($order = Criteria::ASC) Order by the cpf column
+ * @method     UsuarioQuery orderByDni($order = Criteria::ASC) Order by the dni column
  * @method     UsuarioQuery orderByDataNascimento($order = Criteria::ASC) Order by the data_nascimento column
  * @method     UsuarioQuery orderByDataContratacao($order = Criteria::ASC) Order by the data_contratacao column
  * @method     UsuarioQuery orderByCelular($order = Criteria::ASC) Order by the celular column
@@ -28,6 +28,8 @@
  * @method     UsuarioQuery orderByAtivo($order = Criteria::ASC) Order by the ativo column
  * @method     UsuarioQuery orderByTipoAcesso($order = Criteria::ASC) Order by the tipo_acesso column
  * @method     UsuarioQuery orderByEstadoCivil($order = Criteria::ASC) Order by the estado_civil column
+ * @method     UsuarioQuery orderByNivelAcesso($order = Criteria::ASC) Order by the nivel_acesso column
+ * @method     UsuarioQuery orderByUsuarioValidado($order = Criteria::ASC) Order by the usuario_validado column
  *
  * @method     UsuarioQuery groupById() Group by the id column
  * @method     UsuarioQuery groupByPerfilId() Group by the perfil_id column
@@ -37,7 +39,7 @@
  * @method     UsuarioQuery groupByMatricula() Group by the matricula column
  * @method     UsuarioQuery groupByNome() Group by the nome column
  * @method     UsuarioQuery groupByEmail() Group by the email column
- * @method     UsuarioQuery groupByCpf() Group by the cpf column
+ * @method     UsuarioQuery groupByDni() Group by the dni column
  * @method     UsuarioQuery groupByDataNascimento() Group by the data_nascimento column
  * @method     UsuarioQuery groupByDataContratacao() Group by the data_contratacao column
  * @method     UsuarioQuery groupByCelular() Group by the celular column
@@ -51,6 +53,8 @@
  * @method     UsuarioQuery groupByAtivo() Group by the ativo column
  * @method     UsuarioQuery groupByTipoAcesso() Group by the tipo_acesso column
  * @method     UsuarioQuery groupByEstadoCivil() Group by the estado_civil column
+ * @method     UsuarioQuery groupByNivelAcesso() Group by the nivel_acesso column
+ * @method     UsuarioQuery groupByUsuarioValidado() Group by the usuario_validado column
  *
  * @method     UsuarioQuery leftJoin($relation) Adds a LEFT JOIN clause to the query
  * @method     UsuarioQuery rightJoin($relation) Adds a RIGHT JOIN clause to the query
@@ -112,13 +116,13 @@
  * @method     UsuarioQuery rightJoinRespostaForum($relationAlias = null) Adds a RIGHT JOIN clause to the query using the RespostaForum relation
  * @method     UsuarioQuery innerJoinRespostaForum($relationAlias = null) Adds a INNER JOIN clause to the query using the RespostaForum relation
  *
- * @method     UsuarioQuery leftJoinSolicitacaoResgateRelatedBySolicitanteId($relationAlias = null) Adds a LEFT JOIN clause to the query using the SolicitacaoResgateRelatedBySolicitanteId relation
- * @method     UsuarioQuery rightJoinSolicitacaoResgateRelatedBySolicitanteId($relationAlias = null) Adds a RIGHT JOIN clause to the query using the SolicitacaoResgateRelatedBySolicitanteId relation
- * @method     UsuarioQuery innerJoinSolicitacaoResgateRelatedBySolicitanteId($relationAlias = null) Adds a INNER JOIN clause to the query using the SolicitacaoResgateRelatedBySolicitanteId relation
- *
  * @method     UsuarioQuery leftJoinSolicitacaoResgateRelatedByAprovadorId($relationAlias = null) Adds a LEFT JOIN clause to the query using the SolicitacaoResgateRelatedByAprovadorId relation
  * @method     UsuarioQuery rightJoinSolicitacaoResgateRelatedByAprovadorId($relationAlias = null) Adds a RIGHT JOIN clause to the query using the SolicitacaoResgateRelatedByAprovadorId relation
  * @method     UsuarioQuery innerJoinSolicitacaoResgateRelatedByAprovadorId($relationAlias = null) Adds a INNER JOIN clause to the query using the SolicitacaoResgateRelatedByAprovadorId relation
+ *
+ * @method     UsuarioQuery leftJoinSolicitacaoResgateRelatedBySolicitanteId($relationAlias = null) Adds a LEFT JOIN clause to the query using the SolicitacaoResgateRelatedBySolicitanteId relation
+ * @method     UsuarioQuery rightJoinSolicitacaoResgateRelatedBySolicitanteId($relationAlias = null) Adds a RIGHT JOIN clause to the query using the SolicitacaoResgateRelatedBySolicitanteId relation
+ * @method     UsuarioQuery innerJoinSolicitacaoResgateRelatedBySolicitanteId($relationAlias = null) Adds a INNER JOIN clause to the query using the SolicitacaoResgateRelatedBySolicitanteId relation
  *
  * @method     Usuario findOne(PropelPDO $con = null) Return the first Usuario matching the query
  * @method     Usuario findOneOrCreate(PropelPDO $con = null) Return the first Usuario matching the query, or a new Usuario object populated from the query conditions when no match is found
@@ -131,7 +135,7 @@
  * @method     Usuario findOneByMatricula(string $matricula) Return the first Usuario filtered by the matricula column
  * @method     Usuario findOneByNome(string $nome) Return the first Usuario filtered by the nome column
  * @method     Usuario findOneByEmail(string $email) Return the first Usuario filtered by the email column
- * @method     Usuario findOneByCpf(string $cpf) Return the first Usuario filtered by the cpf column
+ * @method     Usuario findOneByDni(string $dni) Return the first Usuario filtered by the dni column
  * @method     Usuario findOneByDataNascimento(string $data_nascimento) Return the first Usuario filtered by the data_nascimento column
  * @method     Usuario findOneByDataContratacao(string $data_contratacao) Return the first Usuario filtered by the data_contratacao column
  * @method     Usuario findOneByCelular(string $celular) Return the first Usuario filtered by the celular column
@@ -145,6 +149,8 @@
  * @method     Usuario findOneByAtivo(boolean $ativo) Return the first Usuario filtered by the ativo column
  * @method     Usuario findOneByTipoAcesso(string $tipo_acesso) Return the first Usuario filtered by the tipo_acesso column
  * @method     Usuario findOneByEstadoCivil(string $estado_civil) Return the first Usuario filtered by the estado_civil column
+ * @method     Usuario findOneByNivelAcesso(string $nivel_acesso) Return the first Usuario filtered by the nivel_acesso column
+ * @method     Usuario findOneByUsuarioValidado(boolean $usuario_validado) Return the first Usuario filtered by the usuario_validado column
  *
  * @method     array findById(int $id) Return Usuario objects filtered by the id column
  * @method     array findByPerfilId(int $perfil_id) Return Usuario objects filtered by the perfil_id column
@@ -154,7 +160,7 @@
  * @method     array findByMatricula(string $matricula) Return Usuario objects filtered by the matricula column
  * @method     array findByNome(string $nome) Return Usuario objects filtered by the nome column
  * @method     array findByEmail(string $email) Return Usuario objects filtered by the email column
- * @method     array findByCpf(string $cpf) Return Usuario objects filtered by the cpf column
+ * @method     array findByDni(string $dni) Return Usuario objects filtered by the dni column
  * @method     array findByDataNascimento(string $data_nascimento) Return Usuario objects filtered by the data_nascimento column
  * @method     array findByDataContratacao(string $data_contratacao) Return Usuario objects filtered by the data_contratacao column
  * @method     array findByCelular(string $celular) Return Usuario objects filtered by the celular column
@@ -168,6 +174,8 @@
  * @method     array findByAtivo(boolean $ativo) Return Usuario objects filtered by the ativo column
  * @method     array findByTipoAcesso(string $tipo_acesso) Return Usuario objects filtered by the tipo_acesso column
  * @method     array findByEstadoCivil(string $estado_civil) Return Usuario objects filtered by the estado_civil column
+ * @method     array findByNivelAcesso(string $nivel_acesso) Return Usuario objects filtered by the nivel_acesso column
+ * @method     array findByUsuarioValidado(boolean $usuario_validado) Return Usuario objects filtered by the usuario_validado column
  *
  * @package    propel.generator.Default.om
  */
@@ -256,7 +264,7 @@ abstract class BaseUsuarioQuery extends ModelCriteria
 	 */
 	protected function findPkSimple($key, $con)
 	{
-		$sql = 'SELECT `ID`, `PERFIL_ID`, `ENDERECO_ID`, `CARGO_ID`, `DEPARTAMENTO_ID`, `MATRICULA`, `NOME`, `EMAIL`, `CPF`, `DATA_NASCIMENTO`, `DATA_CONTRATACAO`, `CELULAR`, `TELEFONE`, `TOKEN`, `USUARIO`, `SENHA`, `TOKEN_SENHA`, `TOKEN_FIREBASE`, `DATA_RESCISAO`, `ATIVO`, `TIPO_ACESSO`, `ESTADO_CIVIL` FROM `usuario` WHERE `ID` = :p0';
+		$sql = 'SELECT `ID`, `PERFIL_ID`, `ENDERECO_ID`, `CARGO_ID`, `DEPARTAMENTO_ID`, `MATRICULA`, `NOME`, `EMAIL`, `DNI`, `DATA_NASCIMENTO`, `DATA_CONTRATACAO`, `CELULAR`, `TELEFONE`, `TOKEN`, `USUARIO`, `SENHA`, `TOKEN_SENHA`, `TOKEN_FIREBASE`, `DATA_RESCISAO`, `ATIVO`, `TIPO_ACESSO`, `ESTADO_CIVIL`, `NIVEL_ACESSO`, `USUARIO_VALIDADO` FROM `usuario` WHERE `ID` = :p0';
 		try {
 			$stmt = $con->prepare($sql);			
 			$stmt->bindValue(':p0', $key, PDO::PARAM_INT);
@@ -620,31 +628,31 @@ abstract class BaseUsuarioQuery extends ModelCriteria
 	}
 
 	/**
-	 * Filter the query on the cpf column
+	 * Filter the query on the dni column
 	 *
 	 * Example usage:
 	 * <code>
-	 * $query->filterByCpf('fooValue');   // WHERE cpf = 'fooValue'
-	 * $query->filterByCpf('%fooValue%'); // WHERE cpf LIKE '%fooValue%'
+	 * $query->filterByDni('fooValue');   // WHERE dni = 'fooValue'
+	 * $query->filterByDni('%fooValue%'); // WHERE dni LIKE '%fooValue%'
 	 * </code>
 	 *
-	 * @param     string $cpf The value to use as filter.
+	 * @param     string $dni The value to use as filter.
 	 *              Accepts wildcards (* and % trigger a LIKE)
 	 * @param     string $comparison Operator to use for the column comparison, defaults to Criteria::EQUAL
 	 *
 	 * @return    UsuarioQuery The current query, for fluid interface
 	 */
-	public function filterByCpf($cpf = null, $comparison = null)
+	public function filterByDni($dni = null, $comparison = null)
 	{
 		if (null === $comparison) {
-			if (is_array($cpf)) {
+			if (is_array($dni)) {
 				$comparison = Criteria::IN;
-			} elseif (preg_match('/[\%\*]/', $cpf)) {
-				$cpf = str_replace('*', '%', $cpf);
+			} elseif (preg_match('/[\%\*]/', $dni)) {
+				$dni = str_replace('*', '%', $dni);
 				$comparison = Criteria::LIKE;
 			}
 		}
-		return $this->addUsingAlias(UsuarioPeer::CPF, $cpf, $comparison);
+		return $this->addUsingAlias(UsuarioPeer::DNI, $dni, $comparison);
 	}
 
 	/**
@@ -1049,6 +1057,60 @@ abstract class BaseUsuarioQuery extends ModelCriteria
 			}
 		}
 		return $this->addUsingAlias(UsuarioPeer::ESTADO_CIVIL, $estadoCivil, $comparison);
+	}
+
+	/**
+	 * Filter the query on the nivel_acesso column
+	 *
+	 * Example usage:
+	 * <code>
+	 * $query->filterByNivelAcesso('fooValue');   // WHERE nivel_acesso = 'fooValue'
+	 * $query->filterByNivelAcesso('%fooValue%'); // WHERE nivel_acesso LIKE '%fooValue%'
+	 * </code>
+	 *
+	 * @param     string $nivelAcesso The value to use as filter.
+	 *              Accepts wildcards (* and % trigger a LIKE)
+	 * @param     string $comparison Operator to use for the column comparison, defaults to Criteria::EQUAL
+	 *
+	 * @return    UsuarioQuery The current query, for fluid interface
+	 */
+	public function filterByNivelAcesso($nivelAcesso = null, $comparison = null)
+	{
+		if (null === $comparison) {
+			if (is_array($nivelAcesso)) {
+				$comparison = Criteria::IN;
+			} elseif (preg_match('/[\%\*]/', $nivelAcesso)) {
+				$nivelAcesso = str_replace('*', '%', $nivelAcesso);
+				$comparison = Criteria::LIKE;
+			}
+		}
+		return $this->addUsingAlias(UsuarioPeer::NIVEL_ACESSO, $nivelAcesso, $comparison);
+	}
+
+	/**
+	 * Filter the query on the usuario_validado column
+	 *
+	 * Example usage:
+	 * <code>
+	 * $query->filterByUsuarioValidado(true); // WHERE usuario_validado = true
+	 * $query->filterByUsuarioValidado('yes'); // WHERE usuario_validado = true
+	 * </code>
+	 *
+	 * @param     boolean|string $usuarioValidado The value to use as filter.
+	 *              Non-boolean arguments are converted using the following rules:
+	 *                * 1, '1', 'true',  'on',  and 'yes' are converted to boolean true
+	 *                * 0, '0', 'false', 'off', and 'no'  are converted to boolean false
+	 *              Check on string values is case insensitive (so 'FaLsE' is seen as 'false').
+	 * @param     string $comparison Operator to use for the column comparison, defaults to Criteria::EQUAL
+	 *
+	 * @return    UsuarioQuery The current query, for fluid interface
+	 */
+	public function filterByUsuarioValidado($usuarioValidado = null, $comparison = null)
+	{
+		if (is_string($usuarioValidado)) {
+			$usuario_validado = in_array(strtolower($usuarioValidado), array('false', 'off', '-', 'no', 'n', '0', '')) ? false : true;
+		}
+		return $this->addUsingAlias(UsuarioPeer::USUARIO_VALIDADO, $usuarioValidado, $comparison);
 	}
 
 	/**
@@ -2085,79 +2147,6 @@ abstract class BaseUsuarioQuery extends ModelCriteria
 	 *
 	 * @return    UsuarioQuery The current query, for fluid interface
 	 */
-	public function filterBySolicitacaoResgateRelatedBySolicitanteId($solicitacaoResgate, $comparison = null)
-	{
-		if ($solicitacaoResgate instanceof SolicitacaoResgate) {
-			return $this
-				->addUsingAlias(UsuarioPeer::ID, $solicitacaoResgate->getSolicitanteId(), $comparison);
-		} elseif ($solicitacaoResgate instanceof PropelCollection) {
-			return $this
-				->useSolicitacaoResgateRelatedBySolicitanteIdQuery()
-				->filterByPrimaryKeys($solicitacaoResgate->getPrimaryKeys())
-				->endUse();
-		} else {
-			throw new PropelException('filterBySolicitacaoResgateRelatedBySolicitanteId() only accepts arguments of type SolicitacaoResgate or PropelCollection');
-		}
-	}
-
-	/**
-	 * Adds a JOIN clause to the query using the SolicitacaoResgateRelatedBySolicitanteId relation
-	 *
-	 * @param     string $relationAlias optional alias for the relation
-	 * @param     string $joinType Accepted values are null, 'left join', 'right join', 'inner join'
-	 *
-	 * @return    UsuarioQuery The current query, for fluid interface
-	 */
-	public function joinSolicitacaoResgateRelatedBySolicitanteId($relationAlias = null, $joinType = Criteria::INNER_JOIN)
-	{
-		$tableMap = $this->getTableMap();
-		$relationMap = $tableMap->getRelation('SolicitacaoResgateRelatedBySolicitanteId');
-
-		// create a ModelJoin object for this join
-		$join = new ModelJoin();
-		$join->setJoinType($joinType);
-		$join->setRelationMap($relationMap, $this->useAliasInSQL ? $this->getModelAlias() : null, $relationAlias);
-		if ($previousJoin = $this->getPreviousJoin()) {
-			$join->setPreviousJoin($previousJoin);
-		}
-
-		// add the ModelJoin to the current object
-		if($relationAlias) {
-			$this->addAlias($relationAlias, $relationMap->getRightTable()->getName());
-			$this->addJoinObject($join, $relationAlias);
-		} else {
-			$this->addJoinObject($join, 'SolicitacaoResgateRelatedBySolicitanteId');
-		}
-
-		return $this;
-	}
-
-	/**
-	 * Use the SolicitacaoResgateRelatedBySolicitanteId relation SolicitacaoResgate object
-	 *
-	 * @see       useQuery()
-	 *
-	 * @param     string $relationAlias optional alias for the relation,
-	 *                                   to be used as main alias in the secondary query
-	 * @param     string $joinType Accepted values are null, 'left join', 'right join', 'inner join'
-	 *
-	 * @return    SolicitacaoResgateQuery A secondary query class using the current class as primary query
-	 */
-	public function useSolicitacaoResgateRelatedBySolicitanteIdQuery($relationAlias = null, $joinType = Criteria::INNER_JOIN)
-	{
-		return $this
-			->joinSolicitacaoResgateRelatedBySolicitanteId($relationAlias, $joinType)
-			->useQuery($relationAlias ? $relationAlias : 'SolicitacaoResgateRelatedBySolicitanteId', 'SolicitacaoResgateQuery');
-	}
-
-	/**
-	 * Filter the query by a related SolicitacaoResgate object
-	 *
-	 * @param     SolicitacaoResgate $solicitacaoResgate  the related object to use as filter
-	 * @param     string $comparison Operator to use for the column comparison, defaults to Criteria::EQUAL
-	 *
-	 * @return    UsuarioQuery The current query, for fluid interface
-	 */
 	public function filterBySolicitacaoResgateRelatedByAprovadorId($solicitacaoResgate, $comparison = null)
 	{
 		if ($solicitacaoResgate instanceof SolicitacaoResgate) {
@@ -2221,6 +2210,79 @@ abstract class BaseUsuarioQuery extends ModelCriteria
 		return $this
 			->joinSolicitacaoResgateRelatedByAprovadorId($relationAlias, $joinType)
 			->useQuery($relationAlias ? $relationAlias : 'SolicitacaoResgateRelatedByAprovadorId', 'SolicitacaoResgateQuery');
+	}
+
+	/**
+	 * Filter the query by a related SolicitacaoResgate object
+	 *
+	 * @param     SolicitacaoResgate $solicitacaoResgate  the related object to use as filter
+	 * @param     string $comparison Operator to use for the column comparison, defaults to Criteria::EQUAL
+	 *
+	 * @return    UsuarioQuery The current query, for fluid interface
+	 */
+	public function filterBySolicitacaoResgateRelatedBySolicitanteId($solicitacaoResgate, $comparison = null)
+	{
+		if ($solicitacaoResgate instanceof SolicitacaoResgate) {
+			return $this
+				->addUsingAlias(UsuarioPeer::ID, $solicitacaoResgate->getSolicitanteId(), $comparison);
+		} elseif ($solicitacaoResgate instanceof PropelCollection) {
+			return $this
+				->useSolicitacaoResgateRelatedBySolicitanteIdQuery()
+				->filterByPrimaryKeys($solicitacaoResgate->getPrimaryKeys())
+				->endUse();
+		} else {
+			throw new PropelException('filterBySolicitacaoResgateRelatedBySolicitanteId() only accepts arguments of type SolicitacaoResgate or PropelCollection');
+		}
+	}
+
+	/**
+	 * Adds a JOIN clause to the query using the SolicitacaoResgateRelatedBySolicitanteId relation
+	 *
+	 * @param     string $relationAlias optional alias for the relation
+	 * @param     string $joinType Accepted values are null, 'left join', 'right join', 'inner join'
+	 *
+	 * @return    UsuarioQuery The current query, for fluid interface
+	 */
+	public function joinSolicitacaoResgateRelatedBySolicitanteId($relationAlias = null, $joinType = Criteria::INNER_JOIN)
+	{
+		$tableMap = $this->getTableMap();
+		$relationMap = $tableMap->getRelation('SolicitacaoResgateRelatedBySolicitanteId');
+
+		// create a ModelJoin object for this join
+		$join = new ModelJoin();
+		$join->setJoinType($joinType);
+		$join->setRelationMap($relationMap, $this->useAliasInSQL ? $this->getModelAlias() : null, $relationAlias);
+		if ($previousJoin = $this->getPreviousJoin()) {
+			$join->setPreviousJoin($previousJoin);
+		}
+
+		// add the ModelJoin to the current object
+		if($relationAlias) {
+			$this->addAlias($relationAlias, $relationMap->getRightTable()->getName());
+			$this->addJoinObject($join, $relationAlias);
+		} else {
+			$this->addJoinObject($join, 'SolicitacaoResgateRelatedBySolicitanteId');
+		}
+
+		return $this;
+	}
+
+	/**
+	 * Use the SolicitacaoResgateRelatedBySolicitanteId relation SolicitacaoResgate object
+	 *
+	 * @see       useQuery()
+	 *
+	 * @param     string $relationAlias optional alias for the relation,
+	 *                                   to be used as main alias in the secondary query
+	 * @param     string $joinType Accepted values are null, 'left join', 'right join', 'inner join'
+	 *
+	 * @return    SolicitacaoResgateQuery A secondary query class using the current class as primary query
+	 */
+	public function useSolicitacaoResgateRelatedBySolicitanteIdQuery($relationAlias = null, $joinType = Criteria::INNER_JOIN)
+	{
+		return $this
+			->joinSolicitacaoResgateRelatedBySolicitanteId($relationAlias, $joinType)
+			->useQuery($relationAlias ? $relationAlias : 'SolicitacaoResgateRelatedBySolicitanteId', 'SolicitacaoResgateQuery');
 	}
 
 	/**

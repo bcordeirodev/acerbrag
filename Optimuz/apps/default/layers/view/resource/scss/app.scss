@@ -978,21 +978,6 @@ body{
 	height: 50px !important;
 }
 
-
-.relatorios i.fa{
-	font-size: 90px;
-	display: block;
-	padding-bottom: 10px;
-}
-
-.relatorios a{
-	color: #6F7B8A
-}
-
-.relatorios a:hover, .relatorios a:focus{
-	color: #0d638f
-}
-
 .border-solid {
 	background: white;
 	border: 1px solid rgba(0, 0, 0, 0.2);
@@ -1022,4 +1007,19 @@ body{
 	white-space: normal;
 	overflow: auto;
 	margin-bottom: 0
+}
+
+
+.clickable-list{
+
+	> li.actived{
+		color: white;
+		background: $color-success;
+	}
+
+	> li:hover{
+		cursor: pointer;
+		color: white;
+		background: $color-success;
+	}
 }

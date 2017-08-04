@@ -37,10 +37,10 @@ abstract class BaseEndereco extends BaseObject  implements Persistent
 	protected $id;
 
 	/**
-	 * The value for the cidade_id field.
-	 * @var        int
+	 * The value for the cidade field.
+	 * @var        string
 	 */
-	protected $cidade_id;
+	protected $cidade;
 
 	/**
 	 * The value for the logradouro field.
@@ -108,13 +108,13 @@ abstract class BaseEndereco extends BaseObject  implements Persistent
 	}
 
 	/**
-	 * Get the [cidade_id] column value.
+	 * Get the [cidade] column value.
 	 * 
-	 * @return     int
+	 * @return     string
 	 */
-	public function getCidadeId()
+	public function getCidade()
 	{
-		return $this->cidade_id;
+		return $this->cidade;
 	}
 
 	/**
@@ -188,24 +188,24 @@ abstract class BaseEndereco extends BaseObject  implements Persistent
 	} // setId()
 
 	/**
-	 * Set the value of [cidade_id] column.
+	 * Set the value of [cidade] column.
 	 * 
-	 * @param      int $v new value
+	 * @param      string $v new value
 	 * @return     Endereco The current object (for fluent API support)
 	 */
-	public function setCidadeId($v)
+	public function setCidade($v)
 	{
 		if ($v !== null) {
-			$v = (int) $v;
+			$v = (string) $v;
 		}
 
-		if ($this->cidade_id !== $v) {
-			$this->cidade_id = $v;
-			$this->modifiedColumns[] = EnderecoPeer::CIDADE_ID;
+		if ($this->cidade !== $v) {
+			$this->cidade = $v;
+			$this->modifiedColumns[] = EnderecoPeer::CIDADE;
 		}
 
 		return $this;
-	} // setCidadeId()
+	} // setCidade()
 
 	/**
 	 * Set the value of [logradouro] column.
@@ -340,7 +340,7 @@ abstract class BaseEndereco extends BaseObject  implements Persistent
 		try {
 
 			$this->id = ($row[$startcol + 0] !== null) ? (int) $row[$startcol + 0] : null;
-			$this->cidade_id = ($row[$startcol + 1] !== null) ? (int) $row[$startcol + 1] : null;
+			$this->cidade = ($row[$startcol + 1] !== null) ? (string) $row[$startcol + 1] : null;
 			$this->logradouro = ($row[$startcol + 2] !== null) ? (string) $row[$startcol + 2] : null;
 			$this->bairro = ($row[$startcol + 3] !== null) ? (string) $row[$startcol + 3] : null;
 			$this->cep = ($row[$startcol + 4] !== null) ? (string) $row[$startcol + 4] : null;
@@ -584,8 +584,8 @@ abstract class BaseEndereco extends BaseObject  implements Persistent
 		if ($this->isColumnModified(EnderecoPeer::ID)) {
 			$modifiedColumns[':p' . $index++]  = '`ID`';
 		}
-		if ($this->isColumnModified(EnderecoPeer::CIDADE_ID)) {
-			$modifiedColumns[':p' . $index++]  = '`CIDADE_ID`';
+		if ($this->isColumnModified(EnderecoPeer::CIDADE)) {
+			$modifiedColumns[':p' . $index++]  = '`CIDADE`';
 		}
 		if ($this->isColumnModified(EnderecoPeer::LOGRADOURO)) {
 			$modifiedColumns[':p' . $index++]  = '`LOGRADOURO`';
@@ -616,8 +616,8 @@ abstract class BaseEndereco extends BaseObject  implements Persistent
 					case '`ID`':						
 						$stmt->bindValue($identifier, $this->id, PDO::PARAM_INT);
 						break;
-					case '`CIDADE_ID`':						
-						$stmt->bindValue($identifier, $this->cidade_id, PDO::PARAM_INT);
+					case '`CIDADE`':						
+						$stmt->bindValue($identifier, $this->cidade, PDO::PARAM_STR);
 						break;
 					case '`LOGRADOURO`':						
 						$stmt->bindValue($identifier, $this->logradouro, PDO::PARAM_STR);
@@ -696,7 +696,7 @@ abstract class BaseEndereco extends BaseObject  implements Persistent
 				return $this->getId();
 				break;
 			case 1:
-				return $this->getCidadeId();
+				return $this->getCidade();
 				break;
 			case 2:
 				return $this->getLogradouro();
@@ -743,7 +743,7 @@ abstract class BaseEndereco extends BaseObject  implements Persistent
 		$keys = EnderecoPeer::getFieldNames($keyType);
 		$result = array(
 			$keys[0] => $this->getId(),
-			$keys[1] => $this->getCidadeId(),
+			$keys[1] => $this->getCidade(),
 			$keys[2] => $this->getLogradouro(),
 			$keys[3] => $this->getBairro(),
 			$keys[4] => $this->getCep(),
@@ -789,7 +789,7 @@ abstract class BaseEndereco extends BaseObject  implements Persistent
 				$this->setId($value);
 				break;
 			case 1:
-				$this->setCidadeId($value);
+				$this->setCidade($value);
 				break;
 			case 2:
 				$this->setLogradouro($value);
@@ -831,7 +831,7 @@ abstract class BaseEndereco extends BaseObject  implements Persistent
 		$keys = EnderecoPeer::getFieldNames($keyType);
 
 		if (array_key_exists($keys[0], $arr)) $this->setId($arr[$keys[0]]);
-		if (array_key_exists($keys[1], $arr)) $this->setCidadeId($arr[$keys[1]]);
+		if (array_key_exists($keys[1], $arr)) $this->setCidade($arr[$keys[1]]);
 		if (array_key_exists($keys[2], $arr)) $this->setLogradouro($arr[$keys[2]]);
 		if (array_key_exists($keys[3], $arr)) $this->setBairro($arr[$keys[3]]);
 		if (array_key_exists($keys[4], $arr)) $this->setCep($arr[$keys[4]]);
@@ -849,7 +849,7 @@ abstract class BaseEndereco extends BaseObject  implements Persistent
 		$criteria = new Criteria(EnderecoPeer::DATABASE_NAME);
 
 		if ($this->isColumnModified(EnderecoPeer::ID)) $criteria->add(EnderecoPeer::ID, $this->id);
-		if ($this->isColumnModified(EnderecoPeer::CIDADE_ID)) $criteria->add(EnderecoPeer::CIDADE_ID, $this->cidade_id);
+		if ($this->isColumnModified(EnderecoPeer::CIDADE)) $criteria->add(EnderecoPeer::CIDADE, $this->cidade);
 		if ($this->isColumnModified(EnderecoPeer::LOGRADOURO)) $criteria->add(EnderecoPeer::LOGRADOURO, $this->logradouro);
 		if ($this->isColumnModified(EnderecoPeer::BAIRRO)) $criteria->add(EnderecoPeer::BAIRRO, $this->bairro);
 		if ($this->isColumnModified(EnderecoPeer::CEP)) $criteria->add(EnderecoPeer::CEP, $this->cep);
@@ -917,7 +917,7 @@ abstract class BaseEndereco extends BaseObject  implements Persistent
 	 */
 	public function copyInto($copyObj, $deepCopy = false, $makeNew = true)
 	{
-		$copyObj->setCidadeId($this->getCidadeId());
+		$copyObj->setCidade($this->getCidade());
 		$copyObj->setLogradouro($this->getLogradouro());
 		$copyObj->setBairro($this->getBairro());
 		$copyObj->setCep($this->getCep());
@@ -1230,7 +1230,7 @@ abstract class BaseEndereco extends BaseObject  implements Persistent
 	public function clear()
 	{
 		$this->id = null;
-		$this->cidade_id = null;
+		$this->cidade = null;
 		$this->logradouro = null;
 		$this->bairro = null;
 		$this->cep = null;

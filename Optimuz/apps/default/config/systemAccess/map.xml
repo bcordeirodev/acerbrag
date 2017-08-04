@@ -96,15 +96,9 @@ need special rights.
 		<method name="desativar" role="*" />
 	</controller>
 
-	<controller name="Filial" role="*" permissions="gerenciar-filiais"></controller>
-	<controller name="Podcast" role="*" permissions="gerenciar-podcast"></controller>
-	<controller name="Instituicao" role="*" permissions="*"></controller>
-	<controller name="Agenda" role="*" permissions="gerenciar-agenda"></controller>
-	<controller name="Membro" role="*" permissions="gerenicar-membros"></controller>
-	<controller name="Pg" role="*" permissions="gerenciar-pgs"></controller>
-	<controller name="Noticia" role="*" permissions="gerenciar-noticia"></controller>
-	<controller name="PedidoOracao" role="*" permissions="gerenciar-pedido-oracao"></controller>
-	<controller name="Ministerio" role="*" permissions="gerenciar-ministerios"></controller>
-	<controller name="Video" role="*" permissions="gerenciar-videos"></controller>
+	<controller name="CadastroBasico" role="*" permissions="*">
+		<method name="gerenciarPerfis" role="gerenciar-perfis" />
+	</controller>
 	<controller name="Api" role="Anonymous"></controller>
+
 </map>

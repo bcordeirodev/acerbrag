@@ -93,14 +93,14 @@ abstract class BasePergunta extends BaseObject  implements Persistent
 	protected $pergunta_mae_id;
 
 	/**
-	 * @var        Pesquisa
-	 */
-	protected $aPesquisa;
-
-	/**
 	 * @var        Categoria
 	 */
 	protected $aCategoria;
+
+	/**
+	 * @var        Pesquisa
+	 */
+	protected $aPesquisa;
 
 	/**
 	 * @var        array Alternativa[] Collection to store aggregation of Alternativa objects.
@@ -602,8 +602,8 @@ abstract class BasePergunta extends BaseObject  implements Persistent
 
 		if ($deep) {  // also de-associate any related objects?
 
-			$this->aPesquisa = null;
 			$this->aCategoria = null;
+			$this->aPesquisa = null;
 			$this->collAlternativas = null;
 
 			$this->collRespostas = null;
@@ -723,18 +723,18 @@ abstract class BasePergunta extends BaseObject  implements Persistent
 			// method.  This object relates to these object(s) by a
 			// foreign key reference.
 
-			if ($this->aPesquisa !== null) {
-				if ($this->aPesquisa->isModified() || $this->aPesquisa->isNew()) {
-					$affectedRows += $this->aPesquisa->save($con);
-				}
-				$this->setPesquisa($this->aPesquisa);
-			}
-
 			if ($this->aCategoria !== null) {
 				if ($this->aCategoria->isModified() || $this->aCategoria->isNew()) {
 					$affectedRows += $this->aCategoria->save($con);
 				}
 				$this->setCategoria($this->aCategoria);
+			}
+
+			if ($this->aPesquisa !== null) {
+				if ($this->aPesquisa->isModified() || $this->aPesquisa->isNew()) {
+					$affectedRows += $this->aPesquisa->save($con);
+				}
+				$this->setPesquisa($this->aPesquisa);
 			}
 
 			if ($this->isNew() || $this->isModified()) {
@@ -1007,11 +1007,11 @@ abstract class BasePergunta extends BaseObject  implements Persistent
 			$keys[9] => $this->getPerguntaMaeId(),
 		);
 		if ($includeForeignObjects) {
-			if (null !== $this->aPesquisa) {
-				$result['Pesquisa'] = $this->aPesquisa->toArray($keyType, $includeLazyLoadColumns,  $alreadyDumpedObjects, true);
-			}
 			if (null !== $this->aCategoria) {
 				$result['Categoria'] = $this->aCategoria->toArray($keyType, $includeLazyLoadColumns,  $alreadyDumpedObjects, true);
+			}
+			if (null !== $this->aPesquisa) {
+				$result['Pesquisa'] = $this->aPesquisa->toArray($keyType, $includeLazyLoadColumns,  $alreadyDumpedObjects, true);
 			}
 			if (null !== $this->collAlternativas) {
 				$result['Alternativas'] = $this->collAlternativas->toArray(null, true, $keyType, $includeLazyLoadColumns, $alreadyDumpedObjects);
@@ -1275,55 +1275,6 @@ abstract class BasePergunta extends BaseObject  implements Persistent
 	}
 
 	/**
-	 * Declares an association between this object and a Pesquisa object.
-	 *
-	 * @param      Pesquisa $v
-	 * @return     Pergunta The current object (for fluent API support)
-	 * @throws     PropelException
-	 */
-	public function setPesquisa(Pesquisa $v = null)
-	{
-		if ($v === null) {
-			$this->setPesquisaId(NULL);
-		} else {
-			$this->setPesquisaId($v->getId());
-		}
-
-		$this->aPesquisa = $v;
-
-		// Add binding for other direction of this n:n relationship.
-		// If this object has already been added to the Pesquisa object, it will not be re-added.
-		if ($v !== null) {
-			$v->addPergunta($this);
-		}
-
-		return $this;
-	}
-
-
-	/**
-	 * Get the associated Pesquisa object
-	 *
-	 * @param      PropelPDO Optional Connection object.
-	 * @return     Pesquisa The associated Pesquisa object.
-	 * @throws     PropelException
-	 */
-	public function getPesquisa(PropelPDO $con = null)
-	{
-		if ($this->aPesquisa === null && ($this->pesquisa_id !== null)) {
-			$this->aPesquisa = PesquisaQuery::create()->findPk($this->pesquisa_id, $con);
-			/* The following can be used additionally to
-				guarantee the related object contains a reference
-				to this object.  This level of coupling may, however, be
-				undesirable since it could result in an only partially populated collection
-				in the referenced object.
-				$this->aPesquisa->addPerguntas($this);
-			 */
-		}
-		return $this->aPesquisa;
-	}
-
-	/**
 	 * Declares an association between this object and a Categoria object.
 	 *
 	 * @param      Categoria $v
@@ -1370,6 +1321,55 @@ abstract class BasePergunta extends BaseObject  implements Persistent
 			 */
 		}
 		return $this->aCategoria;
+	}
+
+	/**
+	 * Declares an association between this object and a Pesquisa object.
+	 *
+	 * @param      Pesquisa $v
+	 * @return     Pergunta The current object (for fluent API support)
+	 * @throws     PropelException
+	 */
+	public function setPesquisa(Pesquisa $v = null)
+	{
+		if ($v === null) {
+			$this->setPesquisaId(NULL);
+		} else {
+			$this->setPesquisaId($v->getId());
+		}
+
+		$this->aPesquisa = $v;
+
+		// Add binding for other direction of this n:n relationship.
+		// If this object has already been added to the Pesquisa object, it will not be re-added.
+		if ($v !== null) {
+			$v->addPergunta($this);
+		}
+
+		return $this;
+	}
+
+
+	/**
+	 * Get the associated Pesquisa object
+	 *
+	 * @param      PropelPDO Optional Connection object.
+	 * @return     Pesquisa The associated Pesquisa object.
+	 * @throws     PropelException
+	 */
+	public function getPesquisa(PropelPDO $con = null)
+	{
+		if ($this->aPesquisa === null && ($this->pesquisa_id !== null)) {
+			$this->aPesquisa = PesquisaQuery::create()->findPk($this->pesquisa_id, $con);
+			/* The following can be used additionally to
+				guarantee the related object contains a reference
+				to this object.  This level of coupling may, however, be
+				undesirable since it could result in an only partially populated collection
+				in the referenced object.
+				$this->aPesquisa->addPerguntas($this);
+			 */
+		}
+		return $this->aPesquisa;
 	}
 
 
@@ -1704,10 +1704,10 @@ abstract class BasePergunta extends BaseObject  implements Persistent
 	 * @param      string $join_behavior optional join type to use (defaults to Criteria::LEFT_JOIN)
 	 * @return     PropelCollection|array Resposta[] List of Resposta objects
 	 */
-	public function getRespostasJoinAlternativa($criteria = null, $con = null, $join_behavior = Criteria::LEFT_JOIN)
+	public function getRespostasJoinColetaPesquisa($criteria = null, $con = null, $join_behavior = Criteria::LEFT_JOIN)
 	{
 		$query = RespostaQuery::create(null, $criteria);
-		$query->joinWith('Alternativa', $join_behavior);
+		$query->joinWith('ColetaPesquisa', $join_behavior);
 
 		return $this->getRespostas($query, $con);
 	}
@@ -1729,10 +1729,10 @@ abstract class BasePergunta extends BaseObject  implements Persistent
 	 * @param      string $join_behavior optional join type to use (defaults to Criteria::LEFT_JOIN)
 	 * @return     PropelCollection|array Resposta[] List of Resposta objects
 	 */
-	public function getRespostasJoinColetaPesquisa($criteria = null, $con = null, $join_behavior = Criteria::LEFT_JOIN)
+	public function getRespostasJoinAlternativa($criteria = null, $con = null, $join_behavior = Criteria::LEFT_JOIN)
 	{
 		$query = RespostaQuery::create(null, $criteria);
-		$query->joinWith('ColetaPesquisa', $join_behavior);
+		$query->joinWith('Alternativa', $join_behavior);
 
 		return $this->getRespostas($query, $con);
 	}
@@ -1793,8 +1793,8 @@ abstract class BasePergunta extends BaseObject  implements Persistent
 			$this->collRespostas->clearIterator();
 		}
 		$this->collRespostas = null;
-		$this->aPesquisa = null;
 		$this->aCategoria = null;
+		$this->aPesquisa = null;
 	}
 
 	/**

@@ -26,13 +26,13 @@ abstract class BasePermissaoPeer {
 	const TM_CLASS = 'PermissaoTableMap';
 
 	/** The total number of columns. */
-	const NUM_COLUMNS = 4;
+	const NUM_COLUMNS = 5;
 
 	/** The number of lazy-loaded columns. */
 	const NUM_LAZY_LOAD_COLUMNS = 0;
 
 	/** The number of columns to hydrate (NUM_COLUMNS - NUM_LAZY_LOAD_COLUMNS) */
-	const NUM_HYDRATE_COLUMNS = 4;
+	const NUM_HYDRATE_COLUMNS = 5;
 
 	/** the column name for the ID field */
 	const ID = 'permissao.ID';
@@ -45,6 +45,9 @@ abstract class BasePermissaoPeer {
 
 	/** the column name for the DESCRICAO field */
 	const DESCRICAO = 'permissao.DESCRICAO';
+
+	/** the column name for the NIVEL field */
+	const NIVEL = 'permissao.NIVEL';
 
 	/** The default string format for model objects of the related table **/
 	const DEFAULT_STRING_FORMAT = 'YAML';
@@ -65,12 +68,12 @@ abstract class BasePermissaoPeer {
 	 * e.g. self::$fieldNames[self::TYPE_PHPNAME][0] = 'Id'
 	 */
 	protected static $fieldNames = array (
-		BasePeer::TYPE_PHPNAME => array ('Id', 'Nome', 'Slug', 'Descricao', ),
-		BasePeer::TYPE_STUDLYPHPNAME => array ('id', 'nome', 'slug', 'descricao', ),
-		BasePeer::TYPE_COLNAME => array (self::ID, self::NOME, self::SLUG, self::DESCRICAO, ),
-		BasePeer::TYPE_RAW_COLNAME => array ('ID', 'NOME', 'SLUG', 'DESCRICAO', ),
-		BasePeer::TYPE_FIELDNAME => array ('id', 'nome', 'slug', 'descricao', ),
-		BasePeer::TYPE_NUM => array (0, 1, 2, 3, )
+		BasePeer::TYPE_PHPNAME => array ('Id', 'Nome', 'Slug', 'Descricao', 'Nivel', ),
+		BasePeer::TYPE_STUDLYPHPNAME => array ('id', 'nome', 'slug', 'descricao', 'nivel', ),
+		BasePeer::TYPE_COLNAME => array (self::ID, self::NOME, self::SLUG, self::DESCRICAO, self::NIVEL, ),
+		BasePeer::TYPE_RAW_COLNAME => array ('ID', 'NOME', 'SLUG', 'DESCRICAO', 'NIVEL', ),
+		BasePeer::TYPE_FIELDNAME => array ('id', 'nome', 'slug', 'descricao', 'nivel', ),
+		BasePeer::TYPE_NUM => array (0, 1, 2, 3, 4, )
 	);
 
 	/**
@@ -80,12 +83,12 @@ abstract class BasePermissaoPeer {
 	 * e.g. self::$fieldNames[BasePeer::TYPE_PHPNAME]['Id'] = 0
 	 */
 	protected static $fieldKeys = array (
-		BasePeer::TYPE_PHPNAME => array ('Id' => 0, 'Nome' => 1, 'Slug' => 2, 'Descricao' => 3, ),
-		BasePeer::TYPE_STUDLYPHPNAME => array ('id' => 0, 'nome' => 1, 'slug' => 2, 'descricao' => 3, ),
-		BasePeer::TYPE_COLNAME => array (self::ID => 0, self::NOME => 1, self::SLUG => 2, self::DESCRICAO => 3, ),
-		BasePeer::TYPE_RAW_COLNAME => array ('ID' => 0, 'NOME' => 1, 'SLUG' => 2, 'DESCRICAO' => 3, ),
-		BasePeer::TYPE_FIELDNAME => array ('id' => 0, 'nome' => 1, 'slug' => 2, 'descricao' => 3, ),
-		BasePeer::TYPE_NUM => array (0, 1, 2, 3, )
+		BasePeer::TYPE_PHPNAME => array ('Id' => 0, 'Nome' => 1, 'Slug' => 2, 'Descricao' => 3, 'Nivel' => 4, ),
+		BasePeer::TYPE_STUDLYPHPNAME => array ('id' => 0, 'nome' => 1, 'slug' => 2, 'descricao' => 3, 'nivel' => 4, ),
+		BasePeer::TYPE_COLNAME => array (self::ID => 0, self::NOME => 1, self::SLUG => 2, self::DESCRICAO => 3, self::NIVEL => 4, ),
+		BasePeer::TYPE_RAW_COLNAME => array ('ID' => 0, 'NOME' => 1, 'SLUG' => 2, 'DESCRICAO' => 3, 'NIVEL' => 4, ),
+		BasePeer::TYPE_FIELDNAME => array ('id' => 0, 'nome' => 1, 'slug' => 2, 'descricao' => 3, 'nivel' => 4, ),
+		BasePeer::TYPE_NUM => array (0, 1, 2, 3, 4, )
 	);
 
 	/**
@@ -161,11 +164,13 @@ abstract class BasePermissaoPeer {
 			$criteria->addSelectColumn(PermissaoPeer::NOME);
 			$criteria->addSelectColumn(PermissaoPeer::SLUG);
 			$criteria->addSelectColumn(PermissaoPeer::DESCRICAO);
+			$criteria->addSelectColumn(PermissaoPeer::NIVEL);
 		} else {
 			$criteria->addSelectColumn($alias . '.ID');
 			$criteria->addSelectColumn($alias . '.NOME');
 			$criteria->addSelectColumn($alias . '.SLUG');
 			$criteria->addSelectColumn($alias . '.DESCRICAO');
+			$criteria->addSelectColumn($alias . '.NIVEL');
 		}
 	}
 

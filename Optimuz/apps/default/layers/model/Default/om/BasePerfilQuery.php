@@ -8,9 +8,11 @@
  *
  * @method     PerfilQuery orderById($order = Criteria::ASC) Order by the id column
  * @method     PerfilQuery orderByNome($order = Criteria::ASC) Order by the nome column
+ * @method     PerfilQuery orderByNivel($order = Criteria::ASC) Order by the nivel column
  *
  * @method     PerfilQuery groupById() Group by the id column
  * @method     PerfilQuery groupByNome() Group by the nome column
+ * @method     PerfilQuery groupByNivel() Group by the nivel column
  *
  * @method     PerfilQuery leftJoin($relation) Adds a LEFT JOIN clause to the query
  * @method     PerfilQuery rightJoin($relation) Adds a RIGHT JOIN clause to the query
@@ -29,9 +31,11 @@
  *
  * @method     Perfil findOneById(int $id) Return the first Perfil filtered by the id column
  * @method     Perfil findOneByNome(string $nome) Return the first Perfil filtered by the nome column
+ * @method     Perfil findOneByNivel(string $nivel) Return the first Perfil filtered by the nivel column
  *
  * @method     array findById(int $id) Return Perfil objects filtered by the id column
  * @method     array findByNome(string $nome) Return Perfil objects filtered by the nome column
+ * @method     array findByNivel(string $nivel) Return Perfil objects filtered by the nivel column
  *
  * @package    propel.generator.Default.om
  */
@@ -120,7 +124,7 @@ abstract class BasePerfilQuery extends ModelCriteria
 	 */
 	protected function findPkSimple($key, $con)
 	{
-		$sql = 'SELECT `ID`, `NOME` FROM `perfil` WHERE `ID` = :p0';
+		$sql = 'SELECT `ID`, `NOME`, `NIVEL` FROM `perfil` WHERE `ID` = :p0';
 		try {
 			$stmt = $con->prepare($sql);			
 			$stmt->bindValue(':p0', $key, PDO::PARAM_INT);
@@ -257,6 +261,34 @@ abstract class BasePerfilQuery extends ModelCriteria
 			}
 		}
 		return $this->addUsingAlias(PerfilPeer::NOME, $nome, $comparison);
+	}
+
+	/**
+	 * Filter the query on the nivel column
+	 *
+	 * Example usage:
+	 * <code>
+	 * $query->filterByNivel('fooValue');   // WHERE nivel = 'fooValue'
+	 * $query->filterByNivel('%fooValue%'); // WHERE nivel LIKE '%fooValue%'
+	 * </code>
+	 *
+	 * @param     string $nivel The value to use as filter.
+	 *              Accepts wildcards (* and % trigger a LIKE)
+	 * @param     string $comparison Operator to use for the column comparison, defaults to Criteria::EQUAL
+	 *
+	 * @return    PerfilQuery The current query, for fluid interface
+	 */
+	public function filterByNivel($nivel = null, $comparison = null)
+	{
+		if (null === $comparison) {
+			if (is_array($nivel)) {
+				$comparison = Criteria::IN;
+			} elseif (preg_match('/[\%\*]/', $nivel)) {
+				$nivel = str_replace('*', '%', $nivel);
+				$comparison = Criteria::LIKE;
+			}
+		}
+		return $this->addUsingAlias(PerfilPeer::NIVEL, $nivel, $comparison);
 	}
 
 	/**

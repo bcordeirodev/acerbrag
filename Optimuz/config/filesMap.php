@@ -2259,6 +2259,15 @@ return array (
           0 => 'DefaultPageController',
         ),
       ),
+      'CadastroBasicoController' => 
+      array (
+        'file' => 'apps/default/layers/control/page/CadastroBasicoController.php',
+        'uses' => NULL,
+        'extends' => 
+        array (
+          0 => 'DefaultPageController',
+        ),
+      ),
       'DashboardController' => 
       array (
         'file' => 'apps/default/layers/control/page/DashboardController.php',
@@ -6376,9 +6385,10 @@ return array (
         'files' => 
         array (
           0 => 'ApiController',
-          1 => 'DashboardController',
-          2 => 'LoginController',
-          3 => 'UsuarioController',
+          1 => 'CadastroBasicoController',
+          2 => 'DashboardController',
+          3 => 'LoginController',
+          4 => 'UsuarioController',
         ),
       ),
       'session' => 

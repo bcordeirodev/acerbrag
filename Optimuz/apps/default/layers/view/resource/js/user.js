@@ -302,4 +302,14 @@ $(document).ready(function(){
 
 		showConfirm(title, message, textBtn, disable, classBtn);
 	});
+
+
+	/*
+	 *
+	 */
+	$('input[name="tipo-acesso"]').click(function(){
+		var value = $(this).val();
+		var boxLogin = $('#box-login');
+		(value == 'M' && boxLogin.length) ? boxLogin.slideUp(350) : boxLogin.slideDown(350);
+	});
 });

@@ -49,8 +49,8 @@ class DepartamentoPesquisaTableMap extends TableMap
 	 */
 	public function buildRelations()
 	{
-		$this->addRelation('Pesquisa', 'Pesquisa', RelationMap::MANY_TO_ONE, array('pesquisa_id' => 'id', ), null, null);
 		$this->addRelation('Departamento', 'Departamento', RelationMap::MANY_TO_ONE, array('departamento_id' => 'id', ), null, null);
+		$this->addRelation('Pesquisa', 'Pesquisa', RelationMap::MANY_TO_ONE, array('pesquisa_id' => 'id', ), null, null);
 	} // buildRelations()
 
 } // DepartamentoPesquisaTableMap

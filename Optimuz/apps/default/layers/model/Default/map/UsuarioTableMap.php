@@ -46,7 +46,7 @@ class UsuarioTableMap extends TableMap
 		$this->addColumn('MATRICULA', 'Matricula', 'VARCHAR', false, 55, null);
 		$this->addColumn('NOME', 'Nome', 'VARCHAR', true, 200, null);
 		$this->addColumn('EMAIL', 'Email', 'VARCHAR', true, 200, null);
-		$this->addColumn('CPF', 'Cpf', 'VARCHAR', false, 11, null);
+		$this->addColumn('DNI', 'Dni', 'VARCHAR', false, 11, null);
 		$this->addColumn('DATA_NASCIMENTO', 'DataNascimento', 'DATE', false, null, null);
 		$this->addColumn('DATA_CONTRATACAO', 'DataContratacao', 'DATE', false, null, null);
 		$this->addColumn('CELULAR', 'Celular', 'VARCHAR', false, 11, null);
@@ -60,6 +60,8 @@ class UsuarioTableMap extends TableMap
 		$this->addColumn('ATIVO', 'Ativo', 'BOOLEAN', true, 1, true);
 		$this->addColumn('TIPO_ACESSO', 'TipoAcesso', 'CHAR', false, null, null);
 		$this->addColumn('ESTADO_CIVIL', 'EstadoCivil', 'CHAR', false, null, null);
+		$this->addColumn('NIVEL_ACESSO', 'NivelAcesso', 'CHAR', false, null, '1');
+		$this->addColumn('USUARIO_VALIDADO', 'UsuarioValidado', 'BOOLEAN', false, 1, false);
 		// validators
 	} // initialize()
 
@@ -82,8 +84,8 @@ class UsuarioTableMap extends TableMap
 		$this->addRelation('PesquisaHabilitada', 'PesquisaHabilitada', RelationMap::ONE_TO_MANY, array('id' => 'usuario_id', ), null, null, 'PesquisaHabilitadas');
 		$this->addRelation('Premio', 'Premio', RelationMap::ONE_TO_MANY, array('id' => 'usuario_id', ), null, null, 'Premios');
 		$this->addRelation('RespostaForum', 'RespostaForum', RelationMap::ONE_TO_MANY, array('id' => 'usuario_id', ), null, null, 'RespostaForums');
-		$this->addRelation('SolicitacaoResgateRelatedBySolicitanteId', 'SolicitacaoResgate', RelationMap::ONE_TO_MANY, array('id' => 'solicitante_id', ), null, null, 'SolicitacaoResgatesRelatedBySolicitanteId');
 		$this->addRelation('SolicitacaoResgateRelatedByAprovadorId', 'SolicitacaoResgate', RelationMap::ONE_TO_MANY, array('id' => 'aprovador_id', ), null, null, 'SolicitacaoResgatesRelatedByAprovadorId');
+		$this->addRelation('SolicitacaoResgateRelatedBySolicitanteId', 'SolicitacaoResgate', RelationMap::ONE_TO_MANY, array('id' => 'solicitante_id', ), null, null, 'SolicitacaoResgatesRelatedBySolicitanteId');
 	} // buildRelations()
 
 } // UsuarioTableMap

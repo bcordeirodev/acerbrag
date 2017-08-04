@@ -39,54 +39,14 @@ class Auditoria extends BaseAuditoria {
 	const LEVEL_DEBUG			= 4;
 
 	/**
+	 * Repensenta uma ação do sistema
+	 */
+	const TIPO_SISTEMA			= 1;
+
+	/**
 	 * Representa a tabela de usuários.
 	 */
-	const TIPO_USUARIO			= 1;
-
-	/**
-	 * Representa os registros de tipo instituicao
-	 */
-	const TIPO_INSTITUICAO		= 2;
-
-	/**
-	 * Representa os registros de tipo filial.
-	 */
-	const TIPO_FILIAL			= 3;
-
-	/**
-	 * Representa os registros de tipo podcast.
-	 */
-	const TIPO_PODCAST			= 4;
-
-	/**
-	 * Representa os registros de tipo podcast.
-	 */
-	const TIPO_MEMBRO			= 5;
-
-	/**
-	 * Representa os registros do tipo agenda.
-	 */
-	const TIPO_AGENDA			= 6;
-
-	/**
-	 * Representa os registros do tipo pg.
-	 */
-	const TIPO_PG				= 7;
-
-	/**
-	 * Representa os registros do tipo notícia.
-	 */
-	const TIPO_NOTICIA			= 8;
-
-	/**
-	 * Representa os registros do tipo ministério.
-	 */
-	const TIPO_MINISTERIO		= 9;
-
-	/**
-	 * Representa os registros do tipo vídeo.
-	 */
-	const TIPO_VIDEO			= 10;
+	const TIPO_USUARIO			= 2;
 
 	/**
 	 * Grava uma mensagem de log no banco de dados.

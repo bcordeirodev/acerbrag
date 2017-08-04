@@ -49,14 +49,14 @@ abstract class BaseCurtidaForum extends BaseObject  implements Persistent
 	protected $forum_id;
 
 	/**
-	 * @var        Usuario
-	 */
-	protected $aUsuario;
-
-	/**
 	 * @var        Forum
 	 */
 	protected $aForum;
+
+	/**
+	 * @var        Usuario
+	 */
+	protected $aUsuario;
 
 	/**
 	 * Flag to prevent endless save loop, if this object is referenced
@@ -281,8 +281,8 @@ abstract class BaseCurtidaForum extends BaseObject  implements Persistent
 
 		if ($deep) {  // also de-associate any related objects?
 
-			$this->aUsuario = null;
 			$this->aForum = null;
+			$this->aUsuario = null;
 		} // if (deep)
 	}
 
@@ -398,18 +398,18 @@ abstract class BaseCurtidaForum extends BaseObject  implements Persistent
 			// method.  This object relates to these object(s) by a
 			// foreign key reference.
 
-			if ($this->aUsuario !== null) {
-				if ($this->aUsuario->isModified() || $this->aUsuario->isNew()) {
-					$affectedRows += $this->aUsuario->save($con);
-				}
-				$this->setUsuario($this->aUsuario);
-			}
-
 			if ($this->aForum !== null) {
 				if ($this->aForum->isModified() || $this->aForum->isNew()) {
 					$affectedRows += $this->aForum->save($con);
 				}
 				$this->setForum($this->aForum);
+			}
+
+			if ($this->aUsuario !== null) {
+				if ($this->aUsuario->isModified() || $this->aUsuario->isNew()) {
+					$affectedRows += $this->aUsuario->save($con);
+				}
+				$this->setUsuario($this->aUsuario);
 			}
 
 			if ($this->isNew() || $this->isModified()) {
@@ -578,11 +578,11 @@ abstract class BaseCurtidaForum extends BaseObject  implements Persistent
 			$keys[2] => $this->getForumId(),
 		);
 		if ($includeForeignObjects) {
-			if (null !== $this->aUsuario) {
-				$result['Usuario'] = $this->aUsuario->toArray($keyType, $includeLazyLoadColumns,  $alreadyDumpedObjects, true);
-			}
 			if (null !== $this->aForum) {
 				$result['Forum'] = $this->aForum->toArray($keyType, $includeLazyLoadColumns,  $alreadyDumpedObjects, true);
+			}
+			if (null !== $this->aUsuario) {
+				$result['Usuario'] = $this->aUsuario->toArray($keyType, $includeLazyLoadColumns,  $alreadyDumpedObjects, true);
 			}
 		}
 		return $result;
@@ -786,55 +786,6 @@ abstract class BaseCurtidaForum extends BaseObject  implements Persistent
 	}
 
 	/**
-	 * Declares an association between this object and a Usuario object.
-	 *
-	 * @param      Usuario $v
-	 * @return     CurtidaForum The current object (for fluent API support)
-	 * @throws     PropelException
-	 */
-	public function setUsuario(Usuario $v = null)
-	{
-		if ($v === null) {
-			$this->setUsuarioId(NULL);
-		} else {
-			$this->setUsuarioId($v->getId());
-		}
-
-		$this->aUsuario = $v;
-
-		// Add binding for other direction of this n:n relationship.
-		// If this object has already been added to the Usuario object, it will not be re-added.
-		if ($v !== null) {
-			$v->addCurtidaForum($this);
-		}
-
-		return $this;
-	}
-
-
-	/**
-	 * Get the associated Usuario object
-	 *
-	 * @param      PropelPDO Optional Connection object.
-	 * @return     Usuario The associated Usuario object.
-	 * @throws     PropelException
-	 */
-	public function getUsuario(PropelPDO $con = null)
-	{
-		if ($this->aUsuario === null && ($this->usuario_id !== null)) {
-			$this->aUsuario = UsuarioQuery::create()->findPk($this->usuario_id, $con);
-			/* The following can be used additionally to
-				guarantee the related object contains a reference
-				to this object.  This level of coupling may, however, be
-				undesirable since it could result in an only partially populated collection
-				in the referenced object.
-				$this->aUsuario->addCurtidaForums($this);
-			 */
-		}
-		return $this->aUsuario;
-	}
-
-	/**
 	 * Declares an association between this object and a Forum object.
 	 *
 	 * @param      Forum $v
@@ -884,6 +835,55 @@ abstract class BaseCurtidaForum extends BaseObject  implements Persistent
 	}
 
 	/**
+	 * Declares an association between this object and a Usuario object.
+	 *
+	 * @param      Usuario $v
+	 * @return     CurtidaForum The current object (for fluent API support)
+	 * @throws     PropelException
+	 */
+	public function setUsuario(Usuario $v = null)
+	{
+		if ($v === null) {
+			$this->setUsuarioId(NULL);
+		} else {
+			$this->setUsuarioId($v->getId());
+		}
+
+		$this->aUsuario = $v;
+
+		// Add binding for other direction of this n:n relationship.
+		// If this object has already been added to the Usuario object, it will not be re-added.
+		if ($v !== null) {
+			$v->addCurtidaForum($this);
+		}
+
+		return $this;
+	}
+
+
+	/**
+	 * Get the associated Usuario object
+	 *
+	 * @param      PropelPDO Optional Connection object.
+	 * @return     Usuario The associated Usuario object.
+	 * @throws     PropelException
+	 */
+	public function getUsuario(PropelPDO $con = null)
+	{
+		if ($this->aUsuario === null && ($this->usuario_id !== null)) {
+			$this->aUsuario = UsuarioQuery::create()->findPk($this->usuario_id, $con);
+			/* The following can be used additionally to
+				guarantee the related object contains a reference
+				to this object.  This level of coupling may, however, be
+				undesirable since it could result in an only partially populated collection
+				in the referenced object.
+				$this->aUsuario->addCurtidaForums($this);
+			 */
+		}
+		return $this->aUsuario;
+	}
+
+	/**
 	 * Clears the current object and sets all attributes to their default values
 	 */
 	public function clear()
@@ -913,8 +913,8 @@ abstract class BaseCurtidaForum extends BaseObject  implements Persistent
 		if ($deep) {
 		} // if ($deep)
 
-		$this->aUsuario = null;
 		$this->aForum = null;
+		$this->aUsuario = null;
 	}
 
 	/**

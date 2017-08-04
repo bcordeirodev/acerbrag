@@ -39,7 +39,7 @@ class EnderecoTableMap extends TableMap
 		$this->setUseIdGenerator(true);
 		// columns
 		$this->addPrimaryKey('ID', 'Id', 'INTEGER', true, 10, null);
-		$this->addColumn('CIDADE_ID', 'CidadeId', 'INTEGER', false, 10, null);
+		$this->addColumn('CIDADE', 'Cidade', 'VARCHAR', false, 250, null);
 		$this->addColumn('LOGRADOURO', 'Logradouro', 'VARCHAR', false, 200, null);
 		$this->addColumn('BAIRRO', 'Bairro', 'VARCHAR', false, 45, null);
 		$this->addColumn('CEP', 'Cep', 'VARCHAR', false, 8, null);

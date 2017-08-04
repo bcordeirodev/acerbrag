@@ -62,12 +62,12 @@ CREATE TABLE `avaliacao_resposta_forum`
 	PRIMARY KEY (`id`),
 	BTREE INDEX `fk_avaliacao_resposta_forum_usuario_idx` (`usuario_id`),
 	BTREE INDEX `fk_avaliacao_resposta_forum_resposta_forum_idx` (`resposta_forum_id`),
-	CONSTRAINT `fk_avaliacao_resposta_forum_usuario`
-		FOREIGN KEY (`usuario_id`)
-		REFERENCES `usuario` (`id`),
 	CONSTRAINT `fk_avaliacao_resposta_forum_resposta_forum`
 		FOREIGN KEY (`resposta_forum_id`)
-		REFERENCES `resposta_forum` (`id`)
+		REFERENCES `resposta_forum` (`id`),
+	CONSTRAINT `fk_avaliacao_resposta_forum_usuario`
+		FOREIGN KEY (`usuario_id`)
+		REFERENCES `usuario` (`id`)
 ) ENGINE=InnoDB CHECKSUM='';
 
 -- ---------------------------------------------------------------------
@@ -95,12 +95,12 @@ CREATE TABLE `cargo_pesquisa`
 	`pesquisa_id` int(10) unsigned NOT NULL,
 	PRIMARY KEY (`cargo_id`,`pesquisa_id`),
 	BTREE INDEX `fk_cargo_pesquisa_pesquisa_idx` (`pesquisa_id`),
-	CONSTRAINT `fk_cargo_pesquisa_pesquisa`
-		FOREIGN KEY (`pesquisa_id`)
-		REFERENCES `pesquisa` (`id`),
 	CONSTRAINT `fk_cargo_pesquisa_cargo`
 		FOREIGN KEY (`cargo_id`)
-		REFERENCES `cargo` (`id`)
+		REFERENCES `cargo` (`id`),
+	CONSTRAINT `fk_cargo_pesquisa_pesquisa`
+		FOREIGN KEY (`pesquisa_id`)
+		REFERENCES `pesquisa` (`id`)
 ) ENGINE=InnoDB CHECKSUM='';
 
 -- ---------------------------------------------------------------------
@@ -176,14 +176,14 @@ CREATE TABLE `curtida_forum`
 	`usuario_id` int(10) unsigned NOT NULL,
 	`forum_id` int(10) unsigned NOT NULL,
 	PRIMARY KEY (`id`),
-	INDEX `FI_curtida_forum_usuario` (`usuario_id`),
 	INDEX `FI_curtida_forum_forum` (`forum_id`),
-	CONSTRAINT `fk_curtida_forum_usuario`
-		FOREIGN KEY (`usuario_id`)
-		REFERENCES `usuario` (`id`),
+	INDEX `FI_curtida_forum_usuario` (`usuario_id`),
 	CONSTRAINT `fk_curtida_forum_forum`
 		FOREIGN KEY (`forum_id`)
-		REFERENCES `forum` (`id`)
+		REFERENCES `forum` (`id`),
+	CONSTRAINT `fk_curtida_forum_usuario`
+		FOREIGN KEY (`usuario_id`)
+		REFERENCES `usuario` (`id`)
 ) ENGINE=InnoDB CHECKSUM='';
 
 -- ---------------------------------------------------------------------
@@ -211,12 +211,12 @@ CREATE TABLE `departamento_pesquisa`
 	`pesquisa_id` int(10) unsigned NOT NULL,
 	PRIMARY KEY (`departamento_id`,`pesquisa_id`),
 	BTREE INDEX `fk_departamento_pesquisa_pesquisa_idx` (`pesquisa_id`),
-	CONSTRAINT `fk_departamento_pesquisa_pesquisa`
-		FOREIGN KEY (`pesquisa_id`)
-		REFERENCES `pesquisa` (`id`),
 	CONSTRAINT `fk_departamento_pesquisa_departamento`
 		FOREIGN KEY (`departamento_id`)
-		REFERENCES `departamento` (`id`)
+		REFERENCES `departamento` (`id`),
+	CONSTRAINT `fk_departamento_pesquisa_pesquisa`
+		FOREIGN KEY (`pesquisa_id`)
+		REFERENCES `pesquisa` (`id`)
 ) ENGINE=InnoDB CHECKSUM='';
 
 -- ---------------------------------------------------------------------
@@ -228,7 +228,7 @@ DROP TABLE IF EXISTS `endereco`;
 CREATE TABLE `endereco`
 (
 	`id` int(10) unsigned NOT NULL AUTO_INCREMENT,
-	`cidade_id` int(10) unsigned,
+	`cidade` VARCHAR(250),
 	`logradouro` VARCHAR(200),
 	`bairro` VARCHAR(45),
 	`cep` VARCHAR(8),
@@ -286,6 +286,7 @@ CREATE TABLE `perfil`
 (
 	`id` int(10) unsigned NOT NULL AUTO_INCREMENT,
 	`nome` VARCHAR(45) NOT NULL,
+	`nivel` CHAR,
 	PRIMARY KEY (`id`),
 	UNIQUE INDEX `nome_UNIQUE` (`nome`)
 ) ENGINE=InnoDB CHECKSUM='';
@@ -331,12 +332,12 @@ CREATE TABLE `pergunta`
 	PRIMARY KEY (`id`),
 	BTREE INDEX `fk_pergunta_pesquisa_idx` (`pesquisa_id`),
 	BTREE INDEX `fk_pergunta_categoria_idx` (`categoria_id`),
-	CONSTRAINT `fk_pergunta_pesquisa`
-		FOREIGN KEY (`pesquisa_id`)
-		REFERENCES `pesquisa` (`id`),
 	CONSTRAINT `fk_pergunta_categoria`
 		FOREIGN KEY (`categoria_id`)
-		REFERENCES `categoria` (`id`)
+		REFERENCES `categoria` (`id`),
+	CONSTRAINT `fk_pergunta_pesquisa`
+		FOREIGN KEY (`pesquisa_id`)
+		REFERENCES `pesquisa` (`id`)
 ) ENGINE=InnoDB CHECKSUM='';
 
 -- ---------------------------------------------------------------------
@@ -351,6 +352,7 @@ CREATE TABLE `permissao`
 	`nome` VARCHAR(60) NOT NULL,
 	`slug` VARCHAR(60) NOT NULL,
 	`descricao` VARCHAR(200),
+	`nivel` CHAR,
 	PRIMARY KEY (`id`),
 	UNIQUE INDEX `slug_UNIQUE` (`slug`),
 	UNIQUE INDEX `nome_UNIQUE` (`nome`)
@@ -446,12 +448,12 @@ CREATE TABLE `resposta`
 	BTREE INDEX `fk_resposta_alternativa_idx` (`alternativa_id`),
 	BTREE INDEX `fk_resposta_coleta_pesquisa_idx` (`coleta_pesquisa_id`),
 	BTREE INDEX `fk_resposta_pergunta_idx` (`pergunta_id`),
-	CONSTRAINT `fk_resposta_opcao_escolhida`
-		FOREIGN KEY (`alternativa_id`)
-		REFERENCES `alternativa` (`id`),
 	CONSTRAINT `fk_resposta_formulario`
 		FOREIGN KEY (`coleta_pesquisa_id`)
 		REFERENCES `coleta_pesquisa` (`id`),
+	CONSTRAINT `fk_resposta_opcao_escolhida`
+		FOREIGN KEY (`alternativa_id`)
+		REFERENCES `alternativa` (`id`),
 	CONSTRAINT `fk_resposta_pergunta`
 		FOREIGN KEY (`pergunta_id`)
 		REFERENCES `pergunta` (`id`)
@@ -473,12 +475,12 @@ CREATE TABLE `resposta_forum`
 	PRIMARY KEY (`id`),
 	BTREE INDEX `fk_resposta_forum_usuario_idx` (`usuario_id`),
 	BTREE INDEX `fk_resposta_forum_forum_idx` (`forum_id`),
-	CONSTRAINT `fk_resposta_forum_usuario`
-		FOREIGN KEY (`usuario_id`)
-		REFERENCES `usuario` (`id`),
 	CONSTRAINT `fk_resposta_forum_forum`
 		FOREIGN KEY (`forum_id`)
-		REFERENCES `forum` (`id`)
+		REFERENCES `forum` (`id`),
+	CONSTRAINT `fk_resposta_forum_usuario`
+		FOREIGN KEY (`usuario_id`)
+		REFERENCES `usuario` (`id`)
 ) ENGINE=InnoDB CHECKSUM='';
 
 -- ---------------------------------------------------------------------
@@ -499,14 +501,14 @@ CREATE TABLE `solicitacao_resgate`
 	BTREE INDEX `fk_solicitacao_resgate_usuario_idx` (`solicitante_id`),
 	BTREE INDEX `fk_solicitacao_resgate_premio_idx` (`premio_id`),
 	BTREE INDEX `fk_solicitacao_resgate_aprovador_idx` (`aprovador_id`),
-	CONSTRAINT `fk_solicitacao_resgate_solicitante`
-		FOREIGN KEY (`solicitante_id`)
+	CONSTRAINT `fk_solicitacao_resgate_aprovador`
+		FOREIGN KEY (`aprovador_id`)
 		REFERENCES `usuario` (`id`),
 	CONSTRAINT `fk_solicitacao_resgate_premio`
 		FOREIGN KEY (`premio_id`)
 		REFERENCES `premio` (`id`),
-	CONSTRAINT `fk_solicitacao_resgate_aprovador`
-		FOREIGN KEY (`aprovador_id`)
+	CONSTRAINT `fk_solicitacao_resgate_solicitante`
+		FOREIGN KEY (`solicitante_id`)
 		REFERENCES `usuario` (`id`)
 ) ENGINE=InnoDB CHECKSUM='';
 
@@ -526,7 +528,7 @@ CREATE TABLE `usuario`
 	`matricula` VARCHAR(55),
 	`nome` VARCHAR(200) NOT NULL,
 	`email` VARCHAR(200) NOT NULL,
-	`cpf` VARCHAR(11),
+	`dni` VARCHAR(11),
 	`data_nascimento` DATE,
 	`data_contratacao` DATE,
 	`celular` VARCHAR(11),
@@ -540,6 +542,8 @@ CREATE TABLE `usuario`
 	`ativo` TINYINT(1) DEFAULT 1 NOT NULL,
 	`tipo_acesso` enum('M','B'),
 	`estado_civil` enum('C','S','V','D'),
+	`nivel_acesso` CHAR DEFAULT '1',
+	`usuario_validado` TINYINT(1) DEFAULT 0,
 	PRIMARY KEY (`id`),
 	UNIQUE INDEX `email_UNIQUE` (`email`),
 	UNIQUE INDEX `usuario_UNIQUE` (`usuario`),

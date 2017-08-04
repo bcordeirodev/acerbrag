@@ -55,6 +55,12 @@ abstract class BasePermissao extends BaseObject  implements Persistent
 	protected $descricao;
 
 	/**
+	 * The value for the nivel field.
+	 * @var        string
+	 */
+	protected $nivel;
+
+	/**
 	 * @var        array PerfilPermissao[] Collection to store aggregation of PerfilPermissao objects.
 	 */
 	protected $collPerfilPermissaos;
@@ -128,6 +134,16 @@ abstract class BasePermissao extends BaseObject  implements Persistent
 	public function getDescricao()
 	{
 		return $this->descricao;
+	}
+
+	/**
+	 * Get the [nivel] column value.
+	 * 
+	 * @return     string
+	 */
+	public function getNivel()
+	{
+		return $this->nivel;
 	}
 
 	/**
@@ -211,6 +227,26 @@ abstract class BasePermissao extends BaseObject  implements Persistent
 	} // setDescricao()
 
 	/**
+	 * Set the value of [nivel] column.
+	 * 
+	 * @param      string $v new value
+	 * @return     Permissao The current object (for fluent API support)
+	 */
+	public function setNivel($v)
+	{
+		if ($v !== null) {
+			$v = (string) $v;
+		}
+
+		if ($this->nivel !== $v) {
+			$this->nivel = $v;
+			$this->modifiedColumns[] = PermissaoPeer::NIVEL;
+		}
+
+		return $this;
+	} // setNivel()
+
+	/**
 	 * Indicates whether the columns in this object are only set to default values.
 	 *
 	 * This method can be used in conjunction with isModified() to indicate whether an object is both
@@ -246,6 +282,7 @@ abstract class BasePermissao extends BaseObject  implements Persistent
 			$this->nome = ($row[$startcol + 1] !== null) ? (string) $row[$startcol + 1] : null;
 			$this->slug = ($row[$startcol + 2] !== null) ? (string) $row[$startcol + 2] : null;
 			$this->descricao = ($row[$startcol + 3] !== null) ? (string) $row[$startcol + 3] : null;
+			$this->nivel = ($row[$startcol + 4] !== null) ? (string) $row[$startcol + 4] : null;
 			$this->resetModified();
 
 			$this->setNew(false);
@@ -254,7 +291,7 @@ abstract class BasePermissao extends BaseObject  implements Persistent
 				$this->ensureConsistency();
 			}
 
-			return $startcol + 4; // 4 = PermissaoPeer::NUM_HYDRATE_COLUMNS.
+			return $startcol + 5; // 5 = PermissaoPeer::NUM_HYDRATE_COLUMNS.
 
 		} catch (Exception $e) {
 			throw new PropelException("Error populating Permissao object", $e);
@@ -509,6 +546,9 @@ abstract class BasePermissao extends BaseObject  implements Persistent
 		if ($this->isColumnModified(PermissaoPeer::DESCRICAO)) {
 			$modifiedColumns[':p' . $index++]  = '`DESCRICAO`';
 		}
+		if ($this->isColumnModified(PermissaoPeer::NIVEL)) {
+			$modifiedColumns[':p' . $index++]  = '`NIVEL`';
+		}
 
 		$sql = sprintf(
 			'INSERT INTO `permissao` (%s) VALUES (%s)',
@@ -531,6 +571,9 @@ abstract class BasePermissao extends BaseObject  implements Persistent
 						break;
 					case '`DESCRICAO`':						
 						$stmt->bindValue($identifier, $this->descricao, PDO::PARAM_STR);
+						break;
+					case '`NIVEL`':						
+						$stmt->bindValue($identifier, $this->nivel, PDO::PARAM_STR);
 						break;
 				}
 			}
@@ -602,6 +645,9 @@ abstract class BasePermissao extends BaseObject  implements Persistent
 			case 3:
 				return $this->getDescricao();
 				break;
+			case 4:
+				return $this->getNivel();
+				break;
 			default:
 				return null;
 				break;
@@ -635,6 +681,7 @@ abstract class BasePermissao extends BaseObject  implements Persistent
 			$keys[1] => $this->getNome(),
 			$keys[2] => $this->getSlug(),
 			$keys[3] => $this->getDescricao(),
+			$keys[4] => $this->getNivel(),
 		);
 		if ($includeForeignObjects) {
 			if (null !== $this->collPerfilPermissaos) {
@@ -683,6 +730,9 @@ abstract class BasePermissao extends BaseObject  implements Persistent
 			case 3:
 				$this->setDescricao($value);
 				break;
+			case 4:
+				$this->setNivel($value);
+				break;
 		} // switch()
 	}
 
@@ -711,6 +761,7 @@ abstract class BasePermissao extends BaseObject  implements Persistent
 		if (array_key_exists($keys[1], $arr)) $this->setNome($arr[$keys[1]]);
 		if (array_key_exists($keys[2], $arr)) $this->setSlug($arr[$keys[2]]);
 		if (array_key_exists($keys[3], $arr)) $this->setDescricao($arr[$keys[3]]);
+		if (array_key_exists($keys[4], $arr)) $this->setNivel($arr[$keys[4]]);
 	}
 
 	/**
@@ -726,6 +777,7 @@ abstract class BasePermissao extends BaseObject  implements Persistent
 		if ($this->isColumnModified(PermissaoPeer::NOME)) $criteria->add(PermissaoPeer::NOME, $this->nome);
 		if ($this->isColumnModified(PermissaoPeer::SLUG)) $criteria->add(PermissaoPeer::SLUG, $this->slug);
 		if ($this->isColumnModified(PermissaoPeer::DESCRICAO)) $criteria->add(PermissaoPeer::DESCRICAO, $this->descricao);
+		if ($this->isColumnModified(PermissaoPeer::NIVEL)) $criteria->add(PermissaoPeer::NIVEL, $this->nivel);
 
 		return $criteria;
 	}
@@ -791,6 +843,7 @@ abstract class BasePermissao extends BaseObject  implements Persistent
 		$copyObj->setNome($this->getNome());
 		$copyObj->setSlug($this->getSlug());
 		$copyObj->setDescricao($this->getDescricao());
+		$copyObj->setNivel($this->getNivel());
 
 		if ($deepCopy && !$this->startCopy) {
 			// important: temporarily setNew(false) because this affects the behavior of
@@ -1203,6 +1256,7 @@ abstract class BasePermissao extends BaseObject  implements Persistent
 		$this->nome = null;
 		$this->slug = null;
 		$this->descricao = null;
+		$this->nivel = null;
 		$this->alreadyInSave = false;
 		$this->alreadyInValidation = false;
 		$this->clearAllReferences();

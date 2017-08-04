@@ -1,14 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE settings SYSTEM "http://optimuz.interativadesenvolvimento.com.br/dtd/validation.dtd">
 <form method="post" lang="">
-	<input name="nome" label="Nome">
+	<input name="nome-perfil" label="Nome">
 		<rule name="required" />
 	</input>
-	<input name="cadastro" label="Cadastro">
+	<input name="novas-permissoes" label="Novas permissões">
+		<rule name="array" />
 		<rule name="required" />
 	</input>
-	<input name="id" label="ID">
-		<rule name="required" />
-		<rule name="number" />
-	</input>	
 </form>

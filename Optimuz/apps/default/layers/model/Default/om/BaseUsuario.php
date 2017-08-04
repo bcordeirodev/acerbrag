@@ -79,10 +79,10 @@ abstract class BaseUsuario extends BaseObject  implements Persistent
 	protected $email;
 
 	/**
-	 * The value for the cpf field.
+	 * The value for the dni field.
 	 * @var        string
 	 */
-	protected $cpf;
+	protected $dni;
 
 	/**
 	 * The value for the data_nascimento field.
@@ -164,6 +164,20 @@ abstract class BaseUsuario extends BaseObject  implements Persistent
 	protected $estado_civil;
 
 	/**
+	 * The value for the nivel_acesso field.
+	 * Note: this column has a database default value of: '1'
+	 * @var        string
+	 */
+	protected $nivel_acesso;
+
+	/**
+	 * The value for the usuario_validado field.
+	 * Note: this column has a database default value of: false
+	 * @var        boolean
+	 */
+	protected $usuario_validado;
+
+	/**
 	 * @var        Cargo
 	 */
 	protected $aCargo;
@@ -236,12 +250,12 @@ abstract class BaseUsuario extends BaseObject  implements Persistent
 	/**
 	 * @var        array SolicitacaoResgate[] Collection to store aggregation of SolicitacaoResgate objects.
 	 */
-	protected $collSolicitacaoResgatesRelatedBySolicitanteId;
+	protected $collSolicitacaoResgatesRelatedByAprovadorId;
 
 	/**
 	 * @var        array SolicitacaoResgate[] Collection to store aggregation of SolicitacaoResgate objects.
 	 */
-	protected $collSolicitacaoResgatesRelatedByAprovadorId;
+	protected $collSolicitacaoResgatesRelatedBySolicitanteId;
 
 	/**
 	 * Flag to prevent endless save loop, if this object is referenced
@@ -321,13 +335,13 @@ abstract class BaseUsuario extends BaseObject  implements Persistent
 	 * An array of objects scheduled for deletion.
 	 * @var		array
 	 */
-	protected $solicitacaoResgatesRelatedBySolicitanteIdScheduledForDeletion = null;
+	protected $solicitacaoResgatesRelatedByAprovadorIdScheduledForDeletion = null;
 
 	/**
 	 * An array of objects scheduled for deletion.
 	 * @var		array
 	 */
-	protected $solicitacaoResgatesRelatedByAprovadorIdScheduledForDeletion = null;
+	protected $solicitacaoResgatesRelatedBySolicitanteIdScheduledForDeletion = null;
 
 	/**
 	 * Applies default values to this object.
@@ -338,6 +352,8 @@ abstract class BaseUsuario extends BaseObject  implements Persistent
 	public function applyDefaultValues()
 	{
 		$this->ativo = true;
+		$this->nivel_acesso = '1';
+		$this->usuario_validado = false;
 	}
 
 	/**
@@ -431,13 +447,13 @@ abstract class BaseUsuario extends BaseObject  implements Persistent
 	}
 
 	/**
-	 * Get the [cpf] column value.
+	 * Get the [dni] column value.
 	 * 
 	 * @return     string
 	 */
-	public function getCpf()
+	public function getDni()
 	{
-		return $this->cpf;
+		return $this->dni;
 	}
 
 	/**
@@ -655,6 +671,26 @@ abstract class BaseUsuario extends BaseObject  implements Persistent
 	}
 
 	/**
+	 * Get the [nivel_acesso] column value.
+	 * 
+	 * @return     string
+	 */
+	public function getNivelAcesso()
+	{
+		return $this->nivel_acesso;
+	}
+
+	/**
+	 * Get the [usuario_validado] column value.
+	 * 
+	 * @return     boolean
+	 */
+	public function getUsuarioValidado()
+	{
+		return $this->usuario_validado;
+	}
+
+	/**
 	 * Set the value of [id] column.
 	 * 
 	 * @param      int $v new value
@@ -831,24 +867,24 @@ abstract class BaseUsuario extends BaseObject  implements Persistent
 	} // setEmail()
 
 	/**
-	 * Set the value of [cpf] column.
+	 * Set the value of [dni] column.
 	 * 
 	 * @param      string $v new value
 	 * @return     Usuario The current object (for fluent API support)
 	 */
-	public function setCpf($v)
+	public function setDni($v)
 	{
 		if ($v !== null) {
 			$v = (string) $v;
 		}
 
-		if ($this->cpf !== $v) {
-			$this->cpf = $v;
-			$this->modifiedColumns[] = UsuarioPeer::CPF;
+		if ($this->dni !== $v) {
+			$this->dni = $v;
+			$this->modifiedColumns[] = UsuarioPeer::DNI;
 		}
 
 		return $this;
-	} // setCpf()
+	} // setDni()
 
 	/**
 	 * Sets the value of [data_nascimento] column to a normalized version of the date/time value specified.
@@ -1125,6 +1161,54 @@ abstract class BaseUsuario extends BaseObject  implements Persistent
 	} // setEstadoCivil()
 
 	/**
+	 * Set the value of [nivel_acesso] column.
+	 * 
+	 * @param      string $v new value
+	 * @return     Usuario The current object (for fluent API support)
+	 */
+	public function setNivelAcesso($v)
+	{
+		if ($v !== null) {
+			$v = (string) $v;
+		}
+
+		if ($this->nivel_acesso !== $v) {
+			$this->nivel_acesso = $v;
+			$this->modifiedColumns[] = UsuarioPeer::NIVEL_ACESSO;
+		}
+
+		return $this;
+	} // setNivelAcesso()
+
+	/**
+	 * Sets the value of the [usuario_validado] column.
+	 * Non-boolean arguments are converted using the following rules:
+	 *   * 1, '1', 'true',  'on',  and 'yes' are converted to boolean true
+	 *   * 0, '0', 'false', 'off', and 'no'  are converted to boolean false
+	 * Check on string values is case insensitive (so 'FaLsE' is seen as 'false').
+	 * 
+	 * @param      boolean|integer|string $v The new value
+	 * @return     Usuario The current object (for fluent API support)
+	 */
+	public function setUsuarioValidado($v)
+	{
+		if ($v !== null) {
+			if (is_string($v)) {
+				$v = in_array(strtolower($v), array('false', 'off', '-', 'no', 'n', '0', '')) ? false : true;
+			} else {
+				$v = (boolean) $v;
+			}
+		}
+
+		if ($this->usuario_validado !== $v) {
+			$this->usuario_validado = $v;
+			$this->modifiedColumns[] = UsuarioPeer::USUARIO_VALIDADO;
+		}
+
+		return $this;
+	} // setUsuarioValidado()
+
+	/**
 	 * Indicates whether the columns in this object are only set to default values.
 	 *
 	 * This method can be used in conjunction with isModified() to indicate whether an object is both
@@ -1135,6 +1219,14 @@ abstract class BaseUsuario extends BaseObject  implements Persistent
 	public function hasOnlyDefaultValues()
 	{
 			if ($this->ativo !== true) {
+				return false;
+			}
+
+			if ($this->nivel_acesso !== '1') {
+				return false;
+			}
+
+			if ($this->usuario_validado !== false) {
 				return false;
 			}
 
@@ -1168,7 +1260,7 @@ abstract class BaseUsuario extends BaseObject  implements Persistent
 			$this->matricula = ($row[$startcol + 5] !== null) ? (string) $row[$startcol + 5] : null;
 			$this->nome = ($row[$startcol + 6] !== null) ? (string) $row[$startcol + 6] : null;
 			$this->email = ($row[$startcol + 7] !== null) ? (string) $row[$startcol + 7] : null;
-			$this->cpf = ($row[$startcol + 8] !== null) ? (string) $row[$startcol + 8] : null;
+			$this->dni = ($row[$startcol + 8] !== null) ? (string) $row[$startcol + 8] : null;
 			$this->data_nascimento = ($row[$startcol + 9] !== null) ? (string) $row[$startcol + 9] : null;
 			$this->data_contratacao = ($row[$startcol + 10] !== null) ? (string) $row[$startcol + 10] : null;
 			$this->celular = ($row[$startcol + 11] !== null) ? (string) $row[$startcol + 11] : null;
@@ -1182,6 +1274,8 @@ abstract class BaseUsuario extends BaseObject  implements Persistent
 			$this->ativo = ($row[$startcol + 19] !== null) ? (boolean) $row[$startcol + 19] : null;
 			$this->tipo_acesso = ($row[$startcol + 20] !== null) ? (string) $row[$startcol + 20] : null;
 			$this->estado_civil = ($row[$startcol + 21] !== null) ? (string) $row[$startcol + 21] : null;
+			$this->nivel_acesso = ($row[$startcol + 22] !== null) ? (string) $row[$startcol + 22] : null;
+			$this->usuario_validado = ($row[$startcol + 23] !== null) ? (boolean) $row[$startcol + 23] : null;
 			$this->resetModified();
 
 			$this->setNew(false);
@@ -1190,7 +1284,7 @@ abstract class BaseUsuario extends BaseObject  implements Persistent
 				$this->ensureConsistency();
 			}
 
-			return $startcol + 22; // 22 = UsuarioPeer::NUM_HYDRATE_COLUMNS.
+			return $startcol + 24; // 24 = UsuarioPeer::NUM_HYDRATE_COLUMNS.
 
 		} catch (Exception $e) {
 			throw new PropelException("Error populating Usuario object", $e);
@@ -1288,9 +1382,9 @@ abstract class BaseUsuario extends BaseObject  implements Persistent
 
 			$this->collRespostaForums = null;
 
-			$this->collSolicitacaoResgatesRelatedBySolicitanteId = null;
-
 			$this->collSolicitacaoResgatesRelatedByAprovadorId = null;
+
+			$this->collSolicitacaoResgatesRelatedBySolicitanteId = null;
 
 		} // if (deep)
 	}
@@ -1616,23 +1710,6 @@ abstract class BaseUsuario extends BaseObject  implements Persistent
 				}
 			}
 
-			if ($this->solicitacaoResgatesRelatedBySolicitanteIdScheduledForDeletion !== null) {
-				if (!$this->solicitacaoResgatesRelatedBySolicitanteIdScheduledForDeletion->isEmpty()) {
-					SolicitacaoResgateQuery::create()
-						->filterByPrimaryKeys($this->solicitacaoResgatesRelatedBySolicitanteIdScheduledForDeletion->getPrimaryKeys(false))
-						->delete($con);
-					$this->solicitacaoResgatesRelatedBySolicitanteIdScheduledForDeletion = null;
-				}
-			}
-
-			if ($this->collSolicitacaoResgatesRelatedBySolicitanteId !== null) {
-				foreach ($this->collSolicitacaoResgatesRelatedBySolicitanteId as $referrerFK) {
-					if (!$referrerFK->isDeleted()) {
-						$affectedRows += $referrerFK->save($con);
-					}
-				}
-			}
-
 			if ($this->solicitacaoResgatesRelatedByAprovadorIdScheduledForDeletion !== null) {
 				if (!$this->solicitacaoResgatesRelatedByAprovadorIdScheduledForDeletion->isEmpty()) {
 					SolicitacaoResgateQuery::create()
@@ -1644,6 +1721,23 @@ abstract class BaseUsuario extends BaseObject  implements Persistent
 
 			if ($this->collSolicitacaoResgatesRelatedByAprovadorId !== null) {
 				foreach ($this->collSolicitacaoResgatesRelatedByAprovadorId as $referrerFK) {
+					if (!$referrerFK->isDeleted()) {
+						$affectedRows += $referrerFK->save($con);
+					}
+				}
+			}
+
+			if ($this->solicitacaoResgatesRelatedBySolicitanteIdScheduledForDeletion !== null) {
+				if (!$this->solicitacaoResgatesRelatedBySolicitanteIdScheduledForDeletion->isEmpty()) {
+					SolicitacaoResgateQuery::create()
+						->filterByPrimaryKeys($this->solicitacaoResgatesRelatedBySolicitanteIdScheduledForDeletion->getPrimaryKeys(false))
+						->delete($con);
+					$this->solicitacaoResgatesRelatedBySolicitanteIdScheduledForDeletion = null;
+				}
+			}
+
+			if ($this->collSolicitacaoResgatesRelatedBySolicitanteId !== null) {
+				foreach ($this->collSolicitacaoResgatesRelatedBySolicitanteId as $referrerFK) {
 					if (!$referrerFK->isDeleted()) {
 						$affectedRows += $referrerFK->save($con);
 					}
@@ -1695,8 +1789,8 @@ abstract class BaseUsuario extends BaseObject  implements Persistent
 		if ($this->isColumnModified(UsuarioPeer::EMAIL)) {
 			$modifiedColumns[':p' . $index++]  = '`EMAIL`';
 		}
-		if ($this->isColumnModified(UsuarioPeer::CPF)) {
-			$modifiedColumns[':p' . $index++]  = '`CPF`';
+		if ($this->isColumnModified(UsuarioPeer::DNI)) {
+			$modifiedColumns[':p' . $index++]  = '`DNI`';
 		}
 		if ($this->isColumnModified(UsuarioPeer::DATA_NASCIMENTO)) {
 			$modifiedColumns[':p' . $index++]  = '`DATA_NASCIMENTO`';
@@ -1737,6 +1831,12 @@ abstract class BaseUsuario extends BaseObject  implements Persistent
 		if ($this->isColumnModified(UsuarioPeer::ESTADO_CIVIL)) {
 			$modifiedColumns[':p' . $index++]  = '`ESTADO_CIVIL`';
 		}
+		if ($this->isColumnModified(UsuarioPeer::NIVEL_ACESSO)) {
+			$modifiedColumns[':p' . $index++]  = '`NIVEL_ACESSO`';
+		}
+		if ($this->isColumnModified(UsuarioPeer::USUARIO_VALIDADO)) {
+			$modifiedColumns[':p' . $index++]  = '`USUARIO_VALIDADO`';
+		}
 
 		$sql = sprintf(
 			'INSERT INTO `usuario` (%s) VALUES (%s)',
@@ -1772,8 +1872,8 @@ abstract class BaseUsuario extends BaseObject  implements Persistent
 					case '`EMAIL`':						
 						$stmt->bindValue($identifier, $this->email, PDO::PARAM_STR);
 						break;
-					case '`CPF`':						
-						$stmt->bindValue($identifier, $this->cpf, PDO::PARAM_STR);
+					case '`DNI`':						
+						$stmt->bindValue($identifier, $this->dni, PDO::PARAM_STR);
 						break;
 					case '`DATA_NASCIMENTO`':						
 						$stmt->bindValue($identifier, $this->data_nascimento, PDO::PARAM_STR);
@@ -1813,6 +1913,12 @@ abstract class BaseUsuario extends BaseObject  implements Persistent
 						break;
 					case '`ESTADO_CIVIL`':						
 						$stmt->bindValue($identifier, $this->estado_civil, PDO::PARAM_STR);
+						break;
+					case '`NIVEL_ACESSO`':						
+						$stmt->bindValue($identifier, $this->nivel_acesso, PDO::PARAM_STR);
+						break;
+					case '`USUARIO_VALIDADO`':
+						$stmt->bindValue($identifier, (int) $this->usuario_validado, PDO::PARAM_INT);
 						break;
 				}
 			}
@@ -1890,7 +1996,7 @@ abstract class BaseUsuario extends BaseObject  implements Persistent
 				return $this->getEmail();
 				break;
 			case 8:
-				return $this->getCpf();
+				return $this->getDni();
 				break;
 			case 9:
 				return $this->getDataNascimento();
@@ -1931,6 +2037,12 @@ abstract class BaseUsuario extends BaseObject  implements Persistent
 			case 21:
 				return $this->getEstadoCivil();
 				break;
+			case 22:
+				return $this->getNivelAcesso();
+				break;
+			case 23:
+				return $this->getUsuarioValidado();
+				break;
 			default:
 				return null;
 				break;
@@ -1968,7 +2080,7 @@ abstract class BaseUsuario extends BaseObject  implements Persistent
 			$keys[5] => $this->getMatricula(),
 			$keys[6] => $this->getNome(),
 			$keys[7] => $this->getEmail(),
-			$keys[8] => $this->getCpf(),
+			$keys[8] => $this->getDni(),
 			$keys[9] => $this->getDataNascimento(),
 			$keys[10] => $this->getDataContratacao(),
 			$keys[11] => $this->getCelular(),
@@ -1982,6 +2094,8 @@ abstract class BaseUsuario extends BaseObject  implements Persistent
 			$keys[19] => $this->getAtivo(),
 			$keys[20] => $this->getTipoAcesso(),
 			$keys[21] => $this->getEstadoCivil(),
+			$keys[22] => $this->getNivelAcesso(),
+			$keys[23] => $this->getUsuarioValidado(),
 		);
 		if ($includeForeignObjects) {
 			if (null !== $this->aCargo) {
@@ -2026,11 +2140,11 @@ abstract class BaseUsuario extends BaseObject  implements Persistent
 			if (null !== $this->collRespostaForums) {
 				$result['RespostaForums'] = $this->collRespostaForums->toArray(null, true, $keyType, $includeLazyLoadColumns, $alreadyDumpedObjects);
 			}
-			if (null !== $this->collSolicitacaoResgatesRelatedBySolicitanteId) {
-				$result['SolicitacaoResgatesRelatedBySolicitanteId'] = $this->collSolicitacaoResgatesRelatedBySolicitanteId->toArray(null, true, $keyType, $includeLazyLoadColumns, $alreadyDumpedObjects);
-			}
 			if (null !== $this->collSolicitacaoResgatesRelatedByAprovadorId) {
 				$result['SolicitacaoResgatesRelatedByAprovadorId'] = $this->collSolicitacaoResgatesRelatedByAprovadorId->toArray(null, true, $keyType, $includeLazyLoadColumns, $alreadyDumpedObjects);
+			}
+			if (null !== $this->collSolicitacaoResgatesRelatedBySolicitanteId) {
+				$result['SolicitacaoResgatesRelatedBySolicitanteId'] = $this->collSolicitacaoResgatesRelatedBySolicitanteId->toArray(null, true, $keyType, $includeLazyLoadColumns, $alreadyDumpedObjects);
 			}
 		}
 		return $result;
@@ -2088,7 +2202,7 @@ abstract class BaseUsuario extends BaseObject  implements Persistent
 				$this->setEmail($value);
 				break;
 			case 8:
-				$this->setCpf($value);
+				$this->setDni($value);
 				break;
 			case 9:
 				$this->setDataNascimento($value);
@@ -2129,6 +2243,12 @@ abstract class BaseUsuario extends BaseObject  implements Persistent
 			case 21:
 				$this->setEstadoCivil($value);
 				break;
+			case 22:
+				$this->setNivelAcesso($value);
+				break;
+			case 23:
+				$this->setUsuarioValidado($value);
+				break;
 		} // switch()
 	}
 
@@ -2161,7 +2281,7 @@ abstract class BaseUsuario extends BaseObject  implements Persistent
 		if (array_key_exists($keys[5], $arr)) $this->setMatricula($arr[$keys[5]]);
 		if (array_key_exists($keys[6], $arr)) $this->setNome($arr[$keys[6]]);
 		if (array_key_exists($keys[7], $arr)) $this->setEmail($arr[$keys[7]]);
-		if (array_key_exists($keys[8], $arr)) $this->setCpf($arr[$keys[8]]);
+		if (array_key_exists($keys[8], $arr)) $this->setDni($arr[$keys[8]]);
 		if (array_key_exists($keys[9], $arr)) $this->setDataNascimento($arr[$keys[9]]);
 		if (array_key_exists($keys[10], $arr)) $this->setDataContratacao($arr[$keys[10]]);
 		if (array_key_exists($keys[11], $arr)) $this->setCelular($arr[$keys[11]]);
@@ -2175,6 +2295,8 @@ abstract class BaseUsuario extends BaseObject  implements Persistent
 		if (array_key_exists($keys[19], $arr)) $this->setAtivo($arr[$keys[19]]);
 		if (array_key_exists($keys[20], $arr)) $this->setTipoAcesso($arr[$keys[20]]);
 		if (array_key_exists($keys[21], $arr)) $this->setEstadoCivil($arr[$keys[21]]);
+		if (array_key_exists($keys[22], $arr)) $this->setNivelAcesso($arr[$keys[22]]);
+		if (array_key_exists($keys[23], $arr)) $this->setUsuarioValidado($arr[$keys[23]]);
 	}
 
 	/**
@@ -2194,7 +2316,7 @@ abstract class BaseUsuario extends BaseObject  implements Persistent
 		if ($this->isColumnModified(UsuarioPeer::MATRICULA)) $criteria->add(UsuarioPeer::MATRICULA, $this->matricula);
 		if ($this->isColumnModified(UsuarioPeer::NOME)) $criteria->add(UsuarioPeer::NOME, $this->nome);
 		if ($this->isColumnModified(UsuarioPeer::EMAIL)) $criteria->add(UsuarioPeer::EMAIL, $this->email);
-		if ($this->isColumnModified(UsuarioPeer::CPF)) $criteria->add(UsuarioPeer::CPF, $this->cpf);
+		if ($this->isColumnModified(UsuarioPeer::DNI)) $criteria->add(UsuarioPeer::DNI, $this->dni);
 		if ($this->isColumnModified(UsuarioPeer::DATA_NASCIMENTO)) $criteria->add(UsuarioPeer::DATA_NASCIMENTO, $this->data_nascimento);
 		if ($this->isColumnModified(UsuarioPeer::DATA_CONTRATACAO)) $criteria->add(UsuarioPeer::DATA_CONTRATACAO, $this->data_contratacao);
 		if ($this->isColumnModified(UsuarioPeer::CELULAR)) $criteria->add(UsuarioPeer::CELULAR, $this->celular);
@@ -2208,6 +2330,8 @@ abstract class BaseUsuario extends BaseObject  implements Persistent
 		if ($this->isColumnModified(UsuarioPeer::ATIVO)) $criteria->add(UsuarioPeer::ATIVO, $this->ativo);
 		if ($this->isColumnModified(UsuarioPeer::TIPO_ACESSO)) $criteria->add(UsuarioPeer::TIPO_ACESSO, $this->tipo_acesso);
 		if ($this->isColumnModified(UsuarioPeer::ESTADO_CIVIL)) $criteria->add(UsuarioPeer::ESTADO_CIVIL, $this->estado_civil);
+		if ($this->isColumnModified(UsuarioPeer::NIVEL_ACESSO)) $criteria->add(UsuarioPeer::NIVEL_ACESSO, $this->nivel_acesso);
+		if ($this->isColumnModified(UsuarioPeer::USUARIO_VALIDADO)) $criteria->add(UsuarioPeer::USUARIO_VALIDADO, $this->usuario_validado);
 
 		return $criteria;
 	}
@@ -2277,7 +2401,7 @@ abstract class BaseUsuario extends BaseObject  implements Persistent
 		$copyObj->setMatricula($this->getMatricula());
 		$copyObj->setNome($this->getNome());
 		$copyObj->setEmail($this->getEmail());
-		$copyObj->setCpf($this->getCpf());
+		$copyObj->setDni($this->getDni());
 		$copyObj->setDataNascimento($this->getDataNascimento());
 		$copyObj->setDataContratacao($this->getDataContratacao());
 		$copyObj->setCelular($this->getCelular());
@@ -2291,6 +2415,8 @@ abstract class BaseUsuario extends BaseObject  implements Persistent
 		$copyObj->setAtivo($this->getAtivo());
 		$copyObj->setTipoAcesso($this->getTipoAcesso());
 		$copyObj->setEstadoCivil($this->getEstadoCivil());
+		$copyObj->setNivelAcesso($this->getNivelAcesso());
+		$copyObj->setUsuarioValidado($this->getUsuarioValidado());
 
 		if ($deepCopy && !$this->startCopy) {
 			// important: temporarily setNew(false) because this affects the behavior of
@@ -2359,15 +2485,15 @@ abstract class BaseUsuario extends BaseObject  implements Persistent
 				}
 			}
 
-			foreach ($this->getSolicitacaoResgatesRelatedBySolicitanteId() as $relObj) {
-				if ($relObj !== $this) {  // ensure that we don't try to copy a reference to ourselves
-					$copyObj->addSolicitacaoResgateRelatedBySolicitanteId($relObj->copy($deepCopy));
-				}
-			}
-
 			foreach ($this->getSolicitacaoResgatesRelatedByAprovadorId() as $relObj) {
 				if ($relObj !== $this) {  // ensure that we don't try to copy a reference to ourselves
 					$copyObj->addSolicitacaoResgateRelatedByAprovadorId($relObj->copy($deepCopy));
+				}
+			}
+
+			foreach ($this->getSolicitacaoResgatesRelatedBySolicitanteId() as $relObj) {
+				if ($relObj !== $this) {  // ensure that we don't try to copy a reference to ourselves
+					$copyObj->addSolicitacaoResgateRelatedBySolicitanteId($relObj->copy($deepCopy));
 				}
 			}
 
@@ -2656,11 +2782,11 @@ abstract class BaseUsuario extends BaseObject  implements Persistent
 		if ('RespostaForum' == $relationName) {
 			return $this->initRespostaForums();
 		}
-		if ('SolicitacaoResgateRelatedBySolicitanteId' == $relationName) {
-			return $this->initSolicitacaoResgatesRelatedBySolicitanteId();
-		}
 		if ('SolicitacaoResgateRelatedByAprovadorId' == $relationName) {
 			return $this->initSolicitacaoResgatesRelatedByAprovadorId();
+		}
+		if ('SolicitacaoResgateRelatedBySolicitanteId' == $relationName) {
+			return $this->initSolicitacaoResgatesRelatedBySolicitanteId();
 		}
 	}
 
@@ -4295,179 +4421,6 @@ abstract class BaseUsuario extends BaseObject  implements Persistent
 	}
 
 	/**
-	 * Clears out the collSolicitacaoResgatesRelatedBySolicitanteId collection
-	 *
-	 * This does not modify the database; however, it will remove any associated objects, causing
-	 * them to be refetched by subsequent calls to accessor method.
-	 *
-	 * @return     void
-	 * @see        addSolicitacaoResgatesRelatedBySolicitanteId()
-	 */
-	public function clearSolicitacaoResgatesRelatedBySolicitanteId()
-	{
-		$this->collSolicitacaoResgatesRelatedBySolicitanteId = null; // important to set this to NULL since that means it is uninitialized
-	}
-
-	/**
-	 * Initializes the collSolicitacaoResgatesRelatedBySolicitanteId collection.
-	 *
-	 * By default this just sets the collSolicitacaoResgatesRelatedBySolicitanteId collection to an empty array (like clearcollSolicitacaoResgatesRelatedBySolicitanteId());
-	 * however, you may wish to override this method in your stub class to provide setting appropriate
-	 * to your application -- for example, setting the initial array to the values stored in database.
-	 *
-	 * @param      boolean $overrideExisting If set to true, the method call initializes
-	 *                                        the collection even if it is not empty
-	 *
-	 * @return     void
-	 */
-	public function initSolicitacaoResgatesRelatedBySolicitanteId($overrideExisting = true)
-	{
-		if (null !== $this->collSolicitacaoResgatesRelatedBySolicitanteId && !$overrideExisting) {
-			return;
-		}
-		$this->collSolicitacaoResgatesRelatedBySolicitanteId = new PropelObjectCollection();
-		$this->collSolicitacaoResgatesRelatedBySolicitanteId->setModel('SolicitacaoResgate');
-	}
-
-	/**
-	 * Gets an array of SolicitacaoResgate objects which contain a foreign key that references this object.
-	 *
-	 * If the $criteria is not null, it is used to always fetch the results from the database.
-	 * Otherwise the results are fetched from the database the first time, then cached.
-	 * Next time the same method is called without $criteria, the cached collection is returned.
-	 * If this Usuario is new, it will return
-	 * an empty collection or the current collection; the criteria is ignored on a new object.
-	 *
-	 * @param      Criteria $criteria optional Criteria object to narrow the query
-	 * @param      PropelPDO $con optional connection object
-	 * @return     PropelCollection|array SolicitacaoResgate[] List of SolicitacaoResgate objects
-	 * @throws     PropelException
-	 */
-	public function getSolicitacaoResgatesRelatedBySolicitanteId($criteria = null, PropelPDO $con = null)
-	{
-		if(null === $this->collSolicitacaoResgatesRelatedBySolicitanteId || null !== $criteria) {
-			if ($this->isNew() && null === $this->collSolicitacaoResgatesRelatedBySolicitanteId) {
-				// return empty collection
-				$this->initSolicitacaoResgatesRelatedBySolicitanteId();
-			} else {
-				$collSolicitacaoResgatesRelatedBySolicitanteId = SolicitacaoResgateQuery::create(null, $criteria)
-					->filterByUsuarioRelatedBySolicitanteId($this)
-					->find($con);
-				if (null !== $criteria) {
-					return $collSolicitacaoResgatesRelatedBySolicitanteId;
-				}
-				$this->collSolicitacaoResgatesRelatedBySolicitanteId = $collSolicitacaoResgatesRelatedBySolicitanteId;
-			}
-		}
-		return $this->collSolicitacaoResgatesRelatedBySolicitanteId;
-	}
-
-	/**
-	 * Sets a collection of SolicitacaoResgateRelatedBySolicitanteId objects related by a one-to-many relationship
-	 * to the current object.
-	 * It will also schedule objects for deletion based on a diff between old objects (aka persisted)
-	 * and new objects from the given Propel collection.
-	 *
-	 * @param      PropelCollection $solicitacaoResgatesRelatedBySolicitanteId A Propel collection.
-	 * @param      PropelPDO $con Optional connection object
-	 */
-	public function setSolicitacaoResgatesRelatedBySolicitanteId(PropelCollection $solicitacaoResgatesRelatedBySolicitanteId, PropelPDO $con = null)
-	{
-		$this->solicitacaoResgatesRelatedBySolicitanteIdScheduledForDeletion = $this->getSolicitacaoResgatesRelatedBySolicitanteId(new Criteria(), $con)->diff($solicitacaoResgatesRelatedBySolicitanteId);
-
-		foreach ($solicitacaoResgatesRelatedBySolicitanteId as $solicitacaoResgateRelatedBySolicitanteId) {
-			// Fix issue with collection modified by reference
-			if ($solicitacaoResgateRelatedBySolicitanteId->isNew()) {
-				$solicitacaoResgateRelatedBySolicitanteId->setUsuarioRelatedBySolicitanteId($this);
-			}
-			$this->addSolicitacaoResgateRelatedBySolicitanteId($solicitacaoResgateRelatedBySolicitanteId);
-		}
-
-		$this->collSolicitacaoResgatesRelatedBySolicitanteId = $solicitacaoResgatesRelatedBySolicitanteId;
-	}
-
-	/**
-	 * Returns the number of related SolicitacaoResgate objects.
-	 *
-	 * @param      Criteria $criteria
-	 * @param      boolean $distinct
-	 * @param      PropelPDO $con
-	 * @return     int Count of related SolicitacaoResgate objects.
-	 * @throws     PropelException
-	 */
-	public function countSolicitacaoResgatesRelatedBySolicitanteId(Criteria $criteria = null, $distinct = false, PropelPDO $con = null)
-	{
-		if(null === $this->collSolicitacaoResgatesRelatedBySolicitanteId || null !== $criteria) {
-			if ($this->isNew() && null === $this->collSolicitacaoResgatesRelatedBySolicitanteId) {
-				return 0;
-			} else {
-				$query = SolicitacaoResgateQuery::create(null, $criteria);
-				if($distinct) {
-					$query->distinct();
-				}
-				return $query
-					->filterByUsuarioRelatedBySolicitanteId($this)
-					->count($con);
-			}
-		} else {
-			return count($this->collSolicitacaoResgatesRelatedBySolicitanteId);
-		}
-	}
-
-	/**
-	 * Method called to associate a SolicitacaoResgate object to this object
-	 * through the SolicitacaoResgate foreign key attribute.
-	 *
-	 * @param      SolicitacaoResgate $l SolicitacaoResgate
-	 * @return     Usuario The current object (for fluent API support)
-	 */
-	public function addSolicitacaoResgateRelatedBySolicitanteId(SolicitacaoResgate $l)
-	{
-		if ($this->collSolicitacaoResgatesRelatedBySolicitanteId === null) {
-			$this->initSolicitacaoResgatesRelatedBySolicitanteId();
-		}
-		if (!$this->collSolicitacaoResgatesRelatedBySolicitanteId->contains($l)) { // only add it if the **same** object is not already associated
-			$this->doAddSolicitacaoResgateRelatedBySolicitanteId($l);
-		}
-
-		return $this;
-	}
-
-	/**
-	 * @param	SolicitacaoResgateRelatedBySolicitanteId $solicitacaoResgateRelatedBySolicitanteId The solicitacaoResgateRelatedBySolicitanteId object to add.
-	 */
-	protected function doAddSolicitacaoResgateRelatedBySolicitanteId($solicitacaoResgateRelatedBySolicitanteId)
-	{
-		$this->collSolicitacaoResgatesRelatedBySolicitanteId[]= $solicitacaoResgateRelatedBySolicitanteId;
-		$solicitacaoResgateRelatedBySolicitanteId->setUsuarioRelatedBySolicitanteId($this);
-	}
-
-
-	/**
-	 * If this collection has already been initialized with
-	 * an identical criteria, it returns the collection.
-	 * Otherwise if this Usuario is new, it will return
-	 * an empty collection; or if this Usuario has previously
-	 * been saved, it will retrieve related SolicitacaoResgatesRelatedBySolicitanteId from storage.
-	 *
-	 * This method is protected by default in order to keep the public
-	 * api reasonable.  You can provide public methods for those you
-	 * actually need in Usuario.
-	 *
-	 * @param      Criteria $criteria optional Criteria object to narrow the query
-	 * @param      PropelPDO $con optional connection object
-	 * @param      string $join_behavior optional join type to use (defaults to Criteria::LEFT_JOIN)
-	 * @return     PropelCollection|array SolicitacaoResgate[] List of SolicitacaoResgate objects
-	 */
-	public function getSolicitacaoResgatesRelatedBySolicitanteIdJoinPremio($criteria = null, $con = null, $join_behavior = Criteria::LEFT_JOIN)
-	{
-		$query = SolicitacaoResgateQuery::create(null, $criteria);
-		$query->joinWith('Premio', $join_behavior);
-
-		return $this->getSolicitacaoResgatesRelatedBySolicitanteId($query, $con);
-	}
-
-	/**
 	 * Clears out the collSolicitacaoResgatesRelatedByAprovadorId collection
 	 *
 	 * This does not modify the database; however, it will remove any associated objects, causing
@@ -4641,6 +4594,179 @@ abstract class BaseUsuario extends BaseObject  implements Persistent
 	}
 
 	/**
+	 * Clears out the collSolicitacaoResgatesRelatedBySolicitanteId collection
+	 *
+	 * This does not modify the database; however, it will remove any associated objects, causing
+	 * them to be refetched by subsequent calls to accessor method.
+	 *
+	 * @return     void
+	 * @see        addSolicitacaoResgatesRelatedBySolicitanteId()
+	 */
+	public function clearSolicitacaoResgatesRelatedBySolicitanteId()
+	{
+		$this->collSolicitacaoResgatesRelatedBySolicitanteId = null; // important to set this to NULL since that means it is uninitialized
+	}
+
+	/**
+	 * Initializes the collSolicitacaoResgatesRelatedBySolicitanteId collection.
+	 *
+	 * By default this just sets the collSolicitacaoResgatesRelatedBySolicitanteId collection to an empty array (like clearcollSolicitacaoResgatesRelatedBySolicitanteId());
+	 * however, you may wish to override this method in your stub class to provide setting appropriate
+	 * to your application -- for example, setting the initial array to the values stored in database.
+	 *
+	 * @param      boolean $overrideExisting If set to true, the method call initializes
+	 *                                        the collection even if it is not empty
+	 *
+	 * @return     void
+	 */
+	public function initSolicitacaoResgatesRelatedBySolicitanteId($overrideExisting = true)
+	{
+		if (null !== $this->collSolicitacaoResgatesRelatedBySolicitanteId && !$overrideExisting) {
+			return;
+		}
+		$this->collSolicitacaoResgatesRelatedBySolicitanteId = new PropelObjectCollection();
+		$this->collSolicitacaoResgatesRelatedBySolicitanteId->setModel('SolicitacaoResgate');
+	}
+
+	/**
+	 * Gets an array of SolicitacaoResgate objects which contain a foreign key that references this object.
+	 *
+	 * If the $criteria is not null, it is used to always fetch the results from the database.
+	 * Otherwise the results are fetched from the database the first time, then cached.
+	 * Next time the same method is called without $criteria, the cached collection is returned.
+	 * If this Usuario is new, it will return
+	 * an empty collection or the current collection; the criteria is ignored on a new object.
+	 *
+	 * @param      Criteria $criteria optional Criteria object to narrow the query
+	 * @param      PropelPDO $con optional connection object
+	 * @return     PropelCollection|array SolicitacaoResgate[] List of SolicitacaoResgate objects
+	 * @throws     PropelException
+	 */
+	public function getSolicitacaoResgatesRelatedBySolicitanteId($criteria = null, PropelPDO $con = null)
+	{
+		if(null === $this->collSolicitacaoResgatesRelatedBySolicitanteId || null !== $criteria) {
+			if ($this->isNew() && null === $this->collSolicitacaoResgatesRelatedBySolicitanteId) {
+				// return empty collection
+				$this->initSolicitacaoResgatesRelatedBySolicitanteId();
+			} else {
+				$collSolicitacaoResgatesRelatedBySolicitanteId = SolicitacaoResgateQuery::create(null, $criteria)
+					->filterByUsuarioRelatedBySolicitanteId($this)
+					->find($con);
+				if (null !== $criteria) {
+					return $collSolicitacaoResgatesRelatedBySolicitanteId;
+				}
+				$this->collSolicitacaoResgatesRelatedBySolicitanteId = $collSolicitacaoResgatesRelatedBySolicitanteId;
+			}
+		}
+		return $this->collSolicitacaoResgatesRelatedBySolicitanteId;
+	}
+
+	/**
+	 * Sets a collection of SolicitacaoResgateRelatedBySolicitanteId objects related by a one-to-many relationship
+	 * to the current object.
+	 * It will also schedule objects for deletion based on a diff between old objects (aka persisted)
+	 * and new objects from the given Propel collection.
+	 *
+	 * @param      PropelCollection $solicitacaoResgatesRelatedBySolicitanteId A Propel collection.
+	 * @param      PropelPDO $con Optional connection object
+	 */
+	public function setSolicitacaoResgatesRelatedBySolicitanteId(PropelCollection $solicitacaoResgatesRelatedBySolicitanteId, PropelPDO $con = null)
+	{
+		$this->solicitacaoResgatesRelatedBySolicitanteIdScheduledForDeletion = $this->getSolicitacaoResgatesRelatedBySolicitanteId(new Criteria(), $con)->diff($solicitacaoResgatesRelatedBySolicitanteId);
+
+		foreach ($solicitacaoResgatesRelatedBySolicitanteId as $solicitacaoResgateRelatedBySolicitanteId) {
+			// Fix issue with collection modified by reference
+			if ($solicitacaoResgateRelatedBySolicitanteId->isNew()) {
+				$solicitacaoResgateRelatedBySolicitanteId->setUsuarioRelatedBySolicitanteId($this);
+			}
+			$this->addSolicitacaoResgateRelatedBySolicitanteId($solicitacaoResgateRelatedBySolicitanteId);
+		}
+
+		$this->collSolicitacaoResgatesRelatedBySolicitanteId = $solicitacaoResgatesRelatedBySolicitanteId;
+	}
+
+	/**
+	 * Returns the number of related SolicitacaoResgate objects.
+	 *
+	 * @param      Criteria $criteria
+	 * @param      boolean $distinct
+	 * @param      PropelPDO $con
+	 * @return     int Count of related SolicitacaoResgate objects.
+	 * @throws     PropelException
+	 */
+	public function countSolicitacaoResgatesRelatedBySolicitanteId(Criteria $criteria = null, $distinct = false, PropelPDO $con = null)
+	{
+		if(null === $this->collSolicitacaoResgatesRelatedBySolicitanteId || null !== $criteria) {
+			if ($this->isNew() && null === $this->collSolicitacaoResgatesRelatedBySolicitanteId) {
+				return 0;
+			} else {
+				$query = SolicitacaoResgateQuery::create(null, $criteria);
+				if($distinct) {
+					$query->distinct();
+				}
+				return $query
+					->filterByUsuarioRelatedBySolicitanteId($this)
+					->count($con);
+			}
+		} else {
+			return count($this->collSolicitacaoResgatesRelatedBySolicitanteId);
+		}
+	}
+
+	/**
+	 * Method called to associate a SolicitacaoResgate object to this object
+	 * through the SolicitacaoResgate foreign key attribute.
+	 *
+	 * @param      SolicitacaoResgate $l SolicitacaoResgate
+	 * @return     Usuario The current object (for fluent API support)
+	 */
+	public function addSolicitacaoResgateRelatedBySolicitanteId(SolicitacaoResgate $l)
+	{
+		if ($this->collSolicitacaoResgatesRelatedBySolicitanteId === null) {
+			$this->initSolicitacaoResgatesRelatedBySolicitanteId();
+		}
+		if (!$this->collSolicitacaoResgatesRelatedBySolicitanteId->contains($l)) { // only add it if the **same** object is not already associated
+			$this->doAddSolicitacaoResgateRelatedBySolicitanteId($l);
+		}
+
+		return $this;
+	}
+
+	/**
+	 * @param	SolicitacaoResgateRelatedBySolicitanteId $solicitacaoResgateRelatedBySolicitanteId The solicitacaoResgateRelatedBySolicitanteId object to add.
+	 */
+	protected function doAddSolicitacaoResgateRelatedBySolicitanteId($solicitacaoResgateRelatedBySolicitanteId)
+	{
+		$this->collSolicitacaoResgatesRelatedBySolicitanteId[]= $solicitacaoResgateRelatedBySolicitanteId;
+		$solicitacaoResgateRelatedBySolicitanteId->setUsuarioRelatedBySolicitanteId($this);
+	}
+
+
+	/**
+	 * If this collection has already been initialized with
+	 * an identical criteria, it returns the collection.
+	 * Otherwise if this Usuario is new, it will return
+	 * an empty collection; or if this Usuario has previously
+	 * been saved, it will retrieve related SolicitacaoResgatesRelatedBySolicitanteId from storage.
+	 *
+	 * This method is protected by default in order to keep the public
+	 * api reasonable.  You can provide public methods for those you
+	 * actually need in Usuario.
+	 *
+	 * @param      Criteria $criteria optional Criteria object to narrow the query
+	 * @param      PropelPDO $con optional connection object
+	 * @param      string $join_behavior optional join type to use (defaults to Criteria::LEFT_JOIN)
+	 * @return     PropelCollection|array SolicitacaoResgate[] List of SolicitacaoResgate objects
+	 */
+	public function getSolicitacaoResgatesRelatedBySolicitanteIdJoinPremio($criteria = null, $con = null, $join_behavior = Criteria::LEFT_JOIN)
+	{
+		$query = SolicitacaoResgateQuery::create(null, $criteria);
+		$query->joinWith('Premio', $join_behavior);
+
+		return $this->getSolicitacaoResgatesRelatedBySolicitanteId($query, $con);
+	}
+
+	/**
 	 * Clears the current object and sets all attributes to their default values
 	 */
 	public function clear()
@@ -4653,7 +4779,7 @@ abstract class BaseUsuario extends BaseObject  implements Persistent
 		$this->matricula = null;
 		$this->nome = null;
 		$this->email = null;
-		$this->cpf = null;
+		$this->dni = null;
 		$this->data_nascimento = null;
 		$this->data_contratacao = null;
 		$this->celular = null;
@@ -4667,6 +4793,8 @@ abstract class BaseUsuario extends BaseObject  implements Persistent
 		$this->ativo = null;
 		$this->tipo_acesso = null;
 		$this->estado_civil = null;
+		$this->nivel_acesso = null;
+		$this->usuario_validado = null;
 		$this->alreadyInSave = false;
 		$this->alreadyInValidation = false;
 		$this->clearAllReferences();
@@ -4738,13 +4866,13 @@ abstract class BaseUsuario extends BaseObject  implements Persistent
 					$o->clearAllReferences($deep);
 				}
 			}
-			if ($this->collSolicitacaoResgatesRelatedBySolicitanteId) {
-				foreach ($this->collSolicitacaoResgatesRelatedBySolicitanteId as $o) {
+			if ($this->collSolicitacaoResgatesRelatedByAprovadorId) {
+				foreach ($this->collSolicitacaoResgatesRelatedByAprovadorId as $o) {
 					$o->clearAllReferences($deep);
 				}
 			}
-			if ($this->collSolicitacaoResgatesRelatedByAprovadorId) {
-				foreach ($this->collSolicitacaoResgatesRelatedByAprovadorId as $o) {
+			if ($this->collSolicitacaoResgatesRelatedBySolicitanteId) {
+				foreach ($this->collSolicitacaoResgatesRelatedBySolicitanteId as $o) {
 					$o->clearAllReferences($deep);
 				}
 			}
@@ -4790,14 +4918,14 @@ abstract class BaseUsuario extends BaseObject  implements Persistent
 			$this->collRespostaForums->clearIterator();
 		}
 		$this->collRespostaForums = null;
-		if ($this->collSolicitacaoResgatesRelatedBySolicitanteId instanceof PropelCollection) {
-			$this->collSolicitacaoResgatesRelatedBySolicitanteId->clearIterator();
-		}
-		$this->collSolicitacaoResgatesRelatedBySolicitanteId = null;
 		if ($this->collSolicitacaoResgatesRelatedByAprovadorId instanceof PropelCollection) {
 			$this->collSolicitacaoResgatesRelatedByAprovadorId->clearIterator();
 		}
 		$this->collSolicitacaoResgatesRelatedByAprovadorId = null;
+		if ($this->collSolicitacaoResgatesRelatedBySolicitanteId instanceof PropelCollection) {
+			$this->collSolicitacaoResgatesRelatedBySolicitanteId->clearIterator();
+		}
+		$this->collSolicitacaoResgatesRelatedBySolicitanteId = null;
 		$this->aCargo = null;
 		$this->aDepartamento = null;
 		$this->aEndereco = null;

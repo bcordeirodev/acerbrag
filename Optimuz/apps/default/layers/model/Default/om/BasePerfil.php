@@ -43,6 +43,12 @@ abstract class BasePerfil extends BaseObject  implements Persistent
 	protected $nome;
 
 	/**
+	 * The value for the nivel field.
+	 * @var        string
+	 */
+	protected $nivel;
+
+	/**
 	 * @var        array PerfilPermissao[] Collection to store aggregation of PerfilPermissao objects.
 	 */
 	protected $collPerfilPermissaos;
@@ -110,6 +116,16 @@ abstract class BasePerfil extends BaseObject  implements Persistent
 	}
 
 	/**
+	 * Get the [nivel] column value.
+	 * 
+	 * @return     string
+	 */
+	public function getNivel()
+	{
+		return $this->nivel;
+	}
+
+	/**
 	 * Set the value of [id] column.
 	 * 
 	 * @param      int $v new value
@@ -150,6 +166,26 @@ abstract class BasePerfil extends BaseObject  implements Persistent
 	} // setNome()
 
 	/**
+	 * Set the value of [nivel] column.
+	 * 
+	 * @param      string $v new value
+	 * @return     Perfil The current object (for fluent API support)
+	 */
+	public function setNivel($v)
+	{
+		if ($v !== null) {
+			$v = (string) $v;
+		}
+
+		if ($this->nivel !== $v) {
+			$this->nivel = $v;
+			$this->modifiedColumns[] = PerfilPeer::NIVEL;
+		}
+
+		return $this;
+	} // setNivel()
+
+	/**
 	 * Indicates whether the columns in this object are only set to default values.
 	 *
 	 * This method can be used in conjunction with isModified() to indicate whether an object is both
@@ -183,6 +219,7 @@ abstract class BasePerfil extends BaseObject  implements Persistent
 
 			$this->id = ($row[$startcol + 0] !== null) ? (int) $row[$startcol + 0] : null;
 			$this->nome = ($row[$startcol + 1] !== null) ? (string) $row[$startcol + 1] : null;
+			$this->nivel = ($row[$startcol + 2] !== null) ? (string) $row[$startcol + 2] : null;
 			$this->resetModified();
 
 			$this->setNew(false);
@@ -191,7 +228,7 @@ abstract class BasePerfil extends BaseObject  implements Persistent
 				$this->ensureConsistency();
 			}
 
-			return $startcol + 2; // 2 = PerfilPeer::NUM_HYDRATE_COLUMNS.
+			return $startcol + 3; // 3 = PerfilPeer::NUM_HYDRATE_COLUMNS.
 
 		} catch (Exception $e) {
 			throw new PropelException("Error populating Perfil object", $e);
@@ -459,6 +496,9 @@ abstract class BasePerfil extends BaseObject  implements Persistent
 		if ($this->isColumnModified(PerfilPeer::NOME)) {
 			$modifiedColumns[':p' . $index++]  = '`NOME`';
 		}
+		if ($this->isColumnModified(PerfilPeer::NIVEL)) {
+			$modifiedColumns[':p' . $index++]  = '`NIVEL`';
+		}
 
 		$sql = sprintf(
 			'INSERT INTO `perfil` (%s) VALUES (%s)',
@@ -475,6 +515,9 @@ abstract class BasePerfil extends BaseObject  implements Persistent
 						break;
 					case '`NOME`':						
 						$stmt->bindValue($identifier, $this->nome, PDO::PARAM_STR);
+						break;
+					case '`NIVEL`':						
+						$stmt->bindValue($identifier, $this->nivel, PDO::PARAM_STR);
 						break;
 				}
 			}
@@ -540,6 +583,9 @@ abstract class BasePerfil extends BaseObject  implements Persistent
 			case 1:
 				return $this->getNome();
 				break;
+			case 2:
+				return $this->getNivel();
+				break;
 			default:
 				return null;
 				break;
@@ -571,6 +617,7 @@ abstract class BasePerfil extends BaseObject  implements Persistent
 		$result = array(
 			$keys[0] => $this->getId(),
 			$keys[1] => $this->getNome(),
+			$keys[2] => $this->getNivel(),
 		);
 		if ($includeForeignObjects) {
 			if (null !== $this->collPerfilPermissaos) {
@@ -616,6 +663,9 @@ abstract class BasePerfil extends BaseObject  implements Persistent
 			case 1:
 				$this->setNome($value);
 				break;
+			case 2:
+				$this->setNivel($value);
+				break;
 		} // switch()
 	}
 
@@ -642,6 +692,7 @@ abstract class BasePerfil extends BaseObject  implements Persistent
 
 		if (array_key_exists($keys[0], $arr)) $this->setId($arr[$keys[0]]);
 		if (array_key_exists($keys[1], $arr)) $this->setNome($arr[$keys[1]]);
+		if (array_key_exists($keys[2], $arr)) $this->setNivel($arr[$keys[2]]);
 	}
 
 	/**
@@ -655,6 +706,7 @@ abstract class BasePerfil extends BaseObject  implements Persistent
 
 		if ($this->isColumnModified(PerfilPeer::ID)) $criteria->add(PerfilPeer::ID, $this->id);
 		if ($this->isColumnModified(PerfilPeer::NOME)) $criteria->add(PerfilPeer::NOME, $this->nome);
+		if ($this->isColumnModified(PerfilPeer::NIVEL)) $criteria->add(PerfilPeer::NIVEL, $this->nivel);
 
 		return $criteria;
 	}
@@ -718,6 +770,7 @@ abstract class BasePerfil extends BaseObject  implements Persistent
 	public function copyInto($copyObj, $deepCopy = false, $makeNew = true)
 	{
 		$copyObj->setNome($this->getNome());
+		$copyObj->setNivel($this->getNivel());
 
 		if ($deepCopy && !$this->startCopy) {
 			// important: temporarily setNew(false) because this affects the behavior of
@@ -1360,6 +1413,7 @@ abstract class BasePerfil extends BaseObject  implements Persistent
 	{
 		$this->id = null;
 		$this->nome = null;
+		$this->nivel = null;
 		$this->alreadyInSave = false;
 		$this->alreadyInValidation = false;
 		$this->clearAllReferences();

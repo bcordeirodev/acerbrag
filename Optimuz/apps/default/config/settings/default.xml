@@ -63,10 +63,15 @@ otherwise it will look like /link.
 <navigation includeAppBaseUrl="true" >
 	<link label="Dashboard" title="" url="~/dashboard" mainMenu="true" isHome="true" includeHome="false" icon="mdi mdi-chart-bar"></link>
 <!--	<link label="Minha Instituição" title="" url="~/minha-instituicao" mainMenu="true" isHome="true" includeHome="false" icon="mdi mdi-church"></link>-->
-	<link label="Usuários" title="Gerenciar usuários" url="javascript:;" mainMenu="true" icon="mdi mdi-account" systemAccessController="Usuario" systemAccessPermissions="gerenciar-usuarios">
+	<link label="Usuarios" title="Gerenciar usuários" url="javascript:;" mainMenu="true" icon="mdi mdi-account" systemAccessController="Usuario" systemAccessPermissions="gerenciar-usuarios">
 		<link label="Ver todos" title="Gerenciar usuários" url="~/usuario" mainMenu="true" systemAccessPermissions="*"></link>
-		<link label="Novo" title="Permite o cadastro de um novo usuário" url="~/usuario/novo" mainMenu="true" systemAccessPermissions="*"></link>
+		<link label="Nuevo" title="Permite o cadastro de um novo usuário" url="~/usuario/nuevo" mainMenu="true" systemAccessPermissions="*"></link>
 		<link label="Ativos" title="Lista apenas os usuários ativos no sistema" url="~/usuario/ativos" mainMenu="true" systemAccessPermissions="*"></link>
 		<link label="Inativos" title="Lista apenas os usuários inativos no sistema" url="~/usuario/inativos" mainMenu="true" systemAccessPermissions="*"></link>
+	</link>
+	<link label="Registro de base" url="javascript:;" mainMenu="true" systemAccessController="CadastroBasico" icon="fa fa-puzzle-piece">
+		<link label="Perfiles" url="~/cadastro-basico/perfiles" mainMenu="true" systemAccessPermissions="gerenciar-perfis"></link>
+		<link label="Cargos" url="~/cadastro-basico/cargos" mainMenu="true" systemAccessPermissions="gerenciar-cargos"></link>
+		<link label="Departamentos" url="~/cadastro-basico/departamentos" mainMenu="true" systemAccessPermissions="gerenciar-departamentos"></link>
 	</link>
 </navigation>

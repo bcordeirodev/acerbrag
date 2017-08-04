@@ -24,17 +24,17 @@
  * @method     SolicitacaoResgateQuery rightJoin($relation) Adds a RIGHT JOIN clause to the query
  * @method     SolicitacaoResgateQuery innerJoin($relation) Adds a INNER JOIN clause to the query
  *
- * @method     SolicitacaoResgateQuery leftJoinUsuarioRelatedBySolicitanteId($relationAlias = null) Adds a LEFT JOIN clause to the query using the UsuarioRelatedBySolicitanteId relation
- * @method     SolicitacaoResgateQuery rightJoinUsuarioRelatedBySolicitanteId($relationAlias = null) Adds a RIGHT JOIN clause to the query using the UsuarioRelatedBySolicitanteId relation
- * @method     SolicitacaoResgateQuery innerJoinUsuarioRelatedBySolicitanteId($relationAlias = null) Adds a INNER JOIN clause to the query using the UsuarioRelatedBySolicitanteId relation
+ * @method     SolicitacaoResgateQuery leftJoinUsuarioRelatedByAprovadorId($relationAlias = null) Adds a LEFT JOIN clause to the query using the UsuarioRelatedByAprovadorId relation
+ * @method     SolicitacaoResgateQuery rightJoinUsuarioRelatedByAprovadorId($relationAlias = null) Adds a RIGHT JOIN clause to the query using the UsuarioRelatedByAprovadorId relation
+ * @method     SolicitacaoResgateQuery innerJoinUsuarioRelatedByAprovadorId($relationAlias = null) Adds a INNER JOIN clause to the query using the UsuarioRelatedByAprovadorId relation
  *
  * @method     SolicitacaoResgateQuery leftJoinPremio($relationAlias = null) Adds a LEFT JOIN clause to the query using the Premio relation
  * @method     SolicitacaoResgateQuery rightJoinPremio($relationAlias = null) Adds a RIGHT JOIN clause to the query using the Premio relation
  * @method     SolicitacaoResgateQuery innerJoinPremio($relationAlias = null) Adds a INNER JOIN clause to the query using the Premio relation
  *
- * @method     SolicitacaoResgateQuery leftJoinUsuarioRelatedByAprovadorId($relationAlias = null) Adds a LEFT JOIN clause to the query using the UsuarioRelatedByAprovadorId relation
- * @method     SolicitacaoResgateQuery rightJoinUsuarioRelatedByAprovadorId($relationAlias = null) Adds a RIGHT JOIN clause to the query using the UsuarioRelatedByAprovadorId relation
- * @method     SolicitacaoResgateQuery innerJoinUsuarioRelatedByAprovadorId($relationAlias = null) Adds a INNER JOIN clause to the query using the UsuarioRelatedByAprovadorId relation
+ * @method     SolicitacaoResgateQuery leftJoinUsuarioRelatedBySolicitanteId($relationAlias = null) Adds a LEFT JOIN clause to the query using the UsuarioRelatedBySolicitanteId relation
+ * @method     SolicitacaoResgateQuery rightJoinUsuarioRelatedBySolicitanteId($relationAlias = null) Adds a RIGHT JOIN clause to the query using the UsuarioRelatedBySolicitanteId relation
+ * @method     SolicitacaoResgateQuery innerJoinUsuarioRelatedBySolicitanteId($relationAlias = null) Adds a INNER JOIN clause to the query using the UsuarioRelatedBySolicitanteId relation
  *
  * @method     SolicitacaoResgate findOne(PropelPDO $con = null) Return the first SolicitacaoResgate matching the query
  * @method     SolicitacaoResgate findOneOrCreate(PropelPDO $con = null) Return the first SolicitacaoResgate matching the query, or a new SolicitacaoResgate object populated from the query conditions when no match is found
@@ -439,34 +439,34 @@ abstract class BaseSolicitacaoResgateQuery extends ModelCriteria
 	 *
 	 * @return    SolicitacaoResgateQuery The current query, for fluid interface
 	 */
-	public function filterByUsuarioRelatedBySolicitanteId($usuario, $comparison = null)
+	public function filterByUsuarioRelatedByAprovadorId($usuario, $comparison = null)
 	{
 		if ($usuario instanceof Usuario) {
 			return $this
-				->addUsingAlias(SolicitacaoResgatePeer::SOLICITANTE_ID, $usuario->getId(), $comparison);
+				->addUsingAlias(SolicitacaoResgatePeer::APROVADOR_ID, $usuario->getId(), $comparison);
 		} elseif ($usuario instanceof PropelCollection) {
 			if (null === $comparison) {
 				$comparison = Criteria::IN;
 			}
 			return $this
-				->addUsingAlias(SolicitacaoResgatePeer::SOLICITANTE_ID, $usuario->toKeyValue('PrimaryKey', 'Id'), $comparison);
+				->addUsingAlias(SolicitacaoResgatePeer::APROVADOR_ID, $usuario->toKeyValue('PrimaryKey', 'Id'), $comparison);
 		} else {
-			throw new PropelException('filterByUsuarioRelatedBySolicitanteId() only accepts arguments of type Usuario or PropelCollection');
+			throw new PropelException('filterByUsuarioRelatedByAprovadorId() only accepts arguments of type Usuario or PropelCollection');
 		}
 	}
 
 	/**
-	 * Adds a JOIN clause to the query using the UsuarioRelatedBySolicitanteId relation
+	 * Adds a JOIN clause to the query using the UsuarioRelatedByAprovadorId relation
 	 *
 	 * @param     string $relationAlias optional alias for the relation
 	 * @param     string $joinType Accepted values are null, 'left join', 'right join', 'inner join'
 	 *
 	 * @return    SolicitacaoResgateQuery The current query, for fluid interface
 	 */
-	public function joinUsuarioRelatedBySolicitanteId($relationAlias = null, $joinType = Criteria::INNER_JOIN)
+	public function joinUsuarioRelatedByAprovadorId($relationAlias = null, $joinType = Criteria::LEFT_JOIN)
 	{
 		$tableMap = $this->getTableMap();
-		$relationMap = $tableMap->getRelation('UsuarioRelatedBySolicitanteId');
+		$relationMap = $tableMap->getRelation('UsuarioRelatedByAprovadorId');
 
 		// create a ModelJoin object for this join
 		$join = new ModelJoin();
@@ -481,14 +481,14 @@ abstract class BaseSolicitacaoResgateQuery extends ModelCriteria
 			$this->addAlias($relationAlias, $relationMap->getRightTable()->getName());
 			$this->addJoinObject($join, $relationAlias);
 		} else {
-			$this->addJoinObject($join, 'UsuarioRelatedBySolicitanteId');
+			$this->addJoinObject($join, 'UsuarioRelatedByAprovadorId');
 		}
 
 		return $this;
 	}
 
 	/**
-	 * Use the UsuarioRelatedBySolicitanteId relation Usuario object
+	 * Use the UsuarioRelatedByAprovadorId relation Usuario object
 	 *
 	 * @see       useQuery()
 	 *
@@ -498,11 +498,11 @@ abstract class BaseSolicitacaoResgateQuery extends ModelCriteria
 	 *
 	 * @return    UsuarioQuery A secondary query class using the current class as primary query
 	 */
-	public function useUsuarioRelatedBySolicitanteIdQuery($relationAlias = null, $joinType = Criteria::INNER_JOIN)
+	public function useUsuarioRelatedByAprovadorIdQuery($relationAlias = null, $joinType = Criteria::LEFT_JOIN)
 	{
 		return $this
-			->joinUsuarioRelatedBySolicitanteId($relationAlias, $joinType)
-			->useQuery($relationAlias ? $relationAlias : 'UsuarioRelatedBySolicitanteId', 'UsuarioQuery');
+			->joinUsuarioRelatedByAprovadorId($relationAlias, $joinType)
+			->useQuery($relationAlias ? $relationAlias : 'UsuarioRelatedByAprovadorId', 'UsuarioQuery');
 	}
 
 	/**
@@ -587,34 +587,34 @@ abstract class BaseSolicitacaoResgateQuery extends ModelCriteria
 	 *
 	 * @return    SolicitacaoResgateQuery The current query, for fluid interface
 	 */
-	public function filterByUsuarioRelatedByAprovadorId($usuario, $comparison = null)
+	public function filterByUsuarioRelatedBySolicitanteId($usuario, $comparison = null)
 	{
 		if ($usuario instanceof Usuario) {
 			return $this
-				->addUsingAlias(SolicitacaoResgatePeer::APROVADOR_ID, $usuario->getId(), $comparison);
+				->addUsingAlias(SolicitacaoResgatePeer::SOLICITANTE_ID, $usuario->getId(), $comparison);
 		} elseif ($usuario instanceof PropelCollection) {
 			if (null === $comparison) {
 				$comparison = Criteria::IN;
 			}
 			return $this
-				->addUsingAlias(SolicitacaoResgatePeer::APROVADOR_ID, $usuario->toKeyValue('PrimaryKey', 'Id'), $comparison);
+				->addUsingAlias(SolicitacaoResgatePeer::SOLICITANTE_ID, $usuario->toKeyValue('PrimaryKey', 'Id'), $comparison);
 		} else {
-			throw new PropelException('filterByUsuarioRelatedByAprovadorId() only accepts arguments of type Usuario or PropelCollection');
+			throw new PropelException('filterByUsuarioRelatedBySolicitanteId() only accepts arguments of type Usuario or PropelCollection');
 		}
 	}
 
 	/**
-	 * Adds a JOIN clause to the query using the UsuarioRelatedByAprovadorId relation
+	 * Adds a JOIN clause to the query using the UsuarioRelatedBySolicitanteId relation
 	 *
 	 * @param     string $relationAlias optional alias for the relation
 	 * @param     string $joinType Accepted values are null, 'left join', 'right join', 'inner join'
 	 *
 	 * @return    SolicitacaoResgateQuery The current query, for fluid interface
 	 */
-	public function joinUsuarioRelatedByAprovadorId($relationAlias = null, $joinType = Criteria::LEFT_JOIN)
+	public function joinUsuarioRelatedBySolicitanteId($relationAlias = null, $joinType = Criteria::INNER_JOIN)
 	{
 		$tableMap = $this->getTableMap();
-		$relationMap = $tableMap->getRelation('UsuarioRelatedByAprovadorId');
+		$relationMap = $tableMap->getRelation('UsuarioRelatedBySolicitanteId');
 
 		// create a ModelJoin object for this join
 		$join = new ModelJoin();
@@ -629,14 +629,14 @@ abstract class BaseSolicitacaoResgateQuery extends ModelCriteria
 			$this->addAlias($relationAlias, $relationMap->getRightTable()->getName());
 			$this->addJoinObject($join, $relationAlias);
 		} else {
-			$this->addJoinObject($join, 'UsuarioRelatedByAprovadorId');
+			$this->addJoinObject($join, 'UsuarioRelatedBySolicitanteId');
 		}
 
 		return $this;
 	}
 
 	/**
-	 * Use the UsuarioRelatedByAprovadorId relation Usuario object
+	 * Use the UsuarioRelatedBySolicitanteId relation Usuario object
 	 *
 	 * @see       useQuery()
 	 *
@@ -646,11 +646,11 @@ abstract class BaseSolicitacaoResgateQuery extends ModelCriteria
 	 *
 	 * @return    UsuarioQuery A secondary query class using the current class as primary query
 	 */
-	public function useUsuarioRelatedByAprovadorIdQuery($relationAlias = null, $joinType = Criteria::LEFT_JOIN)
+	public function useUsuarioRelatedBySolicitanteIdQuery($relationAlias = null, $joinType = Criteria::INNER_JOIN)
 	{
 		return $this
-			->joinUsuarioRelatedByAprovadorId($relationAlias, $joinType)
-			->useQuery($relationAlias ? $relationAlias : 'UsuarioRelatedByAprovadorId', 'UsuarioQuery');
+			->joinUsuarioRelatedBySolicitanteId($relationAlias, $joinType)
+			->useQuery($relationAlias ? $relationAlias : 'UsuarioRelatedBySolicitanteId', 'UsuarioQuery');
 	}
 
 	/**

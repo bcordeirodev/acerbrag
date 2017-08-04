@@ -23,7 +23,7 @@
 				<div class="grid-body no-border">
 					<div class="row">
 						<div class="form-group col-md-12">
-							<label class="form-label" for="nome">Nome</label>
+							<label class="form-label" for="nome">Nombre</label>
 							<i object-type="RequiredFieldIndicatorComponent"></i>
 							<span class="help">ex. "João da Silva"</span>
 							<div class="controls">

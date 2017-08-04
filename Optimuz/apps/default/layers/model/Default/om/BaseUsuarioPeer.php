@@ -26,13 +26,13 @@ abstract class BaseUsuarioPeer {
 	const TM_CLASS = 'UsuarioTableMap';
 
 	/** The total number of columns. */
-	const NUM_COLUMNS = 22;
+	const NUM_COLUMNS = 24;
 
 	/** The number of lazy-loaded columns. */
 	const NUM_LAZY_LOAD_COLUMNS = 0;
 
 	/** The number of columns to hydrate (NUM_COLUMNS - NUM_LAZY_LOAD_COLUMNS) */
-	const NUM_HYDRATE_COLUMNS = 22;
+	const NUM_HYDRATE_COLUMNS = 24;
 
 	/** the column name for the ID field */
 	const ID = 'usuario.ID';
@@ -58,8 +58,8 @@ abstract class BaseUsuarioPeer {
 	/** the column name for the EMAIL field */
 	const EMAIL = 'usuario.EMAIL';
 
-	/** the column name for the CPF field */
-	const CPF = 'usuario.CPF';
+	/** the column name for the DNI field */
+	const DNI = 'usuario.DNI';
 
 	/** the column name for the DATA_NASCIMENTO field */
 	const DATA_NASCIMENTO = 'usuario.DATA_NASCIMENTO';
@@ -100,6 +100,12 @@ abstract class BaseUsuarioPeer {
 	/** the column name for the ESTADO_CIVIL field */
 	const ESTADO_CIVIL = 'usuario.ESTADO_CIVIL';
 
+	/** the column name for the NIVEL_ACESSO field */
+	const NIVEL_ACESSO = 'usuario.NIVEL_ACESSO';
+
+	/** the column name for the USUARIO_VALIDADO field */
+	const USUARIO_VALIDADO = 'usuario.USUARIO_VALIDADO';
+
 	/** The default string format for model objects of the related table **/
 	const DEFAULT_STRING_FORMAT = 'YAML';
 
@@ -119,12 +125,12 @@ abstract class BaseUsuarioPeer {
 	 * e.g. self::$fieldNames[self::TYPE_PHPNAME][0] = 'Id'
 	 */
 	protected static $fieldNames = array (
-		BasePeer::TYPE_PHPNAME => array ('Id', 'PerfilId', 'EnderecoId', 'CargoId', 'DepartamentoId', 'Matricula', 'Nome', 'Email', 'Cpf', 'DataNascimento', 'DataContratacao', 'Celular', 'Telefone', 'Token', 'Usuario', 'Senha', 'TokenSenha', 'TokenFirebase', 'DataRescisao', 'Ativo', 'TipoAcesso', 'EstadoCivil', ),
-		BasePeer::TYPE_STUDLYPHPNAME => array ('id', 'perfilId', 'enderecoId', 'cargoId', 'departamentoId', 'matricula', 'nome', 'email', 'cpf', 'dataNascimento', 'dataContratacao', 'celular', 'telefone', 'token', 'usuario', 'senha', 'tokenSenha', 'tokenFirebase', 'dataRescisao', 'ativo', 'tipoAcesso', 'estadoCivil', ),
-		BasePeer::TYPE_COLNAME => array (self::ID, self::PERFIL_ID, self::ENDERECO_ID, self::CARGO_ID, self::DEPARTAMENTO_ID, self::MATRICULA, self::NOME, self::EMAIL, self::CPF, self::DATA_NASCIMENTO, self::DATA_CONTRATACAO, self::CELULAR, self::TELEFONE, self::TOKEN, self::USUARIO, self::SENHA, self::TOKEN_SENHA, self::TOKEN_FIREBASE, self::DATA_RESCISAO, self::ATIVO, self::TIPO_ACESSO, self::ESTADO_CIVIL, ),
-		BasePeer::TYPE_RAW_COLNAME => array ('ID', 'PERFIL_ID', 'ENDERECO_ID', 'CARGO_ID', 'DEPARTAMENTO_ID', 'MATRICULA', 'NOME', 'EMAIL', 'CPF', 'DATA_NASCIMENTO', 'DATA_CONTRATACAO', 'CELULAR', 'TELEFONE', 'TOKEN', 'USUARIO', 'SENHA', 'TOKEN_SENHA', 'TOKEN_FIREBASE', 'DATA_RESCISAO', 'ATIVO', 'TIPO_ACESSO', 'ESTADO_CIVIL', ),
-		BasePeer::TYPE_FIELDNAME => array ('id', 'perfil_id', 'endereco_id', 'cargo_id', 'departamento_id', 'matricula', 'nome', 'email', 'cpf', 'data_nascimento', 'data_contratacao', 'celular', 'telefone', 'token', 'usuario', 'senha', 'token_senha', 'token_firebase', 'data_rescisao', 'ativo', 'tipo_acesso', 'estado_civil', ),
-		BasePeer::TYPE_NUM => array (0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, )
+		BasePeer::TYPE_PHPNAME => array ('Id', 'PerfilId', 'EnderecoId', 'CargoId', 'DepartamentoId', 'Matricula', 'Nome', 'Email', 'Dni', 'DataNascimento', 'DataContratacao', 'Celular', 'Telefone', 'Token', 'Usuario', 'Senha', 'TokenSenha', 'TokenFirebase', 'DataRescisao', 'Ativo', 'TipoAcesso', 'EstadoCivil', 'NivelAcesso', 'UsuarioValidado', ),
+		BasePeer::TYPE_STUDLYPHPNAME => array ('id', 'perfilId', 'enderecoId', 'cargoId', 'departamentoId', 'matricula', 'nome', 'email', 'dni', 'dataNascimento', 'dataContratacao', 'celular', 'telefone', 'token', 'usuario', 'senha', 'tokenSenha', 'tokenFirebase', 'dataRescisao', 'ativo', 'tipoAcesso', 'estadoCivil', 'nivelAcesso', 'usuarioValidado', ),
+		BasePeer::TYPE_COLNAME => array (self::ID, self::PERFIL_ID, self::ENDERECO_ID, self::CARGO_ID, self::DEPARTAMENTO_ID, self::MATRICULA, self::NOME, self::EMAIL, self::DNI, self::DATA_NASCIMENTO, self::DATA_CONTRATACAO, self::CELULAR, self::TELEFONE, self::TOKEN, self::USUARIO, self::SENHA, self::TOKEN_SENHA, self::TOKEN_FIREBASE, self::DATA_RESCISAO, self::ATIVO, self::TIPO_ACESSO, self::ESTADO_CIVIL, self::NIVEL_ACESSO, self::USUARIO_VALIDADO, ),
+		BasePeer::TYPE_RAW_COLNAME => array ('ID', 'PERFIL_ID', 'ENDERECO_ID', 'CARGO_ID', 'DEPARTAMENTO_ID', 'MATRICULA', 'NOME', 'EMAIL', 'DNI', 'DATA_NASCIMENTO', 'DATA_CONTRATACAO', 'CELULAR', 'TELEFONE', 'TOKEN', 'USUARIO', 'SENHA', 'TOKEN_SENHA', 'TOKEN_FIREBASE', 'DATA_RESCISAO', 'ATIVO', 'TIPO_ACESSO', 'ESTADO_CIVIL', 'NIVEL_ACESSO', 'USUARIO_VALIDADO', ),
+		BasePeer::TYPE_FIELDNAME => array ('id', 'perfil_id', 'endereco_id', 'cargo_id', 'departamento_id', 'matricula', 'nome', 'email', 'dni', 'data_nascimento', 'data_contratacao', 'celular', 'telefone', 'token', 'usuario', 'senha', 'token_senha', 'token_firebase', 'data_rescisao', 'ativo', 'tipo_acesso', 'estado_civil', 'nivel_acesso', 'usuario_validado', ),
+		BasePeer::TYPE_NUM => array (0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, )
 	);
 
 	/**
@@ -134,12 +140,12 @@ abstract class BaseUsuarioPeer {
 	 * e.g. self::$fieldNames[BasePeer::TYPE_PHPNAME]['Id'] = 0
 	 */
 	protected static $fieldKeys = array (
-		BasePeer::TYPE_PHPNAME => array ('Id' => 0, 'PerfilId' => 1, 'EnderecoId' => 2, 'CargoId' => 3, 'DepartamentoId' => 4, 'Matricula' => 5, 'Nome' => 6, 'Email' => 7, 'Cpf' => 8, 'DataNascimento' => 9, 'DataContratacao' => 10, 'Celular' => 11, 'Telefone' => 12, 'Token' => 13, 'Usuario' => 14, 'Senha' => 15, 'TokenSenha' => 16, 'TokenFirebase' => 17, 'DataRescisao' => 18, 'Ativo' => 19, 'TipoAcesso' => 20, 'EstadoCivil' => 21, ),
-		BasePeer::TYPE_STUDLYPHPNAME => array ('id' => 0, 'perfilId' => 1, 'enderecoId' => 2, 'cargoId' => 3, 'departamentoId' => 4, 'matricula' => 5, 'nome' => 6, 'email' => 7, 'cpf' => 8, 'dataNascimento' => 9, 'dataContratacao' => 10, 'celular' => 11, 'telefone' => 12, 'token' => 13, 'usuario' => 14, 'senha' => 15, 'tokenSenha' => 16, 'tokenFirebase' => 17, 'dataRescisao' => 18, 'ativo' => 19, 'tipoAcesso' => 20, 'estadoCivil' => 21, ),
-		BasePeer::TYPE_COLNAME => array (self::ID => 0, self::PERFIL_ID => 1, self::ENDERECO_ID => 2, self::CARGO_ID => 3, self::DEPARTAMENTO_ID => 4, self::MATRICULA => 5, self::NOME => 6, self::EMAIL => 7, self::CPF => 8, self::DATA_NASCIMENTO => 9, self::DATA_CONTRATACAO => 10, self::CELULAR => 11, self::TELEFONE => 12, self::TOKEN => 13, self::USUARIO => 14, self::SENHA => 15, self::TOKEN_SENHA => 16, self::TOKEN_FIREBASE => 17, self::DATA_RESCISAO => 18, self::ATIVO => 19, self::TIPO_ACESSO => 20, self::ESTADO_CIVIL => 21, ),
-		BasePeer::TYPE_RAW_COLNAME => array ('ID' => 0, 'PERFIL_ID' => 1, 'ENDERECO_ID' => 2, 'CARGO_ID' => 3, 'DEPARTAMENTO_ID' => 4, 'MATRICULA' => 5, 'NOME' => 6, 'EMAIL' => 7, 'CPF' => 8, 'DATA_NASCIMENTO' => 9, 'DATA_CONTRATACAO' => 10, 'CELULAR' => 11, 'TELEFONE' => 12, 'TOKEN' => 13, 'USUARIO' => 14, 'SENHA' => 15, 'TOKEN_SENHA' => 16, 'TOKEN_FIREBASE' => 17, 'DATA_RESCISAO' => 18, 'ATIVO' => 19, 'TIPO_ACESSO' => 20, 'ESTADO_CIVIL' => 21, ),
-		BasePeer::TYPE_FIELDNAME => array ('id' => 0, 'perfil_id' => 1, 'endereco_id' => 2, 'cargo_id' => 3, 'departamento_id' => 4, 'matricula' => 5, 'nome' => 6, 'email' => 7, 'cpf' => 8, 'data_nascimento' => 9, 'data_contratacao' => 10, 'celular' => 11, 'telefone' => 12, 'token' => 13, 'usuario' => 14, 'senha' => 15, 'token_senha' => 16, 'token_firebase' => 17, 'data_rescisao' => 18, 'ativo' => 19, 'tipo_acesso' => 20, 'estado_civil' => 21, ),
-		BasePeer::TYPE_NUM => array (0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, )
+		BasePeer::TYPE_PHPNAME => array ('Id' => 0, 'PerfilId' => 1, 'EnderecoId' => 2, 'CargoId' => 3, 'DepartamentoId' => 4, 'Matricula' => 5, 'Nome' => 6, 'Email' => 7, 'Dni' => 8, 'DataNascimento' => 9, 'DataContratacao' => 10, 'Celular' => 11, 'Telefone' => 12, 'Token' => 13, 'Usuario' => 14, 'Senha' => 15, 'TokenSenha' => 16, 'TokenFirebase' => 17, 'DataRescisao' => 18, 'Ativo' => 19, 'TipoAcesso' => 20, 'EstadoCivil' => 21, 'NivelAcesso' => 22, 'UsuarioValidado' => 23, ),
+		BasePeer::TYPE_STUDLYPHPNAME => array ('id' => 0, 'perfilId' => 1, 'enderecoId' => 2, 'cargoId' => 3, 'departamentoId' => 4, 'matricula' => 5, 'nome' => 6, 'email' => 7, 'dni' => 8, 'dataNascimento' => 9, 'dataContratacao' => 10, 'celular' => 11, 'telefone' => 12, 'token' => 13, 'usuario' => 14, 'senha' => 15, 'tokenSenha' => 16, 'tokenFirebase' => 17, 'dataRescisao' => 18, 'ativo' => 19, 'tipoAcesso' => 20, 'estadoCivil' => 21, 'nivelAcesso' => 22, 'usuarioValidado' => 23, ),
+		BasePeer::TYPE_COLNAME => array (self::ID => 0, self::PERFIL_ID => 1, self::ENDERECO_ID => 2, self::CARGO_ID => 3, self::DEPARTAMENTO_ID => 4, self::MATRICULA => 5, self::NOME => 6, self::EMAIL => 7, self::DNI => 8, self::DATA_NASCIMENTO => 9, self::DATA_CONTRATACAO => 10, self::CELULAR => 11, self::TELEFONE => 12, self::TOKEN => 13, self::USUARIO => 14, self::SENHA => 15, self::TOKEN_SENHA => 16, self::TOKEN_FIREBASE => 17, self::DATA_RESCISAO => 18, self::ATIVO => 19, self::TIPO_ACESSO => 20, self::ESTADO_CIVIL => 21, self::NIVEL_ACESSO => 22, self::USUARIO_VALIDADO => 23, ),
+		BasePeer::TYPE_RAW_COLNAME => array ('ID' => 0, 'PERFIL_ID' => 1, 'ENDERECO_ID' => 2, 'CARGO_ID' => 3, 'DEPARTAMENTO_ID' => 4, 'MATRICULA' => 5, 'NOME' => 6, 'EMAIL' => 7, 'DNI' => 8, 'DATA_NASCIMENTO' => 9, 'DATA_CONTRATACAO' => 10, 'CELULAR' => 11, 'TELEFONE' => 12, 'TOKEN' => 13, 'USUARIO' => 14, 'SENHA' => 15, 'TOKEN_SENHA' => 16, 'TOKEN_FIREBASE' => 17, 'DATA_RESCISAO' => 18, 'ATIVO' => 19, 'TIPO_ACESSO' => 20, 'ESTADO_CIVIL' => 21, 'NIVEL_ACESSO' => 22, 'USUARIO_VALIDADO' => 23, ),
+		BasePeer::TYPE_FIELDNAME => array ('id' => 0, 'perfil_id' => 1, 'endereco_id' => 2, 'cargo_id' => 3, 'departamento_id' => 4, 'matricula' => 5, 'nome' => 6, 'email' => 7, 'dni' => 8, 'data_nascimento' => 9, 'data_contratacao' => 10, 'celular' => 11, 'telefone' => 12, 'token' => 13, 'usuario' => 14, 'senha' => 15, 'token_senha' => 16, 'token_firebase' => 17, 'data_rescisao' => 18, 'ativo' => 19, 'tipo_acesso' => 20, 'estado_civil' => 21, 'nivel_acesso' => 22, 'usuario_validado' => 23, ),
+		BasePeer::TYPE_NUM => array (0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, )
 	);
 
 	/**
@@ -219,7 +225,7 @@ abstract class BaseUsuarioPeer {
 			$criteria->addSelectColumn(UsuarioPeer::MATRICULA);
 			$criteria->addSelectColumn(UsuarioPeer::NOME);
 			$criteria->addSelectColumn(UsuarioPeer::EMAIL);
-			$criteria->addSelectColumn(UsuarioPeer::CPF);
+			$criteria->addSelectColumn(UsuarioPeer::DNI);
 			$criteria->addSelectColumn(UsuarioPeer::DATA_NASCIMENTO);
 			$criteria->addSelectColumn(UsuarioPeer::DATA_CONTRATACAO);
 			$criteria->addSelectColumn(UsuarioPeer::CELULAR);
@@ -233,6 +239,8 @@ abstract class BaseUsuarioPeer {
 			$criteria->addSelectColumn(UsuarioPeer::ATIVO);
 			$criteria->addSelectColumn(UsuarioPeer::TIPO_ACESSO);
 			$criteria->addSelectColumn(UsuarioPeer::ESTADO_CIVIL);
+			$criteria->addSelectColumn(UsuarioPeer::NIVEL_ACESSO);
+			$criteria->addSelectColumn(UsuarioPeer::USUARIO_VALIDADO);
 		} else {
 			$criteria->addSelectColumn($alias . '.ID');
 			$criteria->addSelectColumn($alias . '.PERFIL_ID');
@@ -242,7 +250,7 @@ abstract class BaseUsuarioPeer {
 			$criteria->addSelectColumn($alias . '.MATRICULA');
 			$criteria->addSelectColumn($alias . '.NOME');
 			$criteria->addSelectColumn($alias . '.EMAIL');
-			$criteria->addSelectColumn($alias . '.CPF');
+			$criteria->addSelectColumn($alias . '.DNI');
 			$criteria->addSelectColumn($alias . '.DATA_NASCIMENTO');
 			$criteria->addSelectColumn($alias . '.DATA_CONTRATACAO');
 			$criteria->addSelectColumn($alias . '.CELULAR');
@@ -256,6 +264,8 @@ abstract class BaseUsuarioPeer {
 			$criteria->addSelectColumn($alias . '.ATIVO');
 			$criteria->addSelectColumn($alias . '.TIPO_ACESSO');
 			$criteria->addSelectColumn($alias . '.ESTADO_CIVIL');
+			$criteria->addSelectColumn($alias . '.NIVEL_ACESSO');
+			$criteria->addSelectColumn($alias . '.USUARIO_VALIDADO');
 		}
 	}
 

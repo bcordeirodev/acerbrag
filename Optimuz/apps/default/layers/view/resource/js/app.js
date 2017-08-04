@@ -983,4 +983,12 @@ $(function(){
 		if(numsStr.length > 1 && !cpfIsValid(numsStr))
 			setInputError(input.parent(), 'Informe um cpf válido.');
 	});
+
+	/*
+	 * Transforma a lista apresentada clicavel.
+	 */
+	$('body').delegate('.clickable-list li', 'click', function(){
+		$(this).parent().find('.actived').removeClass('actived');
+		$(this).addClass('actived');
+	});
 });

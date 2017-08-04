@@ -7,7 +7,7 @@
 	<div class="col-md-4 text-right no-padding">
 		<a href="~/usuario" class="m-l-10 btn btn-white" object-type="HtmlLink"><i class="mdi mdi-keyboard-backspace"></i> Voltar</a>
 		<a href="" id="js-history-link" class="m-l-10 btn btn-success" object-type="HtmlLink"><i class="mdi mdi-file text-white"></i> Histórico</a>
-		<a href="~/usuario/novo" id="js-new-user" class="m-l-10 btn btn-success" object-type="HtmlLink"><i class="mdi mdi-plus text-white"></i> Novo</a>
+		<a href="~/usuario/novo" id="js-new-user" class="m-l-10 btn btn-success" object-type="HtmlLink"><i class="mdi mdi-plus text-white"></i> Nuevo</a>
 		<a href="" id="js-edit-user" class="m-l-10 btn btn-success" object-type="HtmlLink"><i class="mdi mdi-file-multiple text-white"></i> Editar</a>
 	</div>
 </div>
@@ -24,7 +24,7 @@
 				<div class="grid-body no-border">
 					<div class="row">
 						<div class="form-group col-md-12">
-							<label class="form-label" for="nome">Nome</label>
+							<label class="form-label" for="nome">Nombre</label>
 							<i object-type="RequiredFieldIndicatorComponent"></i>
 							<span class="help">ex. "João da Silva"</span>
 							<div class="controls">

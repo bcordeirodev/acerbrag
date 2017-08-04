@@ -56,8 +56,8 @@ class PerguntaTableMap extends TableMap
 	 */
 	public function buildRelations()
 	{
-		$this->addRelation('Pesquisa', 'Pesquisa', RelationMap::MANY_TO_ONE, array('pesquisa_id' => 'id', ), null, null);
 		$this->addRelation('Categoria', 'Categoria', RelationMap::MANY_TO_ONE, array('categoria_id' => 'id', ), null, null);
+		$this->addRelation('Pesquisa', 'Pesquisa', RelationMap::MANY_TO_ONE, array('pesquisa_id' => 'id', ), null, null);
 		$this->addRelation('Alternativa', 'Alternativa', RelationMap::ONE_TO_MANY, array('id' => 'pergunta_id', ), null, null, 'Alternativas');
 		$this->addRelation('Resposta', 'Resposta', RelationMap::ONE_TO_MANY, array('id' => 'pergunta_id', ), null, null, 'Respostas');
 	} // buildRelations()

@@ -42,6 +42,7 @@ class PermissaoTableMap extends TableMap
 		$this->addColumn('NOME', 'Nome', 'VARCHAR', true, 60, null);
 		$this->addColumn('SLUG', 'Slug', 'VARCHAR', true, 60, null);
 		$this->addColumn('DESCRICAO', 'Descricao', 'VARCHAR', false, 200, null);
+		$this->addColumn('NIVEL', 'Nivel', 'CHAR', false, null, null);
 		// validators
 	} // initialize()
 

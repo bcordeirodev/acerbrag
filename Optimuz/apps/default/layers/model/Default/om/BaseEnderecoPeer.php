@@ -37,8 +37,8 @@ abstract class BaseEnderecoPeer {
 	/** the column name for the ID field */
 	const ID = 'endereco.ID';
 
-	/** the column name for the CIDADE_ID field */
-	const CIDADE_ID = 'endereco.CIDADE_ID';
+	/** the column name for the CIDADE field */
+	const CIDADE = 'endereco.CIDADE';
 
 	/** the column name for the LOGRADOURO field */
 	const LOGRADOURO = 'endereco.LOGRADOURO';
@@ -74,11 +74,11 @@ abstract class BaseEnderecoPeer {
 	 * e.g. self::$fieldNames[self::TYPE_PHPNAME][0] = 'Id'
 	 */
 	protected static $fieldNames = array (
-		BasePeer::TYPE_PHPNAME => array ('Id', 'CidadeId', 'Logradouro', 'Bairro', 'Cep', 'Numero', 'Complemento', ),
-		BasePeer::TYPE_STUDLYPHPNAME => array ('id', 'cidadeId', 'logradouro', 'bairro', 'cep', 'numero', 'complemento', ),
-		BasePeer::TYPE_COLNAME => array (self::ID, self::CIDADE_ID, self::LOGRADOURO, self::BAIRRO, self::CEP, self::NUMERO, self::COMPLEMENTO, ),
-		BasePeer::TYPE_RAW_COLNAME => array ('ID', 'CIDADE_ID', 'LOGRADOURO', 'BAIRRO', 'CEP', 'NUMERO', 'COMPLEMENTO', ),
-		BasePeer::TYPE_FIELDNAME => array ('id', 'cidade_id', 'logradouro', 'bairro', 'cep', 'numero', 'complemento', ),
+		BasePeer::TYPE_PHPNAME => array ('Id', 'Cidade', 'Logradouro', 'Bairro', 'Cep', 'Numero', 'Complemento', ),
+		BasePeer::TYPE_STUDLYPHPNAME => array ('id', 'cidade', 'logradouro', 'bairro', 'cep', 'numero', 'complemento', ),
+		BasePeer::TYPE_COLNAME => array (self::ID, self::CIDADE, self::LOGRADOURO, self::BAIRRO, self::CEP, self::NUMERO, self::COMPLEMENTO, ),
+		BasePeer::TYPE_RAW_COLNAME => array ('ID', 'CIDADE', 'LOGRADOURO', 'BAIRRO', 'CEP', 'NUMERO', 'COMPLEMENTO', ),
+		BasePeer::TYPE_FIELDNAME => array ('id', 'cidade', 'logradouro', 'bairro', 'cep', 'numero', 'complemento', ),
 		BasePeer::TYPE_NUM => array (0, 1, 2, 3, 4, 5, 6, )
 	);
 
@@ -89,11 +89,11 @@ abstract class BaseEnderecoPeer {
 	 * e.g. self::$fieldNames[BasePeer::TYPE_PHPNAME]['Id'] = 0
 	 */
 	protected static $fieldKeys = array (
-		BasePeer::TYPE_PHPNAME => array ('Id' => 0, 'CidadeId' => 1, 'Logradouro' => 2, 'Bairro' => 3, 'Cep' => 4, 'Numero' => 5, 'Complemento' => 6, ),
-		BasePeer::TYPE_STUDLYPHPNAME => array ('id' => 0, 'cidadeId' => 1, 'logradouro' => 2, 'bairro' => 3, 'cep' => 4, 'numero' => 5, 'complemento' => 6, ),
-		BasePeer::TYPE_COLNAME => array (self::ID => 0, self::CIDADE_ID => 1, self::LOGRADOURO => 2, self::BAIRRO => 3, self::CEP => 4, self::NUMERO => 5, self::COMPLEMENTO => 6, ),
-		BasePeer::TYPE_RAW_COLNAME => array ('ID' => 0, 'CIDADE_ID' => 1, 'LOGRADOURO' => 2, 'BAIRRO' => 3, 'CEP' => 4, 'NUMERO' => 5, 'COMPLEMENTO' => 6, ),
-		BasePeer::TYPE_FIELDNAME => array ('id' => 0, 'cidade_id' => 1, 'logradouro' => 2, 'bairro' => 3, 'cep' => 4, 'numero' => 5, 'complemento' => 6, ),
+		BasePeer::TYPE_PHPNAME => array ('Id' => 0, 'Cidade' => 1, 'Logradouro' => 2, 'Bairro' => 3, 'Cep' => 4, 'Numero' => 5, 'Complemento' => 6, ),
+		BasePeer::TYPE_STUDLYPHPNAME => array ('id' => 0, 'cidade' => 1, 'logradouro' => 2, 'bairro' => 3, 'cep' => 4, 'numero' => 5, 'complemento' => 6, ),
+		BasePeer::TYPE_COLNAME => array (self::ID => 0, self::CIDADE => 1, self::LOGRADOURO => 2, self::BAIRRO => 3, self::CEP => 4, self::NUMERO => 5, self::COMPLEMENTO => 6, ),
+		BasePeer::TYPE_RAW_COLNAME => array ('ID' => 0, 'CIDADE' => 1, 'LOGRADOURO' => 2, 'BAIRRO' => 3, 'CEP' => 4, 'NUMERO' => 5, 'COMPLEMENTO' => 6, ),
+		BasePeer::TYPE_FIELDNAME => array ('id' => 0, 'cidade' => 1, 'logradouro' => 2, 'bairro' => 3, 'cep' => 4, 'numero' => 5, 'complemento' => 6, ),
 		BasePeer::TYPE_NUM => array (0, 1, 2, 3, 4, 5, 6, )
 	);
 
@@ -167,7 +167,7 @@ abstract class BaseEnderecoPeer {
 	{
 		if (null === $alias) {
 			$criteria->addSelectColumn(EnderecoPeer::ID);
-			$criteria->addSelectColumn(EnderecoPeer::CIDADE_ID);
+			$criteria->addSelectColumn(EnderecoPeer::CIDADE);
 			$criteria->addSelectColumn(EnderecoPeer::LOGRADOURO);
 			$criteria->addSelectColumn(EnderecoPeer::BAIRRO);
 			$criteria->addSelectColumn(EnderecoPeer::CEP);
@@ -175,7 +175,7 @@ abstract class BaseEnderecoPeer {
 			$criteria->addSelectColumn(EnderecoPeer::COMPLEMENTO);
 		} else {
 			$criteria->addSelectColumn($alias . '.ID');
-			$criteria->addSelectColumn($alias . '.CIDADE_ID');
+			$criteria->addSelectColumn($alias . '.CIDADE');
 			$criteria->addSelectColumn($alias . '.LOGRADOURO');
 			$criteria->addSelectColumn($alias . '.BAIRRO');
 			$criteria->addSelectColumn($alias . '.CEP');

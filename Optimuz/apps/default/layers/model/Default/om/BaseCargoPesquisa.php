@@ -43,14 +43,14 @@ abstract class BaseCargoPesquisa extends BaseObject  implements Persistent
 	protected $pesquisa_id;
 
 	/**
-	 * @var        Pesquisa
-	 */
-	protected $aPesquisa;
-
-	/**
 	 * @var        Cargo
 	 */
 	protected $aCargo;
+
+	/**
+	 * @var        Pesquisa
+	 */
+	protected $aPesquisa;
 
 	/**
 	 * Flag to prevent endless save loop, if this object is referenced
@@ -244,8 +244,8 @@ abstract class BaseCargoPesquisa extends BaseObject  implements Persistent
 
 		if ($deep) {  // also de-associate any related objects?
 
-			$this->aPesquisa = null;
 			$this->aCargo = null;
+			$this->aPesquisa = null;
 		} // if (deep)
 	}
 
@@ -361,18 +361,18 @@ abstract class BaseCargoPesquisa extends BaseObject  implements Persistent
 			// method.  This object relates to these object(s) by a
 			// foreign key reference.
 
-			if ($this->aPesquisa !== null) {
-				if ($this->aPesquisa->isModified() || $this->aPesquisa->isNew()) {
-					$affectedRows += $this->aPesquisa->save($con);
-				}
-				$this->setPesquisa($this->aPesquisa);
-			}
-
 			if ($this->aCargo !== null) {
 				if ($this->aCargo->isModified() || $this->aCargo->isNew()) {
 					$affectedRows += $this->aCargo->save($con);
 				}
 				$this->setCargo($this->aCargo);
+			}
+
+			if ($this->aPesquisa !== null) {
+				if ($this->aPesquisa->isModified() || $this->aPesquisa->isNew()) {
+					$affectedRows += $this->aPesquisa->save($con);
+				}
+				$this->setPesquisa($this->aPesquisa);
 			}
 
 			if ($this->isNew() || $this->isModified()) {
@@ -520,11 +520,11 @@ abstract class BaseCargoPesquisa extends BaseObject  implements Persistent
 			$keys[1] => $this->getPesquisaId(),
 		);
 		if ($includeForeignObjects) {
-			if (null !== $this->aPesquisa) {
-				$result['Pesquisa'] = $this->aPesquisa->toArray($keyType, $includeLazyLoadColumns,  $alreadyDumpedObjects, true);
-			}
 			if (null !== $this->aCargo) {
 				$result['Cargo'] = $this->aCargo->toArray($keyType, $includeLazyLoadColumns,  $alreadyDumpedObjects, true);
+			}
+			if (null !== $this->aPesquisa) {
+				$result['Pesquisa'] = $this->aPesquisa->toArray($keyType, $includeLazyLoadColumns,  $alreadyDumpedObjects, true);
 			}
 		}
 		return $result;
@@ -729,55 +729,6 @@ abstract class BaseCargoPesquisa extends BaseObject  implements Persistent
 	}
 
 	/**
-	 * Declares an association between this object and a Pesquisa object.
-	 *
-	 * @param      Pesquisa $v
-	 * @return     CargoPesquisa The current object (for fluent API support)
-	 * @throws     PropelException
-	 */
-	public function setPesquisa(Pesquisa $v = null)
-	{
-		if ($v === null) {
-			$this->setPesquisaId(NULL);
-		} else {
-			$this->setPesquisaId($v->getId());
-		}
-
-		$this->aPesquisa = $v;
-
-		// Add binding for other direction of this n:n relationship.
-		// If this object has already been added to the Pesquisa object, it will not be re-added.
-		if ($v !== null) {
-			$v->addCargoPesquisa($this);
-		}
-
-		return $this;
-	}
-
-
-	/**
-	 * Get the associated Pesquisa object
-	 *
-	 * @param      PropelPDO Optional Connection object.
-	 * @return     Pesquisa The associated Pesquisa object.
-	 * @throws     PropelException
-	 */
-	public function getPesquisa(PropelPDO $con = null)
-	{
-		if ($this->aPesquisa === null && ($this->pesquisa_id !== null)) {
-			$this->aPesquisa = PesquisaQuery::create()->findPk($this->pesquisa_id, $con);
-			/* The following can be used additionally to
-				guarantee the related object contains a reference
-				to this object.  This level of coupling may, however, be
-				undesirable since it could result in an only partially populated collection
-				in the referenced object.
-				$this->aPesquisa->addCargoPesquisas($this);
-			 */
-		}
-		return $this->aPesquisa;
-	}
-
-	/**
 	 * Declares an association between this object and a Cargo object.
 	 *
 	 * @param      Cargo $v
@@ -827,6 +778,55 @@ abstract class BaseCargoPesquisa extends BaseObject  implements Persistent
 	}
 
 	/**
+	 * Declares an association between this object and a Pesquisa object.
+	 *
+	 * @param      Pesquisa $v
+	 * @return     CargoPesquisa The current object (for fluent API support)
+	 * @throws     PropelException
+	 */
+	public function setPesquisa(Pesquisa $v = null)
+	{
+		if ($v === null) {
+			$this->setPesquisaId(NULL);
+		} else {
+			$this->setPesquisaId($v->getId());
+		}
+
+		$this->aPesquisa = $v;
+
+		// Add binding for other direction of this n:n relationship.
+		// If this object has already been added to the Pesquisa object, it will not be re-added.
+		if ($v !== null) {
+			$v->addCargoPesquisa($this);
+		}
+
+		return $this;
+	}
+
+
+	/**
+	 * Get the associated Pesquisa object
+	 *
+	 * @param      PropelPDO Optional Connection object.
+	 * @return     Pesquisa The associated Pesquisa object.
+	 * @throws     PropelException
+	 */
+	public function getPesquisa(PropelPDO $con = null)
+	{
+		if ($this->aPesquisa === null && ($this->pesquisa_id !== null)) {
+			$this->aPesquisa = PesquisaQuery::create()->findPk($this->pesquisa_id, $con);
+			/* The following can be used additionally to
+				guarantee the related object contains a reference
+				to this object.  This level of coupling may, however, be
+				undesirable since it could result in an only partially populated collection
+				in the referenced object.
+				$this->aPesquisa->addCargoPesquisas($this);
+			 */
+		}
+		return $this->aPesquisa;
+	}
+
+	/**
 	 * Clears the current object and sets all attributes to their default values
 	 */
 	public function clear()
@@ -855,8 +855,8 @@ abstract class BaseCargoPesquisa extends BaseObject  implements Persistent
 		if ($deep) {
 		} // if ($deep)
 
-		$this->aPesquisa = null;
 		$this->aCargo = null;
+		$this->aPesquisa = null;
 	}
 
 	/**

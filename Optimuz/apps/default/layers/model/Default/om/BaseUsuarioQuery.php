@@ -20,7 +20,7 @@
  * @method     UsuarioQuery orderByCelular($order = Criteria::ASC) Order by the celular column
  * @method     UsuarioQuery orderByTelefone($order = Criteria::ASC) Order by the telefone column
  * @method     UsuarioQuery orderByToken($order = Criteria::ASC) Order by the token column
- * @method     UsuarioQuery orderByUsuario($order = Criteria::ASC) Order by the usuario column
+ * @method     UsuarioQuery orderByNomeUsuario($order = Criteria::ASC) Order by the nome_usuario column
  * @method     UsuarioQuery orderBySenha($order = Criteria::ASC) Order by the senha column
  * @method     UsuarioQuery orderByTokenSenha($order = Criteria::ASC) Order by the token_senha column
  * @method     UsuarioQuery orderByTokenFirebase($order = Criteria::ASC) Order by the token_firebase column
@@ -30,6 +30,8 @@
  * @method     UsuarioQuery orderByEstadoCivil($order = Criteria::ASC) Order by the estado_civil column
  * @method     UsuarioQuery orderByNivelAcesso($order = Criteria::ASC) Order by the nivel_acesso column
  * @method     UsuarioQuery orderByUsuarioValidado($order = Criteria::ASC) Order by the usuario_validado column
+ * @method     UsuarioQuery orderBySexo($order = Criteria::ASC) Order by the sexo column
+ * @method     UsuarioQuery orderByDataCadastro($order = Criteria::ASC) Order by the data_cadastro column
  *
  * @method     UsuarioQuery groupById() Group by the id column
  * @method     UsuarioQuery groupByPerfilId() Group by the perfil_id column
@@ -45,7 +47,7 @@
  * @method     UsuarioQuery groupByCelular() Group by the celular column
  * @method     UsuarioQuery groupByTelefone() Group by the telefone column
  * @method     UsuarioQuery groupByToken() Group by the token column
- * @method     UsuarioQuery groupByUsuario() Group by the usuario column
+ * @method     UsuarioQuery groupByNomeUsuario() Group by the nome_usuario column
  * @method     UsuarioQuery groupBySenha() Group by the senha column
  * @method     UsuarioQuery groupByTokenSenha() Group by the token_senha column
  * @method     UsuarioQuery groupByTokenFirebase() Group by the token_firebase column
@@ -55,6 +57,8 @@
  * @method     UsuarioQuery groupByEstadoCivil() Group by the estado_civil column
  * @method     UsuarioQuery groupByNivelAcesso() Group by the nivel_acesso column
  * @method     UsuarioQuery groupByUsuarioValidado() Group by the usuario_validado column
+ * @method     UsuarioQuery groupBySexo() Group by the sexo column
+ * @method     UsuarioQuery groupByDataCadastro() Group by the data_cadastro column
  *
  * @method     UsuarioQuery leftJoin($relation) Adds a LEFT JOIN clause to the query
  * @method     UsuarioQuery rightJoin($relation) Adds a RIGHT JOIN clause to the query
@@ -141,7 +145,7 @@
  * @method     Usuario findOneByCelular(string $celular) Return the first Usuario filtered by the celular column
  * @method     Usuario findOneByTelefone(string $telefone) Return the first Usuario filtered by the telefone column
  * @method     Usuario findOneByToken(string $token) Return the first Usuario filtered by the token column
- * @method     Usuario findOneByUsuario(string $usuario) Return the first Usuario filtered by the usuario column
+ * @method     Usuario findOneByNomeUsuario(string $nome_usuario) Return the first Usuario filtered by the nome_usuario column
  * @method     Usuario findOneBySenha(string $senha) Return the first Usuario filtered by the senha column
  * @method     Usuario findOneByTokenSenha(string $token_senha) Return the first Usuario filtered by the token_senha column
  * @method     Usuario findOneByTokenFirebase(string $token_firebase) Return the first Usuario filtered by the token_firebase column
@@ -151,6 +155,8 @@
  * @method     Usuario findOneByEstadoCivil(string $estado_civil) Return the first Usuario filtered by the estado_civil column
  * @method     Usuario findOneByNivelAcesso(string $nivel_acesso) Return the first Usuario filtered by the nivel_acesso column
  * @method     Usuario findOneByUsuarioValidado(boolean $usuario_validado) Return the first Usuario filtered by the usuario_validado column
+ * @method     Usuario findOneBySexo(string $sexo) Return the first Usuario filtered by the sexo column
+ * @method     Usuario findOneByDataCadastro(string $data_cadastro) Return the first Usuario filtered by the data_cadastro column
  *
  * @method     array findById(int $id) Return Usuario objects filtered by the id column
  * @method     array findByPerfilId(int $perfil_id) Return Usuario objects filtered by the perfil_id column
@@ -166,7 +172,7 @@
  * @method     array findByCelular(string $celular) Return Usuario objects filtered by the celular column
  * @method     array findByTelefone(string $telefone) Return Usuario objects filtered by the telefone column
  * @method     array findByToken(string $token) Return Usuario objects filtered by the token column
- * @method     array findByUsuario(string $usuario) Return Usuario objects filtered by the usuario column
+ * @method     array findByNomeUsuario(string $nome_usuario) Return Usuario objects filtered by the nome_usuario column
  * @method     array findBySenha(string $senha) Return Usuario objects filtered by the senha column
  * @method     array findByTokenSenha(string $token_senha) Return Usuario objects filtered by the token_senha column
  * @method     array findByTokenFirebase(string $token_firebase) Return Usuario objects filtered by the token_firebase column
@@ -176,6 +182,8 @@
  * @method     array findByEstadoCivil(string $estado_civil) Return Usuario objects filtered by the estado_civil column
  * @method     array findByNivelAcesso(string $nivel_acesso) Return Usuario objects filtered by the nivel_acesso column
  * @method     array findByUsuarioValidado(boolean $usuario_validado) Return Usuario objects filtered by the usuario_validado column
+ * @method     array findBySexo(string $sexo) Return Usuario objects filtered by the sexo column
+ * @method     array findByDataCadastro(string $data_cadastro) Return Usuario objects filtered by the data_cadastro column
  *
  * @package    propel.generator.Default.om
  */
@@ -264,7 +272,7 @@ abstract class BaseUsuarioQuery extends ModelCriteria
 	 */
 	protected function findPkSimple($key, $con)
 	{
-		$sql = 'SELECT `ID`, `PERFIL_ID`, `ENDERECO_ID`, `CARGO_ID`, `DEPARTAMENTO_ID`, `MATRICULA`, `NOME`, `EMAIL`, `DNI`, `DATA_NASCIMENTO`, `DATA_CONTRATACAO`, `CELULAR`, `TELEFONE`, `TOKEN`, `USUARIO`, `SENHA`, `TOKEN_SENHA`, `TOKEN_FIREBASE`, `DATA_RESCISAO`, `ATIVO`, `TIPO_ACESSO`, `ESTADO_CIVIL`, `NIVEL_ACESSO`, `USUARIO_VALIDADO` FROM `usuario` WHERE `ID` = :p0';
+		$sql = 'SELECT `ID`, `PERFIL_ID`, `ENDERECO_ID`, `CARGO_ID`, `DEPARTAMENTO_ID`, `MATRICULA`, `NOME`, `EMAIL`, `DNI`, `DATA_NASCIMENTO`, `DATA_CONTRATACAO`, `CELULAR`, `TELEFONE`, `TOKEN`, `NOME_USUARIO`, `SENHA`, `TOKEN_SENHA`, `TOKEN_FIREBASE`, `DATA_RESCISAO`, `ATIVO`, `TIPO_ACESSO`, `ESTADO_CIVIL`, `NIVEL_ACESSO`, `USUARIO_VALIDADO`, `SEXO`, `DATA_CADASTRO` FROM `usuario` WHERE `ID` = :p0';
 		try {
 			$stmt = $con->prepare($sql);			
 			$stmt->bindValue(':p0', $key, PDO::PARAM_INT);
@@ -824,31 +832,31 @@ abstract class BaseUsuarioQuery extends ModelCriteria
 	}
 
 	/**
-	 * Filter the query on the usuario column
+	 * Filter the query on the nome_usuario column
 	 *
 	 * Example usage:
 	 * <code>
-	 * $query->filterByUsuario('fooValue');   // WHERE usuario = 'fooValue'
-	 * $query->filterByUsuario('%fooValue%'); // WHERE usuario LIKE '%fooValue%'
+	 * $query->filterByNomeUsuario('fooValue');   // WHERE nome_usuario = 'fooValue'
+	 * $query->filterByNomeUsuario('%fooValue%'); // WHERE nome_usuario LIKE '%fooValue%'
 	 * </code>
 	 *
-	 * @param     string $usuario The value to use as filter.
+	 * @param     string $nomeUsuario The value to use as filter.
 	 *              Accepts wildcards (* and % trigger a LIKE)
 	 * @param     string $comparison Operator to use for the column comparison, defaults to Criteria::EQUAL
 	 *
 	 * @return    UsuarioQuery The current query, for fluid interface
 	 */
-	public function filterByUsuario($usuario = null, $comparison = null)
+	public function filterByNomeUsuario($nomeUsuario = null, $comparison = null)
 	{
 		if (null === $comparison) {
-			if (is_array($usuario)) {
+			if (is_array($nomeUsuario)) {
 				$comparison = Criteria::IN;
-			} elseif (preg_match('/[\%\*]/', $usuario)) {
-				$usuario = str_replace('*', '%', $usuario);
+			} elseif (preg_match('/[\%\*]/', $nomeUsuario)) {
+				$nomeUsuario = str_replace('*', '%', $nomeUsuario);
 				$comparison = Criteria::LIKE;
 			}
 		}
-		return $this->addUsingAlias(UsuarioPeer::USUARIO, $usuario, $comparison);
+		return $this->addUsingAlias(UsuarioPeer::NOME_USUARIO, $nomeUsuario, $comparison);
 	}
 
 	/**
@@ -1111,6 +1119,76 @@ abstract class BaseUsuarioQuery extends ModelCriteria
 			$usuario_validado = in_array(strtolower($usuarioValidado), array('false', 'off', '-', 'no', 'n', '0', '')) ? false : true;
 		}
 		return $this->addUsingAlias(UsuarioPeer::USUARIO_VALIDADO, $usuarioValidado, $comparison);
+	}
+
+	/**
+	 * Filter the query on the sexo column
+	 *
+	 * Example usage:
+	 * <code>
+	 * $query->filterBySexo('fooValue');   // WHERE sexo = 'fooValue'
+	 * $query->filterBySexo('%fooValue%'); // WHERE sexo LIKE '%fooValue%'
+	 * </code>
+	 *
+	 * @param     string $sexo The value to use as filter.
+	 *              Accepts wildcards (* and % trigger a LIKE)
+	 * @param     string $comparison Operator to use for the column comparison, defaults to Criteria::EQUAL
+	 *
+	 * @return    UsuarioQuery The current query, for fluid interface
+	 */
+	public function filterBySexo($sexo = null, $comparison = null)
+	{
+		if (null === $comparison) {
+			if (is_array($sexo)) {
+				$comparison = Criteria::IN;
+			} elseif (preg_match('/[\%\*]/', $sexo)) {
+				$sexo = str_replace('*', '%', $sexo);
+				$comparison = Criteria::LIKE;
+			}
+		}
+		return $this->addUsingAlias(UsuarioPeer::SEXO, $sexo, $comparison);
+	}
+
+	/**
+	 * Filter the query on the data_cadastro column
+	 *
+	 * Example usage:
+	 * <code>
+	 * $query->filterByDataCadastro('2011-03-14'); // WHERE data_cadastro = '2011-03-14'
+	 * $query->filterByDataCadastro('now'); // WHERE data_cadastro = '2011-03-14'
+	 * $query->filterByDataCadastro(array('max' => 'yesterday')); // WHERE data_cadastro > '2011-03-13'
+	 * </code>
+	 *
+	 * @param     mixed $dataCadastro The value to use as filter.
+	 *              Values can be integers (unix timestamps), DateTime objects, or strings.
+	 *              Empty strings are treated as NULL.
+	 *              Use scalar values for equality.
+	 *              Use array values for in_array() equivalent.
+	 *              Use associative array('min' => $minValue, 'max' => $maxValue) for intervals.
+	 * @param     string $comparison Operator to use for the column comparison, defaults to Criteria::EQUAL
+	 *
+	 * @return    UsuarioQuery The current query, for fluid interface
+	 */
+	public function filterByDataCadastro($dataCadastro = null, $comparison = null)
+	{
+		if (is_array($dataCadastro)) {
+			$useMinMax = false;
+			if (isset($dataCadastro['min'])) {
+				$this->addUsingAlias(UsuarioPeer::DATA_CADASTRO, $dataCadastro['min'], Criteria::GREATER_EQUAL);
+				$useMinMax = true;
+			}
+			if (isset($dataCadastro['max'])) {
+				$this->addUsingAlias(UsuarioPeer::DATA_CADASTRO, $dataCadastro['max'], Criteria::LESS_EQUAL);
+				$useMinMax = true;
+			}
+			if ($useMinMax) {
+				return $this;
+			}
+			if (null === $comparison) {
+				$comparison = Criteria::IN;
+			}
+		}
+		return $this->addUsingAlias(UsuarioPeer::DATA_CADASTRO, $dataCadastro, $comparison);
 	}
 
 	/**

@@ -13,6 +13,15 @@
  */
 class CheckListComponent extends HtmlComponent
 {
+
+	/**
+	 * Inicializa uma nova instância do componente.
+	 */
+	public function __construct()
+	{
+		parent::__construct('div');
+	}
+
 	/**
 	 * Define a fonte de onde os checkboxes serão criados, e o nome usado para
 	 * indentificá-los no formulário.

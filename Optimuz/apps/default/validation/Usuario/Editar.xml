@@ -5,26 +5,77 @@
 		<rule name="phone" regex="/\d{2} \d{4,5}-\d{4}/" errorMessage="O formato do telefone deve ser 00 0000-0000" />
 		<rule name="cep-rule" regex="/\d{5}-\d{3}/" errorMessage="O formato do cep deve ser 00000-000" />
 	</custom-rules>
-	<input name="nome" label="Nome">
-		<rule name="required" />
-	</input>
-	<input name="telefone" label="Telefone">
-		<rule name="phone" />
-	</input>
-	<input name="nivel" label="Nível">
-		<rule name="number" />
-	</input>
-	<input name="permissoes" label="Permissões">
-		<rule name="array" errorMessage="Selecione uma ou mais permissões" />
-		<rule name="discard" />
-	</input>
 	<input name="id" label="ID do usuário">
 		<rule name="required" />
 		<rule name="number" />
 	</input>
-	<input name="filial" label="Filiais">
-		<rule name="array" errorMessage="Selecione uma ou mais filiais" />
-		<rule name="discard" />
+
+	<input name="nome" label="Nome">
+		<rule name="required" />
+	</input>
+	<input name="perfil" label="Perfil de usuario">
+		<rule name="number" />
+	</input>
+	<input name="dni" label="DNI">
+		<rule name="required" />
+	</input>
+	<input name="data-nascimento" label="Fecha de nacimiento">
+		<rule name="required" />
+ 	</input>
+	<input name="email" label="E-mail">
+		<rule name="required" />
+		<rule name="email" />
+	</input>
+	<input name="telefone" label="Teléfono">
+		<rule name="phone" />
+		<rule name="discard"/>
+	</input>
+	<input name="celular" label="Móviles">
+		<rule name="phone" />
+		<rule name="required"/>
+	</input>
+	<input name="estado-civil" label="Estado civil">
+		<rule name="required"/>
+	</input>
+	<input name="sexo" label="Sexo">
+		<rule name="required" />
+	</input>
+	<input name="tipo-acesso" label="Tipo de acceso">
+		<rule name="required" />
 	</input>
 
+<!--	<input name="matricula" label="Matriculación">
+		<rule name="required"/>
+	</input>-->
+	<input name="cargo" label="Cargo">
+		<rule name="required"/>
+	</input>
+	<input name="departamento" label="Departamento">
+		<rule name="required"/>
+	</input>
+	<input name="data-contratacao" label="Fecha de contratación">
+		<rule name="required"/>
+	</input>
+	<input name="data-rescisao" label="Fecha de rescisión">
+		<rule name="required"/>
+	</input>
+
+	<input name="cep" label="CEP">
+		<rule name="required"/>
+	</input>
+	<input name="logradouro" label="Logradouro">
+		<rule name="required"/>
+	</input>
+	<input name="cidade" label="Cuidad">
+		<rule name="required"/>
+	</input>
+	<input name="bairro" label="Bairro">
+		<rule name="required"/>
+	</input>
+	<input name="numero" label="Número">
+		<rule name="required"/>
+	</input>
+	<input name="complemento" label="Complemento">
+		<rule name="required"/>
+	</input>
 </form>

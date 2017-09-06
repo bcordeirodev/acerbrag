@@ -187,7 +187,7 @@
         <parameter name="Seq_in_index" value="1"/>
         <parameter name="Column_name" value="usuario_id"/>
         <parameter name="Collation" value="A"/>
-        <parameter name="Cardinality" value="11"/>
+        <parameter name="Cardinality" value="8"/>
         <parameter name="Sub_part" value=""/>
         <parameter name="Packed" value=""/>
         <parameter name="Null" value="YES"/>
@@ -201,13 +201,13 @@
       <parameter name="Engine" value="InnoDB"/>
       <parameter name="Version" value="10"/>
       <parameter name="Row_format" value="Compact"/>
-      <parameter name="Rows" value="11"/>
-      <parameter name="Avg_row_length" value="1489"/>
+      <parameter name="Rows" value="26"/>
+      <parameter name="Avg_row_length" value="630"/>
       <parameter name="Data_length" value="16384"/>
       <parameter name="Max_data_length" value="0"/>
       <parameter name="Index_length" value="16384"/>
       <parameter name="Data_free" value="0"/>
-      <parameter name="Auto_increment" value="12"/>
+      <parameter name="Auto_increment" value="27"/>
       <parameter name="Create_time" value="2017-07-24 10:02:33"/>
       <parameter name="Update_time" value=""/>
       <parameter name="Check_time" value=""/>
@@ -363,7 +363,7 @@
       <parameter name="Max_data_length" value="0"/>
       <parameter name="Index_length" value="0"/>
       <parameter name="Data_free" value="0"/>
-      <parameter name="Auto_increment" value="10"/>
+      <parameter name="Auto_increment" value="9"/>
       <parameter name="Create_time" value="2017-07-24 10:02:45"/>
       <parameter name="Update_time" value=""/>
       <parameter name="Check_time" value=""/>
@@ -793,8 +793,8 @@
       <parameter name="Engine" value="InnoDB"/>
       <parameter name="Version" value="10"/>
       <parameter name="Row_format" value="Compact"/>
-      <parameter name="Rows" value="7"/>
-      <parameter name="Avg_row_length" value="2340"/>
+      <parameter name="Rows" value="6"/>
+      <parameter name="Avg_row_length" value="2730"/>
       <parameter name="Data_length" value="16384"/>
       <parameter name="Max_data_length" value="0"/>
       <parameter name="Index_length" value="0"/>
@@ -951,13 +951,13 @@
       <parameter name="Engine" value="InnoDB"/>
       <parameter name="Version" value="10"/>
       <parameter name="Row_format" value="Compact"/>
-      <parameter name="Rows" value="1"/>
-      <parameter name="Avg_row_length" value="16384"/>
+      <parameter name="Rows" value="7"/>
+      <parameter name="Avg_row_length" value="2340"/>
       <parameter name="Data_length" value="16384"/>
       <parameter name="Max_data_length" value="0"/>
       <parameter name="Index_length" value="0"/>
       <parameter name="Data_free" value="0"/>
-      <parameter name="Auto_increment" value="2"/>
+      <parameter name="Auto_increment" value="12"/>
       <parameter name="Create_time" value="2017-07-24 10:02:33"/>
       <parameter name="Update_time" value=""/>
       <parameter name="Check_time" value=""/>
@@ -1268,7 +1268,7 @@
         <parameter name="Seq_in_index" value="1"/>
         <parameter name="Column_name" value="permissao_id"/>
         <parameter name="Collation" value="A"/>
-        <parameter name="Cardinality" value="36"/>
+        <parameter name="Cardinality" value="17"/>
         <parameter name="Sub_part" value=""/>
         <parameter name="Packed" value=""/>
         <parameter name="Null" value=""/>
@@ -1282,8 +1282,8 @@
       <parameter name="Engine" value="InnoDB"/>
       <parameter name="Version" value="10"/>
       <parameter name="Row_format" value="Compact"/>
-      <parameter name="Rows" value="36"/>
-      <parameter name="Avg_row_length" value="455"/>
+      <parameter name="Rows" value="34"/>
+      <parameter name="Avg_row_length" value="481"/>
       <parameter name="Data_length" value="16384"/>
       <parameter name="Max_data_length" value="0"/>
       <parameter name="Index_length" value="16384"/>
@@ -1560,7 +1560,7 @@
       <parameter name="Max_data_length" value="0"/>
       <parameter name="Index_length" value="32768"/>
       <parameter name="Data_free" value="0"/>
-      <parameter name="Auto_increment" value="23"/>
+      <parameter name="Auto_increment" value="7"/>
       <parameter name="Create_time" value="2017-07-31 12:12:00"/>
       <parameter name="Update_time" value=""/>
       <parameter name="Check_time" value=""/>
@@ -2355,14 +2355,14 @@
     </vendor>
   </table>
   <table name="usuario" phpName="Usuario" idMethod="native">
-    <column name="id" phpName="Id" type="INTEGER" size="10" sqlType="int(10) unsigned" primaryKey="true" required="true">
+    <column name="id" phpName="Id" type="INTEGER" size="10" sqlType="int(10) unsigned" primaryKey="true" autoIncrement="true" required="true">
       <vendor type="mysql">
         <parameter name="Field" value="id"/>
         <parameter name="Type" value="int(10) unsigned"/>
         <parameter name="Null" value="NO"/>
         <parameter name="Key" value="PRI"/>
         <parameter name="Default" value=""/>
-        <parameter name="Extra" value=""/>
+        <parameter name="Extra" value="auto_increment"/>
       </vendor>
     </column>
     <column name="perfil_id" phpName="PerfilId" type="INTEGER" size="10" sqlType="int(10) unsigned" required="true">
@@ -2495,11 +2495,11 @@
         <parameter name="Extra" value=""/>
       </vendor>
     </column>
-    <column name="usuario" phpName="Usuario" type="VARCHAR" size="255" required="true">
+    <column name="nome_usuario" phpName="NomeUsuario" type="VARCHAR" size="255" required="false">
       <vendor type="mysql">
-        <parameter name="Field" value="usuario"/>
+        <parameter name="Field" value="nome_usuario"/>
         <parameter name="Type" value="varchar(255)"/>
-        <parameter name="Null" value="NO"/>
+        <parameter name="Null" value="YES"/>
         <parameter name="Key" value="UNI"/>
         <parameter name="Default" value=""/>
         <parameter name="Extra" value=""/>
@@ -2555,23 +2555,23 @@
         <parameter name="Extra" value=""/>
       </vendor>
     </column>
-    <column name="tipo_acesso" phpName="TipoAcesso" type="CHAR" sqlType="enum('M','B')" required="false">
+    <column name="tipo_acesso" phpName="TipoAcesso" type="CHAR" sqlType="enum('M','B')" required="false" defaultValue="M">
       <vendor type="mysql">
         <parameter name="Field" value="tipo_acesso"/>
         <parameter name="Type" value="enum('M','B')"/>
         <parameter name="Null" value="YES"/>
         <parameter name="Key" value=""/>
-        <parameter name="Default" value=""/>
+        <parameter name="Default" value="M"/>
         <parameter name="Extra" value=""/>
       </vendor>
     </column>
-    <column name="estado_civil" phpName="EstadoCivil" type="CHAR" sqlType="enum('C','S','V','D')" required="false">
+    <column name="estado_civil" phpName="EstadoCivil" type="CHAR" sqlType="enum('C','S','V','D','O')" required="false" defaultValue="O">
       <vendor type="mysql">
         <parameter name="Field" value="estado_civil"/>
-        <parameter name="Type" value="enum('C','S','V','D')"/>
+        <parameter name="Type" value="enum('C','S','V','D','O')"/>
         <parameter name="Null" value="YES"/>
         <parameter name="Key" value=""/>
-        <parameter name="Default" value=""/>
+        <parameter name="Default" value="O"/>
         <parameter name="Extra" value=""/>
       </vendor>
     </column>
@@ -2605,6 +2605,16 @@
         <parameter name="Extra" value=""/>
       </vendor>
     </column>
+    <column name="data_cadastro" phpName="DataCadastro" type="TIMESTAMP" required="false">
+      <vendor type="mysql">
+        <parameter name="Field" value="data_cadastro"/>
+        <parameter name="Type" value="datetime"/>
+        <parameter name="Null" value="YES"/>
+        <parameter name="Key" value=""/>
+        <parameter name="Default" value=""/>
+        <parameter name="Extra" value=""/>
+      </vendor>
+    </column>
     <foreign-key foreignTable="cargo" name="fk_usuario_cargo">
       <reference local="cargo_id" foreign="id"/>
     </foreign-key>
@@ -2626,7 +2636,7 @@
         <parameter name="Seq_in_index" value="1"/>
         <parameter name="Column_name" value="email"/>
         <parameter name="Collation" value="A"/>
-        <parameter name="Cardinality" value="1"/>
+        <parameter name="Cardinality" value="3"/>
         <parameter name="Sub_part" value=""/>
         <parameter name="Packed" value=""/>
         <parameter name="Null" value=""/>
@@ -2636,18 +2646,18 @@
       </vendor>
     </unique>
     <unique name="usuario_UNIQUE">
-      <unique-column name="usuario"/>
+      <unique-column name="nome_usuario"/>
       <vendor type="mysql">
         <parameter name="Table" value="usuario"/>
         <parameter name="Non_unique" value="0"/>
         <parameter name="Key_name" value="usuario_UNIQUE"/>
         <parameter name="Seq_in_index" value="1"/>
-        <parameter name="Column_name" value="usuario"/>
+        <parameter name="Column_name" value="nome_usuario"/>
         <parameter name="Collation" value="A"/>
-        <parameter name="Cardinality" value="1"/>
+        <parameter name="Cardinality" value="3"/>
         <parameter name="Sub_part" value=""/>
         <parameter name="Packed" value=""/>
-        <parameter name="Null" value=""/>
+        <parameter name="Null" value="YES"/>
         <parameter name="Index_type" value="BTREE"/>
         <parameter name="Comment" value=""/>
         <parameter name="Index_comment" value=""/>
@@ -2662,7 +2672,7 @@
         <parameter name="Seq_in_index" value="1"/>
         <parameter name="Column_name" value="token"/>
         <parameter name="Collation" value="A"/>
-        <parameter name="Cardinality" value="1"/>
+        <parameter name="Cardinality" value="3"/>
         <parameter name="Sub_part" value=""/>
         <parameter name="Packed" value=""/>
         <parameter name="Null" value="YES"/>
@@ -2680,7 +2690,7 @@
         <parameter name="Seq_in_index" value="1"/>
         <parameter name="Column_name" value="token_senha"/>
         <parameter name="Collation" value="A"/>
-        <parameter name="Cardinality" value="1"/>
+        <parameter name="Cardinality" value="3"/>
         <parameter name="Sub_part" value=""/>
         <parameter name="Packed" value=""/>
         <parameter name="Null" value="YES"/>
@@ -2698,7 +2708,7 @@
         <parameter name="Seq_in_index" value="1"/>
         <parameter name="Column_name" value="perfil_id"/>
         <parameter name="Collation" value="A"/>
-        <parameter name="Cardinality" value="1"/>
+        <parameter name="Cardinality" value="3"/>
         <parameter name="Sub_part" value=""/>
         <parameter name="Packed" value=""/>
         <parameter name="Null" value=""/>
@@ -2716,7 +2726,7 @@
         <parameter name="Seq_in_index" value="1"/>
         <parameter name="Column_name" value="endereco_id"/>
         <parameter name="Collation" value="A"/>
-        <parameter name="Cardinality" value="1"/>
+        <parameter name="Cardinality" value="3"/>
         <parameter name="Sub_part" value=""/>
         <parameter name="Packed" value=""/>
         <parameter name="Null" value="YES"/>
@@ -2734,7 +2744,7 @@
         <parameter name="Seq_in_index" value="1"/>
         <parameter name="Column_name" value="departamento_id"/>
         <parameter name="Collation" value="A"/>
-        <parameter name="Cardinality" value="1"/>
+        <parameter name="Cardinality" value="3"/>
         <parameter name="Sub_part" value=""/>
         <parameter name="Packed" value=""/>
         <parameter name="Null" value="YES"/>
@@ -2752,7 +2762,7 @@
         <parameter name="Seq_in_index" value="1"/>
         <parameter name="Column_name" value="cargo_id"/>
         <parameter name="Collation" value="A"/>
-        <parameter name="Cardinality" value="1"/>
+        <parameter name="Cardinality" value="3"/>
         <parameter name="Sub_part" value=""/>
         <parameter name="Packed" value=""/>
         <parameter name="Null" value="YES"/>
@@ -2766,14 +2776,14 @@
       <parameter name="Engine" value="InnoDB"/>
       <parameter name="Version" value="10"/>
       <parameter name="Row_format" value="Compact"/>
-      <parameter name="Rows" value="1"/>
-      <parameter name="Avg_row_length" value="16384"/>
+      <parameter name="Rows" value="3"/>
+      <parameter name="Avg_row_length" value="5461"/>
       <parameter name="Data_length" value="16384"/>
       <parameter name="Max_data_length" value="0"/>
       <parameter name="Index_length" value="131072"/>
       <parameter name="Data_free" value="0"/>
-      <parameter name="Auto_increment" value=""/>
-      <parameter name="Create_time" value="2017-08-03 12:05:40"/>
+      <parameter name="Auto_increment" value="7"/>
+      <parameter name="Create_time" value="2017-08-21 18:37:02"/>
       <parameter name="Update_time" value=""/>
       <parameter name="Check_time" value=""/>
       <parameter name="Collation" value="utf8_general_ci"/>

@@ -20,6 +20,27 @@
 class Usuario extends BaseUsuario {
 
 	/**
+	 * Valor usado para usuários com acesso especifico ao mobile.
+	 */
+	const TIPO_ACESSO_MOBILE				= 'M';
+
+	/**
+	 * Valor usado para usuários com acesso especifico ao backend e mobile.
+	 */
+	const TIPO_ACESSO_BACKEND				= 'B';
+
+	/*
+	 * Possiveis estados civís para um funcionário.
+	 */
+	public static $maritalStatus  = array(
+		'S' => 'Solteiro(a)',
+		'C' => 'Casado(a)',
+		'D' => 'Divorciado(a)',
+		'V' => 'Viuvo(a)',
+		'O' => 'Outro'
+	);
+
+	/**
 	 * Retorna o usuário atualmente logado no sistema.
 	 * @return Usuario Usuário logado. Retorna null se não houver usuário
 	 * logado.
@@ -276,32 +297,6 @@ MSG;
 			$this->setTokenSenha($token);
 			$this->save();
 		}
-	}
-
-	/**
-	 * Verifica se o usuário informado via paramêtro possui o perfil de
-	 * instituto.
-	 *
-	 * @param Usuario $user Usuário que será verificado.
-	 * @return bool
-	 * @static
-	 */
-	public static function isInstitute(Usuario $user)
-	{
-		return  $user->getPerfilId() == Perfil::PERFIL_INSITUICAO;
-	}
-
-	/**
-	 * Verifica se o usuário informado via paramêtro possui o perfil de
-	 * gerenciar de conteudo.
-	 *
-	 * @param Usuario $user Usuário que será verificado.
-	 * @return bool
-	 * @static
-	 */
-	public static function isContentManager(Usuario $user)
-	{
-		return  $user->getPerfilId() == Perfil::PERFIL_GERENCIADOR_CONTEUDO;
 	}
 
 	/**

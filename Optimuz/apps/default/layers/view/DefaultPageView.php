@@ -146,5 +146,16 @@ class DefaultPageView extends DefaultView
 	{
 		$chekList->setSource(PermissaoQuery::getDisponiveis()->orderByNivel()->orderByNome()->find(), 'permissoes[]');
 	}
+
+	/**
+	 * Cria uma lista de permissões do perfil.
+	 * @param CheckListComponent $chekList Componente HTML que renderizará a
+	 * lista.
+	 */
+	public function onCreatePermissionsListProfile(CheckListComponent $chekList)
+	{
+		$currentUser = Usuario::atual();
+		$chekList->setSource($currentUser->getPerfil()->getPermissaos(), 'permissoes[]');
+	}
 }
 ?>

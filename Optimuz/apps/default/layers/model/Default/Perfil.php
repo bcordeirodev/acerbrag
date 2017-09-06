@@ -21,18 +21,7 @@ class Perfil extends BasePerfil {
 	const PERFIL_ADMINISTRADOR					= 1;
 
 	/**
-	 * Perfil para usuários que podem gerenciar as informações de uma
-	 * instituição.
-	 */
-	const PERFIL_INSITUICAO						= 2;
-
-	/**
-	 * Perfil para usuários que podem gerenciar os conteudos das igrejas.
-	 */
-	const PERFIL_GERENCIADOR_CONTEUDO			= 3;
-
-	/**
 	 * Perfil para usuários comuns
 	 */
-	const PERFIL_USUARIO_REGULAR				= 4;
+	const PERFIL_USUARIO_REGULAR				= 2;
 } // Perfil

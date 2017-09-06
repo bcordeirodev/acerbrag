@@ -39,7 +39,7 @@
 							<label class="form-label" for="dni">DNI</label>
 							<i object-type="RequiredFieldIndicatorComponent"></i>
 							<div class="controls">
-								<input type="text" name="dni" id="dni" class="form-control" maxlength="14" required>
+								<input type="text" name="dni" id="dni" class="form-control" maxlength="9" required>
 							</div>
 						</div>
 						<div class="form-group col-md-5">
@@ -112,97 +112,6 @@
 										<input id="mobile" name="tipo-acesso" type="radio" value="M">
 										<label class="form-label" for="mobile">Mobile</label>
 									</div>
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-			<div class="grid simple" id="box-login">
-				<div class="grid-title clickable no-border">
-					<h4>Información de <span class="semi-bold">Sesión</span></h4>
-					<div class="tools">
-						<a href="javascript:;" class="collapse"></a>
-					</div>
-				</div>
-				<div class="grid-body no-border">
-					<div class="row">
-						<div class="form-group col-md-6">
-							<label class="form-label" for="nome-usuario">Nombre de usuario</label>
-							<i object-type="RequiredFieldIndicatorComponent"></i>
-							<div class="controls">
-								<input type="text" name="nome-usuario" id="nome-usuario" class="form-control" required>
-							</div>
-						</div>
-					</div>
-					<p>
-						Elija cómo desea crear su contraseña.
-					</p>
-					<ul class="nav nav-pills m-t-20">
-						<li class="active">
-							<a href="#senha-manual">Informe contraseña manualmente</a>
-						</li>
-						<li>
-							<a href="#gerador-senha">Generar contraseña automáticamente</a>
-						</li>
-					</ul>
-					<div class="tab-content">
-						<div id="senha-manual" class="tab-pane active padding-5">
-							<p class="text-muted">
-								La contraseña debe ser fuerte, esto significa
-								que debe incluir símbolos, números
-								(no secuenciales como 123456) y letras
-								mayúsculas y minúsculas.
-							</p>
-							<div class="form-group">
-								<label class="form-label" for="senha">Contraseña</label>
-								<span class="help">Letras, números y símbolos</span>
-								<div class="controls">
-									<input type="password" name="senha" id="senha" class="form-control js-pwd" required autocomplete="off">
-								</div>
-							</div>
-							<div class="form-group">
-								<label class="form-label" for="confirma-senha">Confirmar contraseña</label>
-								<span class="help">Repetir la contraseña</span>
-								<div class="controls">
-									<input type="password" name="confirma-senha" id="confirma-senha" class="form-control js-pwd" required autocomplete="off">
-								</div>
-							</div>
-							<div class="form-group">
-								<label class="form-label">Fuerza de la contraseña</label>
-								<span class="help">Este indicador muestra si la contraseña es lo suficientemente fuerte</span>
-								<div class="controls">
-									<div class="progress progress-small no-radius">
-										<div class="progress-bar progress-bar-danger animate-progress-bar" data-percentage="0%"></div>
-									</div>
-								</div>
-							</div>
-						</div>
-						<div id="gerador-senha" class="tab-pane padding-5">
-							<p class="text-muted">
-								Al generar su contraseña automáticamente, los
-								campos de contraseña ya se llenan. Lo único que
-								debes hacer es copiar la contraseña que aparece
-								a continuación y guárdelo en un lugar seguro.
-							</p>
-							<div class="form-group">
-								<label class="form-label" for="js-pwd-size">Tamaño de la contraseña</label>
-								<div class="controls">
-									<div class="row">
-										<div class="col-md-3">
-											<input type="number" id="js-pwd-size" value="8" min="8" class="form-control" autocomplete="off">
-										</div>
-										<div class="col-md-9">
-											<a href="javascript:;" id="js-generate-pwd" class="btn btn-white"><i class="fa fa-refresh m-r-5"></i>Generar contraseña</a>
-										</div>
-									</div>
-								</div>
-							</div>
-							<div class="form-group">
-								<label class="form-label" for="js-random-pwd">La contraseña generada</label>
-								<span class="help">Copie la contraseña abajo en algún lugar seguro antes de guardar</span>
-								<div class="controls">
-									<input type="text" id="js-random-pwd" class="form-control text-center cursor-text js-pwd" readonly>
 								</div>
 							</div>
 						</div>

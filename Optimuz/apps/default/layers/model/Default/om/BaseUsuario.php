@@ -115,10 +115,10 @@ abstract class BaseUsuario extends BaseObject  implements Persistent
 	protected $token;
 
 	/**
-	 * The value for the usuario field.
+	 * The value for the nome_usuario field.
 	 * @var        string
 	 */
-	protected $usuario;
+	protected $nome_usuario;
 
 	/**
 	 * The value for the senha field.
@@ -153,12 +153,14 @@ abstract class BaseUsuario extends BaseObject  implements Persistent
 
 	/**
 	 * The value for the tipo_acesso field.
+	 * Note: this column has a database default value of: 'M'
 	 * @var        string
 	 */
 	protected $tipo_acesso;
 
 	/**
 	 * The value for the estado_civil field.
+	 * Note: this column has a database default value of: 'O'
 	 * @var        string
 	 */
 	protected $estado_civil;
@@ -176,6 +178,18 @@ abstract class BaseUsuario extends BaseObject  implements Persistent
 	 * @var        boolean
 	 */
 	protected $usuario_validado;
+
+	/**
+	 * The value for the sexo field.
+	 * @var        string
+	 */
+	protected $sexo;
+
+	/**
+	 * The value for the data_cadastro field.
+	 * @var        string
+	 */
+	protected $data_cadastro;
 
 	/**
 	 * @var        Cargo
@@ -352,6 +366,8 @@ abstract class BaseUsuario extends BaseObject  implements Persistent
 	public function applyDefaultValues()
 	{
 		$this->ativo = true;
+		$this->tipo_acesso = 'M';
+		$this->estado_civil = 'O';
 		$this->nivel_acesso = '1';
 		$this->usuario_validado = false;
 	}
@@ -563,13 +579,13 @@ abstract class BaseUsuario extends BaseObject  implements Persistent
 	}
 
 	/**
-	 * Get the [usuario] column value.
+	 * Get the [nome_usuario] column value.
 	 * 
 	 * @return     string
 	 */
-	public function getUsuario()
+	public function getNomeUsuario()
 	{
-		return $this->usuario;
+		return $this->nome_usuario;
 	}
 
 	/**
@@ -688,6 +704,54 @@ abstract class BaseUsuario extends BaseObject  implements Persistent
 	public function getUsuarioValidado()
 	{
 		return $this->usuario_validado;
+	}
+
+	/**
+	 * Get the [sexo] column value.
+	 * 
+	 * @return     string
+	 */
+	public function getSexo()
+	{
+		return $this->sexo;
+	}
+
+	/**
+	 * Get the [optionally formatted] temporal [data_cadastro] column value.
+	 * 
+	 *
+	 * @param      string $format The date/time format string (either date()-style or strftime()-style).
+	 *							If format is NULL, then the raw DateTime object will be returned.
+	 * @return     mixed Formatted date/time value as string or DateTime object (if format is NULL), NULL if column is NULL, and 0 if column value is 0000-00-00 00:00:00
+	 * @throws     PropelException - if unable to parse/validate the date/time value.
+	 */
+	public function getDataCadastro($format = 'Y-m-d H:i:s')
+	{
+		if ($this->data_cadastro === null) {
+			return null;
+		}
+
+
+		if ($this->data_cadastro === '0000-00-00 00:00:00') {
+			// while technically this is not a default value of NULL,
+			// this seems to be closest in meaning.
+			return null;
+		} else {
+			try {
+				$dt = new DateTime($this->data_cadastro);
+			} catch (Exception $x) {
+				throw new PropelException("Internally stored date/time/timestamp value could not be converted to DateTime: " . var_export($this->data_cadastro, true), $x);
+			}
+		}
+
+		if ($format === null) {
+			// Because propel.useDateTimeClass is TRUE, we return a DateTime object.
+			return $dt;
+		} elseif (strpos($format, '%') !== false) {
+			return strftime($format, $dt->format('U'));
+		} else {
+			return $dt->format($format);
+		}
 	}
 
 	/**
@@ -991,24 +1055,24 @@ abstract class BaseUsuario extends BaseObject  implements Persistent
 	} // setToken()
 
 	/**
-	 * Set the value of [usuario] column.
+	 * Set the value of [nome_usuario] column.
 	 * 
 	 * @param      string $v new value
 	 * @return     Usuario The current object (for fluent API support)
 	 */
-	public function setUsuario($v)
+	public function setNomeUsuario($v)
 	{
 		if ($v !== null) {
 			$v = (string) $v;
 		}
 
-		if ($this->usuario !== $v) {
-			$this->usuario = $v;
-			$this->modifiedColumns[] = UsuarioPeer::USUARIO;
+		if ($this->nome_usuario !== $v) {
+			$this->nome_usuario = $v;
+			$this->modifiedColumns[] = UsuarioPeer::NOME_USUARIO;
 		}
 
 		return $this;
-	} // setUsuario()
+	} // setNomeUsuario()
 
 	/**
 	 * Set the value of [senha] column.
@@ -1209,6 +1273,48 @@ abstract class BaseUsuario extends BaseObject  implements Persistent
 	} // setUsuarioValidado()
 
 	/**
+	 * Set the value of [sexo] column.
+	 * 
+	 * @param      string $v new value
+	 * @return     Usuario The current object (for fluent API support)
+	 */
+	public function setSexo($v)
+	{
+		if ($v !== null) {
+			$v = (string) $v;
+		}
+
+		if ($this->sexo !== $v) {
+			$this->sexo = $v;
+			$this->modifiedColumns[] = UsuarioPeer::SEXO;
+		}
+
+		return $this;
+	} // setSexo()
+
+	/**
+	 * Sets the value of [data_cadastro] column to a normalized version of the date/time value specified.
+	 * 
+	 * @param      mixed $v string, integer (timestamp), or DateTime value.
+	 *               Empty strings are treated as NULL.
+	 * @return     Usuario The current object (for fluent API support)
+	 */
+	public function setDataCadastro($v)
+	{
+		$dt = PropelDateTime::newInstance($v, null, 'DateTime');
+		if ($this->data_cadastro !== null || $dt !== null) {
+			$currentDateAsString = ($this->data_cadastro !== null && $tmpDt = new DateTime($this->data_cadastro)) ? $tmpDt->format('Y-m-d H:i:s') : null;
+			$newDateAsString = $dt ? $dt->format('Y-m-d H:i:s') : null;
+			if ($currentDateAsString !== $newDateAsString) {
+				$this->data_cadastro = $newDateAsString;
+				$this->modifiedColumns[] = UsuarioPeer::DATA_CADASTRO;
+			}
+		} // if either are not null
+
+		return $this;
+	} // setDataCadastro()
+
+	/**
 	 * Indicates whether the columns in this object are only set to default values.
 	 *
 	 * This method can be used in conjunction with isModified() to indicate whether an object is both
@@ -1219,6 +1325,14 @@ abstract class BaseUsuario extends BaseObject  implements Persistent
 	public function hasOnlyDefaultValues()
 	{
 			if ($this->ativo !== true) {
+				return false;
+			}
+
+			if ($this->tipo_acesso !== 'M') {
+				return false;
+			}
+
+			if ($this->estado_civil !== 'O') {
 				return false;
 			}
 
@@ -1266,7 +1380,7 @@ abstract class BaseUsuario extends BaseObject  implements Persistent
 			$this->celular = ($row[$startcol + 11] !== null) ? (string) $row[$startcol + 11] : null;
 			$this->telefone = ($row[$startcol + 12] !== null) ? (string) $row[$startcol + 12] : null;
 			$this->token = ($row[$startcol + 13] !== null) ? (string) $row[$startcol + 13] : null;
-			$this->usuario = ($row[$startcol + 14] !== null) ? (string) $row[$startcol + 14] : null;
+			$this->nome_usuario = ($row[$startcol + 14] !== null) ? (string) $row[$startcol + 14] : null;
 			$this->senha = ($row[$startcol + 15] !== null) ? (string) $row[$startcol + 15] : null;
 			$this->token_senha = ($row[$startcol + 16] !== null) ? (string) $row[$startcol + 16] : null;
 			$this->token_firebase = ($row[$startcol + 17] !== null) ? (string) $row[$startcol + 17] : null;
@@ -1276,6 +1390,8 @@ abstract class BaseUsuario extends BaseObject  implements Persistent
 			$this->estado_civil = ($row[$startcol + 21] !== null) ? (string) $row[$startcol + 21] : null;
 			$this->nivel_acesso = ($row[$startcol + 22] !== null) ? (string) $row[$startcol + 22] : null;
 			$this->usuario_validado = ($row[$startcol + 23] !== null) ? (boolean) $row[$startcol + 23] : null;
+			$this->sexo = ($row[$startcol + 24] !== null) ? (string) $row[$startcol + 24] : null;
+			$this->data_cadastro = ($row[$startcol + 25] !== null) ? (string) $row[$startcol + 25] : null;
 			$this->resetModified();
 
 			$this->setNew(false);
@@ -1284,7 +1400,7 @@ abstract class BaseUsuario extends BaseObject  implements Persistent
 				$this->ensureConsistency();
 			}
 
-			return $startcol + 24; // 24 = UsuarioPeer::NUM_HYDRATE_COLUMNS.
+			return $startcol + 26; // 26 = UsuarioPeer::NUM_HYDRATE_COLUMNS.
 
 		} catch (Exception $e) {
 			throw new PropelException("Error populating Usuario object", $e);
@@ -1763,6 +1879,10 @@ abstract class BaseUsuario extends BaseObject  implements Persistent
 		$modifiedColumns = array();
 		$index = 0;
 
+		$this->modifiedColumns[] = UsuarioPeer::ID;
+		if (null !== $this->id) {
+			throw new PropelException('Cannot insert a value for auto-increment primary key (' . UsuarioPeer::ID . ')');
+		}
 
 		 // check the columns in natural order for more readable SQL queries
 		if ($this->isColumnModified(UsuarioPeer::ID)) {
@@ -1807,8 +1927,8 @@ abstract class BaseUsuario extends BaseObject  implements Persistent
 		if ($this->isColumnModified(UsuarioPeer::TOKEN)) {
 			$modifiedColumns[':p' . $index++]  = '`TOKEN`';
 		}
-		if ($this->isColumnModified(UsuarioPeer::USUARIO)) {
-			$modifiedColumns[':p' . $index++]  = '`USUARIO`';
+		if ($this->isColumnModified(UsuarioPeer::NOME_USUARIO)) {
+			$modifiedColumns[':p' . $index++]  = '`NOME_USUARIO`';
 		}
 		if ($this->isColumnModified(UsuarioPeer::SENHA)) {
 			$modifiedColumns[':p' . $index++]  = '`SENHA`';
@@ -1836,6 +1956,12 @@ abstract class BaseUsuario extends BaseObject  implements Persistent
 		}
 		if ($this->isColumnModified(UsuarioPeer::USUARIO_VALIDADO)) {
 			$modifiedColumns[':p' . $index++]  = '`USUARIO_VALIDADO`';
+		}
+		if ($this->isColumnModified(UsuarioPeer::SEXO)) {
+			$modifiedColumns[':p' . $index++]  = '`SEXO`';
+		}
+		if ($this->isColumnModified(UsuarioPeer::DATA_CADASTRO)) {
+			$modifiedColumns[':p' . $index++]  = '`DATA_CADASTRO`';
 		}
 
 		$sql = sprintf(
@@ -1890,8 +2016,8 @@ abstract class BaseUsuario extends BaseObject  implements Persistent
 					case '`TOKEN`':						
 						$stmt->bindValue($identifier, $this->token, PDO::PARAM_STR);
 						break;
-					case '`USUARIO`':						
-						$stmt->bindValue($identifier, $this->usuario, PDO::PARAM_STR);
+					case '`NOME_USUARIO`':						
+						$stmt->bindValue($identifier, $this->nome_usuario, PDO::PARAM_STR);
 						break;
 					case '`SENHA`':						
 						$stmt->bindValue($identifier, $this->senha, PDO::PARAM_STR);
@@ -1920,6 +2046,12 @@ abstract class BaseUsuario extends BaseObject  implements Persistent
 					case '`USUARIO_VALIDADO`':
 						$stmt->bindValue($identifier, (int) $this->usuario_validado, PDO::PARAM_INT);
 						break;
+					case '`SEXO`':						
+						$stmt->bindValue($identifier, $this->sexo, PDO::PARAM_STR);
+						break;
+					case '`DATA_CADASTRO`':						
+						$stmt->bindValue($identifier, $this->data_cadastro, PDO::PARAM_STR);
+						break;
 				}
 			}
 			$stmt->execute();
@@ -1927,6 +2059,13 @@ abstract class BaseUsuario extends BaseObject  implements Persistent
 			Propel::log($e->getMessage(), Propel::LOG_ERR);
 			throw new PropelException(sprintf('Unable to execute INSERT statement [%s]', $sql), $e);
 		}
+
+		try {
+			$pk = $con->lastInsertId();
+		} catch (Exception $e) {
+			throw new PropelException('Unable to get autoincrement id.', $e);
+		}
+		$this->setId($pk);
 
 		$this->setNew(false);
 	}
@@ -2014,7 +2153,7 @@ abstract class BaseUsuario extends BaseObject  implements Persistent
 				return $this->getToken();
 				break;
 			case 14:
-				return $this->getUsuario();
+				return $this->getNomeUsuario();
 				break;
 			case 15:
 				return $this->getSenha();
@@ -2042,6 +2181,12 @@ abstract class BaseUsuario extends BaseObject  implements Persistent
 				break;
 			case 23:
 				return $this->getUsuarioValidado();
+				break;
+			case 24:
+				return $this->getSexo();
+				break;
+			case 25:
+				return $this->getDataCadastro();
 				break;
 			default:
 				return null;
@@ -2086,7 +2231,7 @@ abstract class BaseUsuario extends BaseObject  implements Persistent
 			$keys[11] => $this->getCelular(),
 			$keys[12] => $this->getTelefone(),
 			$keys[13] => $this->getToken(),
-			$keys[14] => $this->getUsuario(),
+			$keys[14] => $this->getNomeUsuario(),
 			$keys[15] => $this->getSenha(),
 			$keys[16] => $this->getTokenSenha(),
 			$keys[17] => $this->getTokenFirebase(),
@@ -2096,6 +2241,8 @@ abstract class BaseUsuario extends BaseObject  implements Persistent
 			$keys[21] => $this->getEstadoCivil(),
 			$keys[22] => $this->getNivelAcesso(),
 			$keys[23] => $this->getUsuarioValidado(),
+			$keys[24] => $this->getSexo(),
+			$keys[25] => $this->getDataCadastro(),
 		);
 		if ($includeForeignObjects) {
 			if (null !== $this->aCargo) {
@@ -2220,7 +2367,7 @@ abstract class BaseUsuario extends BaseObject  implements Persistent
 				$this->setToken($value);
 				break;
 			case 14:
-				$this->setUsuario($value);
+				$this->setNomeUsuario($value);
 				break;
 			case 15:
 				$this->setSenha($value);
@@ -2248,6 +2395,12 @@ abstract class BaseUsuario extends BaseObject  implements Persistent
 				break;
 			case 23:
 				$this->setUsuarioValidado($value);
+				break;
+			case 24:
+				$this->setSexo($value);
+				break;
+			case 25:
+				$this->setDataCadastro($value);
 				break;
 		} // switch()
 	}
@@ -2287,7 +2440,7 @@ abstract class BaseUsuario extends BaseObject  implements Persistent
 		if (array_key_exists($keys[11], $arr)) $this->setCelular($arr[$keys[11]]);
 		if (array_key_exists($keys[12], $arr)) $this->setTelefone($arr[$keys[12]]);
 		if (array_key_exists($keys[13], $arr)) $this->setToken($arr[$keys[13]]);
-		if (array_key_exists($keys[14], $arr)) $this->setUsuario($arr[$keys[14]]);
+		if (array_key_exists($keys[14], $arr)) $this->setNomeUsuario($arr[$keys[14]]);
 		if (array_key_exists($keys[15], $arr)) $this->setSenha($arr[$keys[15]]);
 		if (array_key_exists($keys[16], $arr)) $this->setTokenSenha($arr[$keys[16]]);
 		if (array_key_exists($keys[17], $arr)) $this->setTokenFirebase($arr[$keys[17]]);
@@ -2297,6 +2450,8 @@ abstract class BaseUsuario extends BaseObject  implements Persistent
 		if (array_key_exists($keys[21], $arr)) $this->setEstadoCivil($arr[$keys[21]]);
 		if (array_key_exists($keys[22], $arr)) $this->setNivelAcesso($arr[$keys[22]]);
 		if (array_key_exists($keys[23], $arr)) $this->setUsuarioValidado($arr[$keys[23]]);
+		if (array_key_exists($keys[24], $arr)) $this->setSexo($arr[$keys[24]]);
+		if (array_key_exists($keys[25], $arr)) $this->setDataCadastro($arr[$keys[25]]);
 	}
 
 	/**
@@ -2322,7 +2477,7 @@ abstract class BaseUsuario extends BaseObject  implements Persistent
 		if ($this->isColumnModified(UsuarioPeer::CELULAR)) $criteria->add(UsuarioPeer::CELULAR, $this->celular);
 		if ($this->isColumnModified(UsuarioPeer::TELEFONE)) $criteria->add(UsuarioPeer::TELEFONE, $this->telefone);
 		if ($this->isColumnModified(UsuarioPeer::TOKEN)) $criteria->add(UsuarioPeer::TOKEN, $this->token);
-		if ($this->isColumnModified(UsuarioPeer::USUARIO)) $criteria->add(UsuarioPeer::USUARIO, $this->usuario);
+		if ($this->isColumnModified(UsuarioPeer::NOME_USUARIO)) $criteria->add(UsuarioPeer::NOME_USUARIO, $this->nome_usuario);
 		if ($this->isColumnModified(UsuarioPeer::SENHA)) $criteria->add(UsuarioPeer::SENHA, $this->senha);
 		if ($this->isColumnModified(UsuarioPeer::TOKEN_SENHA)) $criteria->add(UsuarioPeer::TOKEN_SENHA, $this->token_senha);
 		if ($this->isColumnModified(UsuarioPeer::TOKEN_FIREBASE)) $criteria->add(UsuarioPeer::TOKEN_FIREBASE, $this->token_firebase);
@@ -2332,6 +2487,8 @@ abstract class BaseUsuario extends BaseObject  implements Persistent
 		if ($this->isColumnModified(UsuarioPeer::ESTADO_CIVIL)) $criteria->add(UsuarioPeer::ESTADO_CIVIL, $this->estado_civil);
 		if ($this->isColumnModified(UsuarioPeer::NIVEL_ACESSO)) $criteria->add(UsuarioPeer::NIVEL_ACESSO, $this->nivel_acesso);
 		if ($this->isColumnModified(UsuarioPeer::USUARIO_VALIDADO)) $criteria->add(UsuarioPeer::USUARIO_VALIDADO, $this->usuario_validado);
+		if ($this->isColumnModified(UsuarioPeer::SEXO)) $criteria->add(UsuarioPeer::SEXO, $this->sexo);
+		if ($this->isColumnModified(UsuarioPeer::DATA_CADASTRO)) $criteria->add(UsuarioPeer::DATA_CADASTRO, $this->data_cadastro);
 
 		return $criteria;
 	}
@@ -2407,7 +2564,7 @@ abstract class BaseUsuario extends BaseObject  implements Persistent
 		$copyObj->setCelular($this->getCelular());
 		$copyObj->setTelefone($this->getTelefone());
 		$copyObj->setToken($this->getToken());
-		$copyObj->setUsuario($this->getUsuario());
+		$copyObj->setNomeUsuario($this->getNomeUsuario());
 		$copyObj->setSenha($this->getSenha());
 		$copyObj->setTokenSenha($this->getTokenSenha());
 		$copyObj->setTokenFirebase($this->getTokenFirebase());
@@ -2417,6 +2574,8 @@ abstract class BaseUsuario extends BaseObject  implements Persistent
 		$copyObj->setEstadoCivil($this->getEstadoCivil());
 		$copyObj->setNivelAcesso($this->getNivelAcesso());
 		$copyObj->setUsuarioValidado($this->getUsuarioValidado());
+		$copyObj->setSexo($this->getSexo());
+		$copyObj->setDataCadastro($this->getDataCadastro());
 
 		if ($deepCopy && !$this->startCopy) {
 			// important: temporarily setNew(false) because this affects the behavior of
@@ -4785,7 +4944,7 @@ abstract class BaseUsuario extends BaseObject  implements Persistent
 		$this->celular = null;
 		$this->telefone = null;
 		$this->token = null;
-		$this->usuario = null;
+		$this->nome_usuario = null;
 		$this->senha = null;
 		$this->token_senha = null;
 		$this->token_firebase = null;
@@ -4795,6 +4954,8 @@ abstract class BaseUsuario extends BaseObject  implements Persistent
 		$this->estado_civil = null;
 		$this->nivel_acesso = null;
 		$this->usuario_validado = null;
+		$this->sexo = null;
+		$this->data_cadastro = null;
 		$this->alreadyInSave = false;
 		$this->alreadyInValidation = false;
 		$this->clearAllReferences();

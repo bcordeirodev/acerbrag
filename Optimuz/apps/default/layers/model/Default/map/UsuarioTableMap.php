@@ -36,7 +36,7 @@ class UsuarioTableMap extends TableMap
 		$this->setPhpName('Usuario');
 		$this->setClassname('Usuario');
 		$this->setPackage('Default');
-		$this->setUseIdGenerator(false);
+		$this->setUseIdGenerator(true);
 		// columns
 		$this->addPrimaryKey('ID', 'Id', 'INTEGER', true, 10, null);
 		$this->addForeignKey('PERFIL_ID', 'PerfilId', 'INTEGER', 'perfil', 'ID', true, 10, null);
@@ -52,16 +52,18 @@ class UsuarioTableMap extends TableMap
 		$this->addColumn('CELULAR', 'Celular', 'VARCHAR', false, 11, null);
 		$this->addColumn('TELEFONE', 'Telefone', 'VARCHAR', false, 11, null);
 		$this->addColumn('TOKEN', 'Token', 'CHAR', false, 64, null);
-		$this->addColumn('USUARIO', 'Usuario', 'VARCHAR', true, 255, null);
+		$this->addColumn('NOME_USUARIO', 'NomeUsuario', 'VARCHAR', false, 255, null);
 		$this->addColumn('SENHA', 'Senha', 'CHAR', true, 128, null);
 		$this->addColumn('TOKEN_SENHA', 'TokenSenha', 'CHAR', false, 64, null);
-		$this->addColumn('TOKEN_FIREBASE', 'TokenFirebase', 'VARCHAR', true, 255, null);
+		$this->addColumn('TOKEN_FIREBASE', 'TokenFirebase', 'VARCHAR', false, 255, null);
 		$this->addColumn('DATA_RESCISAO', 'DataRescisao', 'DATE', false, null, null);
 		$this->addColumn('ATIVO', 'Ativo', 'BOOLEAN', true, 1, true);
-		$this->addColumn('TIPO_ACESSO', 'TipoAcesso', 'CHAR', false, null, null);
-		$this->addColumn('ESTADO_CIVIL', 'EstadoCivil', 'CHAR', false, null, null);
+		$this->addColumn('TIPO_ACESSO', 'TipoAcesso', 'CHAR', false, null, 'M');
+		$this->addColumn('ESTADO_CIVIL', 'EstadoCivil', 'CHAR', false, null, 'O');
 		$this->addColumn('NIVEL_ACESSO', 'NivelAcesso', 'CHAR', false, null, '1');
 		$this->addColumn('USUARIO_VALIDADO', 'UsuarioValidado', 'BOOLEAN', false, 1, false);
+		$this->addColumn('SEXO', 'Sexo', 'CHAR', false, null, null);
+		$this->addColumn('DATA_CADASTRO', 'DataCadastro', 'TIMESTAMP', false, null, null);
 		// validators
 	} // initialize()
 

@@ -119,8 +119,10 @@ class Usuario extends BaseUsuario {
 
 		if(!is_null($permissionId))
 		{
-			$bool = UsuarioPermissaoQuery::create()
-					->filterByUsuario($this)
+			$profile = $this->getPerfil();
+
+			$bool = PerfilPermissaoQuery::create()
+					->filterByPerfil($profile)
 					->filterByPermissaoId($permissionId)
 					->count() > 0;
 		}

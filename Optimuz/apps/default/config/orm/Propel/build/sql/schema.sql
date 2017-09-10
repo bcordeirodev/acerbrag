@@ -176,8 +176,8 @@ CREATE TABLE `curtida_forum`
 	`usuario_id` int(10) unsigned NOT NULL,
 	`forum_id` int(10) unsigned NOT NULL,
 	PRIMARY KEY (`id`),
-	INDEX `FI_curtida_forum_forum` (`forum_id`),
-	INDEX `FI_curtida_forum_usuario` (`usuario_id`),
+	BTREE INDEX `fk_curtida_forum_forum` (`forum_id`),
+	BTREE INDEX `fk_curtida_forum_usuario` (`usuario_id`),
 	CONSTRAINT `fk_curtida_forum_forum`
 		FOREIGN KEY (`forum_id`)
 		REFERENCES `forum` (`id`),
@@ -535,7 +535,7 @@ CREATE TABLE `usuario`
 	`telefone` VARCHAR(11),
 	`token` CHAR(64),
 	`nome_usuario` VARCHAR(255),
-	`senha` CHAR(128) NOT NULL,
+	`senha` CHAR(128),
 	`token_senha` CHAR(64),
 	`token_firebase` VARCHAR(255),
 	`data_rescisao` DATE,
@@ -555,6 +555,9 @@ CREATE TABLE `usuario`
 	BTREE INDEX `fk_usuario_endereco_idx` (`endereco_id`),
 	BTREE INDEX `fk_usuario_idx` (`departamento_id`),
 	BTREE INDEX `fk_usuario_cargo_idx` (`cargo_id`),
+	CONSTRAINT `FK_usuario_perfil`
+		FOREIGN KEY (`perfil_id`)
+		REFERENCES `perfil` (`id`),
 	CONSTRAINT `fk_usuario_cargo`
 		FOREIGN KEY (`cargo_id`)
 		REFERENCES `cargo` (`id`),
@@ -563,10 +566,7 @@ CREATE TABLE `usuario`
 		REFERENCES `departamento` (`id`),
 	CONSTRAINT `fk_usuario_endereco`
 		FOREIGN KEY (`endereco_id`)
-		REFERENCES `endereco` (`id`),
-	CONSTRAINT `FK_usuario_perfil`
-		FOREIGN KEY (`perfil_id`)
-		REFERENCES `perfil` (`id`)
+		REFERENCES `endereco` (`id`)
 ) ENGINE=InnoDB CHECKSUM='';
 
 -- ---------------------------------------------------------------------

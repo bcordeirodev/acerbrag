@@ -253,12 +253,12 @@ class UsuarioController extends DefaultPageController
 				{
 					$records = $table->orderById(Criteria::DESC)->paginate($page, $length);
 
-					$result->recordsTotal = $records->getNbResults();
-					$result->success = true;
-					$result->data	= array();
-					$result->recordsFiltered = $records->count();
-					$result->draw	= $draw;
-					$baseUrl		= $this->application->getBaseUrl();
+					$result->recordsTotal		= $records->getNbResults();
+					$result->success			= true;
+					$result->data				= array();
+					$result->recordsFiltered	= $records->count();
+					$result->draw				= $draw;
+					$baseUrl					= $this->application->getBaseUrl();
 
 					if(!empty($records))
 					{

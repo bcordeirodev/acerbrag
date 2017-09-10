@@ -47,17 +47,9 @@ class UsuarioQuery extends BaseUsuarioQuery {
 	public static function getByUserProfile($alias = 'u')
 	{
 		$currentUser = Usuario::atual();
-		$query = self::create($alias)->filterById($currentUser->getId(), Criteria::NOT_EQUAL);
-
-		if($currentUser->getPerfilId() == Perfil::PERFIL_INSITUICAO)
-		{
-			$query->filterByInstituicaoId($currentUser->getInstituicaoId());
-		}
-		else if($currentUser->getPerfilId() == Perfil::PERFIL_GERENCIADOR_CONTEUDO)
-		{
-			$query->filterByInstituicaoId($currentUser->getInstituicaoId())
-				->filterByPerfilId(Perfil::PERFIL_INSITUICAO, Criteria::NOT_EQUAL);
-		}
+		
+		$query = self::create($alias)
+			->filterById($currentUser->getId(), Criteria::NOT_EQUAL);
 
 		return $query;
 	}

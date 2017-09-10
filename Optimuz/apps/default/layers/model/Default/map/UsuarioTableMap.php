@@ -53,7 +53,7 @@ class UsuarioTableMap extends TableMap
 		$this->addColumn('TELEFONE', 'Telefone', 'VARCHAR', false, 11, null);
 		$this->addColumn('TOKEN', 'Token', 'CHAR', false, 64, null);
 		$this->addColumn('NOME_USUARIO', 'NomeUsuario', 'VARCHAR', false, 255, null);
-		$this->addColumn('SENHA', 'Senha', 'CHAR', true, 128, null);
+		$this->addColumn('SENHA', 'Senha', 'CHAR', false, 128, null);
 		$this->addColumn('TOKEN_SENHA', 'TokenSenha', 'CHAR', false, 64, null);
 		$this->addColumn('TOKEN_FIREBASE', 'TokenFirebase', 'VARCHAR', false, 255, null);
 		$this->addColumn('DATA_RESCISAO', 'DataRescisao', 'DATE', false, null, null);
@@ -72,10 +72,10 @@ class UsuarioTableMap extends TableMap
 	 */
 	public function buildRelations()
 	{
+		$this->addRelation('Perfil', 'Perfil', RelationMap::MANY_TO_ONE, array('perfil_id' => 'id', ), null, null);
 		$this->addRelation('Cargo', 'Cargo', RelationMap::MANY_TO_ONE, array('cargo_id' => 'id', ), null, null);
 		$this->addRelation('Departamento', 'Departamento', RelationMap::MANY_TO_ONE, array('departamento_id' => 'id', ), null, null);
 		$this->addRelation('Endereco', 'Endereco', RelationMap::MANY_TO_ONE, array('endereco_id' => 'id', ), null, null);
-		$this->addRelation('Perfil', 'Perfil', RelationMap::MANY_TO_ONE, array('perfil_id' => 'id', ), null, null);
 		$this->addRelation('Auditoria', 'Auditoria', RelationMap::ONE_TO_MANY, array('id' => 'usuario_id', ), null, null, 'Auditorias');
 		$this->addRelation('AvaliacaoRespostaForum', 'AvaliacaoRespostaForum', RelationMap::ONE_TO_MANY, array('id' => 'usuario_id', ), null, null, 'AvaliacaoRespostaForums');
 		$this->addRelation('ColetaPesquisa', 'ColetaPesquisa', RelationMap::ONE_TO_MANY, array('id' => 'usuario_id', ), null, null, 'ColetaPesquisas');

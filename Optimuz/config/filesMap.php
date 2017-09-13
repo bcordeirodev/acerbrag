@@ -2268,6 +2268,15 @@ return array (
           0 => 'DefaultPageController',
         ),
       ),
+      'ColetaController' => 
+      array (
+        'file' => 'apps/default/layers/control/page/ColetaController.php',
+        'uses' => NULL,
+        'extends' => 
+        array (
+          0 => 'DefaultPageController',
+        ),
+      ),
       'DashboardController' => 
       array (
         'file' => 'apps/default/layers/control/page/DashboardController.php',
@@ -2280,6 +2289,24 @@ return array (
       'LoginController' => 
       array (
         'file' => 'apps/default/layers/control/page/LoginController.php',
+        'uses' => NULL,
+        'extends' => 
+        array (
+          0 => 'DefaultPageController',
+        ),
+      ),
+      'PesquisaController' => 
+      array (
+        'file' => 'apps/default/layers/control/page/PesquisaController.php',
+        'uses' => NULL,
+        'extends' => 
+        array (
+          0 => 'DefaultPageController',
+        ),
+      ),
+      'RelatorioController' => 
+      array (
+        'file' => 'apps/default/layers/control/page/RelatorioController.php',
         'uses' => NULL,
         'extends' => 
         array (
@@ -6386,9 +6413,12 @@ return array (
         array (
           0 => 'ApiController',
           1 => 'CadastroBasicoController',
-          2 => 'DashboardController',
-          3 => 'LoginController',
-          4 => 'UsuarioController',
+          2 => 'ColetaController',
+          3 => 'DashboardController',
+          4 => 'LoginController',
+          5 => 'PesquisaController',
+          6 => 'RelatorioController',
+          7 => 'UsuarioController',
         ),
       ),
       'session' => 

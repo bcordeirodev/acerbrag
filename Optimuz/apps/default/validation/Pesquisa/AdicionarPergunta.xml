@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE settings SYSTEM "http://optimuz.interativadesenvolvimento.com.br/dtd/validation.dtd">
+<form method="post" lang="">
+	<input name="pergunta" label="Pergunta">
+		<rule name="required" />
+	</input>
+	<input name="tipo-resposta" label="Tipo de respota">
+		<rule name="number" />
+		<rule name="required" />
+	</input>
+	<input name="pesquisa-id" label="">
+		<rule name="required" />
+	</input>
+	<input name="categoria-id" label="">
+		<rule name="discard" />
+	</input>
+	<input name="opcoes" label="opcoes">
+		<rule name="discard" />
+		<rule name="Array" />
+	</input>
+</form>

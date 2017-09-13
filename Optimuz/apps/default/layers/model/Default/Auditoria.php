@@ -49,6 +49,16 @@ class Auditoria extends BaseAuditoria {
 	const TIPO_USUARIO			= 2;
 
 	/**
+	 * Representa a tabela de pesquisas.
+	 */
+	const TIPO_PESQUISA			= 3;
+
+	/**
+	 * Representa a tabela de coletas.
+	 */
+	const TIPO_COLETA			= 4;
+
+	/**
 	 * Grava uma mensagem de log no banco de dados.
 	 * @param string $msg Mensagem que será gravada.
 	 * @param int $nivel (opcional) Nível da mensagem. Pode ser uma das

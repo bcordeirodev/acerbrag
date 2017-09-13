@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE settings SYSTEM "http://optimuz.interativadesenvolvimento.com.br/dtd/validation.dtd">
+<form method="post" lang="">
+	<input name="data-inicio" label="Data de inicio">
+		<rule name="required" />
+		<rule name="date" />
+	</input>
+	<input name="data-fim" label="Data final">
+		<rule name="required" />
+		<rule name="date" />
+	</input>
+	<input name="view">
+		<rule name="discard"/>
+	</input>
+</form>

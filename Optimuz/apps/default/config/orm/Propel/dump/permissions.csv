@@ -1,0 +1,12 @@
+id,nome,slug,descricao,nivel
+1,"Logar como",logar-como,"permite logar com o usuário de outra pessoa",3
+2,"Gerenciar permissoes",gerenciar-permissoes,"Permite que o usuário altere suas permissões de acesso aos modulos do sistema",2
+3,"Gerenciar perfis",gerenciar-perfis,"Permite o gerenciamentos das filiais atribuidas ao usuário.",2
+4,"Gerenciar departamentos",gerenciar-departamentos,"Permite gerenciar os derpartamentos cadastrados no sistema.",2
+5,"Gerenciar usuários",gerenciar-usuarios,"Permite gerenciar os usuários cadastrados no sistema.",2
+6,"Gerenciar cargos",gerenciar-cargos,"Permite o gerenciamento dos cargos no sistema.",2
+7,"Cadastrar pesquisa",cadastrar-pesquisa,"Permite efetuar o cadastramento de novas pesquisas.",2
+8,"Editar pesquisa",editar-pesquisa,"Permite editar as informações da pesquisa.",2
+9,"Visualizar coletas",visualizar-coletas,"Permite a visualização das coletas efetuadas.",2
+10,"Visualizar pesquisa",visualizar-pesquisa,"Permite visualizar as pesquisas efetuadas.",2
+11,"Visualizar relatórios",visualizar-relatorios,"Permite a visualização dos relatórios gerados.",2

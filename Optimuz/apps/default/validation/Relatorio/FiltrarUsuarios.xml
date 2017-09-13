@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE settings SYSTEM "http://optimuz.interativadesenvolvimento.com.br/dtd/validation.dtd">
+<form method="post" lang="">
+	<input name="usuarios">
+		<rule name="required"/>
+	</input>
+	<input name="pesquisa">
+		<rule name="required"/>
+	</input>
+</form>

@@ -8,7 +8,8 @@
 /**
  * Controle responsável por todas as operações relacionadas ao gerenciamento de
  * usuários, perfis e permissões.
- * @author Diego Andrade
+ *
+ * @author Bruno Cordeiro
  * @package control
  * @subpackage page
  */
@@ -748,11 +749,12 @@ class UsuarioController extends DefaultPageController
 				/**
 				 * @todo adicionar checked em todos os inputs.
 				 */
-//				foreach($permissionsInputs as $input)
-//				{
-//					$input->setChecked(true);
-//					$input->setAttribute('disabled', true);
-//				}
+				foreach($doc->find('input[type="checkbox"') as $input)
+				{
+					$input->setChecked(true);
+					$input->setAttribute('disabled', true);
+					$input->setAttribute('checked', true);
+				}
 
 				/*
 				 * Botão de ativar e desativar.

@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE settings SYSTEM "http://optimuz.interativadesenvolvimento.com.br/dtd/validation.dtd">
+<form method="post" lang="">
+	<custom-rules>
+		<rule name="coordenada" regex="/-?\d+(\.\d+),-?\d+(\.\d+)/" errorMessage="Este campo requer valores de coordenadas" />
+		<rule name="long" regex="/^-?\d+(\.\d+)?$/" errorMessage="A longitude não foi informada corretamente" />
+		<rule name="lat" regex="/^-?\d+(\.\d+)?$/" errorMessage="A latitude não foi informada corretamente" />
+	</custom-rules>
+	<input name="pesquisa-id" label="">
+		<rule name="required" />
+		<rule name="number" />
+	</input>
+	<input name="titulo" label="Título">
+		<rule name="discard" />
+	</input>
+	<input name="data-inicio" label="Data de início">
+		<rule name="date" />
+		<rule name="compareDates" second="data-fim" />
+	</input>
+	<input name="data-fim" label="Data de término">
+		<rule name="date" />
+	</input>
+	<input name="longitude" label="Longitude">
+		<rule name="longitude" />
+		<rule name="long" />
+	</input>
+	<input name="latitude" label="Latitude">
+		<rule name="latitude" />
+		<rule name="lat" />
+	</input>
+	<input name="area-limite" label="Aréa limite">
+		<rule name="discard" />
+	</input>
+	<input name="descricao" label="Descrição da Pesquisa">
+		<rule name="discard" />
+	</input>
+	<input name="status" label="Descrição da Pesquisa">
+		<rule name="discard" />
+	</input>
+
+	<input name="id-categorias">
+		<rule name="array"/>
+	</input>
+	<input name="categorias">
+		<rule name="array"/>
+	</input>
+	<input name="id-perguntas">
+		<rule name="array"/>
+	</input>
+	<input name="perguntas">
+		<rule name="array"/>
+	</input>
+	<input name="alternativas">
+		<rule name="array"/>
+	</input>
+	<input name="id-alternativas">
+		<rule name="array"/>
+	</input>
+	<input name="tipo-resposta">
+		<rule name="array"/>
+	</input>
+	<input name="novas-alternativas">
+		<rule name="array"/>
+	</input>
+	<input name="novas-alternativas-img">
+		<rule name="array"/>
+	</input>
+	<input name="options-removed">
+		<rule name="array"/>
+	</input>
+	<input name="questions-removed">
+		<rule name="array"/>
+	</input>
+
+	<input name="text-question" label="">
+		<rule name="array" />
+	</input>
+	<input name="type-response" label="">
+		<rule name="array" />
+	</input>
+	<input name="category" label="">
+		<rule name="array" />
+	</input>
+	<input name="options" label="">
+		<rule name="array" />
+	</input>
+	<input name="required" label="">
+		<rule name="array" />
+	</input>
+	<input name="exception" label="">
+		<rule name="discard" />
+	</input>
+	<input name="trigger" label="">
+		<rule name="discard" />
+	</input>
+</form>

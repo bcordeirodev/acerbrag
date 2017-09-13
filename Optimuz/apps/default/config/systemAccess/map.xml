@@ -100,5 +100,20 @@ need special rights.
 		<method name="gerenciarPerfis" role="gerenciar-perfis" />
 	</controller>
 	<controller name="Api" role="Anonymous"></controller>
-
+	<controller name="Pesquisa" role="*" permissions="visulizar-pesquisa|editar-pesquisa|cadastrar-pesquisa">
+<!--		<method name="atribuirUsuario" role="*" permissions="*" />
+		<method name="ver" role="*" permissions="*" />
+		<method name="verTodas" role="*" permissions="*" />-->
+		<method name="nova" role="*" permissions="cadastrar-pesquisa" />
+		<method name="salvar" role="*" permissions="cadastrar-pesquisa" />
+		<!--<method name="filtrar" role="*" permissions="*" />-->
+		<!--<method name="adicionarCategoria" role="*" permissions="*" />-->
+<!--		<method name="buscarUsuario" role="*" permissions="*" />
+		<method name="vincularUsuario" role="*" permissions="*" />
+		<method name="desvincularUsuario" role="*" permissions="*" />-->
+		<method name="adicionarPergunta" role="*" permissions="editar-pesquisa" />
+		<method name="removerPergunta" role="*" permissions="editar-pesquisa" />
+	</controller>
+	<controller name="Coleta" role="*" permissions="visualizar-coletas"></controller>
+	<controller name="Relatorio" role="*" permissions="visualizar-coletas"></controller>
 </map>

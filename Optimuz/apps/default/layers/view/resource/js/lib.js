@@ -34,6 +34,11 @@ var defaultDataTableLanguage = {
 };
 
 /**
+ * Guarda os módulos do sistema.
+ */
+window.modules = {};
+
+/**
  * Grava uma mensagem no log informando a falta de um plugin necessário.
  * @param {String} plugin Nome do plugin.
  */

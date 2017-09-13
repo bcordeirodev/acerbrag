@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE settings SYSTEM "http://optimuz.interativadesenvolvimento.com.br/dtd/validation.dtd">
+<form method="post" lang="">
+	<custom-rules>
+		<rule name="coordenada" regex="/-?\d+(\.\d+),-?\d+(\.\d+)/" errorMessage="Este campo requer valores de coordenadas" />
+		<rule name="long" regex="/^-?\d+(\.\d+)?$/" errorMessage="A longitude não foi informada corretamente" />
+		<rule name="lat" regex="/^-?\d+(\.\d+)?$/" errorMessage="A latitude não foi informada corretamente" />
+	</custom-rules>
+	<input name="titulo" label="Título">
+		<rule name="discard" />
+	</input>
+	<input name="data-inicio" label="Data de início">
+		<rule name="date" />
+		<rule name="compareDates" second="data-fim" />
+	</input>
+	<input name="data-fim" label="Data de término">
+		<rule name="date" />
+	</input>
+	<input name="descricao" label="Descrição da Pesquisa">
+		<rule name="discard" />
+	</input>
+
+	<input name="quantidade-homens-final" label="Quantidade de Homens">
+		<rule name="discard" />
+		<rule name="array" />
+	</input>
+	<input name="quantidade-mulheres-final" label="Quantidade de Mulheres">
+		<rule name="discard" />
+		<rule name="array" />
+	</input>
+	<input name="idade-minima-final" label="Idade Mínima">
+		<rule name="discard" />
+		<rule name="array" />
+	</input>
+	<input name="idade-maxima-final" label="Idade Máxima">
+		<rule name="discard" />
+		<rule name="array" />
+	</input>
+
+	<input name="text-question" label="">
+		<rule name="discard" />
+		<rule name="array" />
+	</input>
+	<input name="type-response" label="">
+		<rule name="discard" />
+		<rule name="array" />
+	</input>
+	<input name="category" label="">
+		<rule name="discard" />
+		<rule name="array" />
+	</input>
+	<input name="options" label="">
+		<rule name="discard" />
+		<rule name="array" />
+	</input>
+	<input name="required" label="">
+		<rule name="discard" />
+		<rule name="array" />
+	</input>
+	<input name="exception" label="">
+		<rule name="discard" />
+	</input>
+	<input name="trigger" label="">
+		<rule name="discard" />
+	</input>
+</form>

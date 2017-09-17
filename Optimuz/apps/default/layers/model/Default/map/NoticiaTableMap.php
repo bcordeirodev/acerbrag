@@ -46,6 +46,7 @@ class NoticiaTableMap extends TableMap
 		$this->addColumn('DESCRICAO', 'Descricao', 'LONGVARCHAR', false, null, null);
 		$this->addColumn('DATA_CADASTRO', 'DataCadastro', 'TIMESTAMP', false, null, null);
 		$this->addColumn('VISUALIZACAO', 'Visualizacao', 'INTEGER', false, null, 0);
+		$this->addColumn('ATIVA', 'Ativa', 'BOOLEAN', false, 1, true);
 		// validators
 	} // initialize()
 

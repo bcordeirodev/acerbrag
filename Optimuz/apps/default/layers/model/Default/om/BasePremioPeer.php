@@ -26,13 +26,13 @@ abstract class BasePremioPeer {
 	const TM_CLASS = 'PremioTableMap';
 
 	/** The total number of columns. */
-	const NUM_COLUMNS = 5;
+	const NUM_COLUMNS = 8;
 
 	/** The number of lazy-loaded columns. */
 	const NUM_LAZY_LOAD_COLUMNS = 0;
 
 	/** The number of columns to hydrate (NUM_COLUMNS - NUM_LAZY_LOAD_COLUMNS) */
-	const NUM_HYDRATE_COLUMNS = 5;
+	const NUM_HYDRATE_COLUMNS = 8;
 
 	/** the column name for the ID field */
 	const ID = 'premio.ID';
@@ -48,6 +48,15 @@ abstract class BasePremioPeer {
 
 	/** the column name for the QUANTIDADE field */
 	const QUANTIDADE = 'premio.QUANTIDADE';
+
+	/** the column name for the DATA_CADASTRO field */
+	const DATA_CADASTRO = 'premio.DATA_CADASTRO';
+
+	/** the column name for the ATIVO field */
+	const ATIVO = 'premio.ATIVO';
+
+	/** the column name for the DESCRICAO field */
+	const DESCRICAO = 'premio.DESCRICAO';
 
 	/** The default string format for model objects of the related table **/
 	const DEFAULT_STRING_FORMAT = 'YAML';
@@ -68,12 +77,12 @@ abstract class BasePremioPeer {
 	 * e.g. self::$fieldNames[self::TYPE_PHPNAME][0] = 'Id'
 	 */
 	protected static $fieldNames = array (
-		BasePeer::TYPE_PHPNAME => array ('Id', 'UsuarioId', 'Nome', 'Valor', 'Quantidade', ),
-		BasePeer::TYPE_STUDLYPHPNAME => array ('id', 'usuarioId', 'nome', 'valor', 'quantidade', ),
-		BasePeer::TYPE_COLNAME => array (self::ID, self::USUARIO_ID, self::NOME, self::VALOR, self::QUANTIDADE, ),
-		BasePeer::TYPE_RAW_COLNAME => array ('ID', 'USUARIO_ID', 'NOME', 'VALOR', 'QUANTIDADE', ),
-		BasePeer::TYPE_FIELDNAME => array ('id', 'usuario_id', 'nome', 'valor', 'quantidade', ),
-		BasePeer::TYPE_NUM => array (0, 1, 2, 3, 4, )
+		BasePeer::TYPE_PHPNAME => array ('Id', 'UsuarioId', 'Nome', 'Valor', 'Quantidade', 'DataCadastro', 'Ativo', 'Descricao', ),
+		BasePeer::TYPE_STUDLYPHPNAME => array ('id', 'usuarioId', 'nome', 'valor', 'quantidade', 'dataCadastro', 'ativo', 'descricao', ),
+		BasePeer::TYPE_COLNAME => array (self::ID, self::USUARIO_ID, self::NOME, self::VALOR, self::QUANTIDADE, self::DATA_CADASTRO, self::ATIVO, self::DESCRICAO, ),
+		BasePeer::TYPE_RAW_COLNAME => array ('ID', 'USUARIO_ID', 'NOME', 'VALOR', 'QUANTIDADE', 'DATA_CADASTRO', 'ATIVO', 'DESCRICAO', ),
+		BasePeer::TYPE_FIELDNAME => array ('id', 'usuario_id', 'nome', 'valor', 'quantidade', 'data_cadastro', 'ativo', 'descricao', ),
+		BasePeer::TYPE_NUM => array (0, 1, 2, 3, 4, 5, 6, 7, )
 	);
 
 	/**
@@ -83,12 +92,12 @@ abstract class BasePremioPeer {
 	 * e.g. self::$fieldNames[BasePeer::TYPE_PHPNAME]['Id'] = 0
 	 */
 	protected static $fieldKeys = array (
-		BasePeer::TYPE_PHPNAME => array ('Id' => 0, 'UsuarioId' => 1, 'Nome' => 2, 'Valor' => 3, 'Quantidade' => 4, ),
-		BasePeer::TYPE_STUDLYPHPNAME => array ('id' => 0, 'usuarioId' => 1, 'nome' => 2, 'valor' => 3, 'quantidade' => 4, ),
-		BasePeer::TYPE_COLNAME => array (self::ID => 0, self::USUARIO_ID => 1, self::NOME => 2, self::VALOR => 3, self::QUANTIDADE => 4, ),
-		BasePeer::TYPE_RAW_COLNAME => array ('ID' => 0, 'USUARIO_ID' => 1, 'NOME' => 2, 'VALOR' => 3, 'QUANTIDADE' => 4, ),
-		BasePeer::TYPE_FIELDNAME => array ('id' => 0, 'usuario_id' => 1, 'nome' => 2, 'valor' => 3, 'quantidade' => 4, ),
-		BasePeer::TYPE_NUM => array (0, 1, 2, 3, 4, )
+		BasePeer::TYPE_PHPNAME => array ('Id' => 0, 'UsuarioId' => 1, 'Nome' => 2, 'Valor' => 3, 'Quantidade' => 4, 'DataCadastro' => 5, 'Ativo' => 6, 'Descricao' => 7, ),
+		BasePeer::TYPE_STUDLYPHPNAME => array ('id' => 0, 'usuarioId' => 1, 'nome' => 2, 'valor' => 3, 'quantidade' => 4, 'dataCadastro' => 5, 'ativo' => 6, 'descricao' => 7, ),
+		BasePeer::TYPE_COLNAME => array (self::ID => 0, self::USUARIO_ID => 1, self::NOME => 2, self::VALOR => 3, self::QUANTIDADE => 4, self::DATA_CADASTRO => 5, self::ATIVO => 6, self::DESCRICAO => 7, ),
+		BasePeer::TYPE_RAW_COLNAME => array ('ID' => 0, 'USUARIO_ID' => 1, 'NOME' => 2, 'VALOR' => 3, 'QUANTIDADE' => 4, 'DATA_CADASTRO' => 5, 'ATIVO' => 6, 'DESCRICAO' => 7, ),
+		BasePeer::TYPE_FIELDNAME => array ('id' => 0, 'usuario_id' => 1, 'nome' => 2, 'valor' => 3, 'quantidade' => 4, 'data_cadastro' => 5, 'ativo' => 6, 'descricao' => 7, ),
+		BasePeer::TYPE_NUM => array (0, 1, 2, 3, 4, 5, 6, 7, )
 	);
 
 	/**
@@ -165,12 +174,18 @@ abstract class BasePremioPeer {
 			$criteria->addSelectColumn(PremioPeer::NOME);
 			$criteria->addSelectColumn(PremioPeer::VALOR);
 			$criteria->addSelectColumn(PremioPeer::QUANTIDADE);
+			$criteria->addSelectColumn(PremioPeer::DATA_CADASTRO);
+			$criteria->addSelectColumn(PremioPeer::ATIVO);
+			$criteria->addSelectColumn(PremioPeer::DESCRICAO);
 		} else {
 			$criteria->addSelectColumn($alias . '.ID');
 			$criteria->addSelectColumn($alias . '.USUARIO_ID');
 			$criteria->addSelectColumn($alias . '.NOME');
 			$criteria->addSelectColumn($alias . '.VALOR');
 			$criteria->addSelectColumn($alias . '.QUANTIDADE');
+			$criteria->addSelectColumn($alias . '.DATA_CADASTRO');
+			$criteria->addSelectColumn($alias . '.ATIVO');
+			$criteria->addSelectColumn($alias . '.DESCRICAO');
 		}
 	}
 

@@ -88,7 +88,7 @@ class PesquisaController extends DefaultPageController
 		$this->view->addResource('~/plugins/jquery-inputmask/jquery.inputmask.min.js');
 		$this->view->addResource('~/js/pesquisa.js');
 		$this->view->initializePage();
-		$this->setActiveMenuItem('Pesquisas');
+		$this->setActiveMenuItem('Encuestas');
 
 		$fields = FilterContainerComponent::getAvailableFilters($this->filterColumns, 'label');
 		HtmlDocument::find('.js-filter', 'FilterComponent')->getFirst()->populate($fields);
@@ -129,7 +129,6 @@ class PesquisaController extends DefaultPageController
 				$filterValue = $validator->hasInputValue('valor') ? $validator->getInputValue('valor') : null;
 				$filterOperator = $validator->hasInputValue('operador') ? $validator->getInputValue('operador') : null;
 
-				$currentUser = Usuario::atual();
 				FilterContainerComponent::saveState("filter{$this->getControllerName()}");
 
 				$table = PesquisaQuery::create('p')
@@ -203,8 +202,12 @@ class PesquisaController extends DefaultPageController
 						if(Usuario::atual()->temPermissao('editar-pesquisa'))
 							$editLink = '<li><a href="' . $baseUrl . 'pesquisa/editar/' . $research->getId() . '"><i class="fa fa-edit m-r-5"></i> Editar</a></li>';
 
-						$publishLink = '<li><a href="javascript:;" data-pesquisa="' . $research->getId() . '" class="publicar"><i class="fa fa-paper-plane-o m-r-5"></i> Publicar</a></li>';
-						$duplicateLink = '<li><a href="javascript:;" data-pesquisa="' . $research->getTitulo() . '" data-pesquisa-id="' . $research->getId() . '" class="duplicar"><i class="fa fa-clone m-r-5"></i> Duplicar</a></li>';
+						/*
+						 * Escondidas
+						 */
+						$publishLink = '<li><a href="javascript:;" data-pesquisa="' . $research->getId() . '" class="publicar hide"><i class="fa fa-paper-plane-o m-r-5"></i> Publicar</a></li>';
+						$duplicateLink = '<li><a href="javascript:;" data-pesquisa="' . $research->getTitulo() . '" data-pesquisa-id="' . $research->getId() . '" class="duplicar hide"><i class="fa fa-clone m-r-5"></i> Duplicar</a></li>';
+
 						$deleteLink = '<li><a href="javascript:;" data-pesquisa="' . $research->getTitulo() . '" data-pesquisa-id="' . $research->getId() . '" class="excluir"><i class="fa fa-trash-o m-r-5"></i> Excluir</a></li>';
 
 						if($published == 0)
@@ -222,7 +225,7 @@ class PesquisaController extends DefaultPageController
 								</div>';
 
 						$result->data[] = array(
-							$resÇearch->getTitulo(),
+							$research->getTitulo(),
 							$research->getDataInicio('d/m/Y'),
 							$research->getDataFim('d/m/Y'),
 							$research->getDescricao(),
@@ -456,7 +459,7 @@ class PesquisaController extends DefaultPageController
 		$this->view->addResource('~/js/pesquisa.js');
 		$this->view->addData('newResearch', true);
 		$this->view->initializePage();
-		$this->setActiveMenuItem('Pesquisas');
+		$this->setActiveMenuItem('Encuestas');
 
 		$ages = null;
 		$i = 1;
@@ -484,6 +487,7 @@ class PesquisaController extends DefaultPageController
 
 	/**
 	 * Função para edição de Pesquisas.
+	 *
 	 * @param ArrayList $param Id da pesquisa.
 	 * @author Hugo Minari.
 	 */
@@ -501,13 +505,7 @@ class PesquisaController extends DefaultPageController
 		$this->view->addResource('~/js/pesquisa.js');
 		$this->view->addData('editResearch', true);
 		$this->view->initializePage();
-		$this->setActiveMenuItem('Pesquisas');
-
-		// Adiciona os scripts do google charts, dentro do head.
-		HtmlDocument::getByTag('head')->getFirst()->append(
-			  '<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAW6FOfqaQUXlsYKmIqEIOlX4fiQONoLJk"></script>'
-			. '<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>'
-		);
+		$this->setActiveMenuItem('Encuestas');
 
 		try
 		{
@@ -518,16 +516,18 @@ class PesquisaController extends DefaultPageController
 
 				if($research)
 				{
-					//Modifica a url dos botões atribuir usuário e histórico.
-					$doc->getById('js-assign-user')->toType('HtmlLink')->setUrl("~/pesquisa/atribuir-usuario/{$research->getId()}");
-					$doc->getById('js-history-link')->toType('HtmlLink')->setUrl("~/pesquisa/historico/{$research->getId()}");
+					$ages = null;
+					$i = 1;
 
-					//Manda as coordenadas para o javascript criar o mapa.
-					$this->view->addData('loadMap', array(
-						'limite' => $research->getAreaLimite(),
-						'latitude' => $research->getLatitude(),
-						'longitude' => $research->getLongitude()
-					));
+					while($i < 100)
+					{
+						$age = $i < 10 ? ('0'.$i) : $i;
+						$ages .= "<option value='{$i}'>{$age}</option>";
+						$i++;
+					}
+
+					//Modifica a url dos botões atribuir usuário e histórico.
+					$doc->getById('js-history-link')->toType('HtmlLink')->setUrl("~/pesquisa/historico/{$research->getId()}");
 
 					//Escreve as informações da pesquisa nos inputs
 					$doc->getById('pesquisa-id')->setAttribute('value',$research->getId());
@@ -536,22 +536,30 @@ class PesquisaController extends DefaultPageController
 					$doc->getById('data-inicio')->setAttribute('value', $research->getDataInicio('d/m/Y'));
 					$doc->getById('data-fim')->setAttribute('value', $research->getDataFim('d/m/Y'));
 					$doc->getById('descricao')->append($research->getDescricao());
-					$doc->getById('longitude')->setAttribute('value', $research->getLongitude());
-					$doc->getById('latitude')->setAttribute('value', $research->getLatitude());
-					$doc->getById('area-limite')->setAttribute('value', $research->getAreaLimite());
-					$doc->getById('abrangencia')->toType('HtmlSelect')->setValue($research->getAbrangencia());
+					$doc->getById('anonima-' . ($research->getAnonima() ? 'sim' : 'nao'))->setAttribute('checked', 'checked');
+					$doc->getById($research->getTipoPesquisa() == 'L' ? 'pesquisa-livre' : 'pesquisa-engajamento')->setAttribute('checked', 'checked');
+					$doc->getById('quantidade-pontos')->setAttribute('value', $research->getQuantidadePontos());
 
-					//Define alguns atributos de acordo com a publicação da pesquisa
+					/*
+					 * Configuração da pesquisa.
+					 */
+					$doc->getById('sexo-' . Text::toLower($research->getGenero()))->setAttribute('checked', 'checked');
+					$doc->getById('idade-minima')->append($ages)->setValue($research->getIdadeInicial());
+					$doc->getById('idade-maxima')->append($ages)->setValue($research->getIdadeFinal());
+
+					/*
+					 * Define alguns atributos de acordo com a publicação da pesquisa
+					 */
 					if($research->getPublicada())
 					{
 						$aviso = 'Esta pesquisa já está publicada, você não pode fazer certas alterações.';
-						$class = 'alert alert-warning row text-center';
+						$class = 'alert alert-warning text-center';
 						HtmlDocument::getById('disable-box-questions')->setAttribute('class', 'hide');
 					}
 					else
 					{
 						$aviso = 'Esta pesquisa ainda não foi publicada, você pode editá-la completamente.';
-						$class = 'alert alert-success row text-center';
+						$class = 'alert alert-success text-center';
 					}
 
 					HtmlDocument::getById('aviso')->append($aviso);
@@ -575,26 +583,15 @@ class PesquisaController extends DefaultPageController
 						}
 					}
 
-					//Esconde campos desnecessários dependendo da abrangência.
-					if($research->getAbrangencia() == 'e')
-						$doc->getById('box-uf')->removeCssClass('hide');
-					elseif($research->getAbrangencia() == 'm')
-					{
-						$doc->getById('box-uf')->removeCssClass('hide');
-						$doc->getById('box-cidade')->removeCssClass('hide');
-						$doc->getById('uf')->setValue($research->getUfId());
-						$doc->getById('cidade')->setAttribute('value', json_encode(array('id' => $research->getCidadeId(), 'text' => $research->getCidade()->getNome())));
-					}
-
 					//Popula a categoria com as que já existem
 					$categorias = CategoriaQuery::create('c')
-						->orderByPosicao(Criteria::ASC)
 						->usePerguntaQuery()
 							->filterByPesquisaId($research->getId())
 							->groupByCategoriaId()
 						->endUse()
 						->filterBy('Id', 1, Criteria::NOT_EQUAL)
 						->find();
+
 					DataManager::set('categorias', $categorias);
 
 					//Monta as categorias com as respectivas perguntas e alternativas.
@@ -633,7 +630,7 @@ class PesquisaController extends DefaultPageController
 							if(in_array($questionType, array(3,4,5,6)))
 							{
 								$boxQuest = '
-									<div class="js-perguntas p-t-20 m-t-40 box-perguntas">
+									<div class="js-perguntas p-t-20 box-perguntas">
 										<div class="form-group col-md-12">
 											<label for="id-pergunta-' .$questionId . '" class="js-question-number">
 												<span class="badge font-14"></span>
@@ -681,10 +678,10 @@ class PesquisaController extends DefaultPageController
 							else
 							{
 								$boxQuest = '
-									<div class="js-perguntas p-t-20 m-t-40 box-perguntas">
+									<div class="js-perguntas p-t-10 box-perguntas">
 										<div class="form-group col-md-12">
 											<label for="id-pergunta-' .$questionId . '" class="js-question-number">
-												<span class="badge font-14"></span>
+												<span class="badge font-14 m-r-15"></span>
 												Pergunta
 												' . $remove . '
 												<span class="pull-right">' . $required . '</span>
@@ -793,9 +790,8 @@ class PesquisaController extends DefaultPageController
 						}
 					}
 
-					DataManager::set('ufs', UfQuery::create()->find());
- 					$targetAudience = HtmlDocument::getById('target-audience');
-					$targetAudience->populate($research->getPublicoAlvos());
+// 					$targetAudience = HtmlDocument::getById('target-audience');
+//					$targetAudience->populate($research->getPublicoAlvos());
 
 					$this->callView();
 				}
@@ -829,33 +825,27 @@ class PesquisaController extends DefaultPageController
 		$this->view->addResource('~/plugins/bootstrap-datepicker/css/datepicker.css');
 		$this->view->addResource('~/js/pesquisa.js');
 		$this->view->initializePage();
-		$this->setActiveMenuItem('Pesquisas');
-
-		HtmlDocument::getByTag('head')->getFirst()->append(
-			  '<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAW6FOfqaQUXlsYKmIqEIOlX4fiQONoLJk"></script>'
-			. '<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>'
-			. '<script type="text/javascript" src="https://www.google.com/jsapi"></script>'
-		);
+		$this->setActiveMenuItem('Encuestas');
 
 		try
 		{
-			DataManager::set('ufs', UfQuery::create()->find());
-
 			if(ArrayList::isValid($param) && $param->count() > 0)
 			{
-				$research = PesquisaQuery::create()->findPk($param[0]);
 				$doc = HtmlDocument::getCommomDocument();
+				$research = PesquisaQuery::create()->findPk($param[0]);
+
+				$ages = null;
+				$i = 1;
+
+				while($i < 100)
+				{
+					$age = $i < 10 ? ('0'.$i) : $i;
+					$ages .= "<option value='{$i}'>{$age}</option>";
+					$i++;
+				}
 
 				if($research)
 				{
-					$this->view->addData('loadMap', array(
-						'limite' => $research->getAreaLimite(),
-						'latitude' => $research->getLatitude(),
-						'longitude' => $research->getLongitude()
-					));
-
-					$doc->getById('js-assign-user')->toType('HtmlLink')->setUrl("~/pesquisa/atribuir-usuario/{$research->getId()}");
-
 					if(!Usuario::atual()->temPermissao('cadastrar-pesquisa'))
 						$doc->getById('new-research')->remove();
 
@@ -869,39 +859,29 @@ class PesquisaController extends DefaultPageController
 
 					$doc->getById('titulo')->setAttribute('value',$research->getTitulo());
 					$doc->getById('title-head')->append($research->getTitulo());
-					$doc->getById('criador')->setAttribute('value', UsuarioQuery::create()->findPk($research->getAutorId())->getNome());
+					$doc->getById('criador')->setAttribute('value', $research->getUsuario()->getNome());
 					$doc->getById('data-criacao')->setAttribute('value', $research->getDataCriacao('d/m/Y'));
 					$doc->getById('data-inicio')->setAttribute('value', $research->getDataInicio('d/m/Y'));
 					$doc->getById('data-fim')->setAttribute('value', $research->getDataFim('d/m/Y'));
 					$doc->getById('descricao')->append($research->getDescricao());
 					$doc->getById('pesquisa-id')->setAttribute('value',$research->getId());
-					$doc->getById('longitude')->setAttribute('value', $research->getLongitude());
-					$doc->getById('latitude')->setAttribute('value', $research->getLatitude());
-					$doc->getById('area-limite')->setAttribute('value', $research->getAreaLimite());
-					$doc->getById('abrangencia')->toType('HtmlSelect')->setValue($research->getAbrangencia());
 					$doc->getById('status')->toType('HtmlSelect')->setValue($research->getAtivo());
+					$doc->getById('anonima-' . ($research->getAnonima() ? 'sim' : 'nao'))->setAttribute('checked', 'checked');
+					$doc->getById($research->getTipoPesquisa() == 'L' ? 'pesquisa-livre' : 'pesquisa-engajamento')->setAttribute('checked', 'checked');
+					$doc->getById('quantidade-pontos')->setAttribute('value', $research->getQuantidadePontos());
+
+					/*
+					 * Configuração da pesquisa.
+					 */
+					$doc->getById('sexo-' . Text::toLower($research->getGenero()))->setAttribute('checked', 'checked');
+					$doc->getById('idade-minima')->append($ages)->setValue($research->getIdadeInicial());
+					$doc->getById('idade-maxima')->append($ages)->setValue($research->getIdadeFinal());
 
 					foreach(HtmlDocument::find('input, textarea') as $input)
 						$input->setAttribute('readonly', true);
 
 					foreach(HtmlDocument::getByTag('select') as $select)
 						$select->setAttribute('disabled', true);
-
-					if($research->getAbrangencia() == 'e')
-					{
-						$doc->getById('box-uf')->removeCssClass('hide');
-					}
-					elseif( $research->getAbrangencia() == 'm')
-					{
-						$doc->getById('box-uf')->removeCssClass('hide');
-						$doc->getById('box-cidade')->removeCssClass('hide');
-
-						$doc->getById('uf')->setValue($research->getUfId());
-						$doc->getById('cidade')->setAttribute('value', json_encode(array('id' => $research->getCidadeId(), 'text' => $research->getCidade()->getNome())));
-					}
-
- 					$targetAudience = HtmlDocument::getById('target-audience');
-					$targetAudience->populate($research->getPublicoAlvos());
 
 					$categories = CategoriaQuery::create('c')
 								->joinPergunta('p')
@@ -953,7 +933,7 @@ class PesquisaController extends DefaultPageController
 		$this->view->addResource('~/plugins/jquery-inputmask/jquery.inputmask.min.js');
 		$this->view->addResource('~/js/pesquisa.js');
 		$this->view->initializePage();
-		$this->setActiveMenuItem('Pesquisas');
+		$this->setActiveMenuItem('Encuestas');
 
 		$this->view->addData('alterLabel', true);
 
@@ -1047,7 +1027,7 @@ class PesquisaController extends DefaultPageController
 			{
 				$this->view->setHtmlPage('Pesquisa.Historico');
 				$this->view->initializePage();
-				$this->setActiveMenuItem('Pesquisas');
+				$this->setActiveMenuItem('Encuestas');
 
 				/*
 				 * Personalização do formulário
@@ -1124,22 +1104,29 @@ class PesquisaController extends DefaultPageController
 				$dataInicio		= $validator->getInputValue('data-inicio');
 				$dataFim		= $validator->getInputValue('data-fim');
 				$descricao		= $validator->getInputValue('descricao');
+				$gender			= $validator->getInputValue('sexo');
+				$idadeMinima	= $validator->getInputValue('idade-minima');
+				$idadeMaxima	= $validator->getInputValue('idade-maxima');
+				$amountPoints	= $validator->getInputValue('quantidade-pontos');
+				$isAnonymous	= $validator->getInputValue('pesquisa-anonima');
+				$typeReseach	= $validator->getInputValue('tipo-pesquisa');
 
 				$research = new Pesquisa;
 				$research->setTitulo($titulo);
 				$research->setDataCriacao(time());
 				$research->setDataInicio(Utils::formatDateDb($dataInicio));
 				$research->setDataFim(Utils::formatDateDb($dataFim));
+				$research->setGenero($gender);
+				$research->setQuantidadePontos($amountPoints);
+				$research->setAnonima($isAnonymous);
+				$research->setTipoPesquisa($typeReseach);
+				$research->setIdadeInicial($idadeMinima);
+				$research->setIdadeFinal($idadeMaxima);
 				$research->setDescricao($descricao);
 				$research->setCriadorId(Usuario::atual()->getId());
 				$research->save();
 
 				$research->setDefaultQuestions();
-
-				$homens			= $validator->getInputValue('quantidade-homens-final');
-				$mulheres		= $validator->getInputValue('quantidade-mulheres-final');
-				$idadeMinima	= $validator->getInputValue('idade-minima-final');
-				$idadeMaxima	= $validator->getInputValue('idade-maxima-final');
 
 				/*
 				 * @todo Cria if para pesquisar homens e mulheres na idade
@@ -1231,7 +1218,7 @@ class PesquisaController extends DefaultPageController
 				Auditoria::adicionar('Pesquisa cadastrada', Auditoria::LEVEL_INFO, null, null, Auditoria::TIPO_PESQUISA, $research->getId());
 
 				$result->callback	= 'redirect';
-				$result->url		= Enviroment::resolveUrl('~/pesquisa/atribuir-usuario/'. $research->getId());
+				$result->url		= Enviroment::resolveUrl('~/pesquisa/editar/'. $research->getId());
 				$result->time		= 2500;
 				$result->success	= true;
 				$result->type		= 'success';
@@ -1275,29 +1262,32 @@ class PesquisaController extends DefaultPageController
 		{
 			try
 			{
-				/*
-				 * ATUALIZAÇÃO
-				 */
 				//Dados da pesquisa.
 				$id				= $validator->getInputValue('pesquisa-id');
 				$titulo			= $validator->getInputValue('titulo');
 				$dataInicio		= $validator->getInputValue('data-inicio');
 				$dateEnd		= $validator->getInputValue('data-fim');
-				$latitude		= $validator->getInputValue('latitude');
-				$longitute		= $validator->getInputValue('longitude');
-				$areaLimite		= $validator->getInputValue('area-limite');
 				$descricao		= $validator->getInputValue('descricao');
 				$status			= $validator->getInputValue('status');
+				$amountPoints	= $validator->getInputValue('quantidade-pontos');
+				$isAnonymous	= $validator->getInputValue('pesquisa-anonima');
+				$typeReseach	= $validator->getInputValue('tipo-pesquisa');
+				$gender			= $validator->getInputValue('sexo');
+				$idadeMinima	= $validator->getInputValue('idade-minima');
+				$idadeMaxima	= $validator->getInputValue('idade-maxima');
 
-				//Categorias, perguntas e alternativas.
+				/*
+				 * Categorias, perguntas e alternativas.
+				 */
 				$categorias		= $validator->getInputValue('categorias');
 				$idPerguntas	= $validator->getInputValue('id-perguntas');
 				$perguntas		= $validator->getInputValue('perguntas');
-				$tipoResposta	= $validator->getInputValue('tipo-resposta');
 				$idAlternativas	= $validator->getInputValue('id-alternativas');
 				$alternativas	= $validator->getInputValue('alternativas');
 
-				//Trata os arrays
+				/*
+				 * Tratamento dos arrays.
+				 */
 				$categorias		= $this->arraySingle($categorias);
 				$idPerguntas	= $this->arraySingle($idPerguntas);
 				$perguntas		= $this->arraySingle($perguntas);
@@ -1305,9 +1295,8 @@ class PesquisaController extends DefaultPageController
 				$alternativas	= $this->arraySingle($alternativas);
 
 				/*
-				 * CADASTRO
+				 * CADASTRO DAS PERGUNTAS
 				 */
-				//Perguntas
 				$questions			= $validator->getInputValue('text-question');
 				$typeResponse		= $validator->getInputValue('type-response');
 				$category			= $validator->getInputValue('category');
@@ -1316,22 +1305,23 @@ class PesquisaController extends DefaultPageController
 				$exception			= $validator->getInputValue('exception');
 				$trigger			= $validator->getInputValue('trigger');
 				$subQuestion		= $validator->getInputValue('subquestion');
-				$questionMother		= $validator->getInputValue('question-mother');
 				$questionMotherId	= null;
 
 				/*
-				 * EXCLUSÃO
+				 * Remoção de perguntas ou alternativas
 				 */
-				//Perguntas e Alternativas removidas
-				$removedsOptions	= $validator->getInputValue('options-removed');
-				$removedsQuestions	= $validator->getInputValue('questions-removed');
+				$removedsOptions = $validator->getInputValue('options-removed');
+				$removedsQuestions = $validator->getInputValue('questions-removed');
+				$research = PesquisaQuery::create()->findPk($id);
 
-				$research			= PesquisaQuery::create()->findPk($id);
-
-				//Se existe a pesquisa com o id
+				/*
+				 * Se existe a pesquisa com o id
+				 */
 				if($research)
 				{
-					//Verifica se ela está ativa.
+					/*
+					 * Verifica se ela está ativa.
+					 */
 					if($research->getAtivo())
 					{
 						/*
@@ -1340,14 +1330,18 @@ class PesquisaController extends DefaultPageController
 						try
 						{
 							$clone = $research->toArray();
+
 							$research->setTitulo($titulo);
 							$research->setDataInicio(Utils::formatDateDb($dataInicio));
 							$research->setDataFim(Utils::formatDateDb($dateEnd));
-							$research->setLatitude($latitude);
-							$research->setLongitude($longitute);
-							$research->setAreaLimite($areaLimite);
 							$research->setDescricao($descricao);
 							$research->setAtivo($status);
+							$research->setQuantidadePontos($amountPoints);
+							$research->setAnonima($isAnonymous);
+							$research->setTipoPesquisa($typeReseach);
+							$research->setGenero($gender);
+							$research->setIdadeInicial($idadeMinima);
+							$research->setIdadeFinal($idadeMaxima);
 						}
 						catch(Error $error){}
 
@@ -1838,7 +1832,7 @@ class PesquisaController extends DefaultPageController
 		$this->view->addResource('~/plugins/video-js/video-js.min.css');
 		$this->view->addResource('~/plugins/video-js/video.min.js');
 		$this->view->initializePage();
-		$this->setActiveMenuItem('Pesquisas');
+		$this->setActiveMenuItem('Encuestas');
 
 		$video = HtmlDocument::getById('my-video');
 		$baseUrl = Enviroment::resolveUrl('~/resource/default');
@@ -2679,71 +2673,6 @@ class PesquisaController extends DefaultPageController
 				try
 				{
 					ColetaPesquisaQuery::create()
-						->filterByPesquisa($pesquisa)
-						->find()
-						->delete();
-				}
-				catch(Exception $error)
-				{
-					Propel::getConnection()->rollBack();
-					Report::sendError($error);
-					$result->message = self::DEFAULT_ERROR_MESSAGE;
-				}
-				catch(PropelException $ex)
-				{
-					Propel::getConnection()->rollBack();
-					Report::sendError($ex);
-					$result->message = self::DEFAULT_DATABASE_ERROR_MESSAGE;
-				}
-
-				//Deleta Pesquisadores
-				try
-				{
-					PesquisaUsuarioQuery::create()
-						->filterByPesquisa($pesquisa)
-						->find()
-						->delete();
-				}
-				catch(Exception $error)
-				{
-					Propel::getConnection()->rollBack();
-					Report::sendError($error);
-					$result->message = self::DEFAULT_ERROR_MESSAGE;
-				}
-				catch(PropelException $ex)
-				{
-					Propel::getConnection()->rollBack();
-					Report::sendError($ex);
-					$result->message = self::DEFAULT_DATABASE_ERROR_MESSAGE;
-				}
-
-				//Deleta MetaPublicoAlvo
-				try
-				{
-					MetaPublicoAlvoQuery::create()
-						->usePublicoAlvoQuery()
-							->filterByPesquisa($pesquisa)
-						->endUse()
-						->find()
-						->delete();
-				}
-				catch(Exception $error)
-				{
-					Propel::getConnection()->rollBack();
-					Report::sendError($error);
-					$result->message = self::DEFAULT_ERROR_MESSAGE;
-				}
-				catch(PropelException $ex)
-				{
-					Propel::getConnection()->rollBack();
-					Report::sendError($ex);
-					$result->message = self::DEFAULT_DATABASE_ERROR_MESSAGE;
-				}
-
-				//Deleta PublicoAlvo
-				try
-				{
-					PublicoAlvoQuery::create()
 						->filterByPesquisa($pesquisa)
 						->find()
 						->delete();

@@ -10,3 +10,5 @@ id,nome,slug,descricao,nivel
 9,"Visualizar coletas",visualizar-coletas,"Permite a visualização das coletas efetuadas.",2
 10,"Visualizar pesquisa",visualizar-pesquisa,"Permite visualizar as pesquisas efetuadas.",2
 11,"Visualizar relatórios",visualizar-relatorios,"Permite a visualização dos relatórios gerados.",2
+12,"Gerenciar noticias",gerenciar-noticias,"Permite efetuar o gerenciamento de noticias",2
+13,"Gerencia premios",gerenciar-premios,"Permite efetuar o gerenciamento do cadastro de premios.",2

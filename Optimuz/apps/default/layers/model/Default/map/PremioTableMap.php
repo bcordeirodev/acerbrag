@@ -40,9 +40,12 @@ class PremioTableMap extends TableMap
 		// columns
 		$this->addPrimaryKey('ID', 'Id', 'INTEGER', true, 10, null);
 		$this->addForeignKey('USUARIO_ID', 'UsuarioId', 'INTEGER', 'usuario', 'ID', true, 10, null);
-		$this->addColumn('NOME', 'Nome', 'VARCHAR', false, 255, null);
-		$this->addColumn('VALOR', 'Valor', 'INTEGER', false, null, null);
-		$this->addColumn('QUANTIDADE', 'Quantidade', 'INTEGER', false, null, null);
+		$this->addColumn('NOME', 'Nome', 'VARCHAR', true, 255, null);
+		$this->addColumn('VALOR', 'Valor', 'INTEGER', true, null, null);
+		$this->addColumn('QUANTIDADE', 'Quantidade', 'INTEGER', true, null, null);
+		$this->addColumn('DATA_CADASTRO', 'DataCadastro', 'TIMESTAMP', true, null, null);
+		$this->addColumn('ATIVO', 'Ativo', 'BOOLEAN', true, 1, true);
+		$this->addColumn('DESCRICAO', 'Descricao', 'LONGVARCHAR', false, null, null);
 		// validators
 	} // initialize()
 

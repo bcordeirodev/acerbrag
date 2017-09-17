@@ -4,17 +4,11 @@
 		<h3><span class="semi-bold" id="title-head"></span> </h3>
 	</div>
 	<div class="col-md-5 text-right no-padding">
-		<a href="~/pesquisa" class="m-l-10 btn btn-white" object-type="HtmlLink"><i class="fa fa-arrow-left"></i> Voltar</a>
-		<a href="" id="js-assign-user" class="btn btn-success" object-type="HtmlLink" title="Atribuir Usuário" data-toggle="tooltip" data-placement="bottom"><i class="fa fa-user-plus fa-white"></i></a>
-		<a href="" id="js-history-link" class="btn btn-success" object-type="HtmlLink" title="Histórico" data-toggle="tooltip" data-placement="bottom"><i class="fa fa-file-text-o fa-white"></i></a>
-		<a href="" id="js-edit-research" class="btn btn-success" object-type="HtmlLink" title="Editar" data-toggle="tooltip" data-placement="bottom"><i class="fa fa-edit fa-white"></i></a>
-		<a href="~/pesquisa/nova" id="new-research" class="btn btn-success" object-type="HtmlLink" title="Nova" data-toggle="tooltip" data-placement="bottom"><i class="fa fa-plus fa-white" ></i></a>
+		<a href="~/pesquisa" class="m-l-10 btn btn-white" object-type="HtmlLink"><i class="mdi mdi-arrow-left"></i> Voltar</a>
+		<a href="" id="js-history-link" class="btn btn-success" object-type="HtmlLink" title="Histórico" data-toggle="tooltip" data-placement="bottom"><i class="mdi mdi-file-multiple text-white"></i></a>
+		<a href="" id="js-edit-research" class="btn btn-success" object-type="HtmlLink" title="Editar" data-toggle="tooltip" data-placement="bottom"><i class="mdi mdi-table-edit text-white"></i></a>
+		<a href="~/pesquisa/nova" id="new-research" class="btn btn-success" object-type="HtmlLink" title="Nova" data-toggle="tooltip" data-placement="bottom"><i class="mdi mdi-plus text-white" ></i></a>
 	</div>
-</div>
-<div class="row">
-		<div class="col-md-12 m-b-20">
-			<div id="map" style="height: 350px"></div>
-		</div>
 </div>
 <div class="row">
 	<div class="col-md-6">
@@ -66,28 +60,25 @@
 				</div>
 				<div class="row">
 					<div class="form-group col-md-6">
-						<label class="form-label" for="latitude">Latitude</label>
-						<span class="help"> ex. 7.569 </span>
-						<div class="controls">
-							<input type="text" id="latitude" name="latitude" class="form-control">
+						<label class="form-label" for="sexo-question">Pesquisa anonima</label>
+						<div class="controls radio radio-success m-t-0 p-t-0">
+							<input type="radio" value="1" id="anonima-sim" name="pesquisa-anonima" class="form-control" disabled>
+							<label class="form-label" for="anonima-sim">Sim</label>
+							<input type="radio" value="0" id="anonima-nao" name="pesquisa-anonima" class="form-control" disabled>
+							<label class="form-label" for="anonima-nao">Não</label>
 						</div>
 					</div>
 					<div class="form-group col-md-6">
-						<label class="form-label" for="longitude">Longitude</label>
-						<span class="help"> ex. -45.889 </span>
-						<div class="controls">
-							<input type="text" id="longitude" name="longitude" class="form-control" required>
+						<label class="form-label" for="sexo-question">Tipo de pesquisa</label>
+						<div class="controls radio radio-success m-t-0 p-t-0">
+							<input type="radio" value="L" id="pesquisa-livre" name="tipo-pesquisa" class="form-control" disabled>
+							<label class="form-label" for="pesquisa-livre">Livre</label>
+							<input type="radio" value="E" id="pesquisa-engajamento" name="tipo-pesquisa" class="form-control" disabled>
+							<label class="form-label" for="pesquisa-engajamento">Engajamento</label>
 						</div>
 					</div>
 				</div>
 				<div class="row">
-					<div class="form-group col-md-6">
-						<label class="form-label" for="area-limite">Aréa limite</label>
-						<span class="help"> ex. -2.3 (km) </span>
-						<div class="controls">
-							<input type="text" id="area-limite" name="area-limite" class="form-control" required>
-						</div>
-					</div>
 					<div class="form-group col-md-6">
 						<label class="form-label" for="status">Status</label>
 						<div class="controls">
@@ -96,6 +87,12 @@
 								<option value="0">Inativa</option>
 							</select>
 						</div>
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="form-label" for="data-inicio">Quantidade de pontos</label>
+					<div class="controls">
+						<input type="number" name="quantidade-pontos" id="quantidade-pontos" class="form-control" maxlength="255" value="0">
 					</div>
 				</div>
 				<div class="row">
@@ -120,34 +117,35 @@
 				</div>
 			</div>
 			<div class="grid-body no-border">
-				<div class="row">
-					<div class="form-group col-md-6">
-						<label class="form-label" for="abrangencia">Abrangência</label>
-						<div class="controls">
-							<select name="abrangencia" id="abrangencia" class="col-md-12 no-padding">
-								<option value="n">Nacional</option>
-								<option value="e">Estadual</option>
-								<option value="m">Munícipal</option>
-							</select>
-						</div>
-					</div>
-					<div class="form-group col-md-6 hide" id="box-uf">
-						<label class="form-label" for="uf">UF</label>
-						<div class="controls">
-							<select name="uf" id="uf" class="col-md-12 no-padding" data-search="true" required object-type="HtmlSelect" object-source-member-value="id" object-source-member-text="sigla" object-datasource="ufs"></select>
-						</div>
+				<div class="form-group">
+					<label class="form-label" for="sexo">Gênero</label>
+					<div class="controls radio radio-success">
+						<input type="radio" value="M" id="sexo-m" name="sexo" class="form-control" disabled>
+						<label class="form-label" for="sexo-m">Masculino</label>
+						<input type="radio" value="F" id="sexo-f" name="sexo" class="form-control" disabled>
+						<label class="form-label" for="sexo-f">Feminino</label>
+						<input type="radio" value="T" id="sexo-t" name="sexo" class="form-control" disabled>
+						<label class="form-label" for="sexo-t">Todos</label>
 					</div>
 				</div>
-				<div class="row">
-					<div class="form-group col-md-6 hide" id="box-cidade">
-						<label class="form-label" for="cidade">Cidade</label>
+				<div class="form-group">
+					<label class="form-label" for="sexo">Faixa etária</label>
+					<div class="row">
 						<div class="controls">
-							<input type="hidden" name="cidade" id="cidade" class="col-md-12 no-padding js-select" data-source="pesquisa/filtrar/cidades" data-second="#uf">
+							<div class="form-group col-md-4 m-b-0">
+								<label class="form-label">Idade máxima</label>
+								<div class="controls">
+									<select name="idade-minima" id="idade-minima" class="col-md-12 no-padding" data-search="true" object-type="HtmlSelect"></select>
+								</div>
+							</div>
+							<div class="form-group col-md-4 m-b-0">
+								<label class="form-label">Idade mínima</label>
+								<div class="controls">
+									<select name="idade-maxima" id="idade-maxima" class="col-md-12 no-padding" data-search="true" object-type="HtmlSelect"></select>
+								</div>
+							</div>
 						</div>
 					</div>
-				</div>
-				<div class="row">
-					<div id="target-audience" object-type="TargetAudienceComponent" class="col-md-12"></div>
 				</div>
 			</div>
 		</div>

@@ -265,7 +265,7 @@
 						<div class="form-group col-md-6">
 							<label class="form-label" for="data-rescisao">Fecha de rescisión</label>
 							<div class="controls">
-								<input type="text" name="data-rescisao" id="data-rescisao" class="form-control js-date" required>
+								<input type="text" name="data-rescisao" id="data-rescisao" class="form-control js-date">
 							</div>
 						</div>
 					</div>

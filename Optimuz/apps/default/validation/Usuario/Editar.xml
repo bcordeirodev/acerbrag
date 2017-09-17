@@ -57,7 +57,7 @@
 		<rule name="required"/>
 	</input>
 	<input name="data-rescisao" label="Fecha de rescisión">
-		<rule name="required"/>
+		<rule name="discard"/>
 	</input>
 
 	<input name="cep" label="CEP">

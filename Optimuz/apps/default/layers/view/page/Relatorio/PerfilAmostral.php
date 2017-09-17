@@ -1,5 +1,5 @@
 <div class="page-title">
-	<i class="fa fa-bar-chart-o"></i>
+	<i class="mdi mdi-chart-bar"></i>
 	<h3>Relatório <span class="semi-bold">por Perfil Amostral</span></h3>
 <!--	<div class="pull-right">
 		<a href="~/relatorio" class="m-l-10 btn btn-white" object-type="HtmlLink"><i class="fa fa-arrow-left"></i> Voltar</a>

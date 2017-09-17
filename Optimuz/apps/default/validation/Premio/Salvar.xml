@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE settings SYSTEM "http://optimuz.interativadesenvolvimento.com.br/dtd/validation.dtd">
+<form method="post" lang="">
+	<input name="titulo" label="Título">
+		<rule name="required" />
+	</input>
+	<input name="valor" label="Valor">
+		<rule name="number" />
+		<rule name="required" />
+	</input>
+	<input name="quantidade" label="Quantidade">
+		<rule name="number" />
+		<rule name="required" />
+	</input>
+	<input name="descricao" label="Descrição">
+		<rule name="required" />
+	</input>
+
+	<input name="arquivo" label="">
+		<rule name="discard" />
+	</input>
+	<input name="nome-arquivo" label="">
+		<rule name="discard" />
+	</input>
+</form>

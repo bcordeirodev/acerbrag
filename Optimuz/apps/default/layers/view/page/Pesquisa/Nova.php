@@ -2,7 +2,7 @@
 	<i class="fa fa-plus-circle"></i>
 	<h3>Nova <span class="semi-bold">Pesquisa</span></h3>
 	<div class="pull-right">
-		<a href="~/pesquisa" class="m-l-10 btn btn-white" object-type="HtmlLink"><i class="fa fa-arrow-left"></i> Voltar</a>
+		<a href="~/pesquisa" class="m-l-10 btn btn-white" object-type="HtmlLink"><i class="mdi mdi-arrow-left"></i> Voltar</a>
 	</div>
 </div>
 <form action="~/pesquisa/salvar" class="js-form" method="post" object-type="FormComponent">
@@ -36,6 +36,32 @@
 							<div class="controls">
 								<input type="text" name="data-fim" id="data-fim" class="form-control datepicker" maxlength="10" required>
 							</div>
+						</div>
+					</div>
+					<div class="row">
+						<div class="form-group col-md-6">
+							<label class="form-label" for="sexo-question">Pesquisa anonima</label>
+							<div class="controls radio radio-success m-t-0 p-t-0">
+								<input type="radio" value="1" id="anonima-sim" name="pesquisa-anonima" class="form-control">
+								<label class="form-label" for="anonima-sim">Sim</label>
+								<input type="radio" value="0" id="anonima-nao" name="pesquisa-anonima" class="form-control">
+								<label class="form-label" for="anonima-nao">Não</label>
+							</div>
+						</div>
+						<div class="form-group col-md-6">
+							<label class="form-label" for="sexo-question">Tipo de pesquisa</label>
+							<div class="controls radio radio-success m-t-0 p-t-0">
+								<input type="radio" value="L" id="pesquisa-livre" name="tipo-pesquisa" class="form-control">
+								<label class="form-label" for="pesquisa-livre">Livre</label>
+								<input type="radio" value="E" id="pesquisa-engajamento" name="tipo-pesquisa" class="form-control">
+								<label class="form-label" for="pesquisa-engajamento">Engajamento</label>
+							</div>
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="form-label" for="data-inicio">Quantidade de pontos</label>
+						<div class="controls">
+							<input type="number" name="quantidade-pontos" id="quantidade-pontos" class="form-control" maxlength="255" value="0">
 						</div>
 					</div>
 					<div class="row">
@@ -178,37 +204,33 @@
 					</div>
 				</div>
 				<div class="grid-body no-border">
-					<div>
-						<h4>Público Alvo</h4>
-						<span class="text-muted text-italic">
-							Observação: A faixa etária entre os públicos alvos não podem
-							cruzar-se entre si. Elas devem seguir o seguinte padrão.
-							10 a 20 anos - 21 a 30 anos...
-						</span>
+					<div class="form-group">
+						<label class="form-label" for="sexo">Gênero</label>
+						<div class="controls radio radio-success">
+							<input type="radio" value="M" id="sexo-m" name="sexo" class="form-control">
+							<label class="form-label" for="sexo-m">Masculino</label>
+							<input type="radio" value="F" id="sexo-f" name="sexo" class="form-control">
+							<label class="form-label" for="sexo-f">Feminino</label>
+							<input type="radio" value="T" id="sexo-t" name="sexo" class="form-control">
+							<label class="form-label" for="sexo-t">Todos</label>
+						</div>
 					</div>
-					<div class="row js-publico-alvo m-t-10">
-						<div class="form-group col-md-3">
-							<label class="form-label">Homens</label>
+					<div class="form-group">
+						<label class="form-label" for="sexo">Faixa etária</label>
+						<div class="row">
 							<div class="controls">
-								<input type="number" name="quantidade-homens" id="quantidade-homens-0" class="form-control">
-							</div>
-						</div>
-						<div class="form-group col-md-3">
-							<label class="form-label">Mulheres</label>
-							<div class="controls">
-								<input type="number" name="quantidade-mulheres" id="quantidade-mulheres-0" class="form-control">
-							</div>
-						</div>
-						<div class="form-group col-md-4">
-							<label class="form-label">Faixa etária</label>
-							<div class="controls">
-								<select name="idade-minima" id="idade-minima-0" class="col-md-6 no-padding" data-search="true" object-type="HtmlSelect"></select>
-								<select name="idade-maxima" id="idade-maxima-0" class="col-md-6 no-padding" data-search="true" object-type="HtmlSelect"></select>
-							</div>
-						</div>
-						<div class="col-md-2">
-							<div class="pull-right m-t-5 js-btns">
-								<button type="button" class="btn btn-white btn-small js-add-group"><i class="fa fa-plus"></button>
+								<div class="form-group col-md-4 m-b-0">
+									<label class="form-label">Idade máxima</label>
+									<div class="controls">
+										<select name="idade-minima" id="idade-minima-0" class="col-md-12 no-padding" data-search="true" object-type="HtmlSelect"></select>
+									</div>
+								</div>
+								<div class="form-group col-md-4 m-b-0">
+									<label class="form-label">Idade mínima</label>
+									<div class="controls">
+										<select name="idade-maxima" id="idade-maxima-0" class="col-md-12 no-padding" data-search="true" object-type="HtmlSelect"></select>
+									</div>
+								</div>
 							</div>
 						</div>
 					</div>
@@ -230,12 +252,12 @@
 							</div>
 						</div>
 						<div class="form-group col-md-6">
-							<label class="form-label" for="sexo"><span class="js-number semi-bold"> 2 - </span>Sexo</label>
+							<label class="form-label" for="sexo-question"><span class="js-number semi-bold"> 2 - </span>Sexo</label>
 							<div class="controls radio radio-success m-t-0 p-t-0">
-								<input type="radio" value="1" id="sexo-m" name="sexo" class="form-control">
-								<label class="form-label" for="sexo-m">Masculino</label>
-								<input type="radio" value="2" id="sexo-f" name="sexo" class="form-control">
-								<label class="form-label" for="sexo-f">Feminino</label>
+								<input type="radio" value="1" id="sexo-m1" name="sexo-question" class="form-control">
+								<label class="form-label" for="sexo-m1">Masculino</label>
+								<input type="radio" value="2" id="sexo-f1" name="sexo-question" class="form-control">
+								<label class="form-label" for="sexo-f1">Feminino</label>
 							</div>
 						</div>
 					</div>

@@ -4,7 +4,7 @@
 		<?php echo $page->metaTags; ?>
 		<title><?php echo $page->title; ?></title>
 		<?php echo $page->stylesheets; ?>
-		<link rel="icon" type="image/gif/png" href="~/resource/default/img/logo-header.png">
+		<link rel="icon" type="image/gif/png" href="~/resource/default/img/header.png">
 		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 		<meta content="<?php echo $pageDescription; ?>" name="description">
 		<meta content="Plug Digital <http://www.plug3s.com>" name="Bruno Cordeiro">
@@ -19,6 +19,7 @@
 								<div class="row">
 									<div class="box-logo col-md-12">
 										<img src="~/resource/default/img/logo.png" alt="Plug3s"/>
+										<!--<h1 class="semi-bold text-white">Votorantim</h1>-->
 									</div>
 								</div>
 								<div class="js-login-container box-login">

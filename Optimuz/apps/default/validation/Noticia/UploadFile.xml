@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE settings SYSTEM "http://optimuz.interativadesenvolvimento.com.br/dtd/validation.dtd">
+<form method="post" lang="">
+	<input name="file" label="Arquivo enviado">
+		<rule name="upload" size="300M" types="bmp,gif,jpeg,png,jpg" required="true" />
+	</input>
+</form>

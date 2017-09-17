@@ -25,7 +25,7 @@ to not make mistakes.
 	- enable: if this parameter is true the application will be accessable for
 	all users. Otherwise, the access to this application will be denied.
 	-->
-	<app name="LegalWay" version="0.1" enable="true">
+	<app name="Votorantim" version="0.1" enable="true">
 		<!--
 		[Local only]
 		Path to save uploaded images of articles. Should follow the pattern
@@ -83,7 +83,7 @@ to not make mistakes.
 		<keywords></keywords>
 		<charset>UTF-8</charset>
 		<language>pt-br</language>
-		<title>Plug3s</title>
+		<title>Votorantim</title>
 		<doctype>strict</doctype>
 		<markup>html</markup>
 	</page>

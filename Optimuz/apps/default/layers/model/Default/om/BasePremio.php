@@ -61,6 +61,25 @@ abstract class BasePremio extends BaseObject  implements Persistent
 	protected $quantidade;
 
 	/**
+	 * The value for the data_cadastro field.
+	 * @var        string
+	 */
+	protected $data_cadastro;
+
+	/**
+	 * The value for the ativo field.
+	 * Note: this column has a database default value of: true
+	 * @var        boolean
+	 */
+	protected $ativo;
+
+	/**
+	 * The value for the descricao field.
+	 * @var        string
+	 */
+	protected $descricao;
+
+	/**
 	 * @var        Usuario
 	 */
 	protected $aUsuario;
@@ -89,6 +108,27 @@ abstract class BasePremio extends BaseObject  implements Persistent
 	 * @var		array
 	 */
 	protected $solicitacaoResgatesScheduledForDeletion = null;
+
+	/**
+	 * Applies default values to this object.
+	 * This method should be called from the object's constructor (or
+	 * equivalent initialization method).
+	 * @see        __construct()
+	 */
+	public function applyDefaultValues()
+	{
+		$this->ativo = true;
+	}
+
+	/**
+	 * Initializes internal state of BasePremio object.
+	 * @see        applyDefaults()
+	 */
+	public function __construct()
+	{
+		parent::__construct();
+		$this->applyDefaultValues();
+	}
 
 	/**
 	 * Get the [id] column value.
@@ -138,6 +178,64 @@ abstract class BasePremio extends BaseObject  implements Persistent
 	public function getQuantidade()
 	{
 		return $this->quantidade;
+	}
+
+	/**
+	 * Get the [optionally formatted] temporal [data_cadastro] column value.
+	 * 
+	 *
+	 * @param      string $format The date/time format string (either date()-style or strftime()-style).
+	 *							If format is NULL, then the raw DateTime object will be returned.
+	 * @return     mixed Formatted date/time value as string or DateTime object (if format is NULL), NULL if column is NULL, and 0 if column value is 0000-00-00 00:00:00
+	 * @throws     PropelException - if unable to parse/validate the date/time value.
+	 */
+	public function getDataCadastro($format = 'Y-m-d H:i:s')
+	{
+		if ($this->data_cadastro === null) {
+			return null;
+		}
+
+
+		if ($this->data_cadastro === '0000-00-00 00:00:00') {
+			// while technically this is not a default value of NULL,
+			// this seems to be closest in meaning.
+			return null;
+		} else {
+			try {
+				$dt = new DateTime($this->data_cadastro);
+			} catch (Exception $x) {
+				throw new PropelException("Internally stored date/time/timestamp value could not be converted to DateTime: " . var_export($this->data_cadastro, true), $x);
+			}
+		}
+
+		if ($format === null) {
+			// Because propel.useDateTimeClass is TRUE, we return a DateTime object.
+			return $dt;
+		} elseif (strpos($format, '%') !== false) {
+			return strftime($format, $dt->format('U'));
+		} else {
+			return $dt->format($format);
+		}
+	}
+
+	/**
+	 * Get the [ativo] column value.
+	 * 
+	 * @return     boolean
+	 */
+	public function getAtivo()
+	{
+		return $this->ativo;
+	}
+
+	/**
+	 * Get the [descricao] column value.
+	 * 
+	 * @return     string
+	 */
+	public function getDescricao()
+	{
+		return $this->descricao;
 	}
 
 	/**
@@ -245,6 +343,76 @@ abstract class BasePremio extends BaseObject  implements Persistent
 	} // setQuantidade()
 
 	/**
+	 * Sets the value of [data_cadastro] column to a normalized version of the date/time value specified.
+	 * 
+	 * @param      mixed $v string, integer (timestamp), or DateTime value.
+	 *               Empty strings are treated as NULL.
+	 * @return     Premio The current object (for fluent API support)
+	 */
+	public function setDataCadastro($v)
+	{
+		$dt = PropelDateTime::newInstance($v, null, 'DateTime');
+		if ($this->data_cadastro !== null || $dt !== null) {
+			$currentDateAsString = ($this->data_cadastro !== null && $tmpDt = new DateTime($this->data_cadastro)) ? $tmpDt->format('Y-m-d H:i:s') : null;
+			$newDateAsString = $dt ? $dt->format('Y-m-d H:i:s') : null;
+			if ($currentDateAsString !== $newDateAsString) {
+				$this->data_cadastro = $newDateAsString;
+				$this->modifiedColumns[] = PremioPeer::DATA_CADASTRO;
+			}
+		} // if either are not null
+
+		return $this;
+	} // setDataCadastro()
+
+	/**
+	 * Sets the value of the [ativo] column.
+	 * Non-boolean arguments are converted using the following rules:
+	 *   * 1, '1', 'true',  'on',  and 'yes' are converted to boolean true
+	 *   * 0, '0', 'false', 'off', and 'no'  are converted to boolean false
+	 * Check on string values is case insensitive (so 'FaLsE' is seen as 'false').
+	 * 
+	 * @param      boolean|integer|string $v The new value
+	 * @return     Premio The current object (for fluent API support)
+	 */
+	public function setAtivo($v)
+	{
+		if ($v !== null) {
+			if (is_string($v)) {
+				$v = in_array(strtolower($v), array('false', 'off', '-', 'no', 'n', '0', '')) ? false : true;
+			} else {
+				$v = (boolean) $v;
+			}
+		}
+
+		if ($this->ativo !== $v) {
+			$this->ativo = $v;
+			$this->modifiedColumns[] = PremioPeer::ATIVO;
+		}
+
+		return $this;
+	} // setAtivo()
+
+	/**
+	 * Set the value of [descricao] column.
+	 * 
+	 * @param      string $v new value
+	 * @return     Premio The current object (for fluent API support)
+	 */
+	public function setDescricao($v)
+	{
+		if ($v !== null) {
+			$v = (string) $v;
+		}
+
+		if ($this->descricao !== $v) {
+			$this->descricao = $v;
+			$this->modifiedColumns[] = PremioPeer::DESCRICAO;
+		}
+
+		return $this;
+	} // setDescricao()
+
+	/**
 	 * Indicates whether the columns in this object are only set to default values.
 	 *
 	 * This method can be used in conjunction with isModified() to indicate whether an object is both
@@ -254,6 +422,10 @@ abstract class BasePremio extends BaseObject  implements Persistent
 	 */
 	public function hasOnlyDefaultValues()
 	{
+			if ($this->ativo !== true) {
+				return false;
+			}
+
 		// otherwise, everything was equal, so return TRUE
 		return true;
 	} // hasOnlyDefaultValues()
@@ -281,6 +453,9 @@ abstract class BasePremio extends BaseObject  implements Persistent
 			$this->nome = ($row[$startcol + 2] !== null) ? (string) $row[$startcol + 2] : null;
 			$this->valor = ($row[$startcol + 3] !== null) ? (int) $row[$startcol + 3] : null;
 			$this->quantidade = ($row[$startcol + 4] !== null) ? (int) $row[$startcol + 4] : null;
+			$this->data_cadastro = ($row[$startcol + 5] !== null) ? (string) $row[$startcol + 5] : null;
+			$this->ativo = ($row[$startcol + 6] !== null) ? (boolean) $row[$startcol + 6] : null;
+			$this->descricao = ($row[$startcol + 7] !== null) ? (string) $row[$startcol + 7] : null;
 			$this->resetModified();
 
 			$this->setNew(false);
@@ -289,7 +464,7 @@ abstract class BasePremio extends BaseObject  implements Persistent
 				$this->ensureConsistency();
 			}
 
-			return $startcol + 5; // 5 = PremioPeer::NUM_HYDRATE_COLUMNS.
+			return $startcol + 8; // 8 = PremioPeer::NUM_HYDRATE_COLUMNS.
 
 		} catch (Exception $e) {
 			throw new PropelException("Error populating Premio object", $e);
@@ -547,6 +722,15 @@ abstract class BasePremio extends BaseObject  implements Persistent
 		if ($this->isColumnModified(PremioPeer::QUANTIDADE)) {
 			$modifiedColumns[':p' . $index++]  = '`QUANTIDADE`';
 		}
+		if ($this->isColumnModified(PremioPeer::DATA_CADASTRO)) {
+			$modifiedColumns[':p' . $index++]  = '`DATA_CADASTRO`';
+		}
+		if ($this->isColumnModified(PremioPeer::ATIVO)) {
+			$modifiedColumns[':p' . $index++]  = '`ATIVO`';
+		}
+		if ($this->isColumnModified(PremioPeer::DESCRICAO)) {
+			$modifiedColumns[':p' . $index++]  = '`DESCRICAO`';
+		}
 
 		$sql = sprintf(
 			'INSERT INTO `premio` (%s) VALUES (%s)',
@@ -572,6 +756,15 @@ abstract class BasePremio extends BaseObject  implements Persistent
 						break;
 					case '`QUANTIDADE`':						
 						$stmt->bindValue($identifier, $this->quantidade, PDO::PARAM_INT);
+						break;
+					case '`DATA_CADASTRO`':						
+						$stmt->bindValue($identifier, $this->data_cadastro, PDO::PARAM_STR);
+						break;
+					case '`ATIVO`':
+						$stmt->bindValue($identifier, (int) $this->ativo, PDO::PARAM_INT);
+						break;
+					case '`DESCRICAO`':						
+						$stmt->bindValue($identifier, $this->descricao, PDO::PARAM_STR);
 						break;
 				}
 			}
@@ -646,6 +839,15 @@ abstract class BasePremio extends BaseObject  implements Persistent
 			case 4:
 				return $this->getQuantidade();
 				break;
+			case 5:
+				return $this->getDataCadastro();
+				break;
+			case 6:
+				return $this->getAtivo();
+				break;
+			case 7:
+				return $this->getDescricao();
+				break;
 			default:
 				return null;
 				break;
@@ -680,6 +882,9 @@ abstract class BasePremio extends BaseObject  implements Persistent
 			$keys[2] => $this->getNome(),
 			$keys[3] => $this->getValor(),
 			$keys[4] => $this->getQuantidade(),
+			$keys[5] => $this->getDataCadastro(),
+			$keys[6] => $this->getAtivo(),
+			$keys[7] => $this->getDescricao(),
 		);
 		if ($includeForeignObjects) {
 			if (null !== $this->aUsuario) {
@@ -734,6 +939,15 @@ abstract class BasePremio extends BaseObject  implements Persistent
 			case 4:
 				$this->setQuantidade($value);
 				break;
+			case 5:
+				$this->setDataCadastro($value);
+				break;
+			case 6:
+				$this->setAtivo($value);
+				break;
+			case 7:
+				$this->setDescricao($value);
+				break;
 		} // switch()
 	}
 
@@ -763,6 +977,9 @@ abstract class BasePremio extends BaseObject  implements Persistent
 		if (array_key_exists($keys[2], $arr)) $this->setNome($arr[$keys[2]]);
 		if (array_key_exists($keys[3], $arr)) $this->setValor($arr[$keys[3]]);
 		if (array_key_exists($keys[4], $arr)) $this->setQuantidade($arr[$keys[4]]);
+		if (array_key_exists($keys[5], $arr)) $this->setDataCadastro($arr[$keys[5]]);
+		if (array_key_exists($keys[6], $arr)) $this->setAtivo($arr[$keys[6]]);
+		if (array_key_exists($keys[7], $arr)) $this->setDescricao($arr[$keys[7]]);
 	}
 
 	/**
@@ -779,6 +996,9 @@ abstract class BasePremio extends BaseObject  implements Persistent
 		if ($this->isColumnModified(PremioPeer::NOME)) $criteria->add(PremioPeer::NOME, $this->nome);
 		if ($this->isColumnModified(PremioPeer::VALOR)) $criteria->add(PremioPeer::VALOR, $this->valor);
 		if ($this->isColumnModified(PremioPeer::QUANTIDADE)) $criteria->add(PremioPeer::QUANTIDADE, $this->quantidade);
+		if ($this->isColumnModified(PremioPeer::DATA_CADASTRO)) $criteria->add(PremioPeer::DATA_CADASTRO, $this->data_cadastro);
+		if ($this->isColumnModified(PremioPeer::ATIVO)) $criteria->add(PremioPeer::ATIVO, $this->ativo);
+		if ($this->isColumnModified(PremioPeer::DESCRICAO)) $criteria->add(PremioPeer::DESCRICAO, $this->descricao);
 
 		return $criteria;
 	}
@@ -845,6 +1065,9 @@ abstract class BasePremio extends BaseObject  implements Persistent
 		$copyObj->setNome($this->getNome());
 		$copyObj->setValor($this->getValor());
 		$copyObj->setQuantidade($this->getQuantidade());
+		$copyObj->setDataCadastro($this->getDataCadastro());
+		$copyObj->setAtivo($this->getAtivo());
+		$copyObj->setDescricao($this->getDescricao());
 
 		if ($deepCopy && !$this->startCopy) {
 			// important: temporarily setNew(false) because this affects the behavior of
@@ -1180,9 +1403,13 @@ abstract class BasePremio extends BaseObject  implements Persistent
 		$this->nome = null;
 		$this->valor = null;
 		$this->quantidade = null;
+		$this->data_cadastro = null;
+		$this->ativo = null;
+		$this->descricao = null;
 		$this->alreadyInSave = false;
 		$this->alreadyInValidation = false;
 		$this->clearAllReferences();
+		$this->applyDefaultValues();
 		$this->resetModified();
 		$this->setNew(true);
 		$this->setDeleted(false);

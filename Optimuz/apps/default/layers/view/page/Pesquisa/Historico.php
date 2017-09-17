@@ -4,9 +4,9 @@
 		<h3></h3>
 	</div>
 	<div class="col-md-4 text-right no-padding">
-		<a href="~/pesquisa" class="m-l-10 btn btn-white" object-type="HtmlLink"><i class="fa fa-arrow-left"></i> Voltar</a>
-		<a href="" id="js-edit-link" class="m-l-10 btn btn-success" object-type="HtmlLink"><i class="fa fa-edit fa-white"></i> Editar</a>
-		<a href="~/pesquisa/nova" class="m-l-10 btn btn-success" object-type="HtmlLink"><i class="fa fa-plus fa-white"></i> Nova</a>
+		<a href="~/pesquisa" class="m-l-10 btn btn-white" object-type="HtmlLink"><i class="mdi mdi-arrow-left"></i> Voltar</a>
+		<a href="" id="js-edit-link" class="m-l-10 btn btn-success" object-type="HtmlLink"><i class="mdi mdi-table-edit text-white"></i> Editar</a>
+		<a href="~/pesquisa/nova" class="m-l-10 btn btn-success" object-type="HtmlLink"><i class="mdi mdi-plus text-white"></i> Nova</a>
 	</div>
 </div>
 <div class="row">

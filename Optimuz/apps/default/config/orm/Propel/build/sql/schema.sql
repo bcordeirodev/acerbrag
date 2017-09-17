@@ -269,6 +269,7 @@ CREATE TABLE `noticia`
 	`descricao` TEXT,
 	`data_cadastro` DATETIME,
 	`visualizacao` INTEGER DEFAULT 0,
+	`ativa` TINYINT(1) DEFAULT 1,
 	PRIMARY KEY (`id`),
 	BTREE INDEX `fk_noticia_usuario_idx` (`usuario_id`),
 	CONSTRAINT `fk_noticia_usuario`
@@ -421,9 +422,12 @@ CREATE TABLE `premio`
 (
 	`id` int(10) unsigned NOT NULL AUTO_INCREMENT,
 	`usuario_id` int(10) unsigned NOT NULL,
-	`nome` VARCHAR(255),
-	`valor` INTEGER,
-	`quantidade` INTEGER,
+	`nome` VARCHAR(255) NOT NULL,
+	`valor` INTEGER NOT NULL,
+	`quantidade` INTEGER NOT NULL,
+	`data_cadastro` DATETIME NOT NULL,
+	`ativo` TINYINT(1) DEFAULT 1 NOT NULL,
+	`descricao` TEXT,
 	PRIMARY KEY (`id`),
 	BTREE INDEX `fk_premio_usuario_idx` (`usuario_id`),
 	CONSTRAINT `fk_premio_usuario`

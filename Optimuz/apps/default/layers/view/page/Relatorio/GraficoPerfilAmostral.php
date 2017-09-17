@@ -1,5 +1,5 @@
 <div class="page-title">
-	<i class="fa fa-pie-chart" aria-hidden="true"></i>
+	<i class="mdi mdi-chart-bar"></i>
 	<h3>Relatório por <span class="semi-bold">Perfil Amostral</span></h3>
 <!--	<div class="pull-right">
 		<a href="~/relatorio/perfil-amostral" id="voltar-relatorios" class="m-l-10 btn btn-white" object-type="HtmlLink">

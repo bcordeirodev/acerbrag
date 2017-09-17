@@ -193,29 +193,12 @@ class ColetaController extends DefaultPageController
 				$filterCondition = $validator->hasInputValue('condicao') ? $validator->getInputValue('condicao') : null;
 				$filterValue = $validator->hasInputValue('valor') ? $validator->getInputValue('valor') : null;
 				$filterOperator = $validator->hasInputValue('operador') ? $validator->getInputValue('operador') : null;
-
-				$currentUser = Usuario::atual();
 				FilterContainerComponent::saveState("filter{$this->getControllerName()}");
 
 				$table = ColetaPesquisaQuery::create('c')
 					->joinPesquisa('p')
 					->joinUsuario('u')
 					->orderById(Criteria::DESC);
-
-				/*
-				 * Se o usuário for um supervisor, aparecerá apenas coletas de
-				 * pequisas relacionadas ao mesmo.
-				 */
-				if($currentUser->getPerfilId() == Perfil::PERFIL_SUPERVISOR)
-				{
-					$researchs = PesquisaUsuarioQuery::create('pu')
-						->filterByUsuario($currentUser)
-						->select(array('pu.PesquisaId'))
-						->find()
-						->getArrayCopy();
-
-					$table->filterByPesquisaId($researchs);
-				}
 
 				if(!empty($filterField))
 				{
@@ -263,53 +246,44 @@ class ColetaController extends DefaultPageController
 					$table->filterByTitulo("%{$searchValue}%");
 				}
 
-				$records = $table->paginate($page, $length);
-				$result->recordsTotal = $records->getNbResults();
-				$result->success = true;
-				$result->data = array();
-				$result->recordsFiltered = $records->count();
-				$result->draw = $draw;
-				$baseUrl = $this->application->getBaseUrl();
+				$records					= $table->paginate($page, $length);
+				$result->recordsTotal		= $records->getNbResults();
+				$result->success			= true;
+				$result->data				= array();
+				$result->recordsFiltered	= $records->count();
+				$result->draw				= $draw;
+				$baseUrl					= $this->application->getBaseUrl();
 
 				if(!empty($records))
 				{
 					foreach($records as $collect)
 					{
-						$deleteLink = null;
-						$statusColeta = $collect->getStatus();
-						$audit = null;
-						$color = null;
-						$status = null;
+						$statusColeta	= $collect->getStatus();
+						$deleteLink		= '<li><a href="javascript:;" data-coleta-id="' . $collect->getId() . '" class="excluir"><i class="fa fa-trash-o m-r-5"></i> Excluir</a></li>';
+						$auditLink		= '<li><a href="javascript:;" data-coleta-id="' . $collect->getId() . '" class="auditar"><i class="fa fa-gavel m-r-5"></i> Auditar</a></li>';
+						$auditedLink	= '<li><a href="javascript:;" data-coleta-id="' . $collect->getId() . '" data-status="close" class="auditar"><i class="fa fa-thumbs-o-up m-r-5"></i> Auditada</a></li>';
+						$audited		= '<li><a href="javascript:;" class="text-muted" disabled><i class="fa fa-thumbs-o-up m-r-5"></i> Auditada</a></li>';
 
-						if(Usuario::atual()->getPerfilId() != Perfil::PERFIL_COORDENADOR)
+						switch($statusColeta)
 						{
-							$deleteLink = '<li><a href="javascript:;" data-coleta-id="' . $collect->getId() . '" class="excluir"><i class="fa fa-trash-o m-r-5"></i> Excluir</a></li>';
-							$auditLink = '<li><a href="javascript:;" data-coleta-id="' . $collect->getId() . '" class="auditar"><i class="fa fa-gavel m-r-5"></i> Auditar</a></li>';
-							$auditedLink = '<li><a href="javascript:;" data-coleta-id="' . $collect->getId() . '" data-status="close" class="auditar"><i class="fa fa-thumbs-o-up m-r-5"></i> Auditada</a></li>';
-							$audited = '<li><a href="javascript:;" class="text-muted" disabled><i class="fa fa-thumbs-o-up m-r-5"></i> Auditada</a></li>';
-
-							switch($statusColeta)
-							{
-								case ColetaPesquisa::MARCADA_PARA_AUDITORIA:
-									$audit = $auditedLink;
-									$color = ' text-warning';
-									$status= 'Aguardando auditoria';
-									break;
-								case ColetaPesquisa::AUDITORIA_REALIZADA:
-									$audit = $audited;
-									$color = ' text-success';
-									$status= 'Auditoria finalizada';
-									break;
-								default :
-									$audit = $auditLink;
-									$color = ' text-default';
-									$status= 'Coleta realizada';
-									break;
-							}
+							case ColetaPesquisa::MARCADA_PARA_AUDITORIA:
+								$audit = $auditedLink;
+								$color = ' text-warning';
+								$status= 'Aguardando auditoria';
+								break;
+							case ColetaPesquisa::AUDITORIA_REALIZADA:
+								$audit = $audited;
+								$color = ' text-success';
+								$status= 'Auditoria finalizada';
+								break;
+							default :
+								$audit = $auditLink;
+								$color = ' text-default';
+								$status= 'Coleta realizada';
+								break;
 						}
 
 						$viewLink = '<a href="' . $baseUrl . 'coleta/ver/' . $collect->getId() . '" class="btn btn-small btn-white' . $color . '"><i class="fa fa-eye m-r-5"></i> Ver</a>';
-
 						$actions = '<div class="btn-group" data-toggle="tooltip" data-placement="top" title="' . $status . '">
 										' . $viewLink . '
 										<button class="btn btn-small btn-white dropdown-toggle" data-toggle="dropdown"><span class="caret"></span></button>

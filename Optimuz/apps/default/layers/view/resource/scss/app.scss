@@ -618,11 +618,11 @@ body{
 .login-page{
 
 	.login-form{
-		background-color: #6586bf99;
+		/*background-color: #0f1e3999;*/
+		background-color: #070d1a99;
 		padding: 10px 20px 15px 20px;
 		margin-top: 80px;
-		border-radius: 5px;
-		box-shadow: 5px 3px 5px #252121b3;
+		border-radius: 1px;
 		border: solid 1px #899ab799;
 
 		.box-logo{
@@ -632,7 +632,7 @@ body{
 
 			img{
 				margin: 0 auto;
-				height: 165px;
+				height: 100px;
 				width: 405px;
 			}
 		}

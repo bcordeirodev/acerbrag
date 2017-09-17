@@ -80,6 +80,13 @@ abstract class BaseNoticia extends BaseObject  implements Persistent
 	protected $visualizacao;
 
 	/**
+	 * The value for the ativa field.
+	 * Note: this column has a database default value of: true
+	 * @var        boolean
+	 */
+	protected $ativa;
+
+	/**
 	 * @var        Usuario
 	 */
 	protected $aUsuario;
@@ -118,6 +125,7 @@ abstract class BaseNoticia extends BaseObject  implements Persistent
 	public function applyDefaultValues()
 	{
 		$this->visualizacao = 0;
+		$this->ativa = true;
 	}
 
 	/**
@@ -236,6 +244,16 @@ abstract class BaseNoticia extends BaseObject  implements Persistent
 	public function getVisualizacao()
 	{
 		return $this->visualizacao;
+	}
+
+	/**
+	 * Get the [ativa] column value.
+	 * 
+	 * @return     boolean
+	 */
+	public function getAtiva()
+	{
+		return $this->ativa;
 	}
 
 	/**
@@ -405,6 +423,34 @@ abstract class BaseNoticia extends BaseObject  implements Persistent
 	} // setVisualizacao()
 
 	/**
+	 * Sets the value of the [ativa] column.
+	 * Non-boolean arguments are converted using the following rules:
+	 *   * 1, '1', 'true',  'on',  and 'yes' are converted to boolean true
+	 *   * 0, '0', 'false', 'off', and 'no'  are converted to boolean false
+	 * Check on string values is case insensitive (so 'FaLsE' is seen as 'false').
+	 * 
+	 * @param      boolean|integer|string $v The new value
+	 * @return     Noticia The current object (for fluent API support)
+	 */
+	public function setAtiva($v)
+	{
+		if ($v !== null) {
+			if (is_string($v)) {
+				$v = in_array(strtolower($v), array('false', 'off', '-', 'no', 'n', '0', '')) ? false : true;
+			} else {
+				$v = (boolean) $v;
+			}
+		}
+
+		if ($this->ativa !== $v) {
+			$this->ativa = $v;
+			$this->modifiedColumns[] = NoticiaPeer::ATIVA;
+		}
+
+		return $this;
+	} // setAtiva()
+
+	/**
 	 * Indicates whether the columns in this object are only set to default values.
 	 *
 	 * This method can be used in conjunction with isModified() to indicate whether an object is both
@@ -415,6 +461,10 @@ abstract class BaseNoticia extends BaseObject  implements Persistent
 	public function hasOnlyDefaultValues()
 	{
 			if ($this->visualizacao !== 0) {
+				return false;
+			}
+
+			if ($this->ativa !== true) {
 				return false;
 			}
 
@@ -448,6 +498,7 @@ abstract class BaseNoticia extends BaseObject  implements Persistent
 			$this->descricao = ($row[$startcol + 5] !== null) ? (string) $row[$startcol + 5] : null;
 			$this->data_cadastro = ($row[$startcol + 6] !== null) ? (string) $row[$startcol + 6] : null;
 			$this->visualizacao = ($row[$startcol + 7] !== null) ? (int) $row[$startcol + 7] : null;
+			$this->ativa = ($row[$startcol + 8] !== null) ? (boolean) $row[$startcol + 8] : null;
 			$this->resetModified();
 
 			$this->setNew(false);
@@ -456,7 +507,7 @@ abstract class BaseNoticia extends BaseObject  implements Persistent
 				$this->ensureConsistency();
 			}
 
-			return $startcol + 8; // 8 = NoticiaPeer::NUM_HYDRATE_COLUMNS.
+			return $startcol + 9; // 9 = NoticiaPeer::NUM_HYDRATE_COLUMNS.
 
 		} catch (Exception $e) {
 			throw new PropelException("Error populating Noticia object", $e);
@@ -723,6 +774,9 @@ abstract class BaseNoticia extends BaseObject  implements Persistent
 		if ($this->isColumnModified(NoticiaPeer::VISUALIZACAO)) {
 			$modifiedColumns[':p' . $index++]  = '`VISUALIZACAO`';
 		}
+		if ($this->isColumnModified(NoticiaPeer::ATIVA)) {
+			$modifiedColumns[':p' . $index++]  = '`ATIVA`';
+		}
 
 		$sql = sprintf(
 			'INSERT INTO `noticia` (%s) VALUES (%s)',
@@ -757,6 +811,9 @@ abstract class BaseNoticia extends BaseObject  implements Persistent
 						break;
 					case '`VISUALIZACAO`':						
 						$stmt->bindValue($identifier, $this->visualizacao, PDO::PARAM_INT);
+						break;
+					case '`ATIVA`':
+						$stmt->bindValue($identifier, (int) $this->ativa, PDO::PARAM_INT);
 						break;
 				}
 			}
@@ -840,6 +897,9 @@ abstract class BaseNoticia extends BaseObject  implements Persistent
 			case 7:
 				return $this->getVisualizacao();
 				break;
+			case 8:
+				return $this->getAtiva();
+				break;
 			default:
 				return null;
 				break;
@@ -877,6 +937,7 @@ abstract class BaseNoticia extends BaseObject  implements Persistent
 			$keys[5] => $this->getDescricao(),
 			$keys[6] => $this->getDataCadastro(),
 			$keys[7] => $this->getVisualizacao(),
+			$keys[8] => $this->getAtiva(),
 		);
 		if ($includeForeignObjects) {
 			if (null !== $this->aUsuario) {
@@ -940,6 +1001,9 @@ abstract class BaseNoticia extends BaseObject  implements Persistent
 			case 7:
 				$this->setVisualizacao($value);
 				break;
+			case 8:
+				$this->setAtiva($value);
+				break;
 		} // switch()
 	}
 
@@ -972,6 +1036,7 @@ abstract class BaseNoticia extends BaseObject  implements Persistent
 		if (array_key_exists($keys[5], $arr)) $this->setDescricao($arr[$keys[5]]);
 		if (array_key_exists($keys[6], $arr)) $this->setDataCadastro($arr[$keys[6]]);
 		if (array_key_exists($keys[7], $arr)) $this->setVisualizacao($arr[$keys[7]]);
+		if (array_key_exists($keys[8], $arr)) $this->setAtiva($arr[$keys[8]]);
 	}
 
 	/**
@@ -991,6 +1056,7 @@ abstract class BaseNoticia extends BaseObject  implements Persistent
 		if ($this->isColumnModified(NoticiaPeer::DESCRICAO)) $criteria->add(NoticiaPeer::DESCRICAO, $this->descricao);
 		if ($this->isColumnModified(NoticiaPeer::DATA_CADASTRO)) $criteria->add(NoticiaPeer::DATA_CADASTRO, $this->data_cadastro);
 		if ($this->isColumnModified(NoticiaPeer::VISUALIZACAO)) $criteria->add(NoticiaPeer::VISUALIZACAO, $this->visualizacao);
+		if ($this->isColumnModified(NoticiaPeer::ATIVA)) $criteria->add(NoticiaPeer::ATIVA, $this->ativa);
 
 		return $criteria;
 	}
@@ -1060,6 +1126,7 @@ abstract class BaseNoticia extends BaseObject  implements Persistent
 		$copyObj->setDescricao($this->getDescricao());
 		$copyObj->setDataCadastro($this->getDataCadastro());
 		$copyObj->setVisualizacao($this->getVisualizacao());
+		$copyObj->setAtiva($this->getAtiva());
 
 		if ($deepCopy && !$this->startCopy) {
 			// important: temporarily setNew(false) because this affects the behavior of
@@ -1373,6 +1440,7 @@ abstract class BaseNoticia extends BaseObject  implements Persistent
 		$this->descricao = null;
 		$this->data_cadastro = null;
 		$this->visualizacao = null;
+		$this->ativa = null;
 		$this->alreadyInSave = false;
 		$this->alreadyInValidation = false;
 		$this->clearAllReferences();

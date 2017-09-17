@@ -743,18 +743,8 @@ class UsuarioController extends DefaultPageController
 				 * Permissões.
 				 */
 				$component = new CheckListComponent();
-				$component->setSource($user->getPerfil()->getPermissaos(), 'permissaos[]');
+				$component->setSource($user->getPerfil()->getPermissaos(), 'permissaos[]', true);
 				$doc->find('.js-box-permissions')->getFirst()->append($component);
-
-				/**
-				 * @todo adicionar checked em todos os inputs.
-				 */
-				foreach($doc->find('input[type="checkbox"') as $input)
-				{
-					$input->setChecked(true);
-					$input->setAttribute('disabled', true);
-					$input->setAttribute('checked', true);
-				}
 
 				/*
 				 * Botão de ativar e desativar.
@@ -770,13 +760,13 @@ class UsuarioController extends DefaultPageController
 					HtmlDocument::getById('js-new-user')->remove();
 				}
 
-//				/*
-//				 * Logar como.
-//				 */
-//				if($this->canChangeUser())
-//					HtmlDocument::getById('js-change-user')->toType('HtmlLink')->setUrl("~/dashboard/trocar-usuario/{$user->getId()}");
-//				else
-//					HtmlDocument::getById('js-change-user')->remove();
+				/*
+				 * Logar como.
+				 */
+				if($currentUser->temPermissao('logar-como'))
+					HtmlDocument::getById('js-change-user')->toType('HtmlLink')->setUrl("~/dashboard/trocar-usuario/{$user->getId()}");
+				else
+					HtmlDocument::getById('js-change-user')->remove();
 
 				/*
 				 * Imagem de perfil
@@ -851,8 +841,12 @@ class UsuarioController extends DefaultPageController
 				$this->setActiveMenuItem('Usuarios');
 
 				$currentUser = Usuario::atual();
-				DataManager::set('ufs', UfQuery::create()->find());
-//				DataManager::set('perfilUsuario', PerfilQuery::personList()->find());
+				$doc = HtmlDocument::getCommomDocument();
+
+				DataManager::set('perfis', PerfilQuery::create()->filterByNivel($currentUser->getNivelAcesso(), Criteria::LESS_EQUAL)->find());
+				DataManager::set('cargos', CargoQuery::create()->find());
+				DataManager::set('departamentos', DepartamentoQuery::create()->find());
+				DataManager::set('estadoCivil', Usuario::$maritalStatus);
 
 				/*
 				 * Personalização do formulário
@@ -868,78 +862,58 @@ class UsuarioController extends DefaultPageController
 				/*
 				 * Informações básicas
 				 */
-				HtmlDocument::getById('id')->setAttribute('value', $user->getId());
-				HtmlDocument::getById('nome')->setAttribute('value', $user->getNome());
-				HtmlDocument::getById('email')->setAttribute('value', $user->getEmail());
-				HtmlDocument::getById('telefone')->setAttribute('value', $user->getTelefone());
-				HtmlDocument::getById('cpf')->setAttribute('value', $user->getCpf());
+				$doc->getById('id')->setAttribute('value', $user->getId());
+				$doc->getById('nome')->setAttribute('value', $user->getNome());
+				$doc->getById('perfil')->setValue($user->getPerfilId());
+				$doc->getById('email')->setAttribute('value', $user->getEmail());
+				$doc->getById('telefone')->setAttribute('value', $user->getTelefone());
+				$doc->getById('dni')->setAttribute('value', $user->getDni());
+				$doc->getById('data-nascimento')->setAttribute('value', $user->getDataNascimento('d/m/Y'));
+				$doc->getById('celular')->setAttribute('value', $user->getCelular());
+				$doc->getById($user->getSexo() == 'M' ? 'masculino' : 'femenino')->setAttribute('checked', 'checked');
+				$doc->getById($user->getTipoAcesso() == Usuario::TIPO_ACESSO_MOBILE ? 'mobile' : 'back-end')->setAttribute('checked', 'checked');
 
 				/*
-				 * Filiais (não usado por admin's).
+				 * Endereço
 				 */
-				if(!Usuario::isAdmin($currentUser))
-				{
-					$hasFilials = IgrejaQuery::getFilialByUserProfile();
+				$address = $user->getEndereco();
+				$doc->getById('cep')->setAttribute('value', $address->getCep());
+				$doc->getById('logradouro')->setAttribute('value', $address->getLogradouro());
+				$doc->getById('cidade')->setAttribute('value', $address->getCidade());
+				$doc->getById('bairro')->setAttribute('value', $address->getBairro());
+				$doc->getById('numero')->setAttribute('value', $address->getNumero());
+				$doc->getById('complemento')->setAttribute('value', $address->getComplemento());
 
-					if($hasFilials->count() > 0)
-					{
-						$filials = $hasFilials->find();
-
-						$userFilial = UsuarioFilialQuery::create()
-							->filterByUsuario($user)
-							->select('FilialId')
-							->find()
-							->toArray();
-
-						foreach($filials as $filial)
-						{
-							$checked = '';
-
-							if(count($userFilial) > 0)
-								$checked = in_array($filial->getId(), $userFilial) ? 'checked' : '';
-
-							$html = "<div class='control-group col-md-6 m-b-10'>
-										<div class='checkbox check-success'>
-											<input name='filial[]' id='filial-{$filial->getId()}' value='{$filial->getId()}' type='checkbox' {$checked} disabled>
-											<label for='filial-{$filial->getId()}' class='m-b-0'>{$filial->getNomeFantasia()}</label>
-										</div>
-									</div>";
-
-							HtmlDocument::find('#box-filial .row')->getFirst()->append($html);
-						}
-					}
-					else
-					{
-						HtmlDocument::getById('box-filial')->remove();
-					}
-				}
-				else
-				{
-					HtmlDocument::getById('box-filial')->remove();
-				}
+				/*
+				 * Informações de trabalho
+				 */
+				$doc->getById('matricula')->setAttribute('value', $user->getMatricula());
+				$doc->getById('data-rescisao')->setAttribute('value', $user->getDataRescisao('d/m/Y'));
+				$doc->getById('data-contratacao')->setAttribute('value', $user->getDataContratacao('d/m/Y'));
+				$doc->getById('cargo')->setValue($user->getCargoId());
+				$doc->getById('departamento')->setValue($user->getDepartamentoId());
 
 				/*
 				 * Permissões.
 				 */
-				if($currentUser->temPermissao('gerenciar-permissoes') || Usuario::isInstitute($currentUser))
-				{
-					$permissionsInputs = HtmlDocument::getByName('permissoes')->getFirst()->find('input', 'InputCheckbox');
+				$component = new CheckListComponent();
+				$component->setSource($user->getPerfil()->getPermissaos(), 'permissaos[]', true);
+				$doc->find('.js-box-permissions')->getFirst()->append($component);
 
-					foreach($permissionsInputs as $input)
-					{
-						$input->setChecked($user->temPermissao($input->getValue()));
-						$input->setDisabled(true);
-					}
-				}
-				else
+				/**
+				 * @todo adicionar checked em todos os inputs.
+				 */
+				foreach($doc->find('input[type="checkbox"') as $input)
 				{
-					HtmlDocument::getByName('permissoes')->getFirst()->parentNode->parentNode->parentNode->parentNode->remove();
+					$input->setChecked(true);
+					$input->setAttribute('disabled', true);
+					$input->setAttribute('checked', true);
 				}
 
 				/*
 				 * Logar como.
 				 */
-				if($this->canChangeUser())
+				if($currentUser->temPermissao('logar-como'))
 					HtmlDocument::getById('js-change-user')->toType('HtmlLink')->setUrl("~/dashboard/trocar-usuario/{$user->getId()}");
 				else
 					HtmlDocument::getById('js-change-user')->remove();
@@ -948,6 +922,11 @@ class UsuarioController extends DefaultPageController
 				 * Imagem de perfil
 				 */
 				HtmlDocument::getById('user-profile')->setAttribute('src', $user->getImagem('original', true));
+
+				/*
+				 * Desabilita todos os campos.
+				 */
+				$this->setInputsReadOnly();
 
 				try
 				{
@@ -1050,13 +1029,6 @@ class UsuarioController extends DefaultPageController
 				$user->setDepartamentoId($departament);
 				$user->setDataContratacao($hiringDate);
 				$user->setDataRescisao($terminationDate);
-
-				/*
-				 * Informações padrão.
-				 */
-				$user->setDataCadastro(time());
-				$user->setAtivo(true);
-				$user->setNivelAcesso(2);
 
 				/*
 				 * Endereço.
@@ -1352,66 +1324,64 @@ class UsuarioController extends DefaultPageController
 			$this->view->addResource('~/js/user.js');
 			$this->view->initializePage();
 
-			$currentUser = Usuario::atual();
-			DataManager::set('ufs',UfQuery::create()->find());
-			DataManager::set('perfilUsuario', PerfilQuery::create()->find());
+			$doc = HtmlDocument::getCommomDocument();
+
+			DataManager::set('perfis', PerfilQuery::create()->filterByNivel($user->getNivelAcesso(), Criteria::LESS_EQUAL)->find());
+			DataManager::set('cargos', CargoQuery::create()->find());
+			DataManager::set('departamentos', DepartamentoQuery::create()->find());
+			DataManager::set('estadoCivil', Usuario::$maritalStatus);
 
 			/*
-			 * Personalização do formulários.
+			 * Personalização do formulário
 			 */
-			HtmlDocument::getById('id')->setAttribute('value', $user->getId());
-			HtmlDocument::getById('nome')->setAttribute('value', $user->getNome());
-			HtmlDocument::getById('email')->setAttribute('value', $user->getEmail());
-			HtmlDocument::getById('telefone')->setAttribute('value', $user->getTelefone());
-			HtmlDocument::getById('perfil-usuario')->toType('HtmlSelect')->setValue($user->getPerfilId());
+			$name = Text::split(' ', $user->getNome(), 2);
+			HtmlDocument::find('.page-title h3')->getFirst()->html("{$name[0]} <span class='semi-bold'>" . (isset($name[1]) ? $name[1] : '') . "</span>");
+
 
 			/*
-			 * Filiais (não usado por admin's).
+			 * Informações básicas
 			 */
-			if(!Usuario::isAdmin($currentUser))
-			{
-				$hasFilials = IgrejaQuery::getFilialByUserProfile();
+			$doc->getById('id')->setAttribute('value', $user->getId());
+			$doc->getById('nome')->setAttribute('value', $user->getNome());
+			$doc->getById('perfil')->setValue($user->getPerfilId());
+			$doc->getById('email')->setAttribute('value', $user->getEmail());
+			$doc->getById('telefone')->setAttribute('value', $user->getTelefone());
+			$doc->getById('dni')->setAttribute('value', $user->getDni());
+			$doc->getById('data-nascimento')->setAttribute('value', $user->getDataNascimento('d/m/Y'));
+			$doc->getById('celular')->setAttribute('value', $user->getCelular());
+			$doc->getById($user->getSexo() == 'M' ? 'masculino' : 'femenino')->setAttribute('checked', 'checked');
+			$doc->getById($user->getTipoAcesso() == Usuario::TIPO_ACESSO_MOBILE ? 'mobile' : 'back-end')->setAttribute('checked', 'checked');
 
-				if($hasFilials->count() > 0)
-				{
-					$filials = $hasFilials->find();
+			/*
+			 * Endereço
+			 */
+			$address = $user->getEndereco();
+			$doc->getById('cep')->setAttribute('value', $address->getCep());
+			$doc->getById('logradouro')->setAttribute('value', $address->getLogradouro());
+			$doc->getById('cidade')->setAttribute('value', $address->getCidade());
+			$doc->getById('bairro')->setAttribute('value', $address->getBairro());
+			$doc->getById('numero')->setAttribute('value', $address->getNumero());
+			$doc->getById('complemento')->setAttribute('value', $address->getComplemento());
 
-					$userFilial = UsuarioFilialQuery::create()
-						->filterByUsuario($user)
-						->select('FilialId')
-						->find()
-						->toArray();
+			/*
+			 * Informações de trabalho
+			 */
+			$doc->getById('matricula')->setAttribute('value', $user->getMatricula());
+			$doc->getById('data-rescisao')->setAttribute('value', $user->getDataRescisao('d/m/Y'));
+			$doc->getById('data-contratacao')->setAttribute('value', $user->getDataContratacao('d/m/Y'));
+			$doc->getById('cargo')->setValue($user->getCargoId());
+			$doc->getById('departamento')->setValue($user->getDepartamentoId());
 
-					foreach($filials as $filial)
-					{
-						$checked = '';
+			/*
+			 * Permissões.
+			 */
+			$component = new CheckListComponent();
+			$component->setSource($user->getPerfil()->getPermissaos(), 'permissaos[]', true);
+			$doc->find('.js-box-permissions')->getFirst()->append($component);
 
-						if(count($userFilial) > 0)
-							$checked = in_array($filial->getId(), $userFilial) ? 'checked' : '';
-
-						if(Usuario::isInstitute($currentUser))
-							$checked = 'checked';
-
-						$html = "<div class='control-group col-md-6 m-b-10'>
-									<div class='checkbox check-success'>
-										<input name='filial[]' id='filial-{$filial->getId()}' value='{$filial->getId()}' type='checkbox' {$checked} disabled>
-										<label for='filial-{$filial->getId()}' class='m-b-0'>{$filial->getNomeFantasia()}</label>
-									</div>
-								</div>";
-
-						HtmlDocument::find('#box-filial .row')->getFirst()->append($html);
-					}
-				}
-				else
-				{
-					HtmlDocument::getById('box-filial')->remove();
-				}
-			}
-			else
-			{
-				HtmlDocument::getById('box-filial')->remove();
-			}
-
+			/*
+			 * Imagem de perfil
+			 */
 			$userImage = File::search("{$this->getUserDir($user)}original*");
 
 			if(!$userImage->isEmpty())
@@ -1423,24 +1393,12 @@ class UsuarioController extends DefaultPageController
 
 				$wrapper->addCssClass('wrapper-current-img');
 				$link->addCssClass('btn btn-white m-l-20');
-				$link->append('<i class="fa fa-refresh"></i> Alterar imagem');
+				$link->append('<i class="fa fa-refresh"></i> Cambiar imagen');
 
 				$span->append($img);
 				$wrapper->append($span);
 				$wrapper->append($link);
 				HtmlDocument::find('.dropzone')->getFirst()->after($wrapper);
-			}
-
-			if(Usuario::atual()->temPermissao('gerenciar-permissoes') || Usuario::isInstitute($currentUser))
-			{
-				$permissionsInputs = HtmlDocument::getByName('permissoes')->getFirst()->find('input', 'InputCheckbox');
-
-				foreach($permissionsInputs as $input)
-					$input->setChecked($user->temPermissao($input->getValue()));
-			}
-			else
-			{
-				HtmlDocument::getByName('permissoes')->getFirst()->parentNode->parentNode->parentNode->parentNode->remove();
 			}
 
 			try
@@ -1477,8 +1435,70 @@ class UsuarioController extends DefaultPageController
 				$canSave = true;
 				$clone = $user->toArray();
 
-				$user->setNome($validator->getInputValue('nome'));
-				$user->setTelefone(Text::remove('/\D/', $validator->getInputValue('telefone')));
+				$nome			= $validator->getInputValue('nome');
+				$profileId		= $validator->getInputValue('perfil');
+				$phone			= Text::remove('/\D/', $validator->getInputValue('telefone'));
+				$dni			= Text::remove('/\D/',$validator->getInputValue('dni'));
+				$email			= $validator->getInputValue('email');
+				$cellPhone		= Text::remove('/\D/', $validator->getInputValue('celular'));
+				$birthDate		= Utils::formatDateDb($validator->getInputValue('data-nascimento'));
+				$maritalStatus	= $validator->getInputValue('estado-civil');
+				$gender			= $validator->getInputValue('sexo');
+				$typeAccess		= $validator->getInputValue('tipo-acesso');
+
+				/*
+				 * Informações do trabalho.
+				 */
+//				$registration		= $validator->getInputValue('matricula');
+				$office				= $validator->getInputValue('cargo');
+				$departament		= $validator->getInputValue('departamento');
+				$hiringDate			= Utils::formatDateDb($validator->getInputValue('data-contratacao'));
+				$terminationDate	= Utils::formatDateDb($validator->getInputValue('data-rescisao'));
+
+				/*
+				 * Endereço
+				 */
+				$cep			= Utils::getJustNumber($validator->getInputValue('cep'));
+				$logradouro		= $validator->getInputValue('logradouro');
+				$numero			= $validator->getInputValue('numero');
+				$complemento	= $validator->getInputValue('complemento');
+				$cidade			= $validator->getInputValue('cidade');
+				$bairro			= $validator->getInputValue('bairro');
+
+				/*
+				 * Informações básicas.
+				 */
+				$user->setNome($nome);
+				$user->setEmail($email);
+				$user->setPerfilId($profileId);
+				$user->setDni($dni);
+				$user->setTelefone($phone);
+				$user->setCelular($cellPhone);
+				$user->setDataNascimento($birthDate);
+				$user->setEstadoCivil($maritalStatus);
+				$user->setTipoAcesso($typeAccess);
+				$user->setSexo($gender);
+
+				/*
+				 * Informações do trabalho.
+				 */
+//				$user->setMatricula($registration);
+				$user->setCargoId($office);
+				$user->setDepartamentoId($departament);
+				$user->setDataContratacao($hiringDate);
+				$user->setDataRescisao($terminationDate);
+
+				/*
+				 * Endereço.
+				 */
+				$address = $user->getEndereco();
+				$address->setCep($cep);
+				$address->setNumero($numero);
+				$address->setComplemento($complemento);
+				$address->setLogradouro($logradouro);
+				$address->setCidade($cidade);
+				$address->setBairro($bairro);
+				$user->setEndereco($address);
 
 				if($validator->hasInputValue('nova-senha'))
 				{
@@ -1525,23 +1545,6 @@ class UsuarioController extends DefaultPageController
 				{
 					try
 					{
-						if($user->temPermissao('gerenciar-permissoes') || Usuario::isInstitute($user))
-						{
-							$permissions = $validator->getInputValue('permissoes');
-							UsuarioPermissaoQuery::create()->filterByUsuario($user)->delete();
-
-							if(count($permissions) > 0)
-							{
-								foreach($permissions as $permission)
-								{
-									$userPermission = new UsuarioPermissao;
-									$userPermission->setUsuario($user);
-									$userPermission->setPermissaoId($permission);
-									$userPermission->save();
-								}
-							}
-						}
-
 						$user->save();
 						$this->salvarImagem($user);
 
@@ -1554,11 +1557,8 @@ class UsuarioController extends DefaultPageController
 						$login->setValue('userName', $user->getNome());
 						$login->setRole($user->getPerfilId());
 
-						foreach($user->getUsuarioPermissaos() as $userPermissions)
-						{
-							$permission = $userPermissions->getPermissao();
+						foreach($user->getPerfil()->getPermissaos() as $permission)
 							$login->addPermission(new SystemAccessPermission($permission->getId(), $permission->getSlug()));
-						}
 
 						$login->save();
 
@@ -1568,6 +1568,9 @@ class UsuarioController extends DefaultPageController
 						$result->success = true;
 						$result->message = 'Cadastro atualizado com sucesso';
 						$result->type = 'success';
+						$result->callback = 'redirect';
+						$result->url = Enviroment::resolveUrl('~/usuario/meu-perfil');
+						$result->time = 2000;
 					}
 					catch(PropelException $ex)
 					{

@@ -1,5 +1,5 @@
 <div class="page-title">
-	<i class="fa fa-bar-chart-o"></i>
+	<i class="mdi mdi-chart-bar"></i>
 	<h3><span class="semi-bold">Relatórios</span></h3>
 </div>
 

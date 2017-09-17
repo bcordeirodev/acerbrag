@@ -5,7 +5,7 @@
 /**
  * Skeleton subclass for representing a row from the 'solicitacao_resgate' table.
  *
- * 
+ *
  *
  * You should add additional methods to this class to meet the
  * application requirements.  This class will only be generated as
@@ -14,5 +14,20 @@
  * @package    propel.generator.Default
  */
 class SolicitacaoResgate extends BaseSolicitacaoResgate {
+
+	/**
+	 * Status da solicitação pendente.
+	 */
+	const STATUS_PENDENTE			= 1;
+
+	/**
+	 * Status da solicitação aprovado.
+	 */
+	const STATUS_APROVADO			= 1;
+
+	/**
+	 * Status da solicitação não aprovado.
+	 */
+	const STATUS_NAO_APROVADO		= 2;
 
 } // SolicitacaoResgate

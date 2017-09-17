@@ -4,6 +4,7 @@
 		<?php echo $page->metaTags; ?>
 		<title><?php echo $page->title; ?></title>
 		<?php echo $page->stylesheets; ?>
+		<link rel="icon" type="image/gif/png" href="~/resource/default/img/header.png">
 		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 		<meta content="<?php echo $pageDescription; ?>" name="description">
 		<meta content="Interativa Tecnologia <http://www.interativatecnologia.com.br>" name="author">

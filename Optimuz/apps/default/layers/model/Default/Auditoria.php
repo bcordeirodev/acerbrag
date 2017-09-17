@@ -59,6 +59,16 @@ class Auditoria extends BaseAuditoria {
 	const TIPO_COLETA			= 4;
 
 	/**
+	 * Representa a tabela de noticias.
+	 */
+	const TIPO_NOTICIA			= 5;
+
+	/**
+	 * Representa a tabela de prêmios.
+	 */
+	const TIPO_PREMIO			= 6;
+
+	/**
 	 * Grava uma mensagem de log no banco de dados.
 	 * @param string $msg Mensagem que será gravada.
 	 * @param int $nivel (opcional) Nível da mensagem. Pode ser uma das

@@ -11,12 +11,18 @@
  * @method     PremioQuery orderByNome($order = Criteria::ASC) Order by the nome column
  * @method     PremioQuery orderByValor($order = Criteria::ASC) Order by the valor column
  * @method     PremioQuery orderByQuantidade($order = Criteria::ASC) Order by the quantidade column
+ * @method     PremioQuery orderByDataCadastro($order = Criteria::ASC) Order by the data_cadastro column
+ * @method     PremioQuery orderByAtivo($order = Criteria::ASC) Order by the ativo column
+ * @method     PremioQuery orderByDescricao($order = Criteria::ASC) Order by the descricao column
  *
  * @method     PremioQuery groupById() Group by the id column
  * @method     PremioQuery groupByUsuarioId() Group by the usuario_id column
  * @method     PremioQuery groupByNome() Group by the nome column
  * @method     PremioQuery groupByValor() Group by the valor column
  * @method     PremioQuery groupByQuantidade() Group by the quantidade column
+ * @method     PremioQuery groupByDataCadastro() Group by the data_cadastro column
+ * @method     PremioQuery groupByAtivo() Group by the ativo column
+ * @method     PremioQuery groupByDescricao() Group by the descricao column
  *
  * @method     PremioQuery leftJoin($relation) Adds a LEFT JOIN clause to the query
  * @method     PremioQuery rightJoin($relation) Adds a RIGHT JOIN clause to the query
@@ -38,12 +44,18 @@
  * @method     Premio findOneByNome(string $nome) Return the first Premio filtered by the nome column
  * @method     Premio findOneByValor(int $valor) Return the first Premio filtered by the valor column
  * @method     Premio findOneByQuantidade(int $quantidade) Return the first Premio filtered by the quantidade column
+ * @method     Premio findOneByDataCadastro(string $data_cadastro) Return the first Premio filtered by the data_cadastro column
+ * @method     Premio findOneByAtivo(boolean $ativo) Return the first Premio filtered by the ativo column
+ * @method     Premio findOneByDescricao(string $descricao) Return the first Premio filtered by the descricao column
  *
  * @method     array findById(int $id) Return Premio objects filtered by the id column
  * @method     array findByUsuarioId(int $usuario_id) Return Premio objects filtered by the usuario_id column
  * @method     array findByNome(string $nome) Return Premio objects filtered by the nome column
  * @method     array findByValor(int $valor) Return Premio objects filtered by the valor column
  * @method     array findByQuantidade(int $quantidade) Return Premio objects filtered by the quantidade column
+ * @method     array findByDataCadastro(string $data_cadastro) Return Premio objects filtered by the data_cadastro column
+ * @method     array findByAtivo(boolean $ativo) Return Premio objects filtered by the ativo column
+ * @method     array findByDescricao(string $descricao) Return Premio objects filtered by the descricao column
  *
  * @package    propel.generator.Default.om
  */
@@ -132,7 +144,7 @@ abstract class BasePremioQuery extends ModelCriteria
 	 */
 	protected function findPkSimple($key, $con)
 	{
-		$sql = 'SELECT `ID`, `USUARIO_ID`, `NOME`, `VALOR`, `QUANTIDADE` FROM `premio` WHERE `ID` = :p0';
+		$sql = 'SELECT `ID`, `USUARIO_ID`, `NOME`, `VALOR`, `QUANTIDADE`, `DATA_CADASTRO`, `ATIVO`, `DESCRICAO` FROM `premio` WHERE `ID` = :p0';
 		try {
 			$stmt = $con->prepare($sql);			
 			$stmt->bindValue(':p0', $key, PDO::PARAM_INT);
@@ -391,6 +403,102 @@ abstract class BasePremioQuery extends ModelCriteria
 			}
 		}
 		return $this->addUsingAlias(PremioPeer::QUANTIDADE, $quantidade, $comparison);
+	}
+
+	/**
+	 * Filter the query on the data_cadastro column
+	 *
+	 * Example usage:
+	 * <code>
+	 * $query->filterByDataCadastro('2011-03-14'); // WHERE data_cadastro = '2011-03-14'
+	 * $query->filterByDataCadastro('now'); // WHERE data_cadastro = '2011-03-14'
+	 * $query->filterByDataCadastro(array('max' => 'yesterday')); // WHERE data_cadastro > '2011-03-13'
+	 * </code>
+	 *
+	 * @param     mixed $dataCadastro The value to use as filter.
+	 *              Values can be integers (unix timestamps), DateTime objects, or strings.
+	 *              Empty strings are treated as NULL.
+	 *              Use scalar values for equality.
+	 *              Use array values for in_array() equivalent.
+	 *              Use associative array('min' => $minValue, 'max' => $maxValue) for intervals.
+	 * @param     string $comparison Operator to use for the column comparison, defaults to Criteria::EQUAL
+	 *
+	 * @return    PremioQuery The current query, for fluid interface
+	 */
+	public function filterByDataCadastro($dataCadastro = null, $comparison = null)
+	{
+		if (is_array($dataCadastro)) {
+			$useMinMax = false;
+			if (isset($dataCadastro['min'])) {
+				$this->addUsingAlias(PremioPeer::DATA_CADASTRO, $dataCadastro['min'], Criteria::GREATER_EQUAL);
+				$useMinMax = true;
+			}
+			if (isset($dataCadastro['max'])) {
+				$this->addUsingAlias(PremioPeer::DATA_CADASTRO, $dataCadastro['max'], Criteria::LESS_EQUAL);
+				$useMinMax = true;
+			}
+			if ($useMinMax) {
+				return $this;
+			}
+			if (null === $comparison) {
+				$comparison = Criteria::IN;
+			}
+		}
+		return $this->addUsingAlias(PremioPeer::DATA_CADASTRO, $dataCadastro, $comparison);
+	}
+
+	/**
+	 * Filter the query on the ativo column
+	 *
+	 * Example usage:
+	 * <code>
+	 * $query->filterByAtivo(true); // WHERE ativo = true
+	 * $query->filterByAtivo('yes'); // WHERE ativo = true
+	 * </code>
+	 *
+	 * @param     boolean|string $ativo The value to use as filter.
+	 *              Non-boolean arguments are converted using the following rules:
+	 *                * 1, '1', 'true',  'on',  and 'yes' are converted to boolean true
+	 *                * 0, '0', 'false', 'off', and 'no'  are converted to boolean false
+	 *              Check on string values is case insensitive (so 'FaLsE' is seen as 'false').
+	 * @param     string $comparison Operator to use for the column comparison, defaults to Criteria::EQUAL
+	 *
+	 * @return    PremioQuery The current query, for fluid interface
+	 */
+	public function filterByAtivo($ativo = null, $comparison = null)
+	{
+		if (is_string($ativo)) {
+			$ativo = in_array(strtolower($ativo), array('false', 'off', '-', 'no', 'n', '0', '')) ? false : true;
+		}
+		return $this->addUsingAlias(PremioPeer::ATIVO, $ativo, $comparison);
+	}
+
+	/**
+	 * Filter the query on the descricao column
+	 *
+	 * Example usage:
+	 * <code>
+	 * $query->filterByDescricao('fooValue');   // WHERE descricao = 'fooValue'
+	 * $query->filterByDescricao('%fooValue%'); // WHERE descricao LIKE '%fooValue%'
+	 * </code>
+	 *
+	 * @param     string $descricao The value to use as filter.
+	 *              Accepts wildcards (* and % trigger a LIKE)
+	 * @param     string $comparison Operator to use for the column comparison, defaults to Criteria::EQUAL
+	 *
+	 * @return    PremioQuery The current query, for fluid interface
+	 */
+	public function filterByDescricao($descricao = null, $comparison = null)
+	{
+		if (null === $comparison) {
+			if (is_array($descricao)) {
+				$comparison = Criteria::IN;
+			} elseif (preg_match('/[\%\*]/', $descricao)) {
+				$descricao = str_replace('*', '%', $descricao);
+				$comparison = Criteria::LIKE;
+			}
+		}
+		return $this->addUsingAlias(PremioPeer::DESCRICAO, $descricao, $comparison);
 	}
 
 	/**

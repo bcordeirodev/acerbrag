@@ -14,6 +14,7 @@
  * @method     NoticiaQuery orderByDescricao($order = Criteria::ASC) Order by the descricao column
  * @method     NoticiaQuery orderByDataCadastro($order = Criteria::ASC) Order by the data_cadastro column
  * @method     NoticiaQuery orderByVisualizacao($order = Criteria::ASC) Order by the visualizacao column
+ * @method     NoticiaQuery orderByAtiva($order = Criteria::ASC) Order by the ativa column
  *
  * @method     NoticiaQuery groupById() Group by the id column
  * @method     NoticiaQuery groupByUsuarioId() Group by the usuario_id column
@@ -23,6 +24,7 @@
  * @method     NoticiaQuery groupByDescricao() Group by the descricao column
  * @method     NoticiaQuery groupByDataCadastro() Group by the data_cadastro column
  * @method     NoticiaQuery groupByVisualizacao() Group by the visualizacao column
+ * @method     NoticiaQuery groupByAtiva() Group by the ativa column
  *
  * @method     NoticiaQuery leftJoin($relation) Adds a LEFT JOIN clause to the query
  * @method     NoticiaQuery rightJoin($relation) Adds a RIGHT JOIN clause to the query
@@ -47,6 +49,7 @@
  * @method     Noticia findOneByDescricao(string $descricao) Return the first Noticia filtered by the descricao column
  * @method     Noticia findOneByDataCadastro(string $data_cadastro) Return the first Noticia filtered by the data_cadastro column
  * @method     Noticia findOneByVisualizacao(int $visualizacao) Return the first Noticia filtered by the visualizacao column
+ * @method     Noticia findOneByAtiva(boolean $ativa) Return the first Noticia filtered by the ativa column
  *
  * @method     array findById(int $id) Return Noticia objects filtered by the id column
  * @method     array findByUsuarioId(int $usuario_id) Return Noticia objects filtered by the usuario_id column
@@ -56,6 +59,7 @@
  * @method     array findByDescricao(string $descricao) Return Noticia objects filtered by the descricao column
  * @method     array findByDataCadastro(string $data_cadastro) Return Noticia objects filtered by the data_cadastro column
  * @method     array findByVisualizacao(int $visualizacao) Return Noticia objects filtered by the visualizacao column
+ * @method     array findByAtiva(boolean $ativa) Return Noticia objects filtered by the ativa column
  *
  * @package    propel.generator.Default.om
  */
@@ -144,7 +148,7 @@ abstract class BaseNoticiaQuery extends ModelCriteria
 	 */
 	protected function findPkSimple($key, $con)
 	{
-		$sql = 'SELECT `ID`, `USUARIO_ID`, `TEMA`, `TITULO`, `SUB_TITULO`, `DESCRICAO`, `DATA_CADASTRO`, `VISUALIZACAO` FROM `noticia` WHERE `ID` = :p0';
+		$sql = 'SELECT `ID`, `USUARIO_ID`, `TEMA`, `TITULO`, `SUB_TITULO`, `DESCRICAO`, `DATA_CADASTRO`, `VISUALIZACAO`, `ATIVA` FROM `noticia` WHERE `ID` = :p0';
 		try {
 			$stmt = $con->prepare($sql);			
 			$stmt->bindValue(':p0', $key, PDO::PARAM_INT);
@@ -489,6 +493,32 @@ abstract class BaseNoticiaQuery extends ModelCriteria
 			}
 		}
 		return $this->addUsingAlias(NoticiaPeer::VISUALIZACAO, $visualizacao, $comparison);
+	}
+
+	/**
+	 * Filter the query on the ativa column
+	 *
+	 * Example usage:
+	 * <code>
+	 * $query->filterByAtiva(true); // WHERE ativa = true
+	 * $query->filterByAtiva('yes'); // WHERE ativa = true
+	 * </code>
+	 *
+	 * @param     boolean|string $ativa The value to use as filter.
+	 *              Non-boolean arguments are converted using the following rules:
+	 *                * 1, '1', 'true',  'on',  and 'yes' are converted to boolean true
+	 *                * 0, '0', 'false', 'off', and 'no'  are converted to boolean false
+	 *              Check on string values is case insensitive (so 'FaLsE' is seen as 'false').
+	 * @param     string $comparison Operator to use for the column comparison, defaults to Criteria::EQUAL
+	 *
+	 * @return    NoticiaQuery The current query, for fluid interface
+	 */
+	public function filterByAtiva($ativa = null, $comparison = null)
+	{
+		if (is_string($ativa)) {
+			$ativa = in_array(strtolower($ativa), array('false', 'off', '-', 'no', 'n', '0', '')) ? false : true;
+		}
+		return $this->addUsingAlias(NoticiaPeer::ATIVA, $ativa, $comparison);
 	}
 
 	/**

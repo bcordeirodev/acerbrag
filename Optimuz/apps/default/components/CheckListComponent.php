@@ -27,9 +27,10 @@ class CheckListComponent extends HtmlComponent
 	 * indentificá-los no formulário.
 	 * @param mixed $source Fonte dos dados do checkbox (array ou coleção com
 	 * dados do banco de dados).
-	 * @param string $name Nome dos checkboxes no formulário.
+	 * @param bool $checkAll Operação informando se os checkbs serão carregado
+	 * selecionados.
 	 */
-	public function setSource($source, $name)
+	public function setSource($source, $name, $checkAll = false)
 	{
 		$this->addCssClass('checklist');
 		$id = Text::slug($name);
@@ -39,6 +40,7 @@ class CheckListComponent extends HtmlComponent
 		{
 			$slugInfo = $showSlugs ? " data-original-title='{$item->getSlug()}'" : '';
 			$slugClass = '';
+			$tags = '';
 
 			if(Usuario::atual()->getAtivo())
 			{
@@ -50,11 +52,14 @@ class CheckListComponent extends HtmlComponent
 				$span = '';
 			}
 
+			if($checkAll)
+				$tags = "checked='checked' disabled='disabled'";
+
 			$slugClass .= $showSlugs ? ' tip' : '';
 			$this->append(
 				"<div class='control-group col-md-6'>
 					<div class='checkbox check-success'>
-						<input type='checkbox' name='{$name}' id='{$id}-{$item->getId()}' value='{$item->getId()}'>
+						<input type='checkbox' name='{$name}' id='{$id}-{$item->getId()}'  {$tags} value='{$item->getId()}'>
 						<label for='{$id}-{$item->getId()}'{$slugInfo} class='{$slugClass}'>{$item->getNome()}</label>
 						{$span}
 					</div>

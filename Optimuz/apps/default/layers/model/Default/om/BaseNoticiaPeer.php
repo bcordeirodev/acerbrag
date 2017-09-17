@@ -26,13 +26,13 @@ abstract class BaseNoticiaPeer {
 	const TM_CLASS = 'NoticiaTableMap';
 
 	/** The total number of columns. */
-	const NUM_COLUMNS = 8;
+	const NUM_COLUMNS = 9;
 
 	/** The number of lazy-loaded columns. */
 	const NUM_LAZY_LOAD_COLUMNS = 0;
 
 	/** The number of columns to hydrate (NUM_COLUMNS - NUM_LAZY_LOAD_COLUMNS) */
-	const NUM_HYDRATE_COLUMNS = 8;
+	const NUM_HYDRATE_COLUMNS = 9;
 
 	/** the column name for the ID field */
 	const ID = 'noticia.ID';
@@ -58,6 +58,9 @@ abstract class BaseNoticiaPeer {
 	/** the column name for the VISUALIZACAO field */
 	const VISUALIZACAO = 'noticia.VISUALIZACAO';
 
+	/** the column name for the ATIVA field */
+	const ATIVA = 'noticia.ATIVA';
+
 	/** The default string format for model objects of the related table **/
 	const DEFAULT_STRING_FORMAT = 'YAML';
 
@@ -77,12 +80,12 @@ abstract class BaseNoticiaPeer {
 	 * e.g. self::$fieldNames[self::TYPE_PHPNAME][0] = 'Id'
 	 */
 	protected static $fieldNames = array (
-		BasePeer::TYPE_PHPNAME => array ('Id', 'UsuarioId', 'Tema', 'Titulo', 'SubTitulo', 'Descricao', 'DataCadastro', 'Visualizacao', ),
-		BasePeer::TYPE_STUDLYPHPNAME => array ('id', 'usuarioId', 'tema', 'titulo', 'subTitulo', 'descricao', 'dataCadastro', 'visualizacao', ),
-		BasePeer::TYPE_COLNAME => array (self::ID, self::USUARIO_ID, self::TEMA, self::TITULO, self::SUB_TITULO, self::DESCRICAO, self::DATA_CADASTRO, self::VISUALIZACAO, ),
-		BasePeer::TYPE_RAW_COLNAME => array ('ID', 'USUARIO_ID', 'TEMA', 'TITULO', 'SUB_TITULO', 'DESCRICAO', 'DATA_CADASTRO', 'VISUALIZACAO', ),
-		BasePeer::TYPE_FIELDNAME => array ('id', 'usuario_id', 'tema', 'titulo', 'sub_titulo', 'descricao', 'data_cadastro', 'visualizacao', ),
-		BasePeer::TYPE_NUM => array (0, 1, 2, 3, 4, 5, 6, 7, )
+		BasePeer::TYPE_PHPNAME => array ('Id', 'UsuarioId', 'Tema', 'Titulo', 'SubTitulo', 'Descricao', 'DataCadastro', 'Visualizacao', 'Ativa', ),
+		BasePeer::TYPE_STUDLYPHPNAME => array ('id', 'usuarioId', 'tema', 'titulo', 'subTitulo', 'descricao', 'dataCadastro', 'visualizacao', 'ativa', ),
+		BasePeer::TYPE_COLNAME => array (self::ID, self::USUARIO_ID, self::TEMA, self::TITULO, self::SUB_TITULO, self::DESCRICAO, self::DATA_CADASTRO, self::VISUALIZACAO, self::ATIVA, ),
+		BasePeer::TYPE_RAW_COLNAME => array ('ID', 'USUARIO_ID', 'TEMA', 'TITULO', 'SUB_TITULO', 'DESCRICAO', 'DATA_CADASTRO', 'VISUALIZACAO', 'ATIVA', ),
+		BasePeer::TYPE_FIELDNAME => array ('id', 'usuario_id', 'tema', 'titulo', 'sub_titulo', 'descricao', 'data_cadastro', 'visualizacao', 'ativa', ),
+		BasePeer::TYPE_NUM => array (0, 1, 2, 3, 4, 5, 6, 7, 8, )
 	);
 
 	/**
@@ -92,12 +95,12 @@ abstract class BaseNoticiaPeer {
 	 * e.g. self::$fieldNames[BasePeer::TYPE_PHPNAME]['Id'] = 0
 	 */
 	protected static $fieldKeys = array (
-		BasePeer::TYPE_PHPNAME => array ('Id' => 0, 'UsuarioId' => 1, 'Tema' => 2, 'Titulo' => 3, 'SubTitulo' => 4, 'Descricao' => 5, 'DataCadastro' => 6, 'Visualizacao' => 7, ),
-		BasePeer::TYPE_STUDLYPHPNAME => array ('id' => 0, 'usuarioId' => 1, 'tema' => 2, 'titulo' => 3, 'subTitulo' => 4, 'descricao' => 5, 'dataCadastro' => 6, 'visualizacao' => 7, ),
-		BasePeer::TYPE_COLNAME => array (self::ID => 0, self::USUARIO_ID => 1, self::TEMA => 2, self::TITULO => 3, self::SUB_TITULO => 4, self::DESCRICAO => 5, self::DATA_CADASTRO => 6, self::VISUALIZACAO => 7, ),
-		BasePeer::TYPE_RAW_COLNAME => array ('ID' => 0, 'USUARIO_ID' => 1, 'TEMA' => 2, 'TITULO' => 3, 'SUB_TITULO' => 4, 'DESCRICAO' => 5, 'DATA_CADASTRO' => 6, 'VISUALIZACAO' => 7, ),
-		BasePeer::TYPE_FIELDNAME => array ('id' => 0, 'usuario_id' => 1, 'tema' => 2, 'titulo' => 3, 'sub_titulo' => 4, 'descricao' => 5, 'data_cadastro' => 6, 'visualizacao' => 7, ),
-		BasePeer::TYPE_NUM => array (0, 1, 2, 3, 4, 5, 6, 7, )
+		BasePeer::TYPE_PHPNAME => array ('Id' => 0, 'UsuarioId' => 1, 'Tema' => 2, 'Titulo' => 3, 'SubTitulo' => 4, 'Descricao' => 5, 'DataCadastro' => 6, 'Visualizacao' => 7, 'Ativa' => 8, ),
+		BasePeer::TYPE_STUDLYPHPNAME => array ('id' => 0, 'usuarioId' => 1, 'tema' => 2, 'titulo' => 3, 'subTitulo' => 4, 'descricao' => 5, 'dataCadastro' => 6, 'visualizacao' => 7, 'ativa' => 8, ),
+		BasePeer::TYPE_COLNAME => array (self::ID => 0, self::USUARIO_ID => 1, self::TEMA => 2, self::TITULO => 3, self::SUB_TITULO => 4, self::DESCRICAO => 5, self::DATA_CADASTRO => 6, self::VISUALIZACAO => 7, self::ATIVA => 8, ),
+		BasePeer::TYPE_RAW_COLNAME => array ('ID' => 0, 'USUARIO_ID' => 1, 'TEMA' => 2, 'TITULO' => 3, 'SUB_TITULO' => 4, 'DESCRICAO' => 5, 'DATA_CADASTRO' => 6, 'VISUALIZACAO' => 7, 'ATIVA' => 8, ),
+		BasePeer::TYPE_FIELDNAME => array ('id' => 0, 'usuario_id' => 1, 'tema' => 2, 'titulo' => 3, 'sub_titulo' => 4, 'descricao' => 5, 'data_cadastro' => 6, 'visualizacao' => 7, 'ativa' => 8, ),
+		BasePeer::TYPE_NUM => array (0, 1, 2, 3, 4, 5, 6, 7, 8, )
 	);
 
 	/**
@@ -177,6 +180,7 @@ abstract class BaseNoticiaPeer {
 			$criteria->addSelectColumn(NoticiaPeer::DESCRICAO);
 			$criteria->addSelectColumn(NoticiaPeer::DATA_CADASTRO);
 			$criteria->addSelectColumn(NoticiaPeer::VISUALIZACAO);
+			$criteria->addSelectColumn(NoticiaPeer::ATIVA);
 		} else {
 			$criteria->addSelectColumn($alias . '.ID');
 			$criteria->addSelectColumn($alias . '.USUARIO_ID');
@@ -186,6 +190,7 @@ abstract class BaseNoticiaPeer {
 			$criteria->addSelectColumn($alias . '.DESCRICAO');
 			$criteria->addSelectColumn($alias . '.DATA_CADASTRO');
 			$criteria->addSelectColumn($alias . '.VISUALIZACAO');
+			$criteria->addSelectColumn($alias . '.ATIVA');
 		}
 	}
 

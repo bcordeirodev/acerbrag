@@ -550,11 +550,6 @@ $(document).ready(function()
 				'question-mother'			: [],
 				'options'					: [],
 
-				'idade-maxima-final'		: [],
-				'idade-minima-final'		: [],
-				'quantidade-homens-final'	: [],
-				'quantidade-mulheres-final' : [],
-
 				'categorias'				: [],
 				'perguntas'					: [],
 				'tipo-resposta'				: [],
@@ -574,16 +569,6 @@ $(document).ready(function()
 			 */
 			for(var i = 0; i < data.length; i++)
 				form[data[i].name] = data[i].value;
-
-			/*
-			 * Publicos alvos adicionados.
-			 */
-			$('.js-publico-alvo').each(function(p){;
-				form['idade-minima-final'][p]			= $(this).find('[name="idade-minima"]').val();
-				form['idade-maxima-final'][p]			= $(this).find('[name="idade-maxima"]').val();
-				form['quantidade-homens-final'][p]		= $(this).find('[name="quantidade-homens"]').val();
-				form['quantidade-mulheres-final'][p]	= $(this).find('[name="quantidade-mulheres"]').val();
-			});
 
 			/*
 			 * Perguntas adicionadas.

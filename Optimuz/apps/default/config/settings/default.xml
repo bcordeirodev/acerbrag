@@ -68,10 +68,22 @@ otherwise it will look like /link.
 		<link label="Ativos" title="Lista apenas os usuários ativos no sistema" url="~/usuario/ativos" mainMenu="true" systemAccessPermissions="*"></link>
 		<link label="Inativos" title="Lista apenas os usuários inativos no sistema" url="~/usuario/inativos" mainMenu="true" systemAccessPermissions="*"></link>
 	</link>
+	<link label="Prêmios" title="" url="javascript:;" mainMenu="true" icon="mdi mdi-gift" systemAccessController="Premio">
+		<link label="Ver todos" title="" url="~/premio" mainMenu="true" systemAccessPermissions="*"></link>
+		<link label="Nuevo" title="" url="~/premio/nova" mainMenu="true" systemAccessPermissions="*"></link>
+		<link label="Ativos" title="" url="~/premio/ativas" mainMenu="true" systemAccessPermissions="*"></link>
+		<link label="Inativos" title="" url="~/premio/inativas" mainMenu="true" systemAccessPermissions="*"></link>
+		<link label="Solicitações de Regaste" title="" url="~/premio/solicitacoes" mainMenu="true" systemAccessPermissions="*"></link>
+	</link>
+	<link label="Notícias" title="Gerenciar agenda" url="javascript:;" mainMenu="true" icon="mdi mdi-newspaper" systemAccessController="Noticia">
+		<link label="Ver todas" title="Todos as noticias" url="~/noticia" mainMenu="true" systemAccessPermissions="*"></link>
+		<link label="Nova" title="Permite o cadastro de um nova noticia" url="~/noticia/nova" mainMenu="true" systemAccessPermissions="*"></link>
+		<link label="Ativas" title="Lista apenas as noticias ativas no sistema" url="~/noticia/ativas" mainMenu="true" systemAccessPermissions="*"></link>
+		<link label="Inativas" title="Lista apenas as noticias inativas no sistema" url="~/noticia/inativas" mainMenu="true" systemAccessPermissions="*"></link>
+	</link>
 	<link label="Encuestas" title="Gerenciar pesquisas" mainMenu="true" url="javascript:;" icon="mdi mdi-magnify" systemAccessController="Pesquisa">
 		<link label="Ver todas" title="Ver todas as pesquisas" url="~/pesquisa" systemAccessPermissions="visualizar-pesquisa" mainMenu="true"></link>
 		<link label="Nueva" title="Nova pesquisa" url="~/pesquisa/nova" mainMenu="true" systemAccessPermissions="cadastrar-pesquisa"></link>
-		<link label="Metodologia" title="Ver metodologia" url="~/pesquisa/metodologia" mainMenu="true" systemAccessPermissions="visualizar-pesquisa"></link>
 	</link>
 	<link label="Colecciones" title="" url="~/coleta" mainMenu="true" includeHome="false" icon="mdi mdi-file-document" systemAccessController="Coleta"></link>
 	<link label="Informes" title="" url="javascript:;" mainMenu="true" includeHome="false" icon="mdi mdi-chart-bar" systemAccessController="Relatorio">

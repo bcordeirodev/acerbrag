@@ -19,22 +19,24 @@
 	<input name="descricao" label="Descrição da Pesquisa">
 		<rule name="discard" />
 	</input>
+	<input name="quantidade-pontos" label="Quantidade de pontos">
+		<rule name="required" />
+	</input>
+	<input name="tipo-pesquisa" label="Tipo de pesquisa">
+		<rule name="required" />
+	</input>
+	<input name="pesquisa-anonima" label="Pesquisa anonima">
+		<rule name="required" />
+	</input>
 
-	<input name="quantidade-homens-final" label="Quantidade de Homens">
-		<rule name="discard" />
-		<rule name="array" />
+	<input name="sexo" label="Sexo">
+		<rule name="required" />
 	</input>
-	<input name="quantidade-mulheres-final" label="Quantidade de Mulheres">
-		<rule name="discard" />
-		<rule name="array" />
+	<input name="idade-minima" label="Idade Mínima">
+		<rule name="required" />
 	</input>
-	<input name="idade-minima-final" label="Idade Mínima">
-		<rule name="discard" />
-		<rule name="array" />
-	</input>
-	<input name="idade-maxima-final" label="Idade Máxima">
-		<rule name="discard" />
-		<rule name="array" />
+	<input name="idade-maxima" label="Idade Máxima">
+		<rule name="required" />
 	</input>
 
 	<input name="text-question" label="">

@@ -118,4 +118,5 @@ need special rights.
 	<controller name="Relatorio" role="*" permissions="visualizar-coletas"></controller>
 	<controller name="Noticia" role="*" permissions="gerenciar-noticias"></controller>
 	<controller name="Premio" role="*" permissions="gerenciar-premios"></controller>
+	<controller name="SolicitacaoResgate" role="*" permissions="gerenciar-solicitacoes"></controller>
 </map>

@@ -192,11 +192,6 @@ abstract class BaseUsuario extends BaseObject  implements Persistent
 	protected $data_cadastro;
 
 	/**
-	 * @var        Perfil
-	 */
-	protected $aPerfil;
-
-	/**
 	 * @var        Cargo
 	 */
 	protected $aCargo;
@@ -210,6 +205,11 @@ abstract class BaseUsuario extends BaseObject  implements Persistent
 	 * @var        Endereco
 	 */
 	protected $aEndereco;
+
+	/**
+	 * @var        Perfil
+	 */
+	protected $aPerfil;
 
 	/**
 	 * @var        array Auditoria[] Collection to store aggregation of Auditoria objects.
@@ -1474,10 +1474,10 @@ abstract class BaseUsuario extends BaseObject  implements Persistent
 
 		if ($deep) {  // also de-associate any related objects?
 
-			$this->aPerfil = null;
 			$this->aCargo = null;
 			$this->aDepartamento = null;
 			$this->aEndereco = null;
+			$this->aPerfil = null;
 			$this->collAuditorias = null;
 
 			$this->collAvaliacaoRespostaForums = null;
@@ -1617,13 +1617,6 @@ abstract class BaseUsuario extends BaseObject  implements Persistent
 			// method.  This object relates to these object(s) by a
 			// foreign key reference.
 
-			if ($this->aPerfil !== null) {
-				if ($this->aPerfil->isModified() || $this->aPerfil->isNew()) {
-					$affectedRows += $this->aPerfil->save($con);
-				}
-				$this->setPerfil($this->aPerfil);
-			}
-
 			if ($this->aCargo !== null) {
 				if ($this->aCargo->isModified() || $this->aCargo->isNew()) {
 					$affectedRows += $this->aCargo->save($con);
@@ -1643,6 +1636,13 @@ abstract class BaseUsuario extends BaseObject  implements Persistent
 					$affectedRows += $this->aEndereco->save($con);
 				}
 				$this->setEndereco($this->aEndereco);
+			}
+
+			if ($this->aPerfil !== null) {
+				if ($this->aPerfil->isModified() || $this->aPerfil->isNew()) {
+					$affectedRows += $this->aPerfil->save($con);
+				}
+				$this->setPerfil($this->aPerfil);
 			}
 
 			if ($this->isNew() || $this->isModified()) {
@@ -2245,9 +2245,6 @@ abstract class BaseUsuario extends BaseObject  implements Persistent
 			$keys[25] => $this->getDataCadastro(),
 		);
 		if ($includeForeignObjects) {
-			if (null !== $this->aPerfil) {
-				$result['Perfil'] = $this->aPerfil->toArray($keyType, $includeLazyLoadColumns,  $alreadyDumpedObjects, true);
-			}
 			if (null !== $this->aCargo) {
 				$result['Cargo'] = $this->aCargo->toArray($keyType, $includeLazyLoadColumns,  $alreadyDumpedObjects, true);
 			}
@@ -2256,6 +2253,9 @@ abstract class BaseUsuario extends BaseObject  implements Persistent
 			}
 			if (null !== $this->aEndereco) {
 				$result['Endereco'] = $this->aEndereco->toArray($keyType, $includeLazyLoadColumns,  $alreadyDumpedObjects, true);
+			}
+			if (null !== $this->aPerfil) {
+				$result['Perfil'] = $this->aPerfil->toArray($keyType, $includeLazyLoadColumns,  $alreadyDumpedObjects, true);
 			}
 			if (null !== $this->collAuditorias) {
 				$result['Auditorias'] = $this->collAuditorias->toArray(null, true, $keyType, $includeLazyLoadColumns, $alreadyDumpedObjects);
@@ -2705,55 +2705,6 @@ abstract class BaseUsuario extends BaseObject  implements Persistent
 	}
 
 	/**
-	 * Declares an association between this object and a Perfil object.
-	 *
-	 * @param      Perfil $v
-	 * @return     Usuario The current object (for fluent API support)
-	 * @throws     PropelException
-	 */
-	public function setPerfil(Perfil $v = null)
-	{
-		if ($v === null) {
-			$this->setPerfilId(NULL);
-		} else {
-			$this->setPerfilId($v->getId());
-		}
-
-		$this->aPerfil = $v;
-
-		// Add binding for other direction of this n:n relationship.
-		// If this object has already been added to the Perfil object, it will not be re-added.
-		if ($v !== null) {
-			$v->addUsuario($this);
-		}
-
-		return $this;
-	}
-
-
-	/**
-	 * Get the associated Perfil object
-	 *
-	 * @param      PropelPDO Optional Connection object.
-	 * @return     Perfil The associated Perfil object.
-	 * @throws     PropelException
-	 */
-	public function getPerfil(PropelPDO $con = null)
-	{
-		if ($this->aPerfil === null && ($this->perfil_id !== null)) {
-			$this->aPerfil = PerfilQuery::create()->findPk($this->perfil_id, $con);
-			/* The following can be used additionally to
-				guarantee the related object contains a reference
-				to this object.  This level of coupling may, however, be
-				undesirable since it could result in an only partially populated collection
-				in the referenced object.
-				$this->aPerfil->addUsuarios($this);
-			 */
-		}
-		return $this->aPerfil;
-	}
-
-	/**
 	 * Declares an association between this object and a Cargo object.
 	 *
 	 * @param      Cargo $v
@@ -2898,6 +2849,55 @@ abstract class BaseUsuario extends BaseObject  implements Persistent
 			 */
 		}
 		return $this->aEndereco;
+	}
+
+	/**
+	 * Declares an association between this object and a Perfil object.
+	 *
+	 * @param      Perfil $v
+	 * @return     Usuario The current object (for fluent API support)
+	 * @throws     PropelException
+	 */
+	public function setPerfil(Perfil $v = null)
+	{
+		if ($v === null) {
+			$this->setPerfilId(NULL);
+		} else {
+			$this->setPerfilId($v->getId());
+		}
+
+		$this->aPerfil = $v;
+
+		// Add binding for other direction of this n:n relationship.
+		// If this object has already been added to the Perfil object, it will not be re-added.
+		if ($v !== null) {
+			$v->addUsuario($this);
+		}
+
+		return $this;
+	}
+
+
+	/**
+	 * Get the associated Perfil object
+	 *
+	 * @param      PropelPDO Optional Connection object.
+	 * @return     Perfil The associated Perfil object.
+	 * @throws     PropelException
+	 */
+	public function getPerfil(PropelPDO $con = null)
+	{
+		if ($this->aPerfil === null && ($this->perfil_id !== null)) {
+			$this->aPerfil = PerfilQuery::create()->findPk($this->perfil_id, $con);
+			/* The following can be used additionally to
+				guarantee the related object contains a reference
+				to this object.  This level of coupling may, however, be
+				undesirable since it could result in an only partially populated collection
+				in the referenced object.
+				$this->aPerfil->addUsuarios($this);
+			 */
+		}
+		return $this->aPerfil;
 	}
 
 
@@ -5087,10 +5087,10 @@ abstract class BaseUsuario extends BaseObject  implements Persistent
 			$this->collSolicitacaoResgatesRelatedBySolicitanteId->clearIterator();
 		}
 		$this->collSolicitacaoResgatesRelatedBySolicitanteId = null;
-		$this->aPerfil = null;
 		$this->aCargo = null;
 		$this->aDepartamento = null;
 		$this->aEndereco = null;
+		$this->aPerfil = null;
 	}
 
 	/**

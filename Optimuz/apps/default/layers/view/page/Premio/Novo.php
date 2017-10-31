@@ -73,7 +73,7 @@
 		<div class="col-md-12">
 			<div class="form-actions">
 				<div class="pull-right">
-					<a href="~/agenda" class="btn btn-white btn-cons" object-type="HtmlLink">Cancelar</a>
+					<a href="~/premio" class="btn btn-white btn-cons" object-type="HtmlLink">Cancelar</a>
 					<button class="btn btn-success btn-cons js-submit" type="submit">Salvar</button>
 				</div>
 			</div>

@@ -1,5 +1,5 @@
 <div class="page-title">
-	<i class="mdi mdi-gift"></i>
+	<i class="mdi mdi-tag-text-outline"></i>
 	<h3>Solicitacoes de <span class="semi-bold">Resgate</span></h3>
 </div>
 <div class="row-fluid">
@@ -12,7 +12,7 @@
 		<div class="grid simple">
             <div class="grid-title no-border"></div>
             <div class="grid-body no-border">
-				<table class="table table-hover js-dynamic-table" data-source="~/premio/solicitacoes-resgate" data-sort="false">
+				<table class="table table-hover js-dynamic-table" data-source="~/solicitacao-resgate/listar-todos" data-sort="false">
 					<thead>
 						<tr>
 							<th>Funcionario</th>

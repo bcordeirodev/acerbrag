@@ -50,6 +50,7 @@ abstract class BasePremio extends BaseObject  implements Persistent
 
 	/**
 	 * The value for the valor field.
+	 * Note: this column has a database default value of: 0
 	 * @var        int
 	 */
 	protected $valor;
@@ -117,6 +118,7 @@ abstract class BasePremio extends BaseObject  implements Persistent
 	 */
 	public function applyDefaultValues()
 	{
+		$this->valor = 0;
 		$this->ativo = true;
 	}
 
@@ -422,6 +424,10 @@ abstract class BasePremio extends BaseObject  implements Persistent
 	 */
 	public function hasOnlyDefaultValues()
 	{
+			if ($this->valor !== 0) {
+				return false;
+			}
+
 			if ($this->ativo !== true) {
 				return false;
 			}

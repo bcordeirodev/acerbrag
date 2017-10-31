@@ -72,10 +72,10 @@ class UsuarioTableMap extends TableMap
 	 */
 	public function buildRelations()
 	{
-		$this->addRelation('Perfil', 'Perfil', RelationMap::MANY_TO_ONE, array('perfil_id' => 'id', ), null, null);
 		$this->addRelation('Cargo', 'Cargo', RelationMap::MANY_TO_ONE, array('cargo_id' => 'id', ), null, null);
 		$this->addRelation('Departamento', 'Departamento', RelationMap::MANY_TO_ONE, array('departamento_id' => 'id', ), null, null);
 		$this->addRelation('Endereco', 'Endereco', RelationMap::MANY_TO_ONE, array('endereco_id' => 'id', ), null, null);
+		$this->addRelation('Perfil', 'Perfil', RelationMap::MANY_TO_ONE, array('perfil_id' => 'id', ), null, null);
 		$this->addRelation('Auditoria', 'Auditoria', RelationMap::ONE_TO_MANY, array('id' => 'usuario_id', ), null, null, 'Auditorias');
 		$this->addRelation('AvaliacaoRespostaForum', 'AvaliacaoRespostaForum', RelationMap::ONE_TO_MANY, array('id' => 'usuario_id', ), null, null, 'AvaliacaoRespostaForums');
 		$this->addRelation('ColetaPesquisa', 'ColetaPesquisa', RelationMap::ONE_TO_MANY, array('id' => 'usuario_id', ), null, null, 'ColetaPesquisas');

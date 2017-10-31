@@ -70,10 +70,15 @@ otherwise it will look like /link.
 	</link>
 	<link label="Prêmios" title="" url="javascript:;" mainMenu="true" icon="mdi mdi-gift" systemAccessController="Premio">
 		<link label="Ver todos" title="" url="~/premio" mainMenu="true" systemAccessPermissions="*"></link>
-		<link label="Nuevo" title="" url="~/premio/nova" mainMenu="true" systemAccessPermissions="*"></link>
-		<link label="Ativos" title="" url="~/premio/ativas" mainMenu="true" systemAccessPermissions="*"></link>
-		<link label="Inativos" title="" url="~/premio/inativas" mainMenu="true" systemAccessPermissions="*"></link>
-		<link label="Solicitações de Regaste" title="" url="~/premio/solicitacoes" mainMenu="true" systemAccessPermissions="*"></link>
+		<link label="Nuevo" title="" url="~/premio/novo" mainMenu="true" systemAccessPermissions="*"></link>
+		<link label="Ativos" title="" url="~/premio/ativos" mainMenu="true" systemAccessPermissions="*"></link>
+		<link label="Inativos" title="" url="~/premio/inativos" mainMenu="true" systemAccessPermissions="*"></link>
+	</link>
+	<link label="Solicitações" title="" url="javascript:;" mainMenu="true" icon="mdi mdi-tag-text-outline" systemAccessController="SolicitacaoResgate">
+		<link label="Ver todos" title="" url="~/solicitacao-resgate" mainMenu="true" systemAccessPermissions="*"></link>
+		<link label="Pendentes" title="" url="~/solicitacao-resgate/pendentes" mainMenu="true" systemAccessPermissions="*"></link>
+		<link label="Aprovados" title="" url="~/solicitacao-resgate/aprovados" mainMenu="true" systemAccessPermissions="*"></link>
+		<link label="Recusados" title="" url="~/solicitacao-resgate/recuados" mainMenu="true" systemAccessPermissions="*"></link>
 	</link>
 	<link label="Notícias" title="Gerenciar agenda" url="javascript:;" mainMenu="true" icon="mdi mdi-newspaper" systemAccessController="Noticia">
 		<link label="Ver todas" title="Todos as noticias" url="~/noticia" mainMenu="true" systemAccessPermissions="*"></link>

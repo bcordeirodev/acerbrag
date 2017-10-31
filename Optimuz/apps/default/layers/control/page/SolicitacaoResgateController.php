@@ -6,13 +6,14 @@
  */
 
 /**
- * Controler responsável pelo gerenciamento dos premios no sistema.
+ * Controler responsável pelo gerenciamento de todas as solicitações de regaste
+ * de prêmios feitas pelos usuários.
  *
  * @author Bruno Cordeiro
  * @package control
  * @subpackage page
  */
-class PremioController extends DefaultPageController
+class SolicitacaoResgateController extends DefaultPageController
 {
 	/**
 	 * Lista de colunas usadas para filtro e exportação.
@@ -48,11 +49,11 @@ class PremioController extends DefaultPageController
 	);
 
 	/**
-	 * Exibe a lista de usuários cadastrados.
+	 * Exibe a lista de solicitações de resgate dos usuários cadastrados.
 	 */
 	public function index()
 	{
-		$this->view->setHtmlPage('Premio.Index');
+		$this->view->setHtmlPage('SolicitacaoResgate.Index');
 		$this->view->addResource('~/plugins/jquery-datatable/css/jquery.dataTables.css');
 		$this->view->addResource('~/plugins/datatables-responsive/css/datatables.responsive.css');
 		$this->view->addResource('~/plugins/jquery-datatable/jquery.dataTables.min.js');
@@ -62,7 +63,7 @@ class PremioController extends DefaultPageController
 		$this->view->addResource('~/plugins/jquery-inputmask/jquery.inputmask.min.js');
 		$this->view->addResource('~/js/prize.js');
 		$this->view->initializePage();
-		$this->setActiveMenuItem('Prêmios');
+		$this->setActiveMenuItem('Solicitações');
 
 		$fields = FilterContainerComponent::getAvailableFilters($this->filterColumns, 'label');
 		HtmlDocument::find('.js-filter', 'FilterComponent')->getFirst()->populate($fields);
@@ -146,17 +147,17 @@ class PremioController extends DefaultPageController
 	/**
 	 * Lista as notícias ativas do sistema baseado no perfil do usuário .
 	 */
-	public function listarAtivos()
+	public function listarPendentes()
 	{
-		$this->doList(PremioQuery::create('p')->filterByAtivo(true));
+		$this->doList(SolicitacaoResgateQuery::create('p')->filterByAtivo(true));
 	}
 
 	/**
 	 * Lista os notícias inativas do sistema baseado no perfil do usuário .
 	 */
-	public function listarInativos()
+	public function listarRecusados()
 	{
-		$this->doList(PremioQuery::create('p')->filterByAtivo(false));
+		$this->doList(SolicitacaoResgateQuery::create('sc')->filterByAtivo(false));
 	}
 
 	/**
@@ -164,7 +165,15 @@ class PremioController extends DefaultPageController
 	 */
 	public function listarTodos()
 	{
-		$this->doList(PremioQuery::create('p'));
+		$this->doList(SolicitacaoResgateQuery::create('sc'));
+	}
+
+	/**
+	 * Lista todas as agendas cadastradas no sistema.
+	 */
+	public function listarAprovados()
+	{
+		$this->doList(SolicitacaoResgateQuery::create('sc'));
 	}
 
 	/**
@@ -174,7 +183,7 @@ class PremioController extends DefaultPageController
 	 * @param IgrejaQuery $table Consulta na tabela igreja com paramêtros
 	 * fornecidos previsamente.
 	 */
-	public function doList(PremioQuery $table)
+	public function doList(SolicitacaoResgateQuery $table)
 	{
 		$validator = new Validator;
 		$validator->loadPolicy('Listar');
@@ -262,6 +271,9 @@ class PremioController extends DefaultPageController
 					{
 						foreach($records as $prize)
 						{
+							$prize instanceof SolicitacaoResgate;
+							$requester	= $prize->getUsuarioRelatedBySolicitanteId();
+
 							$links = '<div class="btn-group pull-right">
 										<a href="' . $baseUrl . 'premio/ver/' . $prize->getId() . '" class="btn btn-small btn-white"><i class="mdi mdi-eye m-r-5"></i> Ver</a>
 										<button class="btn btn-small btn-white dropdown-toggle" data-toggle="dropdown"><span class="caret"></span></button>
@@ -272,10 +284,11 @@ class PremioController extends DefaultPageController
 									</div>';
 
 							$result->data[] = array(
-								$prize->getNome(),
-								$prize->getDataCadastro('d/m/Y'),
-								$prize->getUsuario()->getNome(),
-								($prize->getAtivo() == true ? 'Ativa' : 'Inativa'),
+								$requester->getNome(),
+								$requester->getDepartamento()->getNome(),
+								$prize->getDataSolicitacao('d/m/Y H:i:s'),
+								($prize->getAprovada() == true ? 'Aprovada' : 'Pendente'),
+								$prize->getPremio()->getNome(),
 								$links
 							);
 						}
@@ -469,274 +482,6 @@ class PremioController extends DefaultPageController
 	}
 
 	/**
-	 * Exibe a página de cadastro de uma nova noticia.
-	 */
-	public function novo()
-	{
-		$this->view->setHtmlPage('Premio.Novo');
-		$this->view->addResource('~/plugins/jquery-validation/js/jquery.validate.min.js');
-		$this->view->addResource('~/plugins/jquery-validation/js/messages_pt-BR.js');
-		$this->view->addResource('~/plugins/jquery-inputmask/jquery.inputmask.min.js');
-		$this->view->addResource('~/plugins/dropzone/dropzone.min.js');
-		$this->view->addResource('~/plugins/dropzone/css/dropzone.css');
-		$this->view->addResource('~/plugins/jquery-sparkline/jquery-sparkline.js');
-		$this->view->addResource('~/plugins/jquery-inputmask/jquery.inputmask.min.js');
-		$this->view->addResource('~/plugins/bootstrap-datepicker/js/bootstrap-datepicker.js');
-		$this->view->addResource('~/plugins/bootstrap-datepicker/js/locales/bootstrap-datepicker.pt-BR.js');
-		$this->view->addResource('~/plugins/bootstrap-datepicker/css/datepicker.css');
-		$this->view->addResource('~/js/prize.js');
-		$this->view->initializePage();
-		$this->setActiveMenuItem('Prêmios');
-
-		try
-		{
-			$this->callView();
-		}
-		catch(Error $error)
-		{
-			Report::sendError($error);
-			$this->error($error);
-		}
-	}
-
-	/**
-	 * Inicia o processo de upload da imagem do premio.
-	 *
-	 * Este método vai apenas receber a imagem enviada e guará-la no diretório
-	 * temporário da aplicação.
-	 * @author Bruno Cordeiro
-	 */
-	public function uploadFile()
-	{
-		$validator = new Validator;
-		$validator->loadPolicy("Premio/UploadFile");
-		$result = $this->createResult();
-
-		if($validator->validate())
-		{
-			$rules = $validator->getRules();
-			$upload = new UploadManager;
-			$upload->setAllowedExtensions($rules['file']->getTypes());
-			$upload->setMaxFileSize($rules['file']->getSize());
-
-			try
-			{
-				$fileExt = Text::split('.', $upload->getFile('file')->name)->getLast();
-
-				$originalName = $upload->getFile('file')->name;
-				$currentName = Serial::create()->generate() . "." . $fileExt;
-
-				$upload->setNewName($currentName);
-				$upload->save($this->application->getPath('temp'));
-
-				$result->success		= true;
-				$result->path			= $this->application->getPath('temp');
-				$result->originalName	= $originalName;
-				$result->currentName	= $currentName;
-				$result->type			= 'success';
-			}
-			catch(UploadError $error)
-			{
-				Report::sendError($error);
-				$result->message = '<i class="fa fa-warning"></i> <span><strong>Ocorreu um erro inesperado</strong><span>Tente enviar o arquivo novamente</span></span>';
-			}
-		}
-		else
-		{
-			$result->message = $validator->getResult()->getErrors()->getFirst()->getErrorMessage();
-			$result->type = 'error';
-		}
-
-
-		$this->sendAjaxResponse($result, $result->success ? 200 : 500);
-	}
-
-	/**
-	 * Salva os arquivos adicionados ao cadastro da notícia
-	 * na sua respectiva pasta. O método pressupõe que os arquivos
-	 * iniciais foram salvos na pasta temporária.
-	 *
-	 * @param Noticia $prize Id da prêmio salvo.
-	 * @param int $fileName Nome do arquivo salvo na pasta temporária.
-	 * @param String $originalName Nome verdadeiro do arquivo enviado pelo
-	 * usuário.
-	 * @author Bruno Cordeiro
-	 */
-	private function salvarArquivo(Premio $prize, $fileName, $originalName)
-	{
-		$tempFilePath	= $this->application->getPath('temp') . $fileName;
-		$finalFilePath	= $prize->getDiretorio() . $originalName;
-
-		if(File::exists($tempFilePath))
-		{
-			/*
-			 * Copia o arquivo temporário para a pasta final.
-			 */
-			$tmpFile = File::open($tempFilePath);
-			$tmpFile->copyTo($finalFilePath);
-			$tmpFile->close();
-
-			File::remove($tempFilePath);
-		}
-	}
-
-	/**
-	 * Salva uma nova agenda no sistema.
-	 */
-	public function atualizar()
-	{
-		$validator = new Validator;
-		$validator->loadPolicy('Premio/Atualizar');
-		$result = $this->createResult();
-
-		try
-		{
-			if($validator->validate())
-			{
-				$currentUser = Usuario::atual();
-				$prize = PremioQuery::create()->findPk($validator->getInputValue('id'));
-
-				if(!empty($prize))
-				{
-					$clone = $prize->toArray();
-
-					$name			= $validator->getInputValue('titulo');
-					$value			= $validator->getInputValue('valor');
-					$desctiption	= $validator->getInputValue('descricao');
-					$quantity		= $validator->getInputValue('quantidade');
-					$status			= $validator->getInputValue('status');
-
-					$prize->setNome($name);
-					$prize->setDescricao($desctiption);
-					$prize->setAtivo($status);
-					$prize->setValor($value);
-					$prize->setQuantidade($quantity);
-					$prize->save();
-
-					/*
-					 * Atualização da imagem.
-					 */
-					if($validator->hasInputValue('arquivo'))
-					{
-						$currentImage = $prize->getImagem(false);
-
-						if(!empty($currentImage))
-							File::remove($currentImage);
-
-						$this->salvarArquivo($prize, $validator->getInputValue('arquivo'), $validator->getInputValue('nome-arquivo'));
-					}
-
-					$obs = Utils::getDifferenceDetais($prize->toArray(), $clone, $prize);
-					Auditoria::adicionar('O prêmio foi atualizado', Auditoria::LEVEL_INFO, $currentUser, $obs, Auditoria::TIPO_PREMIO, $prize->getId());
-
-					$result->success	= true;
-					$result->message	= 'Prêmio atualizado com successo';
-					$result->type		= 'success';
-					$result->callback	= 'redirect';
-					$result->time		= 2000;
-					$result->url		= Enviroment::resolveUrl("~/premio/editar/{$prize->getId()}");
-				}
-				else
-				{
-					$result->message = self::DEFAULT_PERMISSION_ERROR_MESSAGE;
-					$result->type = 'error';
-				}
-			}
-			else
-			{
-				$result->message = 'Existem erros no formulário. Corrija-os antes de submeter o formulário novamente.';
-				$result->type = 'error';
-				$result->result = $validator->getResult();
-			}
-		}
-		catch(Error $ex)
-		{
-			Report::sendError($ex);
-			$result->message = self::DEFAULT_ERROR_MESSAGE;
-			$result->type = 'error';
-		}
-		catch(PropelException $error)
-		{
-			Report::sendError($error);
-			$result->message = self::DEFAULT_DATABASE_ERROR_MESSAGE;
-			$result->type = 'error';
-		}
-
-		$this->sendAjaxResponse($result);
-	}
-
-	/**
-	 * Salva uma nova noticia no sistema.
-	 */
-	public function salvar()
-	{
-		$validator = new Validator;
-		$validator->loadPolicy('Premio/Salvar');
-		$result = $this->createResult();
-
-		try
-		{
-			if($validator->validate())
-			{
-				if($validator->hasInputValue('arquivo'))
-				{
-					$currentUser = Usuario::atual();
-
-					$name			= $validator->getInputValue('titulo');
-					$value			= $validator->getInputValue('valor');
-					$desctiption	= $validator->getInputValue('descricao');
-					$quantity		= $validator->getInputValue('quantidade');
-
-					$prize = new Premio;
-					$prize->setUsuario($currentUser);
-					$prize->setNome($name);
-					$prize->setDescricao($desctiption);
-					$prize->setAtivo(true);
-					$prize->setValor($value);
-					$prize->setQuantidade($quantity);
-					$prize->setDataCadastro(time());
-					$prize->save();
-
-					$this->salvarArquivo($prize, $validator->getInputValue('arquivo'), $validator->getInputValue('nome-arquivo'));
-					Auditoria::adicionar('Premio cadastrado', Auditoria::LEVEL_INFO, $currentUser, "{$currentUser->getNome()} ({$currentUser->getEmail()})", Auditoria::TIPO_PREMIO, $prize->getId());
-
-					$result->success	= true;
-					$result->message	= 'Premio cadastrado com sucesso';
-					$result->type		= 'success';
-					$result->callback	= 'redirect';
-					$result->time		= 2500;
-					$result->url		= Enviroment::resolveUrl("~/premio/editar/{$prize->getId()}");
-				}
-				else
-				{
-					$result->message = 'É necessário inserir uma imagem para cadastrar uma notícia';
-					$result->type = 'error';
-				}
-			}
-			else
-			{
-				$result->message = 'Existem erros no formulário. Corrija-os antes de submeter o formulário novamente.';
-				$result->type = 'error';
-				$result->result = $validator->getResult();
-			}
-		}
-		catch(Error $ex)
-		{
-			Report::sendError($ex);
-			$result->message = self::DEFAULT_ERROR_MESSAGE;
-			$result->type = 'error';
-		}
-		catch(PropelException $error)
-		{
-			Report::sendError($error);
-			$result->message = self::DEFAULT_DATABASE_ERROR_MESSAGE;
-			$result->type = 'error';
-		}
-
-		$this->sendAjaxResponse($result);
-	}
-
-	/**
 	 * Exibe a página com as informações do premio para visualização.
 	 *
 	 * @param ArrayList $params Array de parâmetros recebidos na requisição. O
@@ -798,74 +543,6 @@ class PremioController extends DefaultPageController
 		else
 		{
 			// o ID da agenda não foi passado, então nós mostramos um erro
-			// para o usuário
-			$this->pageNotFound();
-		}
-	}
-
-	/**
-	 * Exibe a página com as informações do premio para edição.
-	 *
-	 * @param ArrayList $params Array de parâmetros recebidos na requisição. O
-	 * ID da agenda é o primeiro item no array.
-	 */
-	public function editar(ArrayList $params = null)
-	{
-		if(ArrayList::isValid($params) && !$params->isEmpty())
-		{
-			$prize = PremioQuery::create()->findPk($params[0]);
-
-			if(!empty($prize))
-			{
-				$this->view->setHtmlPage('Premio.Editar');
-				$this->view->addResource('~/plugins/jquery-validation/js/jquery.validate.min.js');
-				$this->view->addResource('~/plugins/jquery-validation/js/messages_pt-BR.js');
-				$this->view->addResource('~/plugins/jquery-inputmask/jquery.inputmask.min.js');
-				$this->view->addResource('~/plugins/bootstrap-datepicker/js/bootstrap-datepicker.js');
-				$this->view->addResource('~/plugins/bootstrap-datepicker/js/locales/bootstrap-datepicker.pt-BR.js');
-				$this->view->addResource('~/plugins/bootstrap-datepicker/css/datepicker.css');
-				$this->view->addResource('~/plugins/dropzone/dropzone.min.js');
-				$this->view->addResource('~/js/prize.js');
-				$this->view->initializePage();
-				$this->setActiveMenuItem('Prêmios');
-
-				$doc = HtmlDocument::getCommomDocument();
-
-				$name = Text::split(' ', $prize->getNome(), 2);
-				HtmlDocument::find('.page-title h3')->getFirst()->html("{$name[0]} <span class='semi-bold'>" . (isset($name[1]) ? $name[1] : '') . "</span>");
-				$doc->getById('js-history-link')->toType('HtmlLink')->setUrl(Enviroment::resolveUrl('~/premio/historico/' . $prize->getId()));
-
-				/*
-				 * Informações básicas.
-				 */
-				$doc->getById('id')->setAttribute('value', $prize->getId());
-				$doc->getById('titulo')->setAttribute('value', $prize->getNome());
-				$doc->getById('valor')->setAttribute('value', $prize->getValor());
-				$doc->getById('quantidade')->setAttribute('value', $prize->getQuantidade());
-				$doc->getById('descricao')->append($prize->getDescricao());
-				$doc->getById('cadastrado-por')->setAttribute('value', $prize->getUsuario()->getNome());
-				$doc->getById('data-cadastro')->setAttribute('value', $prize->getDataCadastro('d/m/Y'));
-				$doc->getById($prize->getAtivo() ? 'ativo' : 'inativo')->setAttribute('checked', 'checked');
-				$doc->getById('imagem')->setAttribute('src', $prize->getImagem());
-
-				try
-				{
-					$this->callView();
-				}
-				catch(Error $error)
-				{
-					Report::sendError($error);
-					$this->error($error);
-				}
-			}
-			else
-			{
-				empty($prize) ? $this->pageNotFound() : $this->accessDenied();
-			}
-		}
-		else
-		{
-			// o ID da noticia não foi passado, então nós mostramos um erro
 			// para o usuário
 			$this->pageNotFound();
 		}
@@ -945,69 +622,6 @@ class PremioController extends DefaultPageController
 			// para o filiado
 			$this->pageNotFound();
 		}
-	}
-
-    /**
-     * Realiza busca de endereço por CEP, retorna objeto em formato JSON
-     * @param ArrayList $params Parametro recebido, espera-se o CEP
-     * @author Bruno Cordeiro.
-     */
-    public function buscarCep(ArrayList $params = null)
-    {
-        $result = $this->createResult();
-
-        if(ArrayList::isValid($params) && !$params->isEmpty())
-        {
-            try
-            {
-                $cep = $params[0];
-                $endereco = EnderecoCorreioQuery::create()->findOneByCep($cep);
-                $city = null;
-
-                if($endereco)
-                {
-					$citySearch = CidadeQuery::create()
-						->filterByUfId($endereco->getUfId())
-						->filterByNome($endereco->getCidade())
-						->findOne();
-
-					if(!empty($citySearch))
-						$city = array('id' => $citySearch->getId(), 'text' => $citySearch->getNome());
-
-                    $result->endereco = array(
-                        'logradouro' => $endereco->getLogradouro(),
-                        'bairro' => $endereco->getBairro(),
-                        'uf' => $endereco->getUfId(),
-                        'cidade' => $city
-                    );
-
-                    $result->success = true;
-                }
-                else
-                {
-                    $result->success = false;
-                    $result->message = 'Nenhum endereço localizado para este cep!';
-                }
-            }
-            catch(PropelException $ex)
-            {
-                $result->message = self::DEFAULT_DATABASE_ERROR_MESSAGE;
-                $result->type = 'error';
-                Report::sendError(new Error($ex));
-            }
-            catch(Error $error)
-            {
-                $result->message = self::DEFAULT_ERROR_MESSAGE;
-                $result->type = 'error';
-                Report::sendError($error);
-            }
-        }
-        else
-        {
-            $result->message='CEP inválido';
-        }
-
-        $this->sendAjaxResponse($result);
 	}
 }
 ?>

@@ -176,8 +176,8 @@ CREATE TABLE `curtida_forum`
 	`usuario_id` int(10) unsigned NOT NULL,
 	`forum_id` int(10) unsigned NOT NULL,
 	PRIMARY KEY (`id`),
-	BTREE INDEX `fk_curtida_forum_forum` (`forum_id`),
-	BTREE INDEX `fk_curtida_forum_usuario` (`usuario_id`),
+	INDEX `FI_curtida_forum_forum` (`forum_id`),
+	INDEX `FI_curtida_forum_usuario` (`usuario_id`),
 	CONSTRAINT `fk_curtida_forum_forum`
 		FOREIGN KEY (`forum_id`)
 		REFERENCES `forum` (`id`),
@@ -423,7 +423,7 @@ CREATE TABLE `premio`
 	`id` int(10) unsigned NOT NULL AUTO_INCREMENT,
 	`usuario_id` int(10) unsigned NOT NULL,
 	`nome` VARCHAR(255) NOT NULL,
-	`valor` INTEGER NOT NULL,
+	`valor` INTEGER DEFAULT 0 NOT NULL,
 	`quantidade` INTEGER NOT NULL,
 	`data_cadastro` DATETIME NOT NULL,
 	`ativo` TINYINT(1) DEFAULT 1 NOT NULL,
@@ -559,9 +559,6 @@ CREATE TABLE `usuario`
 	BTREE INDEX `fk_usuario_endereco_idx` (`endereco_id`),
 	BTREE INDEX `fk_usuario_idx` (`departamento_id`),
 	BTREE INDEX `fk_usuario_cargo_idx` (`cargo_id`),
-	CONSTRAINT `FK_usuario_perfil`
-		FOREIGN KEY (`perfil_id`)
-		REFERENCES `perfil` (`id`),
 	CONSTRAINT `fk_usuario_cargo`
 		FOREIGN KEY (`cargo_id`)
 		REFERENCES `cargo` (`id`),
@@ -570,7 +567,10 @@ CREATE TABLE `usuario`
 		REFERENCES `departamento` (`id`),
 	CONSTRAINT `fk_usuario_endereco`
 		FOREIGN KEY (`endereco_id`)
-		REFERENCES `endereco` (`id`)
+		REFERENCES `endereco` (`id`),
+	CONSTRAINT `FK_usuario_perfil`
+		FOREIGN KEY (`perfil_id`)
+		REFERENCES `perfil` (`id`)
 ) ENGINE=InnoDB CHECKSUM='';
 
 -- ---------------------------------------------------------------------

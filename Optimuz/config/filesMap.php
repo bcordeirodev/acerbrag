@@ -2250,6 +2250,15 @@ return array (
           0 => 'HtmlComponent',
         ),
       ),
+      'TargetAudienceComponent' => 
+      array (
+        'file' => 'apps/default/components/TargetAudienceComponent.php',
+        'uses' => NULL,
+        'extends' => 
+        array (
+          0 => 'HtmlComponent',
+        ),
+      ),
       'ApiController' => 
       array (
         'file' => 'apps/default/layers/control/page/ApiController.php',
@@ -2295,6 +2304,15 @@ return array (
           0 => 'DefaultPageController',
         ),
       ),
+      'NoticiaController' => 
+      array (
+        'file' => 'apps/default/layers/control/page/NoticiaController.php',
+        'uses' => NULL,
+        'extends' => 
+        array (
+          0 => 'DefaultPageController',
+        ),
+      ),
       'PesquisaController' => 
       array (
         'file' => 'apps/default/layers/control/page/PesquisaController.php',
@@ -2304,9 +2322,27 @@ return array (
           0 => 'DefaultPageController',
         ),
       ),
+      'PremioController' => 
+      array (
+        'file' => 'apps/default/layers/control/page/PremioController.php',
+        'uses' => NULL,
+        'extends' => 
+        array (
+          0 => 'DefaultPageController',
+        ),
+      ),
       'RelatorioController' => 
       array (
         'file' => 'apps/default/layers/control/page/RelatorioController.php',
+        'uses' => NULL,
+        'extends' => 
+        array (
+          0 => 'DefaultPageController',
+        ),
+      ),
+      'SolicitacaoResgateController' => 
+      array (
+        'file' => 'apps/default/layers/control/page/SolicitacaoResgateController.php',
         'uses' => NULL,
         'extends' => 
         array (
@@ -6405,6 +6441,7 @@ return array (
           9 => 'FormResearchComponent',
           10 => 'RequiredFieldIndicatorComponent',
           11 => 'StoryComponent',
+          12 => 'TargetAudienceComponent',
         ),
       ),
       'page' => 
@@ -6416,9 +6453,12 @@ return array (
           2 => 'ColetaController',
           3 => 'DashboardController',
           4 => 'LoginController',
-          5 => 'PesquisaController',
-          6 => 'RelatorioController',
-          7 => 'UsuarioController',
+          5 => 'NoticiaController',
+          6 => 'PesquisaController',
+          7 => 'PremioController',
+          8 => 'RelatorioController',
+          9 => 'SolicitacaoResgateController',
+          10 => 'UsuarioController',
         ),
       ),
       'session' => 

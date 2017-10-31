@@ -54,7 +54,7 @@
         <parameter name="Seq_in_index" value="1"/>
         <parameter name="Column_name" value="pergunta_id"/>
         <parameter name="Collation" value="A"/>
-        <parameter name="Cardinality" value="14"/>
+        <parameter name="Cardinality" value="65"/>
         <parameter name="Sub_part" value=""/>
         <parameter name="Packed" value=""/>
         <parameter name="Null" value=""/>
@@ -67,16 +67,16 @@
       <parameter name="Name" value="alternativa"/>
       <parameter name="Engine" value="InnoDB"/>
       <parameter name="Version" value="10"/>
-      <parameter name="Row_format" value="Dynamic"/>
-      <parameter name="Rows" value="42"/>
-      <parameter name="Avg_row_length" value="390"/>
+      <parameter name="Row_format" value="Compact"/>
+      <parameter name="Rows" value="65"/>
+      <parameter name="Avg_row_length" value="252"/>
       <parameter name="Data_length" value="16384"/>
       <parameter name="Max_data_length" value="0"/>
       <parameter name="Index_length" value="16384"/>
       <parameter name="Data_free" value="0"/>
-      <parameter name="Auto_increment" value="46"/>
-      <parameter name="Create_time" value="2017-09-10 16:53:45"/>
-      <parameter name="Update_time" value="2017-09-15 12:43:22"/>
+      <parameter name="Auto_increment" value="72"/>
+      <parameter name="Create_time" value="2017-07-24 10:02:40"/>
+      <parameter name="Update_time" value=""/>
       <parameter name="Check_time" value=""/>
       <parameter name="Collation" value="utf8_general_ci"/>
       <parameter name="Checksum" value=""/>
@@ -187,7 +187,7 @@
         <parameter name="Seq_in_index" value="1"/>
         <parameter name="Column_name" value="usuario_id"/>
         <parameter name="Collation" value="A"/>
-        <parameter name="Cardinality" value="5"/>
+        <parameter name="Cardinality" value="4"/>
         <parameter name="Sub_part" value=""/>
         <parameter name="Packed" value=""/>
         <parameter name="Null" value="YES"/>
@@ -200,16 +200,16 @@
       <parameter name="Name" value="auditoria"/>
       <parameter name="Engine" value="InnoDB"/>
       <parameter name="Version" value="10"/>
-      <parameter name="Row_format" value="Dynamic"/>
-      <parameter name="Rows" value="102"/>
-      <parameter name="Avg_row_length" value="160"/>
+      <parameter name="Row_format" value="Compact"/>
+      <parameter name="Rows" value="46"/>
+      <parameter name="Avg_row_length" value="356"/>
       <parameter name="Data_length" value="16384"/>
       <parameter name="Max_data_length" value="0"/>
       <parameter name="Index_length" value="16384"/>
       <parameter name="Data_free" value="0"/>
-      <parameter name="Auto_increment" value="103"/>
-      <parameter name="Create_time" value="2017-09-10 16:53:45"/>
-      <parameter name="Update_time" value="2017-09-17 14:22:35"/>
+      <parameter name="Auto_increment" value="49"/>
+      <parameter name="Create_time" value="2017-07-24 10:02:33"/>
+      <parameter name="Update_time" value=""/>
       <parameter name="Check_time" value=""/>
       <parameter name="Collation" value="utf8_general_ci"/>
       <parameter name="Checksum" value=""/>
@@ -314,7 +314,7 @@
       <parameter name="Name" value="avaliacao_resposta_forum"/>
       <parameter name="Engine" value="InnoDB"/>
       <parameter name="Version" value="10"/>
-      <parameter name="Row_format" value="Dynamic"/>
+      <parameter name="Row_format" value="Compact"/>
       <parameter name="Rows" value="0"/>
       <parameter name="Avg_row_length" value="0"/>
       <parameter name="Data_length" value="16384"/>
@@ -322,7 +322,7 @@
       <parameter name="Index_length" value="32768"/>
       <parameter name="Data_free" value="0"/>
       <parameter name="Auto_increment" value="1"/>
-      <parameter name="Create_time" value="2017-09-10 16:53:45"/>
+      <parameter name="Create_time" value="2017-07-24 10:02:54"/>
       <parameter name="Update_time" value=""/>
       <parameter name="Check_time" value=""/>
       <parameter name="Collation" value="utf8_general_ci"/>
@@ -356,7 +356,7 @@
       <parameter name="Name" value="cargo"/>
       <parameter name="Engine" value="InnoDB"/>
       <parameter name="Version" value="10"/>
-      <parameter name="Row_format" value="Dynamic"/>
+      <parameter name="Row_format" value="Compact"/>
       <parameter name="Rows" value="8"/>
       <parameter name="Avg_row_length" value="2048"/>
       <parameter name="Data_length" value="16384"/>
@@ -364,7 +364,7 @@
       <parameter name="Index_length" value="0"/>
       <parameter name="Data_free" value="0"/>
       <parameter name="Auto_increment" value="9"/>
-      <parameter name="Create_time" value="2017-09-10 16:53:45"/>
+      <parameter name="Create_time" value="2017-07-24 10:02:45"/>
       <parameter name="Update_time" value=""/>
       <parameter name="Check_time" value=""/>
       <parameter name="Collation" value="utf8_general_ci"/>
@@ -422,7 +422,7 @@
       <parameter name="Name" value="cargo_pesquisa"/>
       <parameter name="Engine" value="InnoDB"/>
       <parameter name="Version" value="10"/>
-      <parameter name="Row_format" value="Dynamic"/>
+      <parameter name="Row_format" value="Compact"/>
       <parameter name="Rows" value="0"/>
       <parameter name="Avg_row_length" value="0"/>
       <parameter name="Data_length" value="16384"/>
@@ -430,7 +430,7 @@
       <parameter name="Index_length" value="16384"/>
       <parameter name="Data_free" value="0"/>
       <parameter name="Auto_increment" value=""/>
-      <parameter name="Create_time" value="2017-09-10 16:53:45"/>
+      <parameter name="Create_time" value="2017-07-24 10:02:49"/>
       <parameter name="Update_time" value=""/>
       <parameter name="Check_time" value=""/>
       <parameter name="Collation" value="utf8_general_ci"/>
@@ -474,16 +474,16 @@
       <parameter name="Name" value="categoria"/>
       <parameter name="Engine" value="InnoDB"/>
       <parameter name="Version" value="10"/>
-      <parameter name="Row_format" value="Dynamic"/>
-      <parameter name="Rows" value="38"/>
-      <parameter name="Avg_row_length" value="431"/>
+      <parameter name="Row_format" value="Compact"/>
+      <parameter name="Rows" value="8"/>
+      <parameter name="Avg_row_length" value="2048"/>
       <parameter name="Data_length" value="16384"/>
       <parameter name="Max_data_length" value="0"/>
       <parameter name="Index_length" value="0"/>
       <parameter name="Data_free" value="0"/>
-      <parameter name="Auto_increment" value="39"/>
-      <parameter name="Create_time" value="2017-09-10 16:53:45"/>
-      <parameter name="Update_time" value="2017-09-15 12:42:51"/>
+      <parameter name="Auto_increment" value="9"/>
+      <parameter name="Create_time" value="2017-07-24 10:02:42"/>
+      <parameter name="Update_time" value=""/>
       <parameter name="Check_time" value=""/>
       <parameter name="Collation" value="utf8_general_ci"/>
       <parameter name="Checksum" value=""/>
@@ -578,7 +578,7 @@
       <parameter name="Name" value="coleta_pesquisa"/>
       <parameter name="Engine" value="InnoDB"/>
       <parameter name="Version" value="10"/>
-      <parameter name="Row_format" value="Dynamic"/>
+      <parameter name="Row_format" value="Compact"/>
       <parameter name="Rows" value="0"/>
       <parameter name="Avg_row_length" value="0"/>
       <parameter name="Data_length" value="16384"/>
@@ -586,7 +586,7 @@
       <parameter name="Index_length" value="32768"/>
       <parameter name="Data_free" value="0"/>
       <parameter name="Auto_increment" value="1"/>
-      <parameter name="Create_time" value="2017-09-10 16:53:45"/>
+      <parameter name="Create_time" value="2017-07-24 10:02:38"/>
       <parameter name="Update_time" value=""/>
       <parameter name="Check_time" value=""/>
       <parameter name="Collation" value="utf8_general_ci"/>
@@ -692,7 +692,7 @@
       <parameter name="Name" value="comentario_noticia"/>
       <parameter name="Engine" value="InnoDB"/>
       <parameter name="Version" value="10"/>
-      <parameter name="Row_format" value="Dynamic"/>
+      <parameter name="Row_format" value="Compact"/>
       <parameter name="Rows" value="0"/>
       <parameter name="Avg_row_length" value="0"/>
       <parameter name="Data_length" value="16384"/>
@@ -700,7 +700,7 @@
       <parameter name="Index_length" value="32768"/>
       <parameter name="Data_free" value="0"/>
       <parameter name="Auto_increment" value="1"/>
-      <parameter name="Create_time" value="2017-09-10 16:53:45"/>
+      <parameter name="Create_time" value="2017-07-24 10:02:47"/>
       <parameter name="Update_time" value=""/>
       <parameter name="Check_time" value=""/>
       <parameter name="Collation" value="utf8_general_ci"/>
@@ -725,7 +725,7 @@
         <parameter name="Field" value="usuario_id"/>
         <parameter name="Type" value="int(10) unsigned"/>
         <parameter name="Null" value="NO"/>
-        <parameter name="Key" value="MUL"/>
+        <parameter name="Key" value=""/>
         <parameter name="Default" value=""/>
         <parameter name="Extra" value=""/>
       </vendor>
@@ -735,7 +735,7 @@
         <parameter name="Field" value="forum_id"/>
         <parameter name="Type" value="int(10) unsigned"/>
         <parameter name="Null" value="NO"/>
-        <parameter name="Key" value="MUL"/>
+        <parameter name="Key" value=""/>
         <parameter name="Default" value=""/>
         <parameter name="Extra" value=""/>
       </vendor>
@@ -746,47 +746,11 @@
     <foreign-key foreignTable="usuario" name="fk_curtida_forum_usuario">
       <reference local="usuario_id" foreign="id"/>
     </foreign-key>
-    <index name="fk_curtida_forum_forum">
-      <index-column name="forum_id"/>
-      <vendor type="mysql">
-        <parameter name="Table" value="curtida_forum"/>
-        <parameter name="Non_unique" value="1"/>
-        <parameter name="Key_name" value="fk_curtida_forum_forum"/>
-        <parameter name="Seq_in_index" value="1"/>
-        <parameter name="Column_name" value="forum_id"/>
-        <parameter name="Collation" value="A"/>
-        <parameter name="Cardinality" value="0"/>
-        <parameter name="Sub_part" value=""/>
-        <parameter name="Packed" value=""/>
-        <parameter name="Null" value=""/>
-        <parameter name="Index_type" value="BTREE"/>
-        <parameter name="Comment" value=""/>
-        <parameter name="Index_comment" value=""/>
-      </vendor>
-    </index>
-    <index name="fk_curtida_forum_usuario">
-      <index-column name="usuario_id"/>
-      <vendor type="mysql">
-        <parameter name="Table" value="curtida_forum"/>
-        <parameter name="Non_unique" value="1"/>
-        <parameter name="Key_name" value="fk_curtida_forum_usuario"/>
-        <parameter name="Seq_in_index" value="1"/>
-        <parameter name="Column_name" value="usuario_id"/>
-        <parameter name="Collation" value="A"/>
-        <parameter name="Cardinality" value="0"/>
-        <parameter name="Sub_part" value=""/>
-        <parameter name="Packed" value=""/>
-        <parameter name="Null" value=""/>
-        <parameter name="Index_type" value="BTREE"/>
-        <parameter name="Comment" value=""/>
-        <parameter name="Index_comment" value=""/>
-      </vendor>
-    </index>
     <vendor type="mysql">
       <parameter name="Name" value="curtida_forum"/>
       <parameter name="Engine" value="InnoDB"/>
       <parameter name="Version" value="10"/>
-      <parameter name="Row_format" value="Dynamic"/>
+      <parameter name="Row_format" value="Compact"/>
       <parameter name="Rows" value="0"/>
       <parameter name="Avg_row_length" value="0"/>
       <parameter name="Data_length" value="16384"/>
@@ -794,7 +758,7 @@
       <parameter name="Index_length" value="32768"/>
       <parameter name="Data_free" value="0"/>
       <parameter name="Auto_increment" value="1"/>
-      <parameter name="Create_time" value="2017-09-10 16:53:45"/>
+      <parameter name="Create_time" value="2017-07-24 11:27:02"/>
       <parameter name="Update_time" value=""/>
       <parameter name="Check_time" value=""/>
       <parameter name="Collation" value="utf8_general_ci"/>
@@ -828,15 +792,15 @@
       <parameter name="Name" value="departamento"/>
       <parameter name="Engine" value="InnoDB"/>
       <parameter name="Version" value="10"/>
-      <parameter name="Row_format" value="Dynamic"/>
-      <parameter name="Rows" value="7"/>
-      <parameter name="Avg_row_length" value="2340"/>
+      <parameter name="Row_format" value="Compact"/>
+      <parameter name="Rows" value="6"/>
+      <parameter name="Avg_row_length" value="2730"/>
       <parameter name="Data_length" value="16384"/>
       <parameter name="Max_data_length" value="0"/>
       <parameter name="Index_length" value="0"/>
       <parameter name="Data_free" value="0"/>
       <parameter name="Auto_increment" value="8"/>
-      <parameter name="Create_time" value="2017-09-10 16:53:45"/>
+      <parameter name="Create_time" value="2017-07-24 10:02:45"/>
       <parameter name="Update_time" value=""/>
       <parameter name="Check_time" value=""/>
       <parameter name="Collation" value="utf8_general_ci"/>
@@ -894,7 +858,7 @@
       <parameter name="Name" value="departamento_pesquisa"/>
       <parameter name="Engine" value="InnoDB"/>
       <parameter name="Version" value="10"/>
-      <parameter name="Row_format" value="Dynamic"/>
+      <parameter name="Row_format" value="Compact"/>
       <parameter name="Rows" value="0"/>
       <parameter name="Avg_row_length" value="0"/>
       <parameter name="Data_length" value="16384"/>
@@ -902,7 +866,7 @@
       <parameter name="Index_length" value="16384"/>
       <parameter name="Data_free" value="0"/>
       <parameter name="Auto_increment" value=""/>
-      <parameter name="Create_time" value="2017-09-10 16:53:45"/>
+      <parameter name="Create_time" value="2017-07-24 10:02:48"/>
       <parameter name="Update_time" value=""/>
       <parameter name="Check_time" value=""/>
       <parameter name="Collation" value="utf8_general_ci"/>
@@ -986,15 +950,15 @@
       <parameter name="Name" value="endereco"/>
       <parameter name="Engine" value="InnoDB"/>
       <parameter name="Version" value="10"/>
-      <parameter name="Row_format" value="Dynamic"/>
-      <parameter name="Rows" value="8"/>
-      <parameter name="Avg_row_length" value="2048"/>
+      <parameter name="Row_format" value="Compact"/>
+      <parameter name="Rows" value="7"/>
+      <parameter name="Avg_row_length" value="2340"/>
       <parameter name="Data_length" value="16384"/>
       <parameter name="Max_data_length" value="0"/>
       <parameter name="Index_length" value="0"/>
       <parameter name="Data_free" value="0"/>
-      <parameter name="Auto_increment" value="18"/>
-      <parameter name="Create_time" value="2017-09-10 16:53:45"/>
+      <parameter name="Auto_increment" value="12"/>
+      <parameter name="Create_time" value="2017-07-24 10:02:33"/>
       <parameter name="Update_time" value=""/>
       <parameter name="Check_time" value=""/>
       <parameter name="Collation" value="utf8_general_ci"/>
@@ -1058,7 +1022,7 @@
       <parameter name="Name" value="forum"/>
       <parameter name="Engine" value="InnoDB"/>
       <parameter name="Version" value="10"/>
-      <parameter name="Row_format" value="Dynamic"/>
+      <parameter name="Row_format" value="Compact"/>
       <parameter name="Rows" value="0"/>
       <parameter name="Avg_row_length" value="0"/>
       <parameter name="Data_length" value="16384"/>
@@ -1066,7 +1030,7 @@
       <parameter name="Index_length" value="0"/>
       <parameter name="Data_free" value="0"/>
       <parameter name="Auto_increment" value="1"/>
-      <parameter name="Create_time" value="2017-09-10 16:53:46"/>
+      <parameter name="Create_time" value="2017-07-24 10:02:51"/>
       <parameter name="Update_time" value=""/>
       <parameter name="Check_time" value=""/>
       <parameter name="Collation" value="utf8_general_ci"/>
@@ -1178,7 +1142,7 @@
         <parameter name="Seq_in_index" value="1"/>
         <parameter name="Column_name" value="usuario_id"/>
         <parameter name="Collation" value="A"/>
-        <parameter name="Cardinality" value="1"/>
+        <parameter name="Cardinality" value="0"/>
         <parameter name="Sub_part" value=""/>
         <parameter name="Packed" value=""/>
         <parameter name="Null" value="YES"/>
@@ -1191,16 +1155,16 @@
       <parameter name="Name" value="noticia"/>
       <parameter name="Engine" value="InnoDB"/>
       <parameter name="Version" value="10"/>
-      <parameter name="Row_format" value="Dynamic"/>
-      <parameter name="Rows" value="4"/>
-      <parameter name="Avg_row_length" value="4096"/>
+      <parameter name="Row_format" value="Compact"/>
+      <parameter name="Rows" value="0"/>
+      <parameter name="Avg_row_length" value="0"/>
       <parameter name="Data_length" value="16384"/>
       <parameter name="Max_data_length" value="0"/>
       <parameter name="Index_length" value="16384"/>
       <parameter name="Data_free" value="0"/>
-      <parameter name="Auto_increment" value="5"/>
-      <parameter name="Create_time" value="2017-09-15 13:56:51"/>
-      <parameter name="Update_time" value="2017-09-15 14:15:37"/>
+      <parameter name="Auto_increment" value="1"/>
+      <parameter name="Create_time" value="2017-09-18 09:44:01"/>
+      <parameter name="Update_time" value=""/>
       <parameter name="Check_time" value=""/>
       <parameter name="Collation" value="utf8_general_ci"/>
       <parameter name="Checksum" value=""/>
@@ -1261,15 +1225,15 @@
       <parameter name="Name" value="perfil"/>
       <parameter name="Engine" value="InnoDB"/>
       <parameter name="Version" value="10"/>
-      <parameter name="Row_format" value="Dynamic"/>
+      <parameter name="Row_format" value="Compact"/>
       <parameter name="Rows" value="11"/>
       <parameter name="Avg_row_length" value="1489"/>
       <parameter name="Data_length" value="16384"/>
       <parameter name="Max_data_length" value="0"/>
       <parameter name="Index_length" value="16384"/>
       <parameter name="Data_free" value="0"/>
-      <parameter name="Auto_increment" value="18"/>
-      <parameter name="Create_time" value="2017-09-10 16:53:46"/>
+      <parameter name="Auto_increment" value="19"/>
+      <parameter name="Create_time" value="2017-07-31 11:47:42"/>
       <parameter name="Update_time" value=""/>
       <parameter name="Check_time" value=""/>
       <parameter name="Collation" value="utf8_general_ci"/>
@@ -1314,7 +1278,7 @@
         <parameter name="Seq_in_index" value="1"/>
         <parameter name="Column_name" value="permissao_id"/>
         <parameter name="Collation" value="A"/>
-        <parameter name="Cardinality" value="12"/>
+        <parameter name="Cardinality" value="23"/>
         <parameter name="Sub_part" value=""/>
         <parameter name="Packed" value=""/>
         <parameter name="Null" value=""/>
@@ -1327,16 +1291,16 @@
       <parameter name="Name" value="perfil_permissao"/>
       <parameter name="Engine" value="InnoDB"/>
       <parameter name="Version" value="10"/>
-      <parameter name="Row_format" value="Dynamic"/>
-      <parameter name="Rows" value="43"/>
-      <parameter name="Avg_row_length" value="381"/>
+      <parameter name="Row_format" value="Compact"/>
+      <parameter name="Rows" value="46"/>
+      <parameter name="Avg_row_length" value="356"/>
       <parameter name="Data_length" value="16384"/>
       <parameter name="Max_data_length" value="0"/>
       <parameter name="Index_length" value="16384"/>
       <parameter name="Data_free" value="0"/>
       <parameter name="Auto_increment" value=""/>
-      <parameter name="Create_time" value="2017-09-10 16:53:46"/>
-      <parameter name="Update_time" value="2017-09-17 14:22:21"/>
+      <parameter name="Create_time" value="2017-07-24 10:02:43"/>
+      <parameter name="Update_time" value=""/>
       <parameter name="Check_time" value=""/>
       <parameter name="Collation" value="utf8_general_ci"/>
       <parameter name="Checksum" value=""/>
@@ -1460,7 +1424,7 @@
         <parameter name="Seq_in_index" value="1"/>
         <parameter name="Column_name" value="pesquisa_id"/>
         <parameter name="Collation" value="A"/>
-        <parameter name="Cardinality" value="7"/>
+        <parameter name="Cardinality" value="15"/>
         <parameter name="Sub_part" value=""/>
         <parameter name="Packed" value=""/>
         <parameter name="Null" value=""/>
@@ -1478,7 +1442,7 @@
         <parameter name="Seq_in_index" value="1"/>
         <parameter name="Column_name" value="categoria_id"/>
         <parameter name="Collation" value="A"/>
-        <parameter name="Cardinality" value="21"/>
+        <parameter name="Cardinality" value="9"/>
         <parameter name="Sub_part" value=""/>
         <parameter name="Packed" value=""/>
         <parameter name="Null" value="YES"/>
@@ -1491,16 +1455,16 @@
       <parameter name="Name" value="pergunta"/>
       <parameter name="Engine" value="InnoDB"/>
       <parameter name="Version" value="10"/>
-      <parameter name="Row_format" value="Dynamic"/>
-      <parameter name="Rows" value="51"/>
-      <parameter name="Avg_row_length" value="321"/>
+      <parameter name="Row_format" value="Compact"/>
+      <parameter name="Rows" value="46"/>
+      <parameter name="Avg_row_length" value="356"/>
       <parameter name="Data_length" value="16384"/>
       <parameter name="Max_data_length" value="0"/>
       <parameter name="Index_length" value="32768"/>
       <parameter name="Data_free" value="0"/>
-      <parameter name="Auto_increment" value="54"/>
-      <parameter name="Create_time" value="2017-09-10 16:53:46"/>
-      <parameter name="Update_time" value="2017-09-15 12:43:22"/>
+      <parameter name="Auto_increment" value="51"/>
+      <parameter name="Create_time" value="2017-07-24 10:02:39"/>
+      <parameter name="Update_time" value=""/>
       <parameter name="Check_time" value=""/>
       <parameter name="Collation" value="utf8_general_ci"/>
       <parameter name="Checksum" value=""/>
@@ -1599,16 +1563,16 @@
       <parameter name="Name" value="permissao"/>
       <parameter name="Engine" value="InnoDB"/>
       <parameter name="Version" value="10"/>
-      <parameter name="Row_format" value="Dynamic"/>
-      <parameter name="Rows" value="13"/>
-      <parameter name="Avg_row_length" value="1260"/>
+      <parameter name="Row_format" value="Compact"/>
+      <parameter name="Rows" value="11"/>
+      <parameter name="Avg_row_length" value="1489"/>
       <parameter name="Data_length" value="16384"/>
       <parameter name="Max_data_length" value="0"/>
       <parameter name="Index_length" value="32768"/>
       <parameter name="Data_free" value="0"/>
-      <parameter name="Auto_increment" value="14"/>
-      <parameter name="Create_time" value="2017-09-10 16:53:46"/>
-      <parameter name="Update_time" value="2017-09-17 14:22:14"/>
+      <parameter name="Auto_increment" value="12"/>
+      <parameter name="Create_time" value="2017-07-31 12:12:00"/>
+      <parameter name="Update_time" value=""/>
       <parameter name="Check_time" value=""/>
       <parameter name="Collation" value="utf8_general_ci"/>
       <parameter name="Checksum" value=""/>
@@ -1779,7 +1743,7 @@
         <parameter name="Seq_in_index" value="1"/>
         <parameter name="Column_name" value="criador_id"/>
         <parameter name="Collation" value="A"/>
-        <parameter name="Cardinality" value="8"/>
+        <parameter name="Cardinality" value="2"/>
         <parameter name="Sub_part" value=""/>
         <parameter name="Packed" value=""/>
         <parameter name="Null" value=""/>
@@ -1792,16 +1756,16 @@
       <parameter name="Name" value="pesquisa"/>
       <parameter name="Engine" value="InnoDB"/>
       <parameter name="Version" value="10"/>
-      <parameter name="Row_format" value="Dynamic"/>
-      <parameter name="Rows" value="8"/>
-      <parameter name="Avg_row_length" value="2048"/>
+      <parameter name="Row_format" value="Compact"/>
+      <parameter name="Rows" value="11"/>
+      <parameter name="Avg_row_length" value="1489"/>
       <parameter name="Data_length" value="16384"/>
       <parameter name="Max_data_length" value="0"/>
       <parameter name="Index_length" value="16384"/>
       <parameter name="Data_free" value="0"/>
-      <parameter name="Auto_increment" value="9"/>
-      <parameter name="Create_time" value="2017-09-10 16:53:46"/>
-      <parameter name="Update_time" value="2017-09-15 12:40:52"/>
+      <parameter name="Auto_increment" value="12"/>
+      <parameter name="Create_time" value="2017-07-24 11:16:12"/>
+      <parameter name="Update_time" value=""/>
       <parameter name="Check_time" value=""/>
       <parameter name="Collation" value="utf8_general_ci"/>
       <parameter name="Checksum" value=""/>
@@ -1896,7 +1860,7 @@
       <parameter name="Name" value="pesquisa_habilitada"/>
       <parameter name="Engine" value="InnoDB"/>
       <parameter name="Version" value="10"/>
-      <parameter name="Row_format" value="Dynamic"/>
+      <parameter name="Row_format" value="Compact"/>
       <parameter name="Rows" value="0"/>
       <parameter name="Avg_row_length" value="0"/>
       <parameter name="Data_length" value="16384"/>
@@ -1904,7 +1868,7 @@
       <parameter name="Index_length" value="32768"/>
       <parameter name="Data_free" value="0"/>
       <parameter name="Auto_increment" value="1"/>
-      <parameter name="Create_time" value="2017-09-10 16:53:46"/>
+      <parameter name="Create_time" value="2017-07-24 10:02:50"/>
       <parameter name="Update_time" value=""/>
       <parameter name="Check_time" value=""/>
       <parameter name="Collation" value="utf8_general_ci"/>
@@ -1944,13 +1908,13 @@
         <parameter name="Extra" value=""/>
       </vendor>
     </column>
-    <column name="valor" phpName="Valor" type="INTEGER" required="true">
+    <column name="valor" phpName="Valor" type="INTEGER" required="true" defaultValue="0">
       <vendor type="mysql">
         <parameter name="Field" value="valor"/>
         <parameter name="Type" value="int(11)"/>
         <parameter name="Null" value="NO"/>
         <parameter name="Key" value=""/>
-        <parameter name="Default" value=""/>
+        <parameter name="Default" value="0"/>
         <parameter name="Extra" value=""/>
       </vendor>
     </column>
@@ -2019,7 +1983,7 @@
       <parameter name="Name" value="premio"/>
       <parameter name="Engine" value="InnoDB"/>
       <parameter name="Version" value="10"/>
-      <parameter name="Row_format" value="Dynamic"/>
+      <parameter name="Row_format" value="Compact"/>
       <parameter name="Rows" value="0"/>
       <parameter name="Avg_row_length" value="0"/>
       <parameter name="Data_length" value="16384"/>
@@ -2027,7 +1991,7 @@
       <parameter name="Index_length" value="16384"/>
       <parameter name="Data_free" value="0"/>
       <parameter name="Auto_increment" value="1"/>
-      <parameter name="Create_time" value="2017-09-17 16:38:20"/>
+      <parameter name="Create_time" value="2017-09-18 09:44:01"/>
       <parameter name="Update_time" value=""/>
       <parameter name="Check_time" value=""/>
       <parameter name="Collation" value="utf8_general_ci"/>
@@ -2154,7 +2118,7 @@
       <parameter name="Name" value="resposta"/>
       <parameter name="Engine" value="InnoDB"/>
       <parameter name="Version" value="10"/>
-      <parameter name="Row_format" value="Dynamic"/>
+      <parameter name="Row_format" value="Compact"/>
       <parameter name="Rows" value="0"/>
       <parameter name="Avg_row_length" value="0"/>
       <parameter name="Data_length" value="16384"/>
@@ -2162,7 +2126,7 @@
       <parameter name="Index_length" value="49152"/>
       <parameter name="Data_free" value="0"/>
       <parameter name="Auto_increment" value="1"/>
-      <parameter name="Create_time" value="2017-09-10 16:53:46"/>
+      <parameter name="Create_time" value="2017-07-24 10:02:41"/>
       <parameter name="Update_time" value=""/>
       <parameter name="Check_time" value=""/>
       <parameter name="Collation" value="utf8_general_ci"/>
@@ -2268,7 +2232,7 @@
       <parameter name="Name" value="resposta_forum"/>
       <parameter name="Engine" value="InnoDB"/>
       <parameter name="Version" value="10"/>
-      <parameter name="Row_format" value="Dynamic"/>
+      <parameter name="Row_format" value="Compact"/>
       <parameter name="Rows" value="0"/>
       <parameter name="Avg_row_length" value="0"/>
       <parameter name="Data_length" value="16384"/>
@@ -2276,7 +2240,7 @@
       <parameter name="Index_length" value="32768"/>
       <parameter name="Data_free" value="0"/>
       <parameter name="Auto_increment" value="1"/>
-      <parameter name="Create_time" value="2017-09-10 16:53:46"/>
+      <parameter name="Create_time" value="2017-07-24 10:02:53"/>
       <parameter name="Update_time" value=""/>
       <parameter name="Check_time" value=""/>
       <parameter name="Collation" value="utf8_general_ci"/>
@@ -2413,7 +2377,7 @@
       <parameter name="Name" value="solicitacao_resgate"/>
       <parameter name="Engine" value="InnoDB"/>
       <parameter name="Version" value="10"/>
-      <parameter name="Row_format" value="Dynamic"/>
+      <parameter name="Row_format" value="Compact"/>
       <parameter name="Rows" value="0"/>
       <parameter name="Avg_row_length" value="0"/>
       <parameter name="Data_length" value="16384"/>
@@ -2421,7 +2385,7 @@
       <parameter name="Index_length" value="49152"/>
       <parameter name="Data_free" value="0"/>
       <parameter name="Auto_increment" value="1"/>
-      <parameter name="Create_time" value="2017-09-10 16:53:46"/>
+      <parameter name="Create_time" value="2017-07-24 10:02:51"/>
       <parameter name="Update_time" value=""/>
       <parameter name="Check_time" value=""/>
       <parameter name="Collation" value="utf8_general_ci"/>
@@ -2691,9 +2655,6 @@
         <parameter name="Extra" value=""/>
       </vendor>
     </column>
-    <foreign-key foreignTable="perfil" name="FK_usuario_perfil">
-      <reference local="perfil_id" foreign="id"/>
-    </foreign-key>
     <foreign-key foreignTable="cargo" name="fk_usuario_cargo">
       <reference local="cargo_id" foreign="id"/>
     </foreign-key>
@@ -2702,6 +2663,9 @@
     </foreign-key>
     <foreign-key foreignTable="endereco" name="fk_usuario_endereco">
       <reference local="endereco_id" foreign="id"/>
+    </foreign-key>
+    <foreign-key foreignTable="perfil" name="FK_usuario_perfil">
+      <reference local="perfil_id" foreign="id"/>
     </foreign-key>
     <unique name="email_UNIQUE">
       <unique-column name="email"/>
@@ -2712,7 +2676,7 @@
         <parameter name="Seq_in_index" value="1"/>
         <parameter name="Column_name" value="email"/>
         <parameter name="Collation" value="A"/>
-        <parameter name="Cardinality" value="4"/>
+        <parameter name="Cardinality" value="3"/>
         <parameter name="Sub_part" value=""/>
         <parameter name="Packed" value=""/>
         <parameter name="Null" value=""/>
@@ -2748,7 +2712,7 @@
         <parameter name="Seq_in_index" value="1"/>
         <parameter name="Column_name" value="token"/>
         <parameter name="Collation" value="A"/>
-        <parameter name="Cardinality" value="1"/>
+        <parameter name="Cardinality" value="3"/>
         <parameter name="Sub_part" value=""/>
         <parameter name="Packed" value=""/>
         <parameter name="Null" value="YES"/>
@@ -2766,7 +2730,7 @@
         <parameter name="Seq_in_index" value="1"/>
         <parameter name="Column_name" value="token_senha"/>
         <parameter name="Collation" value="A"/>
-        <parameter name="Cardinality" value="1"/>
+        <parameter name="Cardinality" value="3"/>
         <parameter name="Sub_part" value=""/>
         <parameter name="Packed" value=""/>
         <parameter name="Null" value="YES"/>
@@ -2784,7 +2748,7 @@
         <parameter name="Seq_in_index" value="1"/>
         <parameter name="Column_name" value="perfil_id"/>
         <parameter name="Collation" value="A"/>
-        <parameter name="Cardinality" value="2"/>
+        <parameter name="Cardinality" value="3"/>
         <parameter name="Sub_part" value=""/>
         <parameter name="Packed" value=""/>
         <parameter name="Null" value=""/>
@@ -2802,7 +2766,7 @@
         <parameter name="Seq_in_index" value="1"/>
         <parameter name="Column_name" value="endereco_id"/>
         <parameter name="Collation" value="A"/>
-        <parameter name="Cardinality" value="4"/>
+        <parameter name="Cardinality" value="3"/>
         <parameter name="Sub_part" value=""/>
         <parameter name="Packed" value=""/>
         <parameter name="Null" value="YES"/>
@@ -2820,7 +2784,7 @@
         <parameter name="Seq_in_index" value="1"/>
         <parameter name="Column_name" value="departamento_id"/>
         <parameter name="Collation" value="A"/>
-        <parameter name="Cardinality" value="4"/>
+        <parameter name="Cardinality" value="3"/>
         <parameter name="Sub_part" value=""/>
         <parameter name="Packed" value=""/>
         <parameter name="Null" value="YES"/>
@@ -2838,7 +2802,7 @@
         <parameter name="Seq_in_index" value="1"/>
         <parameter name="Column_name" value="cargo_id"/>
         <parameter name="Collation" value="A"/>
-        <parameter name="Cardinality" value="4"/>
+        <parameter name="Cardinality" value="3"/>
         <parameter name="Sub_part" value=""/>
         <parameter name="Packed" value=""/>
         <parameter name="Null" value="YES"/>
@@ -2851,15 +2815,15 @@
       <parameter name="Name" value="usuario"/>
       <parameter name="Engine" value="InnoDB"/>
       <parameter name="Version" value="10"/>
-      <parameter name="Row_format" value="Dynamic"/>
-      <parameter name="Rows" value="4"/>
-      <parameter name="Avg_row_length" value="4096"/>
+      <parameter name="Row_format" value="Compact"/>
+      <parameter name="Rows" value="3"/>
+      <parameter name="Avg_row_length" value="5461"/>
       <parameter name="Data_length" value="16384"/>
       <parameter name="Max_data_length" value="0"/>
       <parameter name="Index_length" value="131072"/>
       <parameter name="Data_free" value="0"/>
-      <parameter name="Auto_increment" value="8"/>
-      <parameter name="Create_time" value="2017-09-10 19:11:15"/>
+      <parameter name="Auto_increment" value="7"/>
+      <parameter name="Create_time" value="2017-09-18 09:44:01"/>
       <parameter name="Update_time" value=""/>
       <parameter name="Check_time" value=""/>
       <parameter name="Collation" value="utf8_general_ci"/>
@@ -2903,7 +2867,7 @@
       <parameter name="Name" value="valor_ponto_avaliacao_forum"/>
       <parameter name="Engine" value="InnoDB"/>
       <parameter name="Version" value="10"/>
-      <parameter name="Row_format" value="Dynamic"/>
+      <parameter name="Row_format" value="Compact"/>
       <parameter name="Rows" value="0"/>
       <parameter name="Avg_row_length" value="0"/>
       <parameter name="Data_length" value="16384"/>
@@ -2911,7 +2875,7 @@
       <parameter name="Index_length" value="0"/>
       <parameter name="Data_free" value="0"/>
       <parameter name="Auto_increment" value=""/>
-      <parameter name="Create_time" value="2017-09-10 16:53:46"/>
+      <parameter name="Create_time" value="2017-07-24 10:02:55"/>
       <parameter name="Update_time" value=""/>
       <parameter name="Check_time" value=""/>
       <parameter name="Collation" value="utf8_general_ci"/>
